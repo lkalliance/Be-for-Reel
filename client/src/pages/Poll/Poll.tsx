@@ -7,6 +7,9 @@ import { Option } from "../../components";
 
 export function Poll() {
   const { pollId } = useParams();
+  if (Number(pollId) >= samplePolls.length) {
+    window.location.href = "/";
+  }
   const poll = samplePolls[Number(pollId)];
   return (
     <section id="poll">

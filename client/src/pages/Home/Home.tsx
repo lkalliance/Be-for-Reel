@@ -16,6 +16,7 @@ export function Home({ polls }: homeProps) {
             key={index}
             title={poll.title}
             image={poll.options[which].image}
+            index={index}
           />
         );
       })}

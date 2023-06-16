@@ -1,9 +1,15 @@
 import "./Directory.css";
+import { PollListing } from "../../components";
+import { samplePolls } from "../../utils/fakedata";
 
-interface directoryProps {
-  small: boolean;
-  paragraphs: string[];
-}
 export function Directory() {
-  return <section id="directory">This is the directory page</section>;
+  return (
+    <section id="directory">
+      <ul>
+        {samplePolls.map((poll, index) => {
+          return <PollListing key={index} index={index} poll={poll} />;
+        })}
+      </ul>
+    </section>
+  );
 }
