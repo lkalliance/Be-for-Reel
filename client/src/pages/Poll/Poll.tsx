@@ -1,9 +1,19 @@
 import "./Poll.css";
+import { samplePolls } from "../../utils/fakedata";
+import { useParams } from "react-router-dom";
 
-interface pollProps {
-  small: boolean;
-  paragraphs: string[];
-}
+import { Question } from "../../components";
+import { Option } from "../../components";
+
 export function Poll() {
-  return <section id="poll">This is the poll page</section>;
+  const { pollId } = useParams();
+  const poll = samplePolls[Number(pollId)];
+  return (
+    <section id="poll">
+      <Question q={poll.title} d={poll.description} />
+      {poll.options.map((option, index) => {
+        return <Option key={index} opt={option} />;
+      })}
+    </section>
+  );
 }

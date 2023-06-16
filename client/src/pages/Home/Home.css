@@ -1,3 +1,7 @@
 section#home {
   position: relative;
 }
+
+section#home img {
+  width: 200px;
+}
