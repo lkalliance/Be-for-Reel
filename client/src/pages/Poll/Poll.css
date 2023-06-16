@@ -1,3 +1,16 @@
 section#poll {
-  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pollDescription {
+  margin: 0 0 20px;
+}
+
+#poll .question {
+  margin: 20px 0;
+}
+
+#poll h1 {
+  margin: 10px 0 0;
 }
