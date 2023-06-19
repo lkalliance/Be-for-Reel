@@ -1,3 +1,4 @@
+export { Header } from "./Header";
 export { Nav } from "./Nav";
 export { Option } from "./Option";
 export { Card } from "./Card";

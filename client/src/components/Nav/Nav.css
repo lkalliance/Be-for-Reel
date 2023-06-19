@@ -1,3 +1,19 @@
-.nav {
+nav {
   position: relative;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+nav li {
+  list-style-type: none;
+}
+
+nav li a {
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0 6px;
 }

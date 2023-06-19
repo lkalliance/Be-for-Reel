@@ -3,15 +3,16 @@ import { optionProps } from "../../utils/interfaces";
 
 interface optProps {
   opt: optionProps;
+  voted: boolean;
 }
 
-export function Option({ opt }: optProps) {
+export function Option({ opt, voted }: optProps) {
   return (
     <div className="option">
-      <h2>{opt.title}</h2>
+      <h2>{opt.movie}</h2>
       <div>{opt.stars}</div>
       <div className="optinfo">
-        <img src={opt.image} alt={opt.title} />
+        <img src={opt.image} alt={opt.movie} />
         <div>
           {opt.plot}
           <a
@@ -27,6 +28,7 @@ export function Option({ opt }: optProps) {
           <a href={opt.trailer} target="_blank" rel="noreferrer">
             Trailer
           </a>
+          {voted ? "" : <button>Vote for me!</button>}
         </div>
       </div>
     </div>

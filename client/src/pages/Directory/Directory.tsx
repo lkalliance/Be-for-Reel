@@ -7,7 +7,14 @@ export function Directory() {
     <section id="directory">
       <ul>
         {samplePolls.map((poll, index) => {
-          return <PollListing key={index} index={index} poll={poll} />;
+          return (
+            <PollListing
+              key={index}
+              index={index}
+              poll={poll}
+              voted={poll.voted}
+            />
+          );
         })}
       </ul>
     </section>
