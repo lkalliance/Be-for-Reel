@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: rgb(0, 0, 52);
+}
+
+header img {
+  width: 80px;
+}
+
+header a {
+  color: white;
+}

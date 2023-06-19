@@ -15,7 +15,7 @@ export function Poll() {
     <section id="poll">
       <Question q={poll.title} d={poll.description} />
       {poll.options.map((option, index) => {
-        return <Option key={index} opt={option} />;
+        return <Option key={index} opt={option} voted={poll.voted} />;
       })}
     </section>
   );

@@ -8,7 +8,7 @@ export interface ratingsProps {
 
 export interface optionProps {
   id: string;
-  title: string;
+  movie: string;
   imdb_id: string;
   stars: string;
   plot: string;
@@ -29,5 +29,29 @@ export interface pollProps {
   created_on: string;
   title: string;
   description: string;
+  voted: boolean;
   options: optionProps[];
+}
+
+interface userPollProps {
+  poll_id: string;
+  title: string;
+  votes: number;
+  comments: number;
+}
+
+interface commentProps {
+  poll_id: string;
+  title: string;
+  movie: string;
+  text: string;
+}
+
+export interface userProps {
+  id: string;
+  username: string;
+  email: string;
+  polls: userPollProps[];
+  votes: string[];
+  comments: commentProps[];
 }

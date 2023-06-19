@@ -4,13 +4,14 @@ export const samplePolls = [
     title: "Best Steven Spielberg movie",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
-    user_id: "2",
-    username: "lkalliance",
+    user_id: "55",
+    username: "testuser",
     created_on: Date(),
+    voted: true,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -32,7 +33,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -55,7 +56,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -77,7 +78,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -104,13 +105,14 @@ export const samplePolls = [
     title: "Awesome Spielberg Movies",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
-    user_id: "2",
-    username: "lkalliance",
+    user_id: "55",
+    username: "testuser",
     created_on: Date(),
+    voted: true,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -132,7 +134,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -155,7 +157,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -177,7 +179,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -207,10 +209,11 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
+    voted: false,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -232,7 +235,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -255,7 +258,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -277,7 +280,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -307,10 +310,11 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
+    voted: false,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -332,7 +336,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -355,7 +359,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -377,7 +381,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -404,13 +408,14 @@ export const samplePolls = [
     title: "Gregleips Nevets",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
-    user_id: "2",
-    username: "lkalliance",
+    user_id: "55",
+    username: "testuser",
     created_on: Date(),
+    voted: false,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -432,7 +437,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -455,7 +460,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -477,7 +482,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -507,10 +512,11 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
+    voted: true,
     options: [
       {
         id: "1",
-        title: "Jaws (1975)",
+        movie: "Jaws (1975)",
         imdb_id: "tt0073195",
         stars: "Roy Scheider, Robert Shaw, Richard Dreyfuss",
         plot: "When a killer shark unleashes chaos on a beach community off Cape Cod, it's up to a local sheriff, a marine biologist, and an old seafarer to hunt the beast down.",
@@ -532,7 +538,7 @@ export const samplePolls = [
       },
       {
         id: "2",
-        title: "Close Encounters of the Third Kind (1977)",
+        movie: "Close Encounters of the Third Kind (1977)",
         imdb_id: "tt0075860",
         stars: "Richard Dreyfuss, François Truffaut, Teri Garr",
         plot: "Roy Neary, an Indiana electric lineman, finds his quiet and ordinary daily life turned upside down after a close encounter with a UFO, spurring him to an obsessed cross-country quest for answers as a momentous event approaches.",
@@ -555,7 +561,7 @@ export const samplePolls = [
       },
       {
         id: "3",
-        title: "Schindler's List (1993)",
+        movie: "Schindler's List (1993)",
         imdb_id: "tt0108052",
         stars: "Liam Neeson, Ralph Fiennes, Ben Kingsley",
         plot: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -577,7 +583,7 @@ export const samplePolls = [
       },
       {
         id: "4",
-        title: "Jurassic Park (1993)",
+        movie: "Jurassic Park (1993)",
         imdb_id: "tt0107290",
         stars: "Sam Neill, Laura Dern, Jeff Goldblum",
         plot: "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
@@ -600,3 +606,44 @@ export const samplePolls = [
     ],
   },
 ];
+
+export const sampleUser = {
+  id: "55",
+  username: "testuser",
+  email: "test@test.com",
+  polls: [
+    {
+      poll_id: 3,
+      title: "Best Steven Spielberg Movie",
+      votes: 22,
+      comments: 10,
+    },
+    {
+      poll_id: 2,
+      title: "Awesome Spielberg Movies",
+      votes: 18,
+      comments: 4,
+    },
+    {
+      poll_id: 8,
+      title: "Gregleips Nevets",
+      votes: 3,
+      comments: 2,
+    },
+  ],
+  votes: ["3", "2", "17"],
+  comments: [
+    {
+      poll_id: "3",
+      title: "Best Steven Spielberg Movies",
+      movie: "Close Encounters of the Third Kind (1977)",
+      text: "One of the great films of my youth!",
+    },
+    {
+      poll_id: "17",
+      title: "Your pick: best Spielberg film?",
+      movie: "Jaws (1975)",
+      text: "The Old Men and the Sea and the man-eating nightmare that made me afraid of the water.",
+    },
+  ],
+};
