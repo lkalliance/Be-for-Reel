@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { Home, Profile, Poll, Create, Directory } from "./pages";
 import { Header } from "./components";
