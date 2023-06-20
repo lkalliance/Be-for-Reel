@@ -1,6 +1,6 @@
-import "./Nav.css";
+import "./LoginForm.css";
 
-export function Nav() {
+export function LoginForm() {
   return (
     <nav>
       <ul>
