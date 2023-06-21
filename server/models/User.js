@@ -10,8 +10,8 @@ const userPolls = new Schema({
     type: String,
     required: true,
   },
-  // votes: Number,
-  // comments: Number,
+  votes: Number,
+  comments: Number,
 });
 
 const userComments = new Schema({
@@ -34,7 +34,7 @@ const userComments = new Schema({
 });
 
 const userSchema = new Schema({
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true,

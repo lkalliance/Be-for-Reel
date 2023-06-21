@@ -2,7 +2,11 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User } = require("../models");
 const resolvers = {
-  Query: {},
+  Query: {
+    getPoll: async (parent, args) => {
+      console.log("Got the poll data");
+    },
+  },
   Mutation: {
     addUser: async (parent, args) => {
       const { username, email, password } = args;

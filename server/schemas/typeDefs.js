@@ -14,6 +14,47 @@ const typeDefs = gql`
     polls: [userPolls]
   }
 
+  type movieRatings {
+    imDb: String
+    metacritic: String
+    theMovieDb: String
+    rottenTomatoes: String
+    filmAffinity: String
+  }
+
+  type pollOption {
+    movie: String!
+    imdb_id: String!
+    stars: String
+    plot: String
+    image: String
+    wikipedia: String
+    contentRating: String
+    ratings: movieRatings
+    directors: String
+    genres: String
+    companies: String
+    trailer: String
+  }
+
+  type pollComment {
+    poll_id: String!
+    title: String!
+    user_id: String!
+    username: String!
+    text: String!
+  }
+
+  type Poll {
+    title: String!
+    description: String
+    user_id: String!
+    voted: Boolean
+    created_on: String!
+    options: [pollOption]
+    comments: [pollComment]
+  }
+
   type userPolls {
     poll_id: String!
     title: String!
@@ -27,7 +68,7 @@ const typeDefs = gql`
   }
 
   type Query {
-   
+    getPoll(poll_id: String!): Poll
   }
 
   type Mutation {
