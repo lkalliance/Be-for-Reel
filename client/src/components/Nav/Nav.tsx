@@ -5,6 +5,9 @@ export function Nav() {
     <nav>
       <ul>
         <li>
+          <a href="/login">Log in</a>
+        </li>
+        <li>
           <a href="/">Home</a>
         </li>
         <li>

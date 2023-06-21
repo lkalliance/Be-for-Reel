@@ -1,6 +1,6 @@
 import "./Directory.css";
 import { PollListing } from "../../components";
-import { samplePolls } from "../../utils/fakedata";
+import { samplePolls } from "../../utils";
 
 export function Directory() {
   return (

@@ -2,7 +2,7 @@
   "name": "be-for-reel",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "server/server.tsx",
   "scripts": {
     "start": "node server/server.js",
     "install": "cd server && npm i && cd ../client && npm i",

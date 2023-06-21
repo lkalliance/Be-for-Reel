@@ -1,5 +1,5 @@
 import "./Profile.css";
-import { sampleUser } from "../../utils/fakedata";
+import { sampleUser } from "../../utils";
 
 export function Profile() {
   return (

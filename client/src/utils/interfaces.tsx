@@ -1,4 +1,4 @@
-export interface ratingsProps {
+interface ratingsProps {
   imDb: string;
   metacritic: string;
   theMovieDb: string;
@@ -22,6 +22,15 @@ export interface optionProps {
   trailer: string;
 }
 
+interface pollCommentProps {
+  poll_id: string;
+  title: string;
+  user_id: string;
+  username: string;
+  movie: string;
+  text: string;
+}
+
 export interface pollProps {
   id: string;
   user_id: string;
@@ -31,6 +40,7 @@ export interface pollProps {
   description: string;
   voted: boolean;
   options: optionProps[];
+  comments: pollCommentProps[];
 }
 
 interface userPollProps {
@@ -40,7 +50,7 @@ interface userPollProps {
   comments: number;
 }
 
-interface commentProps {
+interface userCommentProps {
   poll_id: string;
   title: string;
   movie: string;
@@ -53,5 +63,5 @@ export interface userProps {
   email: string;
   polls: userPollProps[];
   votes: string[];
-  comments: commentProps[];
+  comments: userCommentProps[];
 }
