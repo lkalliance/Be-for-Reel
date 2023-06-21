@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-import { iUserAuth } from "./interfaces";
 
 const secret = "youkilledtheinvisibleswordsman";
 const expiration = "30d";
@@ -25,7 +24,7 @@ module.exports = {
 
     return req;
   },
-  signToken: function ({ email, username, _id }: iUserAuth) {
+  signToken: function ({ email, username, _id }) {
     const payload = { email, username, _id };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

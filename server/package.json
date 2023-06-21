@@ -2,10 +2,10 @@
   "name": "be-for-reel",
   "version": "0.1.0",
   "description": "",
-  "main": "server.tsx",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.tsx",
-    "watch": "nodemon server.tsx"
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "keywords": [],
   "author": "",

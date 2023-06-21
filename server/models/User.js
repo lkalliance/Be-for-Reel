@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
-import { Schema, model } from "mongoose";
-import { iUser, iUserComments, iUserPolls } from "./interfaces";
+const { Schema, model } = require("mongoose");
 
 const userPolls = new Schema({
   poll_id: {
@@ -11,8 +10,8 @@ const userPolls = new Schema({
     type: String,
     required: true,
   },
-  votes: Number,
-  comments: Number,
+  // votes: Number,
+  // comments: Number,
 });
 
 const userComments = new Schema({
@@ -34,7 +33,7 @@ const userComments = new Schema({
   },
 });
 
-export const userSchema = new Schema<iUser>({
+const userSchema = new Schema({
   userName: {
     type: String,
     required: true,
@@ -69,4 +68,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-export const User = model("User", userSchema);
+const User = model("User", userSchema);
+
+module.exports = User;

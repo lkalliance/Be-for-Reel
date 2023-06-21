@@ -1,11 +1,10 @@
-import { AuthenticationError } from "apollo-server-express";
+const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-import { User } from "../models";
-import { iLogin, iAddUser } from "../utils/interfaces";
-
-export const resolvers = {
+const { User } = require("../models");
+const resolvers = {
+  Query: {},
   Mutation: {
-    addUser: async (parent, args: iAddUser) => {
+    addUser: async (parent, args) => {
       const { username, email, password } = args;
       const newUser = {
         username,
@@ -21,7 +20,7 @@ export const resolvers = {
       return { token, user };
     },
 
-    login: async (parent, { username, password }: iLogin) => {
+    login: async (parent, { username, password }) => {
       const user = await User.findOne({ username });
 
       if (!user) {
@@ -39,3 +38,5 @@ export const resolvers = {
     },
   },
 };
+
+module.exports = resolvers;
