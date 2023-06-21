@@ -1,5 +1,5 @@
 import "./Poll.css";
-import { samplePolls } from "../../utils/fakedata";
+import { samplePolls } from "../../utils";
 import { useParams } from "react-router-dom";
 
 import { Question } from "../../components";

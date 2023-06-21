@@ -1,6 +1,6 @@
 import "./Home.css";
 import { Card } from "../../components";
-import { pollProps } from "../../utils/interfaces";
+import { pollProps } from "../../utils";
 
 interface homeProps {
   polls: pollProps[];

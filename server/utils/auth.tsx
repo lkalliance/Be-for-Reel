@@ -1,30 +1,32 @@
 const jwt = require("jsonwebtoken");
+import { iUserAuth } from "./interfaces";
 
 const secret = "youkilledtheinvisibleswordsman";
 const expiration = "30d";
 
-export const authMiddleware = function ({ req }) {
-  let token = req.body.token || req.query.token || req.headers.authorization;
+module.exports = {
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-  if (req.headers.authorization) {
-    token = token.split(" ").pop().trim();
-  }
+    if (req.headers.authorization) {
+      token = token.split(" ").pop().trim();
+    }
 
-  if (!token) {
+    if (!token) {
+      return req;
+    }
+
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch {
+      console.log("Invalid token");
+    }
+
     return req;
-  }
-
-  try {
-    const { data } = jwt.verify(token, secret, { maxAge: expiration });
-    req.user = data;
-  } catch {
-    console.log("Invalid token");
-  }
-
-  return req;
-};
-
-export const signToken = function ({ email, userName, _id }) {
-  const payload = { email, userName, _id };
-  return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
+  signToken: function ({ email, username, _id }: iUserAuth) {
+    const payload = { email, username, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
 };

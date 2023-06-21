@@ -1,5 +1,5 @@
 import "./Option.css";
-import { optionProps } from "../../utils/interfaces";
+import { optionProps } from "../../utils";
 
 interface optProps {
   opt: optionProps;

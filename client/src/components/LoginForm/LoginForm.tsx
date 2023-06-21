@@ -1,18 +1,46 @@
 import "./LoginForm.css";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { Form, Button } from "react-bootstrap";
+import Auth from "../../utils/auth";
+import { LOGIN } from "../../utils";
 
 export function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [login, { error, data }] = useMutation(LOGIN);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    return id === "username" ? setUsername(value) : setPassword(value);
+    const { name, value } = e.target;
+    setLoginForm({ ...loginForm, [name]: value });
   };
-  const handleSubmit = (e: React.MouseEvent) => {
+
+  const handleLoginSubmit = async (e: React.MouseEvent) => {
+    // Handles login submission
     e.preventDefault();
-    console.log(`Username ${username} and password ${password}`);
+    if (!(loginForm.username && loginForm.password)) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    try {
+      const { data } = await login({
+        variables: {
+          username: loginForm.username,
+          password: loginForm.password,
+        },
+      });
+
+      await Auth.login(data.login.token);
+    } catch (err) {
+      console.error(err);
+    }
+    setLoginForm({
+      username: "",
+      password: "",
+    });
   };
+
   return (
     <form>
       <label>username</label>
@@ -29,7 +57,11 @@ export function LoginForm() {
         id="password"
         onChange={handleInputChange}
       />
-      <button type="submit" onClick={handleSubmit}>
+      <button
+        type="submit"
+        disabled={!(loginForm.username && loginForm.password)}
+        onClick={handleLoginSubmit}
+      >
         Submit
       </button>
     </form>

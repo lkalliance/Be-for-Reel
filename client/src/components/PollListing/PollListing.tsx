@@ -1,5 +1,5 @@
 import "./PollListing.css";
-import { pollProps } from "../../utils/interfaces";
+import { pollProps } from "../../utils";
 
 interface listProps {
   index: number;
