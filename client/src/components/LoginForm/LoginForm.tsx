@@ -1,7 +1,6 @@
 import "./LoginForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Form, Button } from "react-bootstrap";
 import Auth from "../../utils/auth";
 import { LOGIN } from "../../utils";
 

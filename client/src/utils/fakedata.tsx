@@ -99,6 +99,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
   {
     id: "2",
@@ -200,6 +201,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
   {
     id: "10",
@@ -301,6 +303,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
   {
     id: "9",
@@ -402,6 +405,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
   {
     id: "8",
@@ -503,6 +507,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
   {
     id: "17",
@@ -604,6 +609,7 @@ export const samplePolls = [
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
       },
     ],
+    comments: [],
   },
 ];
 

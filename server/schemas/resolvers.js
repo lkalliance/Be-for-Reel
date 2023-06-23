@@ -9,6 +9,7 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
+      console.log("Adding a user");
       const { userName, email, password } = args;
       const today = Date();
       const newUser = {
