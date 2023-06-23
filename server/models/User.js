@@ -34,7 +34,7 @@ const userComments = new Schema({
 });
 
 const userSchema = new Schema({
-  username: {
+  userName: {
     type: String,
     required: true,
     unique: true,
@@ -47,6 +47,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  created: {
+    type: String,
+    required: false,
   },
   polls: [userPolls],
   votes: [String],

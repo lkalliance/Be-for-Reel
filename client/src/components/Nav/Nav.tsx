@@ -1,12 +1,27 @@
 import "./Nav.css";
+import auth from "../../utils/auth";
 
 export function Nav() {
   return (
     <nav>
       <ul>
-        <li>
-          <a href="/login">Log in</a>
-        </li>
+        {auth.loggedIn() ? (
+          <li>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                auth.logout();
+              }}
+            >
+              Log out
+            </a>
+          </li>
+        ) : (
+          <li>
+            <a href="/login">Log in or sign up</a>
+          </li>
+        )}
         <li>
           <a href="/">Home</a>
         </li>

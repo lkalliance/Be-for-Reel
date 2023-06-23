@@ -1,7 +1,6 @@
 import "./LoginForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Form, Button } from "react-bootstrap";
 import Auth from "../../utils/auth";
 import { LOGIN } from "../../utils";
 
@@ -26,7 +25,7 @@ export function LoginForm() {
     try {
       const { data } = await login({
         variables: {
-          username: loginForm.username,
+          userName: loginForm.username,
           password: loginForm.password,
         },
       });
@@ -48,6 +47,7 @@ export function LoginForm() {
         type="text"
         placeholder="username"
         id="username"
+        name="username"
         onChange={handleInputChange}
       />
       <label>password</label>
@@ -55,6 +55,7 @@ export function LoginForm() {
         type="password"
         placeholder="password"
         id="password"
+        name="password"
         onChange={handleInputChange}
       />
       <button

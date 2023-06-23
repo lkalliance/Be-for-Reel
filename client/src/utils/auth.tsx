@@ -7,11 +7,12 @@ class AuthService {
 
   loggedIn() {
     const token = this.getToken();
-    return token && !this.isTokenExpired(token) ? true : false;
+    return token ? true : false;
   }
 
   isTokenExpired(token: string) {
     const decoded = jwt_decode(token);
+    console.log(decoded);
     // if (decoded.exp < Date.now() / 1000) {
     //   localStorage.removeItem("id_token");
     //   return true;
@@ -25,7 +26,7 @@ class AuthService {
 
   login(idToken: string) {
     localStorage.setItem("id_token", idToken);
-    // window.location.reload();
+    window.location.reload();
   }
 
   logout() {

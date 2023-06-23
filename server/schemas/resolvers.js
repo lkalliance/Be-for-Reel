@@ -9,11 +9,14 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const { username, email, password } = args;
+      console.log("Adding a user");
+      const { userName, email, password } = args;
+      const today = Date();
       const newUser = {
-        username,
+        userName,
         email,
         password,
+        created: today,
         polls: [],
         votes: [],
         comments: [],
@@ -24,8 +27,9 @@ const resolvers = {
       return { token, user };
     },
 
-    login: async (parent, { username, password }) => {
-      const user = await User.findOne({ username });
+    login: async (parent, { userName, password }) => {
+      console.log("I'm at the login resolver");
+      const user = await User.findOne({ userName });
 
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
