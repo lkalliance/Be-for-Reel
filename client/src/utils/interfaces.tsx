@@ -59,7 +59,7 @@ interface userCommentProps {
 
 export interface userProps {
   id: string;
-  username: string;
+  userName: string;
   email: string;
   polls: userPollProps[];
   votes: string[];
