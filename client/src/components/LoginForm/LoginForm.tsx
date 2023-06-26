@@ -51,8 +51,8 @@ export function LoginForm() {
       <input
         type="text"
         placeholder="username"
-        id="username"
-        name="username"
+        id="loginUsername"
+        name="loginUsername"
         value={loginForm.loginUsername}
         onChange={handleInputChange}
       />
@@ -60,8 +60,8 @@ export function LoginForm() {
       <input
         type="password"
         placeholder="password"
-        id="password"
-        name="password"
+        id="loginPassword"
+        name="loginPassword"
         value={loginForm.loginPassword}
         onChange={handleInputChange}
       />

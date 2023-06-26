@@ -21,27 +21,6 @@ export function SignupForm() {
     setSignupForm({ ...signupForm, [name]: value });
   };
 
-  const apolloErrorToStrings = (apolloError: ApolloError) => {
-    const errorArray: Array<string> = [];
-    let isNetworkError = false,
-      isAuthenticationError = false;
-
-    if (apolloError.graphQLErrors) {
-      apolloError.graphQLErrors.forEach((error) => {
-        errorArray.push(
-          `${error.extensions?.code || "unknown"}: ${error.message}`
-        );
-        if (error.extensions?.code === "UNAUTHENTICATED")
-          isAuthenticationError = true;
-      });
-    }
-    if (apolloError.networkError) {
-      errorArray.push("CONNECTION FAILED: Are you connected to the internet?");
-      isNetworkError = true;
-    }
-    return { errorArray, isNetworkError, isAuthenticationError };
-  };
-
   const handleSignupSubmit = async (e: React.MouseEvent) => {
     // Handles signup submission
     e.preventDefault();
@@ -68,7 +47,8 @@ export function SignupForm() {
 
       await Auth.login(data.addUser.token);
     } catch (err) {
-      console.log(error);
+      setErrorMessage(true);
+      console.log(err);
     }
     setSignupForm({
       signupUsername: "",
