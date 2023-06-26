@@ -5,10 +5,14 @@ import Auth from "../../utils/auth";
 import { LOGIN } from "../../utils";
 
 export function LoginForm() {
-  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [loginForm, setLoginForm] = useState({
+    loginUsername: "",
+    loginPassword: "",
+  });
+  const [errorMessage, setErrorMessage] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrorMessage(false);
     const { name, value } = e.target;
     setLoginForm({ ...loginForm, [name]: value });
   };
@@ -16,28 +20,29 @@ export function LoginForm() {
   const handleLoginSubmit = async (e: React.MouseEvent) => {
     // Handles login submission
     e.preventDefault();
-    if (!(loginForm.username && loginForm.password)) {
+    if (!(loginForm.loginUsername && loginForm.loginPassword)) {
       e.preventDefault();
       e.stopPropagation();
       return;
     }
 
+    setLoginForm({
+      loginUsername: "",
+      loginPassword: "",
+    });
+
     try {
       const { data } = await login({
         variables: {
-          userName: loginForm.username,
-          password: loginForm.password,
+          userName: loginForm.loginUsername,
+          password: loginForm.loginPassword,
         },
       });
-
       await Auth.login(data.login.token);
     } catch (err) {
-      console.error(err);
+      setErrorMessage(true);
+      console.log(err);
     }
-    setLoginForm({
-      username: "",
-      password: "",
-    });
   };
 
   return (
@@ -48,6 +53,7 @@ export function LoginForm() {
         placeholder="username"
         id="username"
         name="username"
+        value={loginForm.loginUsername}
         onChange={handleInputChange}
       />
       <label>password</label>
@@ -56,15 +62,21 @@ export function LoginForm() {
         placeholder="password"
         id="password"
         name="password"
+        value={loginForm.loginPassword}
         onChange={handleInputChange}
       />
       <button
         type="submit"
-        disabled={!(loginForm.username && loginForm.password)}
+        disabled={!(loginForm.loginUsername && loginForm.loginPassword)}
         onClick={handleLoginSubmit}
       >
         Submit
       </button>
+      {errorMessage ? (
+        <div className="alert alert-danger">Incorrect login credentials</div>
+      ) : (
+        ""
+      )}
     </form>
   );
 }

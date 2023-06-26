@@ -1,51 +1,79 @@
 import "./SignupForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils";
 
 export function SignupForm() {
   const [signupForm, setSignupForm] = useState({
-    username: "",
-    email: "",
-    password: "",
+    signupUsername: "",
+    signupEmail: "",
+    signupPassword: "",
   });
+  const [errorMessage, setErrorMessage] = useState(false);
+
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrorMessage(false);
     const { name, value } = e.target;
     setSignupForm({ ...signupForm, [name]: value });
-    console.log(signupForm);
+  };
+
+  const apolloErrorToStrings = (apolloError: ApolloError) => {
+    const errorArray: Array<string> = [];
+    let isNetworkError = false,
+      isAuthenticationError = false;
+
+    if (apolloError.graphQLErrors) {
+      apolloError.graphQLErrors.forEach((error) => {
+        errorArray.push(
+          `${error.extensions?.code || "unknown"}: ${error.message}`
+        );
+        if (error.extensions?.code === "UNAUTHENTICATED")
+          isAuthenticationError = true;
+      });
+    }
+    if (apolloError.networkError) {
+      errorArray.push("CONNECTION FAILED: Are you connected to the internet?");
+      isNetworkError = true;
+    }
+    return { errorArray, isNetworkError, isAuthenticationError };
   };
 
   const handleSignupSubmit = async (e: React.MouseEvent) => {
     // Handles signup submission
     e.preventDefault();
-    // if (!(signupForm.username && signupForm.password && signupForm.email)) {
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    //   return;
-    // }
+    if (
+      !(
+        signupForm.signupUsername &&
+        signupForm.signupPassword &&
+        signupForm.signupEmail
+      )
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
 
     try {
       const { data } = await addUser({
         variables: {
-          userName: signupForm.username,
-          email: signupForm.email,
-          password: signupForm.password,
+          userName: signupForm.signupUsername,
+          email: signupForm.signupEmail,
+          password: signupForm.signupPassword,
         },
       });
 
-      console.log(data);
-
       await Auth.login(data.addUser.token);
     } catch (err) {
-      console.error(err);
+      console.log(error);
     }
     setSignupForm({
-      username: "",
-      email: "",
-      password: "",
+      signupUsername: "",
+      signupEmail: "",
+      signupPassword: "",
     });
   };
 
@@ -55,29 +83,43 @@ export function SignupForm() {
       <input
         type="text"
         placeholder="username"
-        id="username"
-        name="username"
+        id="signupUsername"
+        name="signupUsername"
+        value={signupForm.signupUsername}
         onChange={handleInputChange}
       />
       <label>email</label>
       <input
         type="text"
         placeholder="email@sample.com"
-        id="email"
-        name="email"
+        id="signupEmail"
+        name="signupEmail"
+        value={signupForm.signupEmail}
         onChange={handleInputChange}
       />
       <label>password</label>
       <input
         type="password"
         placeholder="password"
-        id="password"
-        name="password"
+        id="signupPassword"
+        name="signupPassword"
+        value={signupForm.signupPassword}
         onChange={handleInputChange}
       />
-      <button type="submit" onClick={handleSignupSubmit}>
+      <button
+        type="submit"
+        disabled={
+          !(
+            signupForm.signupUsername &&
+            signupForm.signupPassword &&
+            signupForm.signupEmail
+          )
+        }
+        onClick={handleSignupSubmit}
+      >
         Submit
       </button>
+      {errorMessage ? <div className="alert alert-danger">Failed</div> : ""}
     </form>
   );
 }
