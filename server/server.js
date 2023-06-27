@@ -11,6 +11,15 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
+  formatError: (formattedError, error) => {
+    console.log(formattedError.message);
+    if (formattedError.message.startsWith("Database Error: ")) {
+      return { message: "Internal server error" };
+    }
+
+    // Otherwise return the formatted error.
+    return formattedError;
+  },
 });
 
 app.use(express.urlencoded({ extended: false }));

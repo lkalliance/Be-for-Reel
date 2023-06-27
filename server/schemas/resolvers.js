@@ -9,7 +9,6 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      console.log("Adding a user");
       const { userName, email, password } = args;
       const today = Date();
       const newUser = {
@@ -23,7 +22,11 @@ const resolvers = {
       };
 
       const user = await User.create(newUser);
+
+      if (!user) return { message: "Operation failed" };
+
       const token = signToken(user);
+      return false;
       return { token, user };
     },
 
