@@ -1,7 +1,6 @@
 import "./SignupForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ApolloError } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils";
 
@@ -11,18 +10,17 @@ export function SignupForm() {
     signupEmail: "",
     signupPassword: "",
   });
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setErrorMessage(false);
+    setErrorMessage("");
     const { name, value } = e.target;
     setSignupForm({ ...signupForm, [name]: value });
   };
 
   const handleSignupSubmit = async (e: React.MouseEvent) => {
-    // Handles signup submission
     e.preventDefault();
     if (
       !(
@@ -46,15 +44,32 @@ export function SignupForm() {
       });
 
       await Auth.login(data.addUser.token);
-    } catch (err) {
-      setErrorMessage(true);
-      console.log(err);
+
+      setSignupForm({
+        signupUsername: "",
+        signupEmail: "",
+        signupPassword: "",
+      });
+    } catch (err: any) {
+      if (err.message.indexOf("userName") > -1) {
+        setErrorMessage(
+          `The username "${signupForm.signupUsername}" has already been used.`
+        );
+        setSignupForm({ ...signupForm, signupUsername: "" });
+      } else if (err.message.indexOf("email") > -1) {
+        setErrorMessage(
+          `The email address "${signupForm.signupEmail}" has already been used.`
+        );
+        setSignupForm({ ...signupForm, signupEmail: "" });
+      } else {
+        setErrorMessage("Account creation failed");
+        setSignupForm({
+          signupUsername: "",
+          signupEmail: "",
+          signupPassword: "",
+        });
+      }
     }
-    setSignupForm({
-      signupUsername: "",
-      signupEmail: "",
-      signupPassword: "",
-    });
   };
 
   return (
@@ -99,7 +114,11 @@ export function SignupForm() {
       >
         Submit
       </button>
-      {errorMessage ? <div className="alert alert-danger">Failed</div> : ""}
+      {errorMessage.length > 0 ? (
+        <div className="alert alert-danger">{errorMessage}</div>
+      ) : (
+        ""
+      )}
     </form>
   );
 }

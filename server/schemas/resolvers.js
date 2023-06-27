@@ -26,6 +26,7 @@ const resolvers = {
       if (!user) return { message: "Operation failed" };
 
       const token = signToken(user);
+      return false;
       return { token, user };
     },
 
