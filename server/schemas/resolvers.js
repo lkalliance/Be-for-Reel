@@ -10,6 +10,7 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const { userName, email, password } = args;
+
       const today = Date();
       const newUser = {
         userName,
@@ -26,7 +27,6 @@ const resolvers = {
       if (!user) return { message: "Operation failed" };
 
       const token = signToken(user);
-      return false;
       return { token, user };
     },
 

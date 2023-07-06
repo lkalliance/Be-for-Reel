@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
+import Auth from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./components";
 import { samplePolls } from "./utils/fakedata";
@@ -43,7 +44,12 @@ function App() {
           <Route path="/" element={<Home polls={samplePolls} />} />
           {/* <Route index element={<Navigate to="/" />} /> */}
 
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Login />
+            }
+          />
           <Route path="/poll/:pollId" element={<Poll />} />
           <Route path="/user/:userId" element={<Profile />} />
           <Route path="/create" element={<Create />} />

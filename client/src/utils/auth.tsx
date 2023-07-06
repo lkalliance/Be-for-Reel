@@ -24,14 +24,20 @@ class AuthService {
     return localStorage.getItem("id_token");
   }
 
-  login(idToken: string) {
+  getUsername() {
+    return localStorage.getItem("b4r_username");
+  }
+
+  login(idToken: string, username: string) {
     localStorage.setItem("id_token", idToken);
-    window.location.reload();
+    localStorage.setItem("b4r_username", username);
+    window.location.assign("/");
   }
 
   logout() {
     localStorage.removeItem("id_token");
-    window.location.reload();
+    localStorage.removeItem("b4r_username");
+    window.location.assign("/");
   }
 }
 

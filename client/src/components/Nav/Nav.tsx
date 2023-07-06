@@ -1,12 +1,16 @@
 import "./Nav.css";
+import { useState } from "react";
 import auth from "../../utils/auth";
 
 export function Nav() {
+  const [username, setUsername] = useState(auth.getUsername);
+
   return (
     <nav>
       <ul>
         {auth.loggedIn() ? (
           <li>
+            <a href="/">{username}</a>
             <a
               href="/"
               onClick={(e) => {

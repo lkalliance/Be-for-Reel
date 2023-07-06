@@ -64,7 +64,7 @@ export function SignupForm() {
           },
         });
 
-        await Auth.login(data.addUser.token);
+        await Auth.login(data.addUser.token, data.addUser.user.userName);
 
         setSignupForm({
           signupUsername: "",
