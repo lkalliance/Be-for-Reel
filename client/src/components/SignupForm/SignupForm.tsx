@@ -4,6 +4,12 @@ import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils";
 
+interface formData {
+  signupUsername: string;
+  signupEmail: string;
+  signupPassword: string;
+}
+
 export function SignupForm() {
   const [signupForm, setSignupForm] = useState({
     signupUsername: "",
@@ -13,6 +19,20 @@ export function SignupForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [addUser] = useMutation(ADD_USER);
+
+  const validateForm = ({ signupPassword, signupEmail }: formData) => {
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(signupEmail)) {
+      setErrorMessage("Please provide a valid email address.");
+      setSignupForm({ ...signupForm, signupEmail: "" });
+      return false;
+    }
+    if (signupPassword.length < 8) {
+      setErrorMessage("Please create a password of at least eight characters");
+      setSignupForm({ ...signupForm, signupPassword: "" });
+      return false;
+    }
+    return true;
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setErrorMessage("");
@@ -35,21 +55,23 @@ export function SignupForm() {
     }
 
     try {
-      const { data } = await addUser({
-        variables: {
-          userName: signupForm.signupUsername,
-          email: signupForm.signupEmail,
-          password: signupForm.signupPassword,
-        },
-      });
+      if (validateForm(signupForm)) {
+        const { data } = await addUser({
+          variables: {
+            userName: signupForm.signupUsername,
+            email: signupForm.signupEmail,
+            password: signupForm.signupPassword,
+          },
+        });
 
-      await Auth.login(data.addUser.token);
+        await Auth.login(data.addUser.token, data.addUser.user.userName);
 
-      setSignupForm({
-        signupUsername: "",
-        signupEmail: "",
-        signupPassword: "",
-      });
+        setSignupForm({
+          signupUsername: "",
+          signupEmail: "",
+          signupPassword: "",
+        });
+      }
     } catch (err: any) {
       if (err.message.indexOf("userName") > -1) {
         setErrorMessage(

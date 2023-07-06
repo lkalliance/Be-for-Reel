@@ -38,7 +38,7 @@ export function LoginForm() {
           password: loginForm.loginPassword,
         },
       });
-      await Auth.login(data.login.token);
+      await Auth.login(data.login.token, data.login.user.userName);
     } catch (err) {
       setErrorMessage(true);
       console.log(err);
