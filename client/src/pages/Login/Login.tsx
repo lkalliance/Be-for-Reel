@@ -1,11 +1,12 @@
 import "./Login.css";
 import { LoginForm, SignupForm } from "../../components";
+import { loginState } from "../../utils/interfaces";
 
-export function Login() {
+export function Login({ setLogIn }: loginState) {
   return (
     <section id="login">
-      <LoginForm />
-      <SignupForm />
+      <LoginForm setLogIn={setLogIn} />
+      <SignupForm setLogIn={setLogIn} />
     </section>
   );
 }

@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { LOGIN } from "../../utils";
+import { loginState } from "../../utils/interfaces";
 
-export function LoginForm() {
+export function LoginForm({ setLogIn }: loginState) {
   const [loginForm, setLoginForm] = useState({
     loginUsername: "",
     loginPassword: "",
@@ -38,7 +39,8 @@ export function LoginForm() {
           password: loginForm.loginPassword,
         },
       });
-      await Auth.login(data.login.token, data.login.user.userName);
+      await Auth.login(data.login.token);
+      setLogIn(true);
     } catch (err) {
       setErrorMessage(true);
       console.log(err);

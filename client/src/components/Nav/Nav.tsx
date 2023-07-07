@@ -1,36 +1,45 @@
 import "./Nav.css";
-import { useState } from "react";
 import auth from "../../utils/auth";
+import { Link } from "react-router-dom";
+
+type userData = {
+  username: string;
+  id: string;
+};
 
 export function Nav() {
-  const [username, setUsername] = useState(auth.getUsername);
+  const userInfo: userData = auth.getProfile();
 
   return (
     <nav>
       <ul>
         {auth.loggedIn() ? (
-          <li>
-            <a href="/">{username}</a>
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                auth.logout();
-              }}
-            >
-              Log out
-            </a>
-          </li>
+          <>
+            <li>
+              <Link to={`/user/${userInfo.id}`}>{`${userInfo.username}`}</Link>
+            </li>
+            <li>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  auth.logout();
+                }}
+              >
+                Log out
+              </a>
+            </li>
+          </>
         ) : (
           <li>
             <a href="/login">Log in or sign up</a>
           </li>
         )}
         <li>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="/polls">Polls</a>
+          <Link to="/polls">Polls</Link>
         </li>
       </ul>
     </nav>

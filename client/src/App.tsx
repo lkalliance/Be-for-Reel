@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -35,6 +35,8 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+
   return (
     <ApolloProvider client={client}>
       <div className="App">
@@ -47,7 +49,11 @@ function App() {
           <Route
             path="/login"
             element={
-              Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Login />
+              Auth.loggedIn() ? (
+                <Navigate to="/" replace={true} />
+              ) : (
+                <Login setLogIn={setLoggedIn} />
+              )
             }
           />
           <Route path="/poll/:pollId" element={<Poll />} />

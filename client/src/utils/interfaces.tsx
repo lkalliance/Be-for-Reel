@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 interface ratingsProps {
   imDb: string;
   metacritic: string;
@@ -64,4 +66,8 @@ export interface userProps {
   polls: userPollProps[];
   votes: string[];
   comments: userCommentProps[];
+}
+
+export interface loginState {
+  setLogIn: Dispatch<SetStateAction<boolean>>;
 }

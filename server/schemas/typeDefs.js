@@ -4,6 +4,12 @@ const typeDefs = gql`
   type Auth {
     token: ID
     user: User
+    id: ID
+  }
+
+  type currentAuth {
+    userName: String!
+    id: ID!
   }
 
   type User {
@@ -13,6 +19,8 @@ const typeDefs = gql`
     password: String!
     created: String
     polls: [userPolls]
+    comments: [userComments]
+    votes: [String]
   }
 
   type movieRatings {
@@ -69,7 +77,9 @@ const typeDefs = gql`
   }
 
   type Query {
+    Me(token: String!): currentAuth
     getPoll(poll_id: String!): Poll
+    getUser(user_id: String!): User
   }
 
   type Mutation {
