@@ -3,6 +3,11 @@ const { signToken } = require("../utils/auth");
 const { User } = require("../models");
 const resolvers = {
   Query: {
+    Me: async (parent, args, context) => {
+      console.log(args);
+      console.log(context.user);
+      return { username: context.user.userName, id: context.user._id };
+    },
     getPoll: async (parent, args) => {
       console.log("Got the poll data");
     },
@@ -31,7 +36,6 @@ const resolvers = {
     },
 
     login: async (parent, { userName, password }) => {
-      console.log("I'm at the login resolver");
       const user = await User.findOne({ userName });
 
       if (!user) {

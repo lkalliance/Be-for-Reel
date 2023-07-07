@@ -1,9 +1,25 @@
-import jwt_decode from "jwt-decode";
+import decode from "jwt-decode";
+
+interface userData {
+  email: string;
+  userName: string;
+  _id: string;
+  iat: number;
+  exp: number;
+}
+
+interface userInfoReturn {
+  data: userData;
+}
 
 class AuthService {
-  // getProfile() {
-  //   return decode(this.getToken());
-  // }
+  getProfile() {
+    if (this.loggedIn()) {
+      const userInfo: userInfoReturn = decode(this.getToken());
+      return { username: userInfo.data.userName, id: userInfo.data._id };
+    }
+    return { username: "", id: "" };
+  }
 
   loggedIn() {
     const token = this.getToken();
@@ -11,7 +27,7 @@ class AuthService {
   }
 
   isTokenExpired(token: string) {
-    const decoded = jwt_decode(token);
+    const decoded = decode(token);
     console.log(decoded);
     // if (decoded.exp < Date.now() / 1000) {
     //   localStorage.removeItem("id_token");
@@ -21,17 +37,12 @@ class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem("id_token");
+    return localStorage.getItem("id_token") || "";
   }
 
-  getUsername() {
-    return localStorage.getItem("b4r_username");
-  }
-
-  login(idToken: string, username: string) {
+  login(idToken: string) {
     localStorage.setItem("id_token", idToken);
-    localStorage.setItem("b4r_username", username);
-    window.location.assign("/");
+    // window.location.assign("/");
   }
 
   logout() {

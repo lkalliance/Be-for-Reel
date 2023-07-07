@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils";
+import { loginState } from "../../utils/interfaces";
 
 interface formData {
   signupUsername: string;
@@ -10,7 +11,7 @@ interface formData {
   signupPassword: string;
 }
 
-export function SignupForm() {
+export function SignupForm({ setLogIn }: loginState) {
   const [signupForm, setSignupForm] = useState({
     signupUsername: "",
     signupEmail: "",
@@ -64,7 +65,8 @@ export function SignupForm() {
           },
         });
 
-        await Auth.login(data.addUser.token, data.addUser.user.userName);
+        await Auth.login(data.addUser.token);
+        setLogIn(true);
 
         setSignupForm({
           signupUsername: "",
