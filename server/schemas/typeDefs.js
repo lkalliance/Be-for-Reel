@@ -77,7 +77,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    Me(token: String!): currentAuth
     getPoll(poll_id: String!): Poll
     getUser(user_id: String!): User
   }
