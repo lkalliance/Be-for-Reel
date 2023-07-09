@@ -619,19 +619,19 @@ export const sampleUser = {
   email: "test@test.com",
   polls: [
     {
-      poll_id: 3,
+      poll_id: "3",
       title: "Best Steven Spielberg Movie",
       votes: 22,
       comments: 10,
     },
     {
-      poll_id: 2,
+      poll_id: "2",
       title: "Awesome Spielberg Movies",
       votes: 18,
       comments: 4,
     },
     {
-      poll_id: 8,
+      poll_id: "8",
       title: "Gregleips Nevets",
       votes: 3,
       comments: 2,

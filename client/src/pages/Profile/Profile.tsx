@@ -1,20 +1,27 @@
 import "./Profile.css";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { QUERY_SINGLE_USER } from "../../utils/queries";
+import { PollList } from "../../components";
 import { sampleUser } from "../../utils";
 
 export function Profile() {
+  const { userId } = useParams();
+
+  const { loading, data } = useQuery(QUERY_SINGLE_USER, {
+    variables: { userId: userId },
+  });
+
+  const userData = data?.getUser || {};
+  const createdOn = new Date(userData.created);
+  console.log(userData);
+
   return (
     <section id="profile">
       <>
-        <h2>{sampleUser.username}</h2>
-        <h3>Polls</h3>
-        {sampleUser.polls.map((poll, index) => {
-          return (
-            <div key={index}>
-              <a href={`/poll/${poll.poll_id}`}>{poll.title}</a>{" "}
-              {`(${poll.votes} votes, ${poll.comments} comments)`}
-            </div>
-          );
-        })}
+        <h2>{userData.userName}</h2>
+        <p>{`member since ${createdOn.getFullYear()}`}</p>
+        {userData ? <PollList listData={sampleUser.polls} /> : <div></div>}
         <h3>Comments</h3>
         {sampleUser.comments.map((comment, index) => {
           return (

@@ -67,6 +67,8 @@ const typeDefs = gql`
   type userPolls {
     poll_id: String!
     title: String!
+    votes: Int
+    comments: Int
   }
 
   type userComments {

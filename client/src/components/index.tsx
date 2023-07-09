@@ -5,6 +5,6 @@ export { LoginForm } from "./LoginForm";
 export { Option } from "./Option";
 export { Card } from "./Card";
 export { Question } from "./Question";
-export { List } from "./List";
+export { PollList } from "./PollList";
 export { Comment } from "./Comment";
 export { PollListing } from "./PollListing";
