@@ -18,7 +18,8 @@ export function PollList({ listData }: pollListProps) {
           {listData.map((poll, index) => {
             return (
               <li key={index}>
-                <Link to={`/poll/${poll.poll_id}`}>{poll.title}</Link>
+                <Link to={`/poll/${poll.poll_id}`}>{poll.title}</Link>{" "}
+                {`${poll.votes} votes and ${poll.comments} comments`}
               </li>
             );
           })}
