@@ -58,7 +58,12 @@ function App() {
           />
           <Route path="/poll/:username/:pollname" element={<Poll />} />
           <Route path="/user/:username" element={<Profile />} />
-          <Route path="/create" element={<Create />} />
+          <Route
+            path="/create"
+            element={
+              !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
+            }
+          />
           <Route path="/polls" element={<Directory />} />
           <Route path="*" element={<Home polls={samplePolls} />} />
         </Routes>
