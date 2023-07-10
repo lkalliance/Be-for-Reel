@@ -6,10 +6,10 @@ import { PollList } from "../../components";
 import { sampleUser } from "../../utils";
 
 export function Profile() {
-  const { userId } = useParams();
+  const { username } = useParams();
 
   const { loading, data } = useQuery(QUERY_SINGLE_USER, {
-    variables: { userId: userId },
+    variables: { username },
   });
 
   const userData = data?.getUser || {};

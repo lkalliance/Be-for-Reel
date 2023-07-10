@@ -49,6 +49,7 @@ const typeDefs = gql`
   type pollComment {
     poll_id: String!
     title: String!
+    urlTitle: String!
     user_id: String!
     username: String!
     text: String!
@@ -67,6 +68,8 @@ const typeDefs = gql`
   type userPolls {
     poll_id: String!
     title: String!
+    urlTitle: String!
+    username: String!
     votes: Int
     comments: Int
   }
@@ -80,7 +83,7 @@ const typeDefs = gql`
 
   type Query {
     getPoll(poll_id: String!): Poll
-    getUser(user_id: String!): User
+    getUser(username: String!): User
   }
 
   type Mutation {

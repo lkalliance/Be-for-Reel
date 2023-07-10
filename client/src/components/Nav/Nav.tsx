@@ -16,7 +16,9 @@ export function Nav() {
         {auth.loggedIn() ? (
           <>
             <li>
-              <Link to={`/user/${userInfo.id}`}>{`${userInfo.username}`}</Link>
+              <Link
+                to={`/user/${userInfo.username}`}
+              >{`${userInfo.username}`}</Link>
             </li>
             <li>
               <a

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_SINGLE_USER = gql`
-  query GetUser($userId: String!) {
-    getUser(user_id: $userId) {
+  query GetUser($username: String!) {
+    getUser(username: $username) {
       created
       polls {
         poll_id
@@ -15,6 +15,7 @@ export const QUERY_SINGLE_USER = gql`
         poll_id
         text
         title
+        urlTitle
       }
     }
   }
