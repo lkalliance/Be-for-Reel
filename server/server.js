@@ -7,6 +7,8 @@ const { typeDefs, resolvers } = require("./schemas");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const routes = require("./controllers/movie-search.js");
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -24,6 +26,11 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(routes);
+app.use((req, res, next) => {
+  console.log(`Received ${req.method} request for ${req.url}`);
+  next();
+});
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));

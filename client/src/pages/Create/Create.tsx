@@ -6,9 +6,13 @@ export function Create() {
   const [results, setResults] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(searchField);
+    console.log(`Handling submit for ${searchField}`);
+    const searchUrl = `/api/search/${searchField}`;
+    const movieData = await fetch(searchUrl);
+    const result = await movieData.json();
+    console.log(result);
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
