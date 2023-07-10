@@ -1,5 +1,6 @@
 import "./Create.css";
 import { useState } from "react";
+import { SearchResult } from "../../components/SearchResult";
 
 export function Create() {
   const [searchField, setSearchField] = useState("");
@@ -8,11 +9,11 @@ export function Create() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(`Handling submit for ${searchField}`);
+    setResults([]);
     const searchUrl = `/api/search/${searchField}`;
     const movieData = await fetch(searchUrl);
     const result = await movieData.json();
-    console.log(result);
+    setResults(result);
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +33,13 @@ export function Create() {
         value={searchField}
       />
       <button onClick={handleSubmit}>Search for title</button>
+      <div id="results">
+        <ul>
+          {results.map((result, index) => {
+            return <SearchResult movie={result} key={index} />;
+          })}
+        </ul>
+      </div>
     </section>
   );
 }

@@ -72,3 +72,30 @@ export interface userProps {
 export interface loginState {
   setLogIn: Dispatch<SetStateAction<boolean>>;
 }
+
+interface genreObj {
+  key: string;
+  value: string;
+}
+
+interface starObj {
+  id: string;
+  name: string;
+}
+
+export interface movieProps {
+  contentRating: string;
+  description: string;
+  genreList: genreObj[];
+  genres: string;
+  id: string;
+  imDbRating: string;
+  imDbRatingVotes: string;
+  image: string;
+  metacrtiticRating: string;
+  plot: string;
+  runtimeStr: string;
+  starList: starObj[];
+  stars: string;
+  title: string;
+}

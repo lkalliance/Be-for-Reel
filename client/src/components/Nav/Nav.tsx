@@ -31,6 +31,9 @@ export function Nav() {
                 Log out
               </a>
             </li>
+            <li>
+              <Link to="/create">Create a Poll</Link>
+            </li>
           </>
         ) : (
           <li>
