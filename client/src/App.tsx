@@ -56,8 +56,8 @@ function App() {
               )
             }
           />
-          <Route path="/poll/:pollId" element={<Poll />} />
-          <Route path="/user/:userId" element={<Profile />} />
+          <Route path="/poll/:username/:pollname" element={<Poll />} />
+          <Route path="/user/:username" element={<Profile />} />
           <Route path="/create" element={<Create />} />
           <Route path="/polls" element={<Directory />} />
           <Route path="*" element={<Home polls={samplePolls} />} />

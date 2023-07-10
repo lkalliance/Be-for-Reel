@@ -6,6 +6,7 @@ export const samplePolls = [
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "55",
     username: "testuser",
+    urlTitle: "best-steven-spielberg-movie",
     created_on: Date(),
     voted: true,
     options: [
@@ -104,6 +105,7 @@ export const samplePolls = [
   {
     id: "2",
     title: "Awesome Spielberg Movies",
+    urlTitle: "awesome-spielberg-movies",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "55",
@@ -206,6 +208,7 @@ export const samplePolls = [
   {
     id: "10",
     title: "Spielberg!",
+    urlTitle: "spielberg",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "2",
@@ -308,6 +311,7 @@ export const samplePolls = [
   {
     id: "9",
     title: "Great Directors: Steven Spielberg",
+    urlTitle: "great-directors-steven-spielberg",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "2",
@@ -410,6 +414,7 @@ export const samplePolls = [
   {
     id: "8",
     title: "Gregleips Nevets",
+    urlTitle: "gregleips-nevets",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "55",
@@ -512,6 +517,7 @@ export const samplePolls = [
   {
     id: "17",
     title: "Your pick: best Spielberg film?",
+    urlTitle: "your-pick-best-spielberg-film",
     description:
       "Here are his greatest hits...which one is the greatest of the greatest?",
     user_id: "2",
@@ -619,19 +625,19 @@ export const sampleUser = {
   email: "test@test.com",
   polls: [
     {
-      poll_id: 3,
+      poll_id: "3",
       title: "Best Steven Spielberg Movie",
       votes: 22,
       comments: 10,
     },
     {
-      poll_id: 2,
+      poll_id: "2",
       title: "Awesome Spielberg Movies",
       votes: 18,
       comments: 4,
     },
     {
-      poll_id: 8,
+      poll_id: "8",
       title: "Gregleips Nevets",
       votes: 3,
       comments: 2,

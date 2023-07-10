@@ -45,7 +45,7 @@ export interface pollProps {
   comments: pollCommentProps[];
 }
 
-interface userPollProps {
+export interface userPollProps {
   poll_id: string;
   title: string;
   votes: number;
@@ -55,6 +55,7 @@ interface userPollProps {
 interface userCommentProps {
   poll_id: string;
   title: string;
+  urlTitle: string;
   movie: string;
   text: string;
 }

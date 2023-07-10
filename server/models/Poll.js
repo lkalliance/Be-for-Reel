@@ -76,10 +76,6 @@ const pollComment = new Schema({
     type: String,
     required: true,
   },
-  title: {
-    type: String,
-    required: true,
-  },
   user_id: {
     type: String,
     required: true,
@@ -103,11 +99,19 @@ const pollSchema = new Schema({
     type: String,
     required: true,
   },
+  urlTitle: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: false,
   },
   user_id: {
+    type: String,
+    required: true,
+  },
+  username: {
     type: String,
     required: true,
   },

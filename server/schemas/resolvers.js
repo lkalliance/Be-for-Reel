@@ -6,6 +6,10 @@ const resolvers = {
     getPoll: async (parent, args) => {
       console.log("Got the poll data");
     },
+    getUser: async (parent, { username }) => {
+      const user = User.findOne({ userName: username });
+      return user ? user : false;
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {

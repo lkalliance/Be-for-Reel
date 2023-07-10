@@ -13,7 +13,6 @@ const typeDefs = gql`
   }
 
   type User {
-    _id: ID
     userName: String!
     email: String!
     password: String!
@@ -48,7 +47,7 @@ const typeDefs = gql`
 
   type pollComment {
     poll_id: String!
-    title: String!
+    movie: String!
     user_id: String!
     username: String!
     text: String!
@@ -56,8 +55,10 @@ const typeDefs = gql`
 
   type Poll {
     title: String!
+    urlTitle: String!
     description: String
     user_id: String!
+    username: String!
     voted: Boolean
     created_on: String!
     options: [pollOption]
@@ -67,18 +68,24 @@ const typeDefs = gql`
   type userPolls {
     poll_id: String!
     title: String!
+    urlTitle: String!
+    username: String!
+    votes: Int
+    comments: Int
   }
 
   type userComments {
     poll_id: String!
+    username: String!
     title: String!
+    urlTitle: String!
     movie: String!
     text: String!
   }
 
   type Query {
     getPoll(poll_id: String!): Poll
-    getUser(user_id: String!): User
+    getUser(username: String!): User
   }
 
   type Mutation {
