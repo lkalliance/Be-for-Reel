@@ -4,9 +4,25 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
+    const { from, to, certificates, groups } = req.query || false;
+    let queryParams = [];
+    if (from || to) {
+      let dateRange = "release_date=";
+      if (from) dateRange += `${from}-01-01`;
+      dateRange += ",";
+      if (to) dateRange += `${to}-01-01`;
+      queryParams.push(dateRange);
+    }
+    if (certificates) queryParams.push(`certificates=${certificates}`);
+    if (groups) queryParams.push(`groups=${groups}`);
+
+    let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature&has=plot`;
+    searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+
+    console.log(searchUrl);
     const options = {
       method: "GET",
-      url: `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature`,
+      url: searchUrl,
     };
 
     const movieData = await fetch.request(options);
@@ -18,7 +34,6 @@ router.get("/api/search/:string", async (req, res) => {
     );
     ratedMovies = ratedMovies.filter((val) => val.contentRating !== "TV-MA");
     ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
-    ratedMovies = ratedMovies.filter((val) => val.plot !== null);
 
     res.status(200).json(ratedMovies);
   } catch (err) {
