@@ -21,8 +21,9 @@ export function Create() {
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
   const [results, setResults] = useState<movieProps[]>([]);
-  const [noResults, setNoResults] = useState(false);
+  const [noResults, setNoResults] = useState<boolean>(false);
   const [selected, setSelected] = useState<movieProps[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleSubmit = async () => {
     setResults([]);
@@ -97,6 +98,15 @@ export function Create() {
     } else {
       setResults(destinationList);
       setSelected(originList);
+    }
+
+    if (type === "search")
+      setSelectedIds([...selectedIds, String(clicked[0].id)]);
+    else {
+      const whichOne = selectedIds.indexOf(clicked[0].id);
+      let newList = [...selectedIds];
+      newList.splice(whichOne, 1);
+      setSelectedIds(newList);
     }
   };
 
@@ -192,6 +202,7 @@ export function Create() {
         <ul>
           {noResults ? <li>No search results</li> : ""}
           {results.map((result, index) => {
+            if (selectedIds.indexOf(result.id) >= 0) return "";
             return (
               <SearchResult
                 value={result}

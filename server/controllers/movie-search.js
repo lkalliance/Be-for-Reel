@@ -5,18 +5,19 @@ router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
     const { from, to, certificates, groups } = req.query || false;
+
+    const today = new Date();
+    const thisYear = today.getFullYear();
     let queryParams = [];
-    if (from || to) {
-      let dateRange = "release_date=";
-      if (from) dateRange += `${from}-01-01`;
-      dateRange += ",";
-      if (to) dateRange += `${to}-01-01`;
-      queryParams.push(dateRange);
-    }
+    let dateRange = "release_date=";
+    dateRange += from ? `${from}-01-01,` : ",";
+    dateRange += !to || to > thisYear ? `${thisYear}-12-31` : `${to}-12-31`;
+    queryParams.push(dateRange);
+
     if (certificates) queryParams.push(`certificates=${certificates}`);
     if (groups) queryParams.push(`groups=${groups}`);
 
-    let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature&has=plot`;
+    let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature&has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
 
     console.log(searchUrl);
@@ -30,10 +31,15 @@ router.get("/api/search/:string", async (req, res) => {
 
     // clean for nc17, tv-ma, x and upcoming
     let ratedMovies = returnMovies.filter(
-      (val) => val.contentRating !== "NC-17"
+      (val) =>
+        val.contentRating !== "NC-17" &&
+        val.contentRating !== "TV-MA" &&
+        val.contentRating !== "X" &&
+        val.plot
     );
-    ratedMovies = ratedMovies.filter((val) => val.contentRating !== "TV-MA");
-    ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
+    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "TV-MA");
+    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
+    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
 
     res.status(200).json(ratedMovies);
   } catch (err) {
