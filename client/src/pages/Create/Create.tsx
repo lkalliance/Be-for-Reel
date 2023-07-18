@@ -4,7 +4,14 @@ import { SearchResult } from "../../components/SearchResult";
 import { movieProps } from "../../utils/interfaces";
 
 interface searchOptions {
-  [key: string]: string | boolean;
+  from: string;
+  to: string;
+  years: boolean;
+  G: boolean;
+  PG: boolean;
+  PG13: boolean;
+  R: boolean;
+  oscar: boolean;
 }
 
 export function Create() {
@@ -24,9 +31,13 @@ export function Create() {
   const [noResults, setNoResults] = useState<boolean>(false);
   const [selected, setSelected] = useState<movieProps[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [stars, setStars] = useState<string[]>([]);
+  const [starFilter, setStarFilter] = useState<string>("all");
 
   const handleSubmit = async () => {
     setResults([]);
+    setStars([]);
+
     if (searchField === "") return;
     const { to, from, years, G, PG, PG13, R, oscar } = options;
     let searchUrl = `/api/search/${searchField}`;
@@ -50,6 +61,26 @@ export function Create() {
 
     const movieData = await fetch(searchUrl);
     const result = await movieData.json();
+    let starArr: string[] = [];
+
+    console.log(result);
+
+    for (let i = 0; i < result.length; i++) {
+      const theseStars: string[] = result[i].starList.map(
+        (a: { name: string }) => a.name
+      );
+      starArr = [...starArr, ...theseStars];
+    }
+
+    const starSet = new Set(starArr);
+    const uniqueStars = Array.from(starSet.values());
+    uniqueStars.sort((a, b) => {
+      const aPieces = a.split(" ");
+      const bPieces = b.split(" ");
+      return aPieces[1] < bPieces[1] ? -1 : 1;
+    });
+
+    setStars(uniqueStars);
 
     setNoResults(result.length === 0);
     setResults(result);
@@ -69,7 +100,7 @@ export function Create() {
     const thisYear = Number(today.getFullYear());
     let changeYear = id === "from" || id === "to";
 
-    const newValue = changeYear ? value : !options[id];
+    const newValue = changeYear ? value : !options[id as keyof searchOptions];
     const newOptions = { ...options, [id]: newValue };
     newOptions.years =
       !(newOptions.from === "" && newOptions.to === "") &&
@@ -83,6 +114,11 @@ export function Create() {
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") handleSubmit();
+  };
+
+  const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setStarFilter(value);
   };
 
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
@@ -141,7 +177,7 @@ export function Create() {
           />
         </fieldset>
         <fieldset>
-          <legend>Search only these US ratings</legend>
+          <legend>Limit to just these US ratings</legend>
           <div>
             <input
               type="checkbox"
@@ -197,12 +233,36 @@ export function Create() {
         </fieldset>
       </form>
       <button onClick={handleSubmit}>Search for title</button>
+      <form>
+        <select
+          id="stars"
+          name="stars"
+          disabled={stars.length === 0}
+          onChange={handleFilter}
+        >
+          <option value="0" key="0">
+            Filter results
+          </option>
+          {stars.map((star, index) => {
+            return (
+              <option value={star} key={index + 1}>
+                {star}
+              </option>
+            );
+          })}
+        </select>
+        <label htmlFor="stars">Filter search results by director</label>
+      </form>
       <div id="results">
         <h3>Search Results</h3>
         <ul>
           {noResults ? <li>No search results</li> : ""}
           {results.map((result, index) => {
-            if (selectedIds.indexOf(result.id) >= 0) return "";
+            if (
+              selectedIds.indexOf(result.id) >= 0 ||
+              (starFilter !== "all" && result.stars.indexOf(starFilter) === -1)
+            )
+              return "";
             return (
               <SearchResult
                 value={result}
