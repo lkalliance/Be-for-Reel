@@ -1,3 +1,5 @@
+// This component renders the navigation
+
 import "./Nav.css";
 import auth from "../../utils/auth";
 import { Link } from "react-router-dom";

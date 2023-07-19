@@ -1,3 +1,5 @@
+// This component renders the signup form
+
 import "./SignupForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
@@ -18,15 +20,19 @@ export function SignupForm({ setLogIn }: loginState) {
     signupPassword: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-
   const [addUser] = useMutation(ADD_USER);
 
   const validateForm = ({ signupPassword, signupEmail }: formData) => {
+    // Validate each field of the form
+
+    // is this a properly-formed email?
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(signupEmail)) {
       setErrorMessage("Please provide a valid email address.");
       setSignupForm({ ...signupForm, signupEmail: "" });
       return false;
     }
+
+    // is this a long enough password?
     if (signupPassword.length < 8) {
       setErrorMessage("Please create a password of at least eight characters");
       setSignupForm({ ...signupForm, signupPassword: "" });
@@ -36,14 +42,18 @@ export function SignupForm({ setLogIn }: loginState) {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handler to track value of each signup field
     setErrorMessage("");
     const { name, value } = e.target;
     setSignupForm({ ...signupForm, [name]: value });
   };
 
   const handleSignupSubmit = async (e: React.MouseEvent) => {
+    // Handler for submitting signup form
+
     e.preventDefault();
     if (
+      // return if one of the form fields isn't filled in
       !(
         signupForm.signupUsername &&
         signupForm.signupPassword &&
@@ -57,6 +67,7 @@ export function SignupForm({ setLogIn }: loginState) {
 
     try {
       if (validateForm(signupForm)) {
+        // if validated, add the user
         const { data } = await addUser({
           variables: {
             userName: signupForm.signupUsername,
@@ -66,8 +77,10 @@ export function SignupForm({ setLogIn }: loginState) {
         });
 
         await Auth.login(data.addUser.token);
+        // if the addition successful, show as logged in
         setLogIn(true);
 
+        // clear the form
         setSignupForm({
           signupUsername: "",
           signupEmail: "",
@@ -75,6 +88,7 @@ export function SignupForm({ setLogIn }: loginState) {
         });
       }
     } catch (err: any) {
+      // evaluate returned error for type of failure
       if (err.message.indexOf("userName") > -1) {
         setErrorMessage(
           `The username "${signupForm.signupUsername}" has already been used.`

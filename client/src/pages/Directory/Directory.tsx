@@ -1,3 +1,5 @@
+// This component renders a poll directory page
+
 import "./Directory.css";
 import { PollListing } from "../../components";
 import { samplePolls } from "../../utils";

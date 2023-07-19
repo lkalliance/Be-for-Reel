@@ -1,3 +1,5 @@
+// This component renders a home page featured poll card
+
 import "./Card.css";
 
 interface cardProps {

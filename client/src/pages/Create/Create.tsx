@@ -1,3 +1,5 @@
+// This component renders the Create a Poll page
+
 import "./Create.css";
 import { useState } from "react";
 import { SearchResult } from "../../components/SearchResult";
@@ -15,6 +17,7 @@ interface searchOptions {
 }
 
 export function Create() {
+  // used to reset options values
   const blankOptions = {
     from: "",
     to: "",
@@ -25,6 +28,7 @@ export function Create() {
     R: false,
     oscar: false,
   };
+
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
   const [results, setResults] = useState<movieProps[]>([]);
@@ -33,19 +37,26 @@ export function Create() {
   const [searching, setSearching] = useState<boolean>(false);
 
   const handleSubmit = async () => {
+    // handler for movie title search submission
+
+    if (searchField === "") return;
+
+    // erase existing results and show that we're searching
     setResults([]);
     setSearching(true);
 
-    if (searchField === "") return;
+    // set up items to use in constructing the URL
     const { to, from, years, G, PG, PG13, R, oscar } = options;
     let searchUrl = `/api/search/${searchField}`;
     let paramParts = [];
 
     if (years) {
+      // if there are years to search, add the parameters for from and to
       if (Number(from) > 0) paramParts.push(`from=${from}`);
       if (Number(to) > 0) paramParts.push(`to=${to}`);
     }
     if (G || PG || PG13 || R) {
+      // if there are limits on ratings, add those parameters
       const ratings = [];
       if (G) ratings.push("us:G");
       if (PG) ratings.push("us:PG");
@@ -53,19 +64,23 @@ export function Create() {
       if (R) ratings.push("us:R");
       paramParts.push(`certificates=${ratings.join(",")}`);
     }
+    // if Best Pic Winner is checked, add that parameter
     if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
 
+    // create the search URL from the base plus the parameters
     searchUrl += paramParts.length > 0 ? `?${paramParts.join("&")}` : "";
 
     const movieData = await fetch(searchUrl);
     const result = await movieData.json();
 
+    // sort results by number of IMDb rating votes
     result.sort((a: movieProps, b: movieProps) => {
       return Number(b.imDbRatingVotes) - Number(a.imDbRatingVotes);
     });
 
     console.log(result);
 
+    // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
     setSearchField("");
@@ -73,19 +88,25 @@ export function Create() {
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handler to track the value of the search field
     e.preventDefault();
     const { value } = e.target;
     setSearchField(value);
   };
 
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handler to track changes to search options
     const { id, value } = e.target;
     const today = new Date();
     const thisYear = Number(today.getFullYear());
     let changeYear = id === "from" || id === "to";
 
+    // if it's a year field, set the new value as the text in the field
+    // if it's a checkbox, set the new value as the opposite of before
     const newValue = changeYear ? value : !options[id as keyof searchOptions];
     const newOptions = { ...options, [id]: newValue };
+
+    // make sure year range isn't before 1927 or after current
     newOptions.years =
       !(newOptions.from === "" && newOptions.to === "") &&
       (newOptions.from === "" ||
@@ -93,20 +114,26 @@ export function Create() {
           Number(newOptions.from) <= thisYear)) &&
       (newOptions.to === "" ||
         (Number(newOptions.to) >= 1927 && Number(newOptions.to) <= thisYear));
+
     setOptions(newOptions);
   };
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
+    // Handler to assign a keyboard enter to the title search button
     if (e.key === "Enter") handleSubmit();
   };
 
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
+    // Handler to move a clicked search result to saved, or vice versa
+
+    // determine origin and destination, remove clicked from origin and put in destination
     const type = e.currentTarget.dataset.type;
     const originList = type === "search" ? [...results] : [...selected];
     const clicked = originList.splice(Number(e.currentTarget.dataset.index), 1);
     const destinationList =
       type === "search" ? [...selected, ...clicked] : [...results, ...clicked];
 
+    // set states based on which list was the origin
     if (type === "search") {
       setResults(originList);
       setSelected(destinationList);
@@ -115,6 +142,7 @@ export function Create() {
       setSelected(originList);
     }
 
+    // add or remove IMDb id to or from list of selected films
     if (type === "search")
       setSelectedIds([...selectedIds, String(clicked[0].id)]);
     else {

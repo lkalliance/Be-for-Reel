@@ -1,3 +1,5 @@
+// Various functions having to do with logging in and out
+
 import decode from "jwt-decode";
 
 interface userData {

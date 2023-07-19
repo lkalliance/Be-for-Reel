@@ -1,3 +1,5 @@
+// This component renders a poll question
+
 import "./Question.css";
 
 interface questionProps {

@@ -1,3 +1,5 @@
+// This component renders the login/signup page
+
 import "./Login.css";
 import { LoginForm, SignupForm } from "../../components";
 import { loginState } from "../../utils/interfaces";

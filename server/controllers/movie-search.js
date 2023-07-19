@@ -9,18 +9,20 @@ router.get("/api/search/:string", async (req, res) => {
     const today = new Date();
     const thisYear = today.getFullYear();
     let queryParams = [];
+
+    // build the date range parameter
     let dateRange = "release_date=";
     dateRange += from ? `${from}-01-01,` : ",";
     dateRange += !to || to > thisYear ? `${thisYear}-12-31` : `${to}-12-31`;
     queryParams.push(dateRange);
 
+    // build the movie rating and Best Picture winner parameters
     if (certificates) queryParams.push(`certificates=${certificates}`);
     if (groups) queryParams.push(`groups=${groups}`);
 
     let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature&has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
 
-    console.log(searchUrl);
     const options = {
       method: "GET",
       url: searchUrl,
@@ -29,7 +31,7 @@ router.get("/api/search/:string", async (req, res) => {
     const movieData = await fetch.request(options);
     const returnMovies = movieData.data.results;
 
-    // clean for nc17, tv-ma, x and upcoming
+    // clean results for nc17, tv-ma, x and upcoming
     let ratedMovies = returnMovies.filter(
       (val) =>
         val.contentRating !== "NC-17" &&
@@ -37,9 +39,6 @@ router.get("/api/search/:string", async (req, res) => {
         val.contentRating !== "X" &&
         val.plot
     );
-    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "TV-MA");
-    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
-    // ratedMovies = ratedMovies.filter((val) => val.contentRating !== "X");
 
     res.status(200).json(ratedMovies);
   } catch (err) {

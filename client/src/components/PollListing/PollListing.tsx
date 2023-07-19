@@ -1,3 +1,5 @@
+// This components renders a single poll listing on a list of polls
+
 import "./PollListing.css";
 import { pollProps } from "../../utils";
 

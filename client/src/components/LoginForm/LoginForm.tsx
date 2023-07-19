@@ -1,3 +1,5 @@
+// This component renders the login form
+
 import "./LoginForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
@@ -12,14 +14,16 @@ export function LoginForm({ setLogIn }: loginState) {
   });
   const [errorMessage, setErrorMessage] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handler for changes to login fields
     setErrorMessage(false);
     const { name, value } = e.target;
     setLoginForm({ ...loginForm, [name]: value });
   };
 
   const handleLoginSubmit = async (e: React.MouseEvent) => {
-    // Handles login submission
+    // Handler for login submission
     e.preventDefault();
     if (!(loginForm.loginUsername && loginForm.loginPassword)) {
       e.preventDefault();

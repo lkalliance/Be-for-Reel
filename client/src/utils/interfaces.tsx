@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 interface ratingsProps {
+  // list of ratings returned by IMDb
   imDb: string;
   metacritic: string;
   theMovieDb: string;
@@ -9,6 +10,7 @@ interface ratingsProps {
 }
 
 export interface optionProps {
+  // data included with each poll option
   id: string;
   movie: string;
   imdb_id: string;
@@ -25,6 +27,7 @@ export interface optionProps {
 }
 
 interface pollCommentProps {
+  // data included with each comment on the poll
   poll_id: string;
   title: string;
   user_id: string;
@@ -34,6 +37,7 @@ interface pollCommentProps {
 }
 
 export interface pollProps {
+  // data included with each poll
   id: string;
   user_id: string;
   username: string;
@@ -46,6 +50,7 @@ export interface pollProps {
 }
 
 export interface userPollProps {
+  // data stored for each poll on User
   poll_id: string;
   title: string;
   votes: number;
@@ -53,6 +58,7 @@ export interface userPollProps {
 }
 
 interface userCommentProps {
+  // data stored for each user comment
   poll_id: string;
   title: string;
   urlTitle: string;
@@ -61,6 +67,7 @@ interface userCommentProps {
 }
 
 export interface userProps {
+  // data included with each user
   id: string;
   userName: string;
   email: string;
@@ -70,20 +77,24 @@ export interface userProps {
 }
 
 export interface loginState {
+  // login boolean
   setLogIn: Dispatch<SetStateAction<boolean>>;
 }
 
 interface genreObj {
+  // genres attached to films by IMDb
   key: string;
   value: string;
 }
 
 interface starObj {
+  // stars attached to films by IMDb
   id: string;
   name: string;
 }
 
 export interface movieProps {
+  // data provided for each film by IMDb
   contentRating: string;
   description: string;
   genreList: genreObj[];
