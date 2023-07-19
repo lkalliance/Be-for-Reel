@@ -1,3 +1,5 @@
+// This component renders a voting option
+
 import "./Option.css";
 import { optionProps } from "../../utils";
 

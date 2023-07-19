@@ -1,0 +1,9 @@
+.search-result {
+  list-style-type: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  background-color: #eeeeee;
+}

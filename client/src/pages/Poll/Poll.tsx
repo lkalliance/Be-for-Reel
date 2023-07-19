@@ -1,3 +1,5 @@
+// This component renders a poll
+
 import "./Poll.css";
 import { samplePolls } from "../../utils";
 import { useParams, Navigate } from "react-router-dom";

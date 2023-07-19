@@ -1,3 +1,5 @@
+// This component renders the navigation
+
 import "./Nav.css";
 import auth from "../../utils/auth";
 import { Link } from "react-router-dom";
@@ -30,6 +32,9 @@ export function Nav() {
               >
                 Log out
               </a>
+            </li>
+            <li>
+              <Link to="/create">Create a Poll</Link>
             </li>
           </>
         ) : (

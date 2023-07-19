@@ -1,3 +1,5 @@
+// This component renders the home page
+
 import "./Home.css";
 import { Card } from "../../components";
 import { pollProps } from "../../utils";

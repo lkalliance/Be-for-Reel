@@ -35,6 +35,7 @@ const resolvers = {
     },
 
     login: async (parent, { userName, password }) => {
+      console.log("I'm in the login resolver");
       const user = await User.findOne({ userName });
 
       if (!user) {
