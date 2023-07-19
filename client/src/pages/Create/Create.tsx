@@ -28,15 +28,13 @@ export function Create() {
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
   const [results, setResults] = useState<movieProps[]>([]);
-  const [noResults, setNoResults] = useState<boolean>(false);
   const [selected, setSelected] = useState<movieProps[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [stars, setStars] = useState<string[]>([]);
-  const [starFilter, setStarFilter] = useState<string>("all");
+  const [searching, setSearching] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     setResults([]);
-    setStars([]);
+    setSearching(true);
 
     if (searchField === "") return;
     const { to, from, years, G, PG, PG13, R, oscar } = options;
@@ -61,29 +59,15 @@ export function Create() {
 
     const movieData = await fetch(searchUrl);
     const result = await movieData.json();
-    let starArr: string[] = [];
+
+    result.sort((a: movieProps, b: movieProps) => {
+      return Number(b.imDbRatingVotes) - Number(a.imDbRatingVotes);
+    });
 
     console.log(result);
 
-    for (let i = 0; i < result.length; i++) {
-      const theseStars: string[] = result[i].starList.map(
-        (a: { name: string }) => a.name
-      );
-      starArr = [...starArr, ...theseStars];
-    }
-
-    const starSet = new Set(starArr);
-    const uniqueStars = Array.from(starSet.values());
-    uniqueStars.sort((a, b) => {
-      const aPieces = a.split(" ");
-      const bPieces = b.split(" ");
-      return aPieces[1] < bPieces[1] ? -1 : 1;
-    });
-
-    setStars(uniqueStars);
-
-    setNoResults(result.length === 0);
     setResults(result);
+    setSearching(false);
     setSearchField("");
     setOptions(blankOptions);
   };
@@ -116,11 +100,6 @@ export function Create() {
     if (e.key === "Enter") handleSubmit();
   };
 
-  const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setStarFilter(value);
-  };
-
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
     const type = e.currentTarget.dataset.type;
     const originList = type === "search" ? [...results] : [...selected];
@@ -147,149 +126,136 @@ export function Create() {
   };
 
   return (
-    <section id="create">
+    <section id="create" className="container">
       <h2>Create a Poll</h2>
-      <h2>Search for a title</h2>
-      <input
-        id="titleSearchBox"
-        type="text"
-        onChange={handleInput}
-        onKeyUp={handleReturn}
-        value={searchField}
-      />
-      <h3>Search options</h3>
-      <form>
-        <fieldset>
-          <legend>Released</legend>
+      <div className="row">
+        <div id="selected" className="col-6">
+          Poll form here
+          <h3>Selected Films</h3>
+          <ul>
+            {selected.map((selected, index) => {
+              return (
+                <SearchResult
+                  value={selected}
+                  key={index}
+                  dataIndex={index}
+                  type="selected"
+                  onClick={selectResult}
+                />
+              );
+            })}
+          </ul>
+        </div>
+        <div id="titleSearch" className="col-6">
+          <h2>Search for a title</h2>
           <input
+            id="titleSearchBox"
             type="text"
-            id="from"
-            placeholder="From"
-            onChange={handleOption}
-            value={String(options.from)}
+            onChange={handleInput}
+            onKeyUp={handleReturn}
+            value={searchField}
           />
-          <input
-            type="text"
-            id="to"
-            placeholder="To"
-            onChange={handleOption}
-            value={String(options.to)}
-          />
-        </fieldset>
-        <fieldset>
-          <legend>Limit to just these US ratings</legend>
-          <div>
-            <input
-              type="checkbox"
-              id="G"
-              name="G"
-              onChange={handleOption}
-              checked={Boolean(options.G)}
-            />
-            <label htmlFor="G">G</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="PG"
-              name="PG"
-              onChange={handleOption}
-              checked={Boolean(options.PG)}
-            />
-            <label htmlFor="PG">PG</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="PG13"
-              name="PG13"
-              onChange={handleOption}
-              checked={Boolean(options.PG13)}
-            />
-            <label htmlFor="PG13">PG-13</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="R"
-              name="R"
-              onChange={handleOption}
-              checked={Boolean(options.R)}
-            />
-            <label htmlFor="R">R</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div>
-            <input
-              type="checkbox"
-              id="oscar"
-              name="oscar"
-              onChange={handleOption}
-              checked={Boolean(options.oscar)}
-            />
-            <label htmlFor="oscar">Nominated for Best Picture</label>
-          </div>
-        </fieldset>
-      </form>
-      <button onClick={handleSubmit}>Search for title</button>
-      <form>
-        <select
-          id="stars"
-          name="stars"
-          disabled={stars.length === 0}
-          onChange={handleFilter}
-        >
-          <option value="0" key="0">
-            Filter results
-          </option>
-          {stars.map((star, index) => {
-            return (
-              <option value={star} key={index + 1}>
-                {star}
-              </option>
-            );
-          })}
-        </select>
-        <label htmlFor="stars">Filter search results by director</label>
-      </form>
-      <div id="results">
-        <h3>Search Results</h3>
-        <ul>
-          {noResults ? <li>No search results</li> : ""}
-          {results.map((result, index) => {
-            if (
-              selectedIds.indexOf(result.id) >= 0 ||
-              (starFilter !== "all" && result.stars.indexOf(starFilter) === -1)
-            )
-              return "";
-            return (
-              <SearchResult
-                value={result}
-                key={index}
-                dataIndex={index}
-                type="search"
-                onClick={selectResult}
+          <h3>Search options</h3>
+          <form>
+            <fieldset>
+              <legend>Released</legend>
+              <input
+                type="text"
+                id="from"
+                placeholder="From"
+                onChange={handleOption}
+                value={String(options.from)}
               />
-            );
-          })}
-        </ul>
-      </div>
-      <div id="selected">
-        <h3>Selected Films</h3>
-        <ul>
-          {selected.map((selected, index) => {
-            return (
-              <SearchResult
-                value={selected}
-                key={index}
-                dataIndex={index}
-                type="selected"
-                onClick={selectResult}
+              <input
+                type="text"
+                id="to"
+                placeholder="To"
+                onChange={handleOption}
+                value={String(options.to)}
               />
-            );
-          })}
-        </ul>
+            </fieldset>
+            <fieldset>
+              <legend>Limit to just these US ratings</legend>
+              <div>
+                <input
+                  type="checkbox"
+                  id="G"
+                  name="G"
+                  onChange={handleOption}
+                  checked={Boolean(options.G)}
+                />
+                <label htmlFor="G">G</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="PG"
+                  name="PG"
+                  onChange={handleOption}
+                  checked={Boolean(options.PG)}
+                />
+                <label htmlFor="PG">PG</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="PG13"
+                  name="PG13"
+                  onChange={handleOption}
+                  checked={Boolean(options.PG13)}
+                />
+                <label htmlFor="PG13">PG-13</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="R"
+                  name="R"
+                  onChange={handleOption}
+                  checked={Boolean(options.R)}
+                />
+                <label htmlFor="R">R</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <input
+                  type="checkbox"
+                  id="oscar"
+                  name="oscar"
+                  onChange={handleOption}
+                  checked={Boolean(options.oscar)}
+                />
+                <label htmlFor="oscar">Nominated for Best Picture</label>
+              </div>
+            </fieldset>
+          </form>
+          <button onClick={handleSubmit}>Search for title</button>
+          <div id="results">
+            <h3>Search Results</h3>
+            <ul>
+              {searching ? (
+                <li>Searching...</li>
+              ) : results.length === 0 ? (
+                <li>No search results</li>
+              ) : (
+                ""
+              )}
+              {results.map((result, index) => {
+                if (selectedIds.indexOf(result.id) >= 0) return "";
+                return (
+                  <SearchResult
+                    value={result}
+                    key={index}
+                    dataIndex={index}
+                    type="search"
+                    onClick={selectResult}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );
