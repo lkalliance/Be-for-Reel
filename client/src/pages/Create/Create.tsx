@@ -16,6 +16,11 @@ interface searchOptions {
   oscar: boolean;
 }
 
+interface pollOptions {
+  title: string;
+  description: string;
+}
+
 export function Create() {
   // used to reset options values
   const blankOptions = {
@@ -34,6 +39,10 @@ export function Create() {
   const [results, setResults] = useState<movieProps[]>([]);
   const [selected, setSelected] = useState<movieProps[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [pollData, setPollData] = useState<pollOptions>({
+    title: "",
+    description: "",
+  });
   const [searching, setSearching] = useState<boolean>(false);
 
   const handleSubmit = async () => {
@@ -78,20 +87,11 @@ export function Create() {
       return Number(b.imDbRatingVotes) - Number(a.imDbRatingVotes);
     });
 
-    console.log(result);
-
     // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
     setSearchField("");
     setOptions(blankOptions);
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Handler to track the value of the search field
-    e.preventDefault();
-    const { value } = e.target;
-    setSearchField(value);
   };
 
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +120,12 @@ export function Create() {
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
-    if (e.key === "Enter") handleSubmit();
+    if (e.key === "Enter") {
+      console.log(searchField);
+      console.log(options);
+      console.log(pollData);
+      handleSubmit();
+    }
   };
 
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
@@ -158,7 +163,33 @@ export function Create() {
       <h2>Create a Poll</h2>
       <div className="row">
         <div id="selected" className="col-6">
-          Poll form here
+          <form>
+            <fieldset>
+              <input
+                type="text"
+                id="title"
+                placeholder="Poll title"
+                value={pollData.title}
+                onChange={(e) => {
+                  setPollData({
+                    title: e.target.value,
+                    description: pollData.description,
+                  });
+                }}
+              />
+              <textarea
+                id="description"
+                placeholder="Poll description"
+                value={pollData.description}
+                onChange={(e) => {
+                  setPollData({
+                    title: pollData.title,
+                    description: e.target.value,
+                  });
+                }}
+              ></textarea>
+            </fieldset>
+          </form>
           <h3>Selected Films</h3>
           <ul>
             {selected.map((selected, index) => {
@@ -179,9 +210,11 @@ export function Create() {
           <input
             id="titleSearchBox"
             type="text"
-            onChange={handleInput}
             onKeyUp={handleReturn}
             value={searchField}
+            onChange={(e) => {
+              setSearchField(e.target.value);
+            }}
           />
           <h3>Search options</h3>
           <form>
