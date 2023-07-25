@@ -110,3 +110,8 @@ export interface movieProps {
   stars: string;
   title: string;
 }
+
+export type userData = {
+  username: string;
+  id: string;
+};

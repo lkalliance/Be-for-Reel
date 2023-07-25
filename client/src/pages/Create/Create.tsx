@@ -2,8 +2,11 @@
 
 import "./Create.css";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import auth from "../../utils/auth";
 import { SearchResult } from "../../components/SearchResult";
-import { movieProps } from "../../utils/interfaces";
+import { movieProps, userData } from "../../utils/interfaces";
+import { ADD_POLL } from "../../utils/mutations";
 
 interface searchOptions {
   from: string;
@@ -34,6 +37,8 @@ export function Create() {
     oscar: false,
   };
 
+  const userInfo: userData = auth.getProfile();
+
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
   const [results, setResults] = useState<movieProps[]>([]);
@@ -44,6 +49,27 @@ export function Create() {
     description: "",
   });
   const [searching, setSearching] = useState<boolean>(false);
+
+  const [addPoll] = useMutation(ADD_POLL);
+
+  const handleCreate = async () => {
+    // handler for submission of quiz to be created
+
+    // poll title must exist and at least two films selected
+    if (!(pollData.title.length > 0 && selected.length > 1)) return;
+
+    const { data } = await addPoll({
+      variables: {
+        userName: userInfo.username,
+        userId: userInfo.id,
+        title: pollData.title,
+        description: pollData.description,
+        movieIds: selectedIds,
+      },
+    });
+
+    console.log(data.addPoll);
+  };
 
   const handleSubmit = async () => {
     // handler for movie title search submission
@@ -190,6 +216,12 @@ export function Create() {
               ></textarea>
             </fieldset>
           </form>
+          <button
+            onClick={handleCreate}
+            disabled={!(pollData.title.length > 0 && selected.length > 1)}
+          >
+            Create poll
+          </button>
           <h3>Selected Films</h3>
           <ul>
             {selected.map((selected, index) => {
