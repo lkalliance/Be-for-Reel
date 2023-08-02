@@ -38,6 +38,7 @@ export const ADD_POLL = gql`
       description: $description
     ) {
       poll_id
+      poll_title
     }
   }
 `;

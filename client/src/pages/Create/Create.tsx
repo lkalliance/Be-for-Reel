@@ -48,7 +48,13 @@ export function Create() {
     title: "",
     description: "",
   });
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [searching, setSearching] = useState<boolean>(false);
+  const [building, setBuilding] = useState<boolean>(false);
+
+  /* WHERE I LEFT OFF: Create error message for duplicate title use,
+using state variable errorMessage, and set a building status using
+state variable building */
 
   const [addPoll] = useMutation(ADD_POLL);
 
@@ -57,18 +63,17 @@ export function Create() {
 
     // poll title must exist and at least two films selected
     if (!(pollData.title.length > 0 && selected.length > 1)) return;
-
-    const { data } = await addPoll({
-      variables: {
-        userName: userInfo.username,
-        userId: userInfo.id,
-        title: pollData.title,
-        description: pollData.description,
-        movieIds: selectedIds,
-      },
-    });
-
-    console.log(data.addPoll);
+    try {
+      const { data } = await addPoll({
+        variables: {
+          userName: userInfo.username,
+          userId: userInfo.id,
+          title: pollData.title,
+          description: pollData.description,
+          movieIds: selectedIds,
+        },
+      });
+    } catch (err) {}
   };
 
   const handleSubmit = async () => {

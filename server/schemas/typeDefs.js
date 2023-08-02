@@ -43,6 +43,7 @@ const typeDefs = gql`
     genres: String
     companies: String
     trailer: String
+    votes: Int
   }
 
   type pollComment {
@@ -59,10 +60,10 @@ const typeDefs = gql`
     description: String
     user_id: String!
     username: String!
-    voted: Boolean
     created_on: String!
     options: [pollOption]
     comments: [pollComment]
+    votes: Int
   }
 
   type userPolls {
@@ -83,6 +84,11 @@ const typeDefs = gql`
     text: String!
   }
 
+  type pollReturn {
+    poll_id: String!
+    poll_title: String!
+  }
+
   type Query {
     getPoll(poll_id: String!): Poll
     getUser(username: String!): User
@@ -97,7 +103,7 @@ const typeDefs = gql`
       title: String!
       description: String
       movieIds: [String]!
-    ): String
+    ): pollReturn
   }
 `;
 
