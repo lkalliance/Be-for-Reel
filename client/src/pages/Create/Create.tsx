@@ -73,7 +73,13 @@ state variable building */
           movieIds: selectedIds,
         },
       });
-    } catch (err) {}
+    } catch (err: any) {
+      if (err.message.indexOf("urlTitle") > -1) {
+        setErrorMessage(
+          `You already have a quiz with the title "${pollData.title}"`
+        );
+      }
+    }
   };
 
   const handleSubmit = async () => {
@@ -202,6 +208,7 @@ state variable building */
                 placeholder="Poll title"
                 value={pollData.title}
                 onChange={(e) => {
+                  setErrorMessage("");
                   setPollData({
                     title: e.target.value,
                     description: pollData.description,
@@ -227,6 +234,11 @@ state variable building */
           >
             Create poll
           </button>
+          {errorMessage.length > 0 ? (
+            <div className="alert alert-danger">{errorMessage}</div>
+          ) : (
+            ""
+          )}
           <h3>Selected Films</h3>
           <ul>
             {selected.map((selected, index) => {
@@ -329,6 +341,7 @@ state variable building */
             </fieldset>
           </form>
           <button onClick={handleSubmit}>Search for title</button>
+
           <div id="results">
             <h3>Search Results</h3>
             <ul>
