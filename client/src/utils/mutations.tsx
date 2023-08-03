@@ -21,3 +21,24 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_POLL = gql`
+  mutation AddPoll(
+    $userId: String!
+    $title: String!
+    $movieIds: [String]!
+    $userName: String
+    $description: String
+  ) {
+    addPoll(
+      userId: $userId
+      title: $title
+      movieIds: $movieIds
+      userName: $userName
+      description: $description
+    ) {
+      poll_id
+      poll_title
+    }
+  }
+`;

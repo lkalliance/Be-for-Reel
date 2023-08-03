@@ -2,8 +2,11 @@
 
 import "./Create.css";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import auth from "../../utils/auth";
 import { SearchResult } from "../../components/SearchResult";
-import { movieProps } from "../../utils/interfaces";
+import { movieProps, userData } from "../../utils/interfaces";
+import { ADD_POLL } from "../../utils/mutations";
 
 interface searchOptions {
   from: string;
@@ -14,6 +17,11 @@ interface searchOptions {
   PG13: boolean;
   R: boolean;
   oscar: boolean;
+}
+
+interface pollOptions {
+  title: string;
+  description: string;
 }
 
 export function Create() {
@@ -29,12 +37,50 @@ export function Create() {
     oscar: false,
   };
 
+  const userInfo: userData = auth.getProfile();
+
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
   const [results, setResults] = useState<movieProps[]>([]);
   const [selected, setSelected] = useState<movieProps[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [pollData, setPollData] = useState<pollOptions>({
+    title: "",
+    description: "",
+  });
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [searching, setSearching] = useState<boolean>(false);
+  const [building, setBuilding] = useState<boolean>(false);
+
+  /* WHERE I LEFT OFF: Create error message for duplicate title use,
+using state variable errorMessage, and set a building status using
+state variable building */
+
+  const [addPoll] = useMutation(ADD_POLL);
+
+  const handleCreate = async () => {
+    // handler for submission of quiz to be created
+
+    // poll title must exist and at least two films selected
+    if (!(pollData.title.length > 0 && selected.length > 1)) return;
+    try {
+      const { data } = await addPoll({
+        variables: {
+          userName: userInfo.username,
+          userId: userInfo.id,
+          title: pollData.title,
+          description: pollData.description,
+          movieIds: selectedIds,
+        },
+      });
+    } catch (err: any) {
+      if (err.message.indexOf("urlTitle") > -1) {
+        setErrorMessage(
+          `You already have a quiz with the title "${pollData.title}"`
+        );
+      }
+    }
+  };
 
   const handleSubmit = async () => {
     // handler for movie title search submission
@@ -78,20 +124,11 @@ export function Create() {
       return Number(b.imDbRatingVotes) - Number(a.imDbRatingVotes);
     });
 
-    console.log(result);
-
     // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
     setSearchField("");
     setOptions(blankOptions);
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Handler to track the value of the search field
-    e.preventDefault();
-    const { value } = e.target;
-    setSearchField(value);
   };
 
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +157,12 @@ export function Create() {
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
-    if (e.key === "Enter") handleSubmit();
+    if (e.key === "Enter") {
+      console.log(searchField);
+      console.log(options);
+      console.log(pollData);
+      handleSubmit();
+    }
   };
 
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
@@ -158,7 +200,45 @@ export function Create() {
       <h2>Create a Poll</h2>
       <div className="row">
         <div id="selected" className="col-6">
-          Poll form here
+          <form>
+            <fieldset>
+              <input
+                type="text"
+                id="title"
+                placeholder="Poll title"
+                value={pollData.title}
+                onChange={(e) => {
+                  setErrorMessage("");
+                  setPollData({
+                    title: e.target.value,
+                    description: pollData.description,
+                  });
+                }}
+              />
+              <textarea
+                id="description"
+                placeholder="Poll description"
+                value={pollData.description}
+                onChange={(e) => {
+                  setPollData({
+                    title: pollData.title,
+                    description: e.target.value,
+                  });
+                }}
+              ></textarea>
+            </fieldset>
+          </form>
+          <button
+            onClick={handleCreate}
+            disabled={!(pollData.title.length > 0 && selected.length > 1)}
+          >
+            Create poll
+          </button>
+          {errorMessage.length > 0 ? (
+            <div className="alert alert-danger">{errorMessage}</div>
+          ) : (
+            ""
+          )}
           <h3>Selected Films</h3>
           <ul>
             {selected.map((selected, index) => {
@@ -179,9 +259,11 @@ export function Create() {
           <input
             id="titleSearchBox"
             type="text"
-            onChange={handleInput}
             onKeyUp={handleReturn}
             value={searchField}
+            onChange={(e) => {
+              setSearchField(e.target.value);
+            }}
           />
           <h3>Search options</h3>
           <form>
@@ -259,6 +341,7 @@ export function Create() {
             </fieldset>
           </form>
           <button onClick={handleSubmit}>Search for title</button>
+
           <div id="results">
             <h3>Search Results</h3>
             <ul>

@@ -102,6 +102,7 @@ const pollSchema = new Schema({
   urlTitle: {
     type: String,
     required: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -115,16 +116,16 @@ const pollSchema = new Schema({
     type: String,
     required: true,
   },
-  voted: {
-    type: Boolean,
-    required: true,
-  },
   created_on: {
     type: Date,
     required: true,
   },
   options: [pollOption],
   comments: [pollComment],
+  votes: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Poll = model("Poll", pollSchema);
