@@ -98,8 +98,6 @@ const typeDefs = gql`
     addUser(userName: String!, email: String!, password: String!): Auth
     login(userName: String!, password: String!): Auth
     addPoll(
-      userName: String
-      userId: String!
       title: String!
       description: String
       movieIds: [String]!

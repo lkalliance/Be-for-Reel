@@ -53,65 +53,88 @@ const resolvers = {
       return { token, user };
     },
 
-    addPoll: async (
-      parent,
-      { userName, userId, title, description, movieIds }
-    ) => {
-      const options = await Promise.all(
-        movieIds.map(async (id) => {
-          const getMovies = {
-            method: "GET",
-            url: `https://imdb-api.com/en/API/Title/${process.env.IMDB_API_KEY}/${id}/Trailer,Ratings,Wikipedia`,
-          };
-          const movieData = await fetch.request(getMovies);
-          const movie = movieData.data;
-          const option = {
-            movie: movie.title,
-            imdb_id: movie.id,
-            stars: movie.stars,
-            plot: movie.plot,
-            image: movie.image,
-            wikipedia: movie.wikipedia.url,
-            contentRating: movie.contentRating,
-            ratings: {
-              imDb: movie.ratings.imDb,
-              metacritic: movie.ratings.metacritic,
-              theMovieDb: movie.ratings.theMovieDb,
-              rottenTomatoes: movie.ratings.rottenTomatoes,
-              filmAffinity: movie.ratings.filmAffinity,
-            },
-            directors: movie.directors,
-            genres: movie.genres,
-            companies: movie.companies,
-            trailer: movie.trailer.link,
-          };
-          return option;
-        })
-      );
+    addPoll: async (parent, { title, description, movieIds }, context) => {
+      // make sure the user is actually logged in
+      if (context.user) {
+        const options = await Promise.all(
+          movieIds.map(async (id) => {
+            // for each given movie id, get the info from IMDb
+            const getMovies = {
+              method: "GET",
+              url: `https://imdb-api.com/en/API/Title/${process.env.IMDB_API_KEY}/${id}/Trailer,Ratings,Wikipedia`,
+            };
+            const movieData = await fetch.request(getMovies);
+            const movie = movieData.data;
+            const option = {
+              movie: movie.title,
+              imdb_id: movie.id,
+              stars: movie.stars,
+              plot: movie.plot,
+              image: movie.image,
+              wikipedia: movie.wikipedia.url,
+              contentRating: movie.contentRating,
+              ratings: {
+                imDb: movie.ratings.imDb,
+                metacritic: movie.ratings.metacritic,
+                theMovieDb: movie.ratings.theMovieDb,
+                rottenTomatoes: movie.ratings.rottenTomatoes,
+                filmAffinity: movie.ratings.filmAffinity,
+              },
+              directors: movie.directors,
+              genres: movie.genres,
+              companies: movie.companies,
+              trailer: movie.trailer.link,
+            };
+            return option;
+          })
+        );
 
-      const today = Date();
-      const urlTitle = `/poll/${userName}/${title
-        .toLowerCase()
-        .replace(/[^a-zA-Z\d\s:]/g, "")
-        .replace(/[\s]/g, "-")}`;
+        const today = Date();
+        const urlTitle = `/poll/${context.user.userName}/${title
+          .toLowerCase()
+          .replace(/[^a-zA-Z\d\s:]/g, "")
+          .replace(/[\s]/g, "-")}`;
 
-      const newPoll = {
-        title,
-        urlTitle,
-        description,
-        user_id: userId,
-        username: userName,
-        created_on: today,
-        options,
-        comments: [],
-        votes: 0,
-      };
+        // construct the object to be stored to the Polls collection
+        const newPoll = {
+          title,
+          urlTitle,
+          description,
+          user_id: context.user._id,
+          username: context.user.userName,
+          created_on: today,
+          options,
+          comments: [],
+          votes: 0,
+        };
 
-      const poll = await Poll.create(newPoll);
-      console.log(poll);
-      if (!poll) return { message: "Operation failed" };
+        // construct the object to be stored to the User
+        const newUserPoll = {
+          title,
+          urlTitle,
+          username: context.user.userName,
+          votes: 0,
+          comments: 0,
+        };
 
-      return { poll_id: poll._id, poll_title: title };
+        // create the poll, and if it fails return
+        const poll = await Poll.create(newPoll);
+        if (!poll) return { message: "Operation failed" };
+
+        // add the new poll's id to the object we're attaching to the user
+        newUserPoll.poll_id = poll._id;
+
+        // add the poll to the currently logged-in user's document
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { polls: newUserPoll },
+          },
+          { new: true }
+        );
+
+        return { poll_id: poll._id, poll_title: title };
+      }
     },
   },
 };
