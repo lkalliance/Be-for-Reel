@@ -96,7 +96,7 @@ export function Create() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
     if (searchField === "") return;
@@ -173,10 +173,7 @@ export function Create() {
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
     if (e.key === "Enter") {
-      console.log(searchField);
-      console.log(options);
-      console.log(pollData);
-      handleSubmit();
+      handleSearchSubmit();
     }
   };
 
@@ -361,7 +358,7 @@ export function Create() {
               </div>
             </fieldset>
           </form>
-          <button onClick={handleSubmit}>Search for title</button>
+          <button onClick={handleSearchSubmit}>Search for title</button>
 
           <div id="results">
             <h3>Search Results</h3>

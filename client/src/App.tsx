@@ -56,8 +56,8 @@ function App() {
               )
             }
           />
-          <Route path="/poll/:username/:pollname" element={<Poll />} />
-          <Route path="/user/:username" element={<Profile />} />
+          <Route path="/:username/:pollname" element={<Poll />} />
+          <Route path="/:username" element={<Profile />} />
           <Route
             path="/create"
             element={
