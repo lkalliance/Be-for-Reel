@@ -44,7 +44,7 @@ const pollOption = new Schema({
     type: String,
     required: false,
   },
-  wikipeida: {
+  wikipedia: {
     type: String,
     required: false,
   },
@@ -68,6 +68,10 @@ const pollOption = new Schema({
   trailer: {
     type: String,
     required: false,
+  },
+  votes: {
+    type: Number,
+    required: true,
   },
 });
 

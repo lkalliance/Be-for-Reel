@@ -5,8 +5,9 @@ const fetch = require("axios");
 
 const resolvers = {
   Query: {
-    getPoll: async (parent, args) => {
-      console.log("Got the poll data");
+    getPoll: async (parent, { username, pollname }) => {
+      const poll = await Poll.findOne({ urlTitle: `/${username}/${pollname}` });
+      return poll ? poll : false;
     },
     getUser: async (parent, { username }) => {
       const user = User.findOne({ userName: username });
@@ -84,13 +85,14 @@ const resolvers = {
               genres: movie.genres,
               companies: movie.companies,
               trailer: movie.trailer.link,
+              votes: 0,
             };
             return option;
           })
         );
 
         const today = Date();
-        const urlTitle = `/poll/${context.user.userName}/${title
+        const urlTitle = `/${context.user.userName}/${title
           .toLowerCase()
           .replace(/[^a-zA-Z\d\s:]/g, "")
           .replace(/[\s]/g, "-")}`;

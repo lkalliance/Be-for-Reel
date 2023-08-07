@@ -24,6 +24,7 @@ export interface optionProps {
   genres: string;
   companies: string;
   trailer: string;
+  votes: number;
 }
 
 interface pollCommentProps {

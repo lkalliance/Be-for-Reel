@@ -90,7 +90,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getPoll(poll_id: String!): Poll
+    getPoll(username: String!, pollname: String!): Poll
     getUser(username: String!): User
   }
 

@@ -31,6 +31,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -54,6 +55,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -76,6 +78,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -98,6 +101,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],
@@ -134,6 +138,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -157,6 +162,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -179,6 +185,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -201,6 +208,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],
@@ -237,6 +245,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -260,6 +269,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -282,6 +292,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -304,6 +315,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],
@@ -340,6 +352,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -363,6 +376,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -385,6 +399,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -407,6 +422,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],
@@ -443,6 +459,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -466,6 +483,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -488,6 +506,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -510,6 +529,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],
@@ -546,6 +566,7 @@ export const samplePolls = [
         genres: "Adventure, Mystery, Thriller",
         companies: "Zanuck/Brown Productions, Universal Pictures",
         trailer: "https://www.imdb.com/video/imdb/vi4242122009/imdb/embed",
+        votes: 0,
       },
       {
         id: "2",
@@ -569,6 +590,7 @@ export const samplePolls = [
         genres: "Drama, Sci-Fi",
         companies: "Julia Phillips and Michael Phillips Productions, EMI Films",
         trailer: "https://www.imdb.com/video/imdb/vi1849145625/imdb/embed",
+        votes: 0,
       },
       {
         id: "3",
@@ -591,6 +613,7 @@ export const samplePolls = [
         genres: "Biography, Drama, History",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "ttps://www.imdb.com/video/imdb/vi1158527769/imdb/embed",
+        votes: 0,
       },
       {
         id: "4",
@@ -613,6 +636,7 @@ export const samplePolls = [
         genres: "Action, Adventure, Sci-Fi",
         companies: "Universal Pictures, Amblin Entertainment",
         trailer: "https://www.imdb.com/video/imdb/vi177055257/imdb/embed",
+        votes: 0,
       },
     ],
     comments: [],

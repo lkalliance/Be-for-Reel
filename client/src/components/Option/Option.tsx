@@ -9,6 +9,7 @@ interface optProps {
 }
 
 export function Option({ opt, voted }: optProps) {
+  console.log(opt);
   return (
     <div className="option">
       <h2>{opt.movie}</h2>
