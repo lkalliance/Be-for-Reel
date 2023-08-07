@@ -50,31 +50,45 @@ export function Create() {
   });
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [searching, setSearching] = useState<boolean>(false);
+  const [noResults, setNoResults] = useState<boolean>(false);
   const [building, setBuilding] = useState<boolean>(false);
 
-  /* WHERE I LEFT OFF: Create error message for duplicate title use,
-using state variable errorMessage, and set a building status using
-state variable building */
-
   const [addPoll] = useMutation(ADD_POLL);
+
+  const clearAll = () => {
+    setSearchField("");
+    setOptions(blankOptions as searchOptions);
+    setResults([]);
+    setSelected([]);
+    setSelectedIds([]);
+    setPollData({
+      title: "",
+      description: "",
+    });
+    setErrorMessage("");
+    setSearching(false);
+    setBuilding(false);
+    setNoResults(false);
+  };
 
   const handleCreate = async () => {
     // handler for submission of quiz to be created
 
     // poll title must exist and at least two films selected
     if (!(pollData.title.length > 0 && selected.length > 1)) return;
+    setBuilding(true);
     try {
       const { data } = await addPoll({
         variables: {
-          userName: userInfo.username,
-          userId: userInfo.id,
           title: pollData.title,
           description: pollData.description,
           movieIds: selectedIds,
         },
       });
+      clearAll();
     } catch (err: any) {
       if (err.message.indexOf("urlTitle") > -1) {
+        setBuilding(false);
         setErrorMessage(
           `You already have a quiz with the title "${pollData.title}"`
         );
@@ -82,7 +96,7 @@ state variable building */
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
     if (searchField === "") return;
@@ -127,6 +141,7 @@ state variable building */
     // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
+    setNoResults(result.length === 0);
     setSearchField("");
     setOptions(blankOptions);
   };
@@ -158,10 +173,7 @@ state variable building */
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
     if (e.key === "Enter") {
-      console.log(searchField);
-      console.log(options);
-      console.log(pollData);
-      handleSubmit();
+      handleSearchSubmit();
     }
   };
 
@@ -239,6 +251,11 @@ state variable building */
           ) : (
             ""
           )}
+          {building ? (
+            <div className="alert alert-primary">Building your poll...</div>
+          ) : (
+            ""
+          )}
           <h3>Selected Films</h3>
           <ul>
             {selected.map((selected, index) => {
@@ -262,6 +279,7 @@ state variable building */
             onKeyUp={handleReturn}
             value={searchField}
             onChange={(e) => {
+              setNoResults(false);
               setSearchField(e.target.value);
             }}
           />
@@ -340,18 +358,21 @@ state variable building */
               </div>
             </fieldset>
           </form>
-          <button onClick={handleSubmit}>Search for title</button>
+          <button onClick={handleSearchSubmit}>Search for title</button>
 
           <div id="results">
             <h3>Search Results</h3>
+            {searching ? (
+              <div className="alert alert-primary">Searching for titles...</div>
+            ) : (
+              ""
+            )}
+            {noResults ? (
+              <div className="alert alert-danger">No search results</div>
+            ) : (
+              ""
+            )}
             <ul>
-              {searching ? (
-                <li>Searching...</li>
-              ) : results.length === 0 ? (
-                <li>No search results</li>
-              ) : (
-                ""
-              )}
               {results.map((result, index) => {
                 if (selectedIds.indexOf(result.id) >= 0) return "";
                 return (
