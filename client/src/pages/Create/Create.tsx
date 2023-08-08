@@ -2,6 +2,7 @@
 
 import "./Create.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import auth from "../../utils/auth";
 import { SearchResult } from "../../components/SearchResult";
@@ -37,7 +38,7 @@ export function Create() {
     oscar: false,
   };
 
-  const userInfo: userData = auth.getProfile();
+  const navigate = useNavigate();
 
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
@@ -85,7 +86,7 @@ export function Create() {
           movieIds: selectedIds,
         },
       });
-      clearAll();
+      navigate(data.addPoll.redirect);
     } catch (err: any) {
       if (err.message.indexOf("urlTitle") > -1) {
         setBuilding(false);

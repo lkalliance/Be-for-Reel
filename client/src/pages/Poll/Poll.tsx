@@ -1,29 +1,38 @@
 // This component renders a poll
 
 import "./Poll.css";
-import { samplePolls } from "../../utils";
 import { useParams, Navigate } from "react-router-dom";
+import { QUERY_SINGLE_POLL } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
+import { optionProps } from "../../utils";
 
 import { Question } from "../../components";
 import { Option } from "../../components";
+import { Key } from "react";
 
 export function Poll() {
-  const { pollId } = useParams();
+  const { username, pollname } = useParams();
 
-  const poll =
-    Number(pollId) < samplePolls.length ? samplePolls[Number(pollId)] : false;
+  const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
+    variables: { username, pollname },
+  });
+
+  const poll = data?.getPoll;
 
   return (
     <section id="poll">
+      This is the poll page
       {poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
-          {poll.options.map((option, index) => {
-            return <Option key={index} opt={option} voted={poll.voted} />;
-          })}
+          {poll.options.map(
+            (option: optionProps, index: Key | null | undefined) => {
+              return <Option key={index} opt={option} voted={poll.voted} />;
+            }
+          )}
         </>
       ) : (
-        <Navigate to="/" replace={true} />
+        <div></div>
       )}
     </section>
   );

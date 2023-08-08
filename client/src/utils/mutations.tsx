@@ -31,6 +31,7 @@ export const ADD_POLL = gql`
     addPoll(title: $title, movieIds: $movieIds, description: $description) {
       poll_id
       poll_title
+      redirect
     }
   }
 `;

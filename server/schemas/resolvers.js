@@ -5,12 +5,28 @@ const fetch = require("axios");
 
 const resolvers = {
   Query: {
-    getPoll: async (parent, args) => {
-      console.log("Got the poll data");
-    },
     getUser: async (parent, { username }) => {
-      const user = User.findOne({ userName: username });
+      const user = await User.findOne({ userName: username });
       return user ? user : false;
+    },
+    getPoll: async (parent, { username, pollname }) => {
+      const poll = await Poll.findOne({ urlTitle: `/${username}/${pollname}` });
+      return poll ? poll : false;
+    },
+    getPolls: async (parent) => {
+      const polls = await Poll.find();
+      const list = polls.map((poll) => {
+        return {
+          poll_id: poll._id,
+          title: poll.title,
+          urlTitle: poll.urlTitle,
+          username: poll.username,
+          votes: poll.votes,
+          comments: poll.comments.length,
+        };
+      });
+
+      return list ? { polls: list } : { polls: false };
     },
   },
   Mutation: {
@@ -84,13 +100,14 @@ const resolvers = {
               genres: movie.genres,
               companies: movie.companies,
               trailer: movie.trailer.link,
+              votes: 0,
             };
             return option;
           })
         );
 
         const today = Date();
-        const urlTitle = `/poll/${context.user.userName}/${title
+        const urlTitle = `/${context.user.userName}/${title
           .toLowerCase()
           .replace(/[^a-zA-Z\d\s:]/g, "")
           .replace(/[\s]/g, "-")}`;
@@ -133,7 +150,7 @@ const resolvers = {
           { new: true }
         );
 
-        return { poll_id: poll._id, poll_title: title };
+        return { poll_id: poll._id, poll_title: title, redirect: urlTitle };
       }
     },
   },

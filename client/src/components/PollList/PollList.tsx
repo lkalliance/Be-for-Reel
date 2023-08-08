@@ -1,26 +1,22 @@
 // This component renders a list of polls
 
 import "./PollList.css";
-import { userPollProps } from "../../utils/interfaces";
+import { pollListProps } from "../../utils/interfaces";
 import { Link } from "react-router-dom";
 
-interface pollListProps {
-  listData: userPollProps[];
-}
-
-export function PollList({ listData }: pollListProps) {
-  console.log(listData);
+export function PollList({ polls }: pollListProps) {
+  console.log(polls);
   return (
     <div>
       <h3>Polls</h3>
-      {listData.length === 0 ? (
+      {[polls].length === 0 ? (
         `No polls created`
       ) : (
         <ul>
-          {listData.map((poll, index) => {
+          {polls.map((poll, index) => {
             return (
               <li key={index}>
-                <Link to={`/poll/${poll.poll_id}`}>{poll.title}</Link>{" "}
+                <Link to={poll.urlTitle}>{poll.title}</Link>{" "}
                 {`${poll.votes} votes and ${poll.comments} comments`}
               </li>
             );
