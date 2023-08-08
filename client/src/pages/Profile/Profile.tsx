@@ -23,7 +23,7 @@ export function Profile() {
         <>
           <h2>{userData.userName}</h2>
           <p>{`member since ${createdOn.getFullYear()}`}</p>
-          {userData ? <PollList listData={sampleUser.polls} /> : <div></div>}
+          {userData ? <PollList polls={sampleUser.polls} /> : <div></div>}
           <h3>Comments</h3>
           {sampleUser.comments.map((comment, index) => {
             return (

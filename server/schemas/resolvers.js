@@ -5,13 +5,28 @@ const fetch = require("axios");
 
 const resolvers = {
   Query: {
+    getUser: async (parent, { username }) => {
+      const user = await User.findOne({ userName: username });
+      return user ? user : false;
+    },
     getPoll: async (parent, { username, pollname }) => {
       const poll = await Poll.findOne({ urlTitle: `/${username}/${pollname}` });
       return poll ? poll : false;
     },
-    getUser: async (parent, { username }) => {
-      const user = User.findOne({ userName: username });
-      return user ? user : false;
+    getPolls: async (parent) => {
+      const polls = await Poll.find();
+      const list = polls.map((poll) => {
+        return {
+          poll_id: poll._id,
+          title: poll.title,
+          urlTitle: poll.urlTitle,
+          username: poll.username,
+          votes: poll.votes,
+          comments: poll.comments.length,
+        };
+      });
+
+      return list ? { polls: list } : { polls: false };
     },
   },
   Mutation: {
@@ -135,7 +150,7 @@ const resolvers = {
           { new: true }
         );
 
-        return { poll_id: poll._id, poll_title: title };
+        return { poll_id: poll._id, poll_title: title, redirect: urlTitle };
       }
     },
   },

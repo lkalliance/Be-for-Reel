@@ -52,3 +52,18 @@ export const QUERY_SINGLE_POLL = gql`
     }
   }
 `;
+
+export const QUERY_ALL_POLLS = gql`
+  query GetPolls($username: String) {
+    getPolls(username: $username) {
+      polls {
+        poll_id
+        title
+        urlTitle
+        username
+        votes
+        comments
+      }
+    }
+  }
+`;

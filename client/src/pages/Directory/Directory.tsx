@@ -2,22 +2,25 @@
 
 import "./Directory.css";
 import { PollListing } from "../../components";
-import { samplePolls } from "../../utils";
+import { QUERY_ALL_POLLS } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
+import { userPollProps } from "../../utils/interfaces";
 
 export function Directory() {
+  const { loading, data } = useQuery(QUERY_ALL_POLLS, {
+    variables: { username: "" },
+  });
+
+  const list = data?.getPolls.polls || false;
+
   return (
     <section id="directory">
       <ul>
-        {samplePolls.map((poll, index) => {
-          return (
-            <PollListing
-              key={index}
-              index={index}
-              poll={poll}
-              voted={poll.voted}
-            />
-          );
-        })}
+        {list
+          ? list.map((poll: userPollProps, index: number) => {
+              return <PollListing key={index} index={index} poll={poll} />;
+            })
+          : ""}
       </ul>
     </section>
   );

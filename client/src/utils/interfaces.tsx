@@ -44,16 +44,24 @@ export interface pollProps {
   username: string;
   created_on: string;
   title: string;
+  urlTitle: string;
   description: string;
-  voted: boolean;
+  votes: number;
   options: optionProps[];
   comments: pollCommentProps[];
+}
+
+export interface pollListProps {
+  // data provided for each poll
+  polls: userPollProps[];
 }
 
 export interface userPollProps {
   // data stored for each poll on User
   poll_id: string;
+  username: string;
   title: string;
+  urlTitle: string;
   votes: number;
   comments: number;
 }

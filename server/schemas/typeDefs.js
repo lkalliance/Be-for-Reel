@@ -87,11 +87,17 @@ const typeDefs = gql`
   type pollReturn {
     poll_id: String!
     poll_title: String!
+    redirect: String!
+  }
+
+  type pollList {
+    polls: [userPolls]
   }
 
   type Query {
     getPoll(username: String!, pollname: String!): Poll
     getUser(username: String!): User
+    getPolls(username: String): pollList
   }
 
   type Mutation {

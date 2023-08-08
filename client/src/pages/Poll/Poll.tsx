@@ -19,8 +19,6 @@ export function Poll() {
 
   const poll = data?.getPoll;
 
-  console.log(poll);
-
   return (
     <section id="poll">
       This is the poll page

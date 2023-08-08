@@ -1,19 +1,17 @@
 // This components renders a single poll listing on a list of polls
 
 import "./PollListing.css";
-import { pollProps } from "../../utils";
+import { userPollProps } from "../../utils/interfaces";
 
 interface listProps {
   index: number;
-  poll: pollProps;
-  voted: boolean;
+  poll: userPollProps;
 }
 
-export function PollListing({ index, poll, voted }: listProps) {
+export function PollListing({ index, poll }: listProps) {
   return (
     <li className="poll-listing">
-      <a href={`/poll/${index}`}>{poll.title}</a>
-      {voted ? <span>You have voted on this poll</span> : ""}
+      <a href={poll.urlTitle}>{poll.title}</a>
     </li>
   );
 }

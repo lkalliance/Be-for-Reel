@@ -8,7 +8,7 @@ export const samplePolls = [
     username: "testuser",
     urlTitle: "best-steven-spielberg-movie",
     created_on: Date(),
-    voted: true,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -115,7 +115,7 @@ export const samplePolls = [
     user_id: "55",
     username: "testuser",
     created_on: Date(),
-    voted: true,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -222,7 +222,7 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
-    voted: false,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -329,7 +329,7 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
-    voted: false,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -436,7 +436,7 @@ export const samplePolls = [
     user_id: "55",
     username: "testuser",
     created_on: Date(),
-    voted: false,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -543,7 +543,7 @@ export const samplePolls = [
     user_id: "2",
     username: "lkalliance",
     created_on: Date(),
-    voted: true,
+    votes: 10,
     options: [
       {
         id: "1",
@@ -650,19 +650,25 @@ export const sampleUser = {
   polls: [
     {
       poll_id: "3",
+      username: "testuser",
       title: "Best Steven Spielberg Movie",
+      urlTitle: "xxxxx",
       votes: 22,
       comments: 10,
     },
     {
       poll_id: "2",
+      username: "testuser",
       title: "Awesome Spielberg Movies",
+      urlTitle: "xxxxx",
       votes: 18,
       comments: 4,
     },
     {
       poll_id: "8",
+      username: "testuser",
       title: "Gregleips Nevets",
+      urlTitle: "xxxxx",
       votes: 3,
       comments: 2,
     },
@@ -672,12 +678,14 @@ export const sampleUser = {
     {
       poll_id: "3",
       title: "Best Steven Spielberg Movies",
+      urlTitle: "xxxxx",
       movie: "Close Encounters of the Third Kind (1977)",
       text: "One of the great films of my youth!",
     },
     {
       poll_id: "17",
       title: "Your pick: best Spielberg film?",
+      urlTitle: "xxxxx",
       movie: "Jaws (1975)",
       text: "The Old Men and the Sea and the man-eating nightmare that made me afraid of the water.",
     },
