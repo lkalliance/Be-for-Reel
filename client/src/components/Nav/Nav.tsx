@@ -10,15 +10,13 @@ interface navProps {
 }
 
 export function Nav({ uname }: navProps) {
-  const userInfo: userData = auth.getProfile();
-
   return (
     <nav>
       <ul>
         {auth.loggedIn() ? (
           <>
             <li>
-              <Link to={`/user/${uname}`}>{`${uname}`}</Link>
+              <Link to={`/${uname}`}>{`${uname}`}</Link>
             </li>
             <li>
               <a
