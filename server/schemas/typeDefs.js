@@ -19,7 +19,7 @@ const typeDefs = gql`
     created: String
     polls: [userPolls]
     comments: [userComments]
-    votes: [String]
+    votes: [userVotes]
   }
 
   type movieRatings {
@@ -48,6 +48,7 @@ const typeDefs = gql`
 
   type pollComment {
     poll_id: String!
+    title: String
     movie: String!
     user_id: String!
     username: String!
@@ -82,6 +83,12 @@ const typeDefs = gql`
     urlTitle: String!
     movie: String!
     text: String!
+  }
+
+  type userVotes {
+    poll_id: String!
+    option_id: String!
+    movie: String
   }
 
   type pollReturn {

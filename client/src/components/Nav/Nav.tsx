@@ -5,7 +5,11 @@ import auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import { userData } from "../../utils/interfaces";
 
-export function Nav() {
+interface navProps {
+  uname: string;
+}
+
+export function Nav({ uname }: navProps) {
   const userInfo: userData = auth.getProfile();
 
   return (
@@ -14,9 +18,7 @@ export function Nav() {
         {auth.loggedIn() ? (
           <>
             <li>
-              <Link
-                to={`/user/${userInfo.username}`}
-              >{`${userInfo.username}`}</Link>
+              <Link to={`/user/${uname}`}>{`${uname}`}</Link>
             </li>
             <li>
               <a

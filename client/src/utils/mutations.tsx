@@ -6,6 +6,10 @@ export const LOGIN = gql`
       token
       user {
         userName
+        votes {
+          poll_id
+          movie
+        }
       }
     }
   }
