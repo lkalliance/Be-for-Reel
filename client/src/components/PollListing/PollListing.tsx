@@ -12,7 +12,7 @@ export function PollListing({ index, poll }: listProps) {
   return (
     <li className="poll-listing">
       <a href={poll.urlTitle}>{poll.title}</a> (
-      {`${poll.votes} votes, ${poll.comments} comments`})
+      {`${poll.username}, ${poll.votes} votes, ${poll.comments} comments`})
     </li>
   );
 }

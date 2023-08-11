@@ -3,7 +3,6 @@
 import "./Nav.css";
 import auth from "../../utils/auth";
 import { Link } from "react-router-dom";
-import { userData } from "../../utils/interfaces";
 
 interface navProps {
   uname: string;
