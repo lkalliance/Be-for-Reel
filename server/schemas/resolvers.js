@@ -9,6 +9,17 @@ const resolvers = {
       const user = await User.findOne({ userName: username });
       return user ? user : false;
     },
+    getMyVotes: async (parent, { username }) => {
+      const empty = { votes: [] };
+      if (username === "") return empty;
+      const user = await User.findOne({ userName: username }, (err, user) => {
+        if (err) {
+          return empty;
+        }
+        return user.votes;
+      });
+      return user ? { votes: user.votes } : false;
+    },
     getPoll: async (parent, { username, pollname }) => {
       const poll = await Poll.findOne({ urlTitle: `/${username}/${pollname}` });
       return poll ? poll : false;
@@ -152,6 +163,13 @@ const resolvers = {
 
         return { poll_id: poll._id, poll_title: title, redirect: urlTitle };
       }
+    },
+    castVote: async (
+      parent,
+      { userName, poll_id, option_id, movie },
+      context
+    ) => {
+      console.log(userName, poll_id, option_id, movie);
     },
   },
 };

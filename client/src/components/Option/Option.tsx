@@ -5,10 +5,13 @@ import { optionProps } from "../../utils";
 
 interface optProps {
   opt: optionProps;
+  poll: string;
   voted: boolean;
 }
 
-export function Option({ opt, voted }: optProps) {
+export function Option({ opt, voted, poll }: optProps) {
+  console.log(poll, opt._id);
+
   return (
     <div className="option">
       <h2>{opt.movie}</h2>

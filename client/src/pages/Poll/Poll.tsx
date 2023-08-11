@@ -1,14 +1,10 @@
 // This component renders a poll
 
 import "./Poll.css";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { QUERY_SINGLE_POLL } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import {
-  optionProps,
-  userPollProps,
-  userVoteProps,
-} from "../../utils/interfaces";
+import { optionProps, userVoteProps } from "../../utils/interfaces";
 
 import { Question } from "../../components";
 import { Option } from "../../components";
@@ -19,8 +15,6 @@ interface pollProps {
   loggedin: boolean;
 }
 
-type voteStatus = "vote" | "show" | "none";
-
 export function Poll({ uvotes, loggedin }: pollProps) {
   const { username, pollname } = useParams();
 
@@ -29,23 +23,28 @@ export function Poll({ uvotes, loggedin }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  let votable: voteStatus;
-  const rnd = Math.random() * 10;
-  votable = rnd < 3 ? "vote" : rnd > 8 ? "none" : "show";
+
+  console.log(poll);
 
   return (
     <section id="poll">
-      {poll && votable === "vote" ? (
+      {poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
-              return <Option key={index} opt={option} voted={poll.voted} />;
+              console.log(option);
+              return (
+                <Option
+                  key={index}
+                  opt={option}
+                  poll={poll._id}
+                  voted={poll.voted}
+                />
+              );
             }
           )}
         </>
-      ) : votable === "show" ? (
-        <div>Show the results</div>
       ) : (
         <div>Show nothing</div>
       )}

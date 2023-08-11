@@ -31,6 +31,7 @@ const typeDefs = gql`
   }
 
   type pollOption {
+    _id: ID
     movie: String!
     imdb_id: String!
     stars: String
@@ -56,6 +57,7 @@ const typeDefs = gql`
   }
 
   type Poll {
+    _id: ID
     title: String!
     urlTitle: String!
     description: String
@@ -103,6 +105,7 @@ const typeDefs = gql`
 
   type Query {
     getPoll(username: String!, pollname: String!): Poll
+    getMyVotes(username: String!): User
     getUser(username: String!): User
     getPolls(username: String): pollList
   }
@@ -115,6 +118,12 @@ const typeDefs = gql`
       description: String
       movieIds: [String]!
     ): pollReturn
+    castVote(
+      userName: String!
+      poll_id: String!
+      option_id: String!
+      movie: String
+    ): Poll
   }
 `;
 

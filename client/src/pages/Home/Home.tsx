@@ -17,7 +17,7 @@ export function Home({ polls }: homeProps) {
           <Card
             key={index}
             title={poll.title}
-            image={poll.options[which].image}
+            image="https://m.media-amazon.com/images/M/MV5BZTY3YjYxZGQtMTM2YS00ZmYwLWFlM2QtOWFlMTU1NTAyZDQ2XkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_Ratio0.6762_AL_.jpg}"
             index={index}
           />
         );

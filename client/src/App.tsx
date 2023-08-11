@@ -28,7 +28,6 @@ const authLink = setContext((_, { headers }) => {
 });
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-
   uri: "http://:3001/graphql",
   cache: new InMemoryCache({
     addTypename: false,
@@ -38,6 +37,8 @@ const client = new ApolloClient({
 function App() {
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
   const userInfo: userData = Auth.getProfile();
+  console.log(userInfo);
+  console.log(samplePolls);
 
   return (
     <ApolloProvider client={client}>
