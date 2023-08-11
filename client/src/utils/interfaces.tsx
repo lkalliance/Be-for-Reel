@@ -52,7 +52,7 @@ interface ratingsProps {
 
 export interface optionProps {
   // data included with each poll option
-  id: string;
+  _id: string;
   movie: string;
   imdb_id: string;
   stars: string;
@@ -80,7 +80,7 @@ interface pollCommentProps {
 
 export interface pollProps {
   // data included with each poll
-  id: string;
+  _id: string;
   user_id: string;
   username: string;
   created_on: string;

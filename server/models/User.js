@@ -18,6 +18,21 @@ const userPolls = new Schema({
   comments: Number,
 });
 
+const userVotes = new Schema({
+  poll_id: {
+    type: String,
+    required: true,
+  },
+  option_id: {
+    type: String,
+    required: true,
+  },
+  movie: {
+    type: String,
+    required: true,
+  },
+});
+
 const userComments = new Schema({
   poll_id: {
     type: String,
@@ -65,7 +80,7 @@ const userSchema = new Schema({
     required: false,
   },
   polls: [userPolls],
-  votes: [String],
+  votes: [userVotes],
   comments: [userComments],
 });
 

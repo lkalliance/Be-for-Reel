@@ -28,9 +28,11 @@ export const QUERY_SINGLE_USER = gql`
 export const QUERY_SINGLE_POLL = gql`
   query GetPoll($username: String!, $pollname: String!) {
     getPoll(username: $username, pollname: $pollname) {
+      _id
       title
       description
       options {
+        _id
         companies
         contentRating
         directors
