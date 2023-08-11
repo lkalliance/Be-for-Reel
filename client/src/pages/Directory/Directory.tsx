@@ -4,9 +4,13 @@ import "./Directory.css";
 import { PollListing } from "../../components";
 import { QUERY_ALL_POLLS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import { userPollProps } from "../../utils/interfaces";
+import { userPollProps, userVoteProps } from "../../utils/interfaces";
 
-export function Directory() {
+interface directoryProps {
+  uvotes: userVoteProps[];
+}
+
+export function Directory({ uvotes }: directoryProps) {
   const { loading, data } = useQuery(QUERY_ALL_POLLS, {
     variables: { username: "" },
   });

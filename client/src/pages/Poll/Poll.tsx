@@ -4,13 +4,24 @@ import "./Poll.css";
 import { useParams, Navigate } from "react-router-dom";
 import { QUERY_SINGLE_POLL } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import { optionProps } from "../../utils";
+import {
+  optionProps,
+  userPollProps,
+  userVoteProps,
+} from "../../utils/interfaces";
 
 import { Question } from "../../components";
 import { Option } from "../../components";
 import { Key } from "react";
 
-export function Poll() {
+interface pollProps {
+  uvotes: userVoteProps[];
+  loggedin: boolean;
+}
+
+type voteStatus = "vote" | "show" | "none";
+
+export function Poll({ uvotes, loggedin }: pollProps) {
   const { username, pollname } = useParams();
 
   const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
@@ -18,11 +29,13 @@ export function Poll() {
   });
 
   const poll = data?.getPoll;
+  let votable: voteStatus;
+  const rnd = Math.random() * 10;
+  votable = rnd < 3 ? "vote" : rnd > 8 ? "none" : "show";
 
   return (
     <section id="poll">
-      This is the poll page
-      {poll ? (
+      {poll && votable === "vote" ? (
         <>
           <Question q={poll.title} d={poll.description} />
           {poll.options.map(
@@ -31,8 +44,10 @@ export function Poll() {
             }
           )}
         </>
+      ) : votable === "show" ? (
+        <div>Show the results</div>
       ) : (
-        <div></div>
+        <div>Show nothing</div>
       )}
     </section>
   );

@@ -4,7 +4,6 @@ import "./Create.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import auth from "../../utils/auth";
 import { SearchResult } from "../../components/SearchResult";
 import { movieProps, userData } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";

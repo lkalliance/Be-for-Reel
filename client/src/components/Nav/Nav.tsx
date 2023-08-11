@@ -3,20 +3,19 @@
 import "./Nav.css";
 import auth from "../../utils/auth";
 import { Link } from "react-router-dom";
-import { userData } from "../../utils/interfaces";
 
-export function Nav() {
-  const userInfo: userData = auth.getProfile();
+interface navProps {
+  uname: string;
+}
 
+export function Nav({ uname }: navProps) {
   return (
     <nav>
       <ul>
         {auth.loggedIn() ? (
           <>
             <li>
-              <Link
-                to={`/user/${userInfo.username}`}
-              >{`${userInfo.username}`}</Link>
+              <Link to={`/${uname}`}>{`${uname}`}</Link>
             </li>
             <li>
               <a

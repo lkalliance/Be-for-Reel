@@ -9,6 +9,7 @@ export const samplePolls = [
     urlTitle: "best-steven-spielberg-movie",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",
@@ -116,6 +117,7 @@ export const samplePolls = [
     username: "testuser",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",
@@ -223,6 +225,7 @@ export const samplePolls = [
     username: "lkalliance",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",
@@ -330,6 +333,7 @@ export const samplePolls = [
     username: "lkalliance",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",
@@ -437,6 +441,7 @@ export const samplePolls = [
     username: "testuser",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",
@@ -544,6 +549,7 @@ export const samplePolls = [
     username: "lkalliance",
     created_on: Date(),
     votes: 10,
+    user_vote: "1",
     options: [
       {
         id: "1",

@@ -3,11 +3,15 @@
 import "./Header.css";
 import { Nav } from "../../components";
 
-export function Header() {
+interface headerProps {
+  uname: string;
+}
+
+export function Header({ uname }: headerProps) {
   return (
     <header>
       <img src="/b4r-full.png" alt="Be for Reel" />
-      <Nav />
+      <Nav uname={uname} />
     </header>
   );
 }

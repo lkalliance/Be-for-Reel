@@ -9,7 +9,11 @@ export const QUERY_SINGLE_USER = gql`
         title
       }
       userName
-      votes
+      votes {
+        poll_id
+        option_id
+        movie
+      }
       comments {
         movie
         poll_id

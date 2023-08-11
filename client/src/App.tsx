@@ -14,6 +14,7 @@ import Auth from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./components";
 import { samplePolls } from "./utils/fakedata";
+import { userData } from "./utils/interfaces";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {
@@ -36,11 +37,12 @@ const client = new ApolloClient({
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+  const userInfo: userData = Auth.getProfile();
 
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Header />
+        <Header uname={userInfo.username} />
         <Routes>
           {/* defaulting to the "About" tab */}
           <Route path="/" element={<Home polls={samplePolls} />} />
@@ -56,7 +58,10 @@ function App() {
               )
             }
           />
-          <Route path="/:username/:pollname" element={<Poll />} />
+          <Route
+            path="/:username/:pollname"
+            element={<Poll uvotes={userInfo.votes} loggedin={loggedIn} />}
+          />
           <Route path="/:username" element={<Profile />} />
           <Route
             path="/create"
@@ -64,7 +69,10 @@ function App() {
               !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
-          <Route path="/polls" element={<Directory />} />
+          <Route
+            path="/polls"
+            element={<Directory uvotes={userInfo.votes} />}
+          />
           <Route path="*" element={<Home polls={samplePolls} />} />
         </Routes>
       </div>
