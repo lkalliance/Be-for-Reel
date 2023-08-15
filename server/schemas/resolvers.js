@@ -166,10 +166,10 @@ const resolvers = {
     },
     castVote: async (
       parent,
-      { userName, poll_id, option_id, movie },
+      { userName, poll_id, option_id, movie, comment },
       context
     ) => {
-      console.log(userName, poll_id, option_id, movie);
+      console.log(userName, poll_id, option_id, movie, comment);
     },
   },
 };

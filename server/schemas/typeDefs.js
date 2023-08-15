@@ -123,6 +123,7 @@ const typeDefs = gql`
       poll_id: String!
       option_id: String!
       movie: String
+      comment: String
     ): Poll
   }
 `;

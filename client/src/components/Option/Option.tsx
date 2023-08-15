@@ -7,11 +7,10 @@ interface optProps {
   opt: optionProps;
   poll: string;
   voted: boolean;
+  handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Option({ opt, voted, poll }: optProps) {
-  console.log(poll, opt._id);
-
+export function Option({ opt, voted, poll, handleVote }: optProps) {
   return (
     <div className="option">
       <h2>{opt.movie}</h2>
@@ -33,7 +32,13 @@ export function Option({ opt, voted, poll }: optProps) {
           <a href={opt.trailer} target="_blank" rel="noreferrer">
             Trailer
           </a>
-          {voted ? "" : <button>Vote for me!</button>}
+          {voted ? (
+            ""
+          ) : (
+            <button id={`${opt.movie}-${poll}-${opt._id}`} onClick={handleVote}>
+              Vote for me!
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -61,7 +61,13 @@ function App() {
           />
           <Route
             path="/:username/:pollname"
-            element={<Poll uvotes={userInfo.votes} loggedin={loggedIn} />}
+            element={
+              <Poll
+                uvotes={userInfo.votes}
+                loggedin={loggedIn}
+                currUser={userInfo.username}
+              />
+            }
           />
           <Route path="/:username" element={<Profile />} />
           <Route

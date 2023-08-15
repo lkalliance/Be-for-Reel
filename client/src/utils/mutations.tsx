@@ -44,15 +44,17 @@ export const ADD_POLL = gql`
 export const VOTE = gql`
   mutation CastVote(
     $userName: String!
-    $pollId: String!
-    $optionId: String!
+    $poll_id: String!
+    $option_id: String!
     $movie: String
+    $comment: String
   ) {
     castVote(
       userName: $userName
-      poll_id: $pollId
-      option_id: $optionId
+      poll_id: $poll_id
+      option_id: $option_id
       movie: $movie
+      comment: $comment
     ) {
       title
       options {
