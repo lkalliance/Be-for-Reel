@@ -30,7 +30,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
           movie: voteData[0],
           poll_id: voteData[1],
           option_id: voteData[2],
-          comment: "This is a fake comment",
+          comment: "xxxxxx",
         },
       });
     } catch (err: any) {

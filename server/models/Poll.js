@@ -89,7 +89,7 @@ const pollComment = new Schema({
     required: true,
   },
   text: {
-    type: Boolean,
+    type: String,
     required: true,
   },
 });

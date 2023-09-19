@@ -169,17 +169,39 @@ const resolvers = {
       { userName, poll_id, option_id, movie, comment },
       context
     ) => {
+      console.log(context.user);
       console.log(userName, poll_id, option_id, movie, comment);
       console.log(comment.length);
-      let updatedUser;
-      const whichPoll = await Poll.findOneAndUpdate(
-        { _id: poll_id },
-        { $addToSet: { votes: option_id } },
-        { new: true }
-      );
-      console.log(whichPoll);
+      let updatedUser, whichPoll;
       if (comment.length > 0) {
-        console.log("adding a vote and a comment");
+        console.log("adding a vote and a comment to poll");
+        whichPoll = await Poll.findOneAndUpdate(
+          { _id: poll_id },
+          {
+            $push: { votes: option_id },
+
+            $addToSet: {
+              comments: {
+                poll_id,
+                user_id: context.user._id,
+                username: userName,
+                movie,
+                text: comment,
+              },
+            },
+          },
+          { new: true }
+        );
+      } else {
+        console.log("adding a vote only to poll");
+        whichPoll = await Poll.findOneAndUpdate(
+          { _id: poll_id },
+          { $push: { votes: option_id } },
+          { new: true }
+        );
+      }
+      if (comment.length > 0) {
+        console.log("adding a vote and a comment to user");
         updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
@@ -187,7 +209,7 @@ const resolvers = {
               votes: { poll_id, option_id, movie },
               comments: {
                 poll_id,
-                user_id: context.user.username,
+                username: context.user.userName,
                 title: whichPoll.title,
                 urlTitle: whichPoll.urlTitle,
                 movie,
@@ -198,14 +220,12 @@ const resolvers = {
           { new: true }
         );
       } else {
-        console.log("adding a vote only");
+        console.log("adding a vote only to user");
         updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { votes: { poll_id, option_id, movie } } }
         );
       }
-
-      console.log(updatedUser);
     },
   },
 };
