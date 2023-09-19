@@ -30,6 +30,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
           movie: voteData[0],
           poll_id: voteData[1],
           option_id: voteData[2],
+          comment: "This is a fake comment",
         },
       });
     } catch (err: any) {
@@ -45,7 +46,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
 
   return (
     <section id="poll">
-      {poll ? (
+      {loggedin && poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
           {poll.options.map(

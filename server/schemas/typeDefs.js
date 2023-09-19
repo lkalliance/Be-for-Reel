@@ -66,7 +66,7 @@ const typeDefs = gql`
     created_on: String!
     options: [pollOption]
     comments: [pollComment]
-    votes: Int
+    votes: [String]
   }
 
   type userPolls {

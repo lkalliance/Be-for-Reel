@@ -32,7 +32,7 @@ const resolvers = {
           title: poll.title,
           urlTitle: poll.urlTitle,
           username: poll.username,
-          votes: poll.votes,
+          votes: poll.votes.length,
           comments: poll.comments.length,
         };
       });
@@ -133,7 +133,7 @@ const resolvers = {
           created_on: today,
           options,
           comments: [],
-          votes: 0,
+          votes: [],
         };
 
         // construct the object to be stored to the User
@@ -170,6 +170,42 @@ const resolvers = {
       context
     ) => {
       console.log(userName, poll_id, option_id, movie, comment);
+      console.log(comment.length);
+      let updatedUser;
+      const whichPoll = await Poll.findOneAndUpdate(
+        { _id: poll_id },
+        { $addToSet: { votes: option_id } },
+        { new: true }
+      );
+      console.log(whichPoll);
+      if (comment.length > 0) {
+        console.log("adding a vote and a comment");
+        updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: {
+              votes: { poll_id, option_id, movie },
+              comments: {
+                poll_id,
+                user_id: context.user.username,
+                title: whichPoll.title,
+                urlTitle: whichPoll.urlTitle,
+                movie,
+                text: comment,
+              },
+            },
+          },
+          { new: true }
+        );
+      } else {
+        console.log("adding a vote only");
+        updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { votes: { poll_id, option_id, movie } } }
+        );
+      }
+
+      console.log(updatedUser);
     },
   },
 };

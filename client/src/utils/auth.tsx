@@ -22,6 +22,7 @@ class AuthService {
       const userInfo: userInfoReturn = decode(this.getToken());
       return {
         username: userInfo.data.userName,
+        email: userInfo.data.email,
         id: userInfo.data._id,
         votes: userInfo.data.votes,
       };
