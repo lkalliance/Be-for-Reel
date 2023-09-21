@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const { User, Poll } = require("../models");
+const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
 
 const resolvers = {
@@ -116,11 +116,19 @@ const resolvers = {
               trailer: movie.trailer.link,
               votes: 0,
             };
+
+            const isMovie = await Movie.findOne({ imdb_id: movie.id });
+            if (!isMovie) {
+              const newMovie = await Movie.create({
+                imdb_id: movie.id,
+                image: movie.image,
+                title: movie.title,
+              });
+            }
+
             return option;
           })
         );
-
-        console.log(options);
 
         const today = Date();
         const urlTitle = `/${context.user.userName}/${title
@@ -164,7 +172,7 @@ const resolvers = {
           {
             $addToSet: { polls: newUserPoll },
           },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
 
         return { poll_id: poll._id, title, redirect: urlTitle };
@@ -172,11 +180,12 @@ const resolvers = {
     },
     castVote: async (
       parent,
-      { userName, poll_id, option_id, movie, comment },
+      { userName, poll_id, option_id, movie, imdb_id, comment },
       context
     ) => {
       let updatedUser, whichPoll;
       console.log(option_id);
+      console.log(imdb_id);
       if (comment.length > 0) {
         console.log("adding a vote and a comment to poll");
         whichPoll = await Poll.findOneAndUpdate(
@@ -193,13 +202,13 @@ const resolvers = {
               },
             },
           },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
       } else {
         whichPoll = await Poll.findOneAndUpdate(
           { _id: poll_id },
           { $push: { votes: option_id, voters: context.user._id } },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
       }
       if (comment.length > 0) {
@@ -219,7 +228,7 @@ const resolvers = {
             },
             $push: { voted: poll_id },
           },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
       } else {
         console.log("adding a vote only to user");
@@ -228,9 +237,15 @@ const resolvers = {
           {
             $addToSet: { votes: { poll_id, option_id, movie } },
             $push: { voted: poll_id },
-          }
+          },
+          { useFindAndModify: false }
         );
       }
+      const updatedMovie = await Movie.findOneAndUpdate(
+        { imdb_id: imdb_id },
+        { $inc: { votes: 1 } },
+        { new: true, useFindAndModify: false, upsert: true }
+      );
     },
   },
 };

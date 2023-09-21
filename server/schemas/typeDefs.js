@@ -104,6 +104,13 @@ const typeDefs = gql`
     polls: [userPolls]
   }
 
+  type Movie {
+    imdb_id: String!
+    title: String!
+    image: String
+    votes: Int
+  }
+
   type Query {
     getPoll(username: String!, pollname: String!): Poll
     getMyVotes(username: String!): User
@@ -124,6 +131,7 @@ const typeDefs = gql`
       poll_id: String!
       option_id: String!
       movie: String
+      imdb_id: String
       comment: String
     ): Poll
   }

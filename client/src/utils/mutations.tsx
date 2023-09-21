@@ -46,6 +46,7 @@ export const VOTE = gql`
     $poll_id: String!
     $option_id: String!
     $movie: String
+    $imdb_id: String
     $comment: String
   ) {
     castVote(
@@ -53,6 +54,7 @@ export const VOTE = gql`
       poll_id: $poll_id
       option_id: $option_id
       movie: $movie
+      imdb_id: $imdb_id
       comment: $comment
     ) {
       title

@@ -36,7 +36,7 @@ export function Option({ opt, voted, poll, handleVote }: optProps) {
             ""
           ) : (
             <button
-              id={`${opt.movie}&&&${poll}&&&${opt._id}`}
+              id={`${opt.movie}&&&${poll}&&&${opt._id}&&&${opt.imdb_id}`}
               onClick={handleVote}
             >
               Vote for me!
