@@ -34,8 +34,7 @@ export const ADD_POLL = gql`
     $description: String
   ) {
     addPoll(title: $title, movieIds: $movieIds, description: $description) {
-      poll_id
-      poll_title
+      title
       redirect
     }
   }
@@ -72,7 +71,6 @@ export const VOTE = gql`
         }
         stars
         trailer
-        votes
         wikipedia
       }
     }

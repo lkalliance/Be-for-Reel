@@ -126,6 +126,10 @@ const pollSchema = new Schema({
     type: [String],
     required: true,
   },
+  voters: {
+    type: [String],
+    required: true,
+  },
 });
 
 const Poll = model("Poll", pollSchema);

@@ -82,6 +82,9 @@ const resolvers = {
 
     addPoll: async (parent, { title, description, movieIds }, context) => {
       // make sure the user is actually logged in
+      console.log(title);
+      console.log(description);
+      console.log(movieIds);
       if (context.user) {
         const options = await Promise.all(
           movieIds.map(async (id) => {
@@ -117,6 +120,8 @@ const resolvers = {
           })
         );
 
+        console.log(options);
+
         const today = Date();
         const urlTitle = `/${context.user.userName}/${title
           .toLowerCase()
@@ -134,6 +139,7 @@ const resolvers = {
           options,
           comments: [],
           votes: [],
+          voters: [],
         };
 
         // construct the object to be stored to the User
@@ -161,7 +167,7 @@ const resolvers = {
           { new: true }
         );
 
-        return { poll_id: poll._id, poll_title: title, redirect: urlTitle };
+        return { poll_id: poll._id, title, redirect: urlTitle };
       }
     },
     castVote: async (
@@ -169,17 +175,14 @@ const resolvers = {
       { userName, poll_id, option_id, movie, comment },
       context
     ) => {
-      console.log(context.user);
-      console.log(userName, poll_id, option_id, movie, comment);
-      console.log(comment.length);
       let updatedUser, whichPoll;
+      console.log(option_id);
       if (comment.length > 0) {
         console.log("adding a vote and a comment to poll");
         whichPoll = await Poll.findOneAndUpdate(
           { _id: poll_id },
           {
-            $push: { votes: option_id },
-
+            $push: { voters: context.user._id, votes: option_id },
             $addToSet: {
               comments: {
                 poll_id,
@@ -193,15 +196,13 @@ const resolvers = {
           { new: true }
         );
       } else {
-        console.log("adding a vote only to poll");
         whichPoll = await Poll.findOneAndUpdate(
           { _id: poll_id },
-          { $push: { votes: option_id } },
+          { $push: { votes: option_id, voters: context.user._id } },
           { new: true }
         );
       }
       if (comment.length > 0) {
-        console.log("adding a vote and a comment to user");
         updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
@@ -216,6 +217,7 @@ const resolvers = {
                 text: comment,
               },
             },
+            $push: { voted: poll_id },
           },
           { new: true }
         );
@@ -223,7 +225,10 @@ const resolvers = {
         console.log("adding a vote only to user");
         updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { votes: { poll_id, option_id, movie } } }
+          {
+            $addToSet: { votes: { poll_id, option_id, movie } },
+            $push: { voted: poll_id },
+          }
         );
       }
     },

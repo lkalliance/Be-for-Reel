@@ -22,7 +22,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   const [castVote] = useMutation(VOTE);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const voteData = e.currentTarget.id.split("-");
+    const voteData = e.currentTarget.id.split("&&&");
     try {
       const { data } = await castVote({
         variables: {

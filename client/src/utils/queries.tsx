@@ -48,12 +48,13 @@ export const QUERY_SINGLE_POLL = gql`
         stars
         trailer
         wikipedia
-        votes
       }
       comments {
         text
         username
       }
+      votes
+      voters
       created_on
     }
   }

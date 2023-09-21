@@ -87,7 +87,7 @@ export interface pollProps {
   title: string;
   urlTitle: string;
   description: string;
-  votes: number;
+  votes: string[];
   options: optionProps[];
   comments: pollCommentProps[];
 }

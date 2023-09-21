@@ -85,6 +85,7 @@ export function Create() {
           movieIds: selectedIds,
         },
       });
+      console.log(data.addPoll);
       navigate(data.addPoll.redirect);
     } catch (err: any) {
       if (err.message.indexOf("urlTitle") > -1) {
