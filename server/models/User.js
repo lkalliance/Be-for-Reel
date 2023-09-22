@@ -81,6 +81,7 @@ const userSchema = new Schema({
   },
   polls: [userPolls],
   votes: [userVotes],
+  voted: [String],
   comments: [userComments],
 });
 

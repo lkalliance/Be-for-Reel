@@ -20,6 +20,7 @@ const typeDefs = gql`
     polls: [userPolls]
     comments: [userComments]
     votes: [userVotes]
+    voted: [String]
   }
 
   type movieRatings {
@@ -44,7 +45,6 @@ const typeDefs = gql`
     genres: String
     companies: String
     trailer: String
-    votes: Int
   }
 
   type pollComment {
@@ -66,14 +66,15 @@ const typeDefs = gql`
     created_on: String!
     options: [pollOption]
     comments: [pollComment]
-    votes: Int
+    votes: [String]
+    voters: [String]
   }
 
   type userPolls {
     poll_id: String!
+    username: String!
     title: String!
     urlTitle: String!
-    username: String!
     votes: Int
     comments: Int
   }
@@ -94,13 +95,20 @@ const typeDefs = gql`
   }
 
   type pollReturn {
-    poll_id: String!
-    poll_title: String!
-    redirect: String!
+    poll_id: String
+    title: String
+    redirect: String
   }
 
   type pollList {
     polls: [userPolls]
+  }
+
+  type Movie {
+    imdb_id: String!
+    title: String!
+    image: String
+    votes: Int
   }
 
   type Query {
@@ -123,6 +131,8 @@ const typeDefs = gql`
       poll_id: String!
       option_id: String!
       movie: String
+      imdb_id: String
+      comment: String
     ): Poll
   }
 `;

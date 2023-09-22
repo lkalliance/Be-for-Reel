@@ -69,10 +69,6 @@ const pollOption = new Schema({
     type: String,
     required: false,
   },
-  votes: {
-    type: Number,
-    required: true,
-  },
 });
 
 const pollComment = new Schema({
@@ -93,7 +89,7 @@ const pollComment = new Schema({
     required: true,
   },
   text: {
-    type: Boolean,
+    type: String,
     required: true,
   },
 });
@@ -127,7 +123,11 @@ const pollSchema = new Schema({
   options: [pollOption],
   comments: [pollComment],
   votes: {
-    type: Number,
+    type: [String],
+    required: true,
+  },
+  voters: {
+    type: [String],
     required: true,
   },
 });

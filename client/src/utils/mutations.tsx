@@ -34,8 +34,7 @@ export const ADD_POLL = gql`
     $description: String
   ) {
     addPoll(title: $title, movieIds: $movieIds, description: $description) {
-      poll_id
-      poll_title
+      title
       redirect
     }
   }
@@ -44,15 +43,19 @@ export const ADD_POLL = gql`
 export const VOTE = gql`
   mutation CastVote(
     $userName: String!
-    $pollId: String!
-    $optionId: String!
+    $poll_id: String!
+    $option_id: String!
     $movie: String
+    $imdb_id: String
+    $comment: String
   ) {
     castVote(
       userName: $userName
-      poll_id: $pollId
-      option_id: $optionId
+      poll_id: $poll_id
+      option_id: $option_id
       movie: $movie
+      imdb_id: $imdb_id
+      comment: $comment
     ) {
       title
       options {
@@ -70,7 +73,6 @@ export const VOTE = gql`
         }
         stars
         trailer
-        votes
         wikipedia
       }
     }

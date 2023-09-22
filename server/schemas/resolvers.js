@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const { User, Poll } = require("../models");
+const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
 
 const resolvers = {
@@ -32,7 +32,7 @@ const resolvers = {
           title: poll.title,
           urlTitle: poll.urlTitle,
           username: poll.username,
-          votes: poll.votes,
+          votes: poll.votes.length,
           comments: poll.comments.length,
         };
       });
@@ -82,6 +82,9 @@ const resolvers = {
 
     addPoll: async (parent, { title, description, movieIds }, context) => {
       // make sure the user is actually logged in
+      console.log(title);
+      console.log(description);
+      console.log(movieIds);
       if (context.user) {
         const options = await Promise.all(
           movieIds.map(async (id) => {
@@ -113,6 +116,16 @@ const resolvers = {
               trailer: movie.trailer.link,
               votes: 0,
             };
+
+            const isMovie = await Movie.findOne({ imdb_id: movie.id });
+            if (!isMovie) {
+              const newMovie = await Movie.create({
+                imdb_id: movie.id,
+                image: movie.image,
+                title: movie.title,
+              });
+            }
+
             return option;
           })
         );
@@ -133,7 +146,8 @@ const resolvers = {
           created_on: today,
           options,
           comments: [],
-          votes: 0,
+          votes: [],
+          voters: [],
         };
 
         // construct the object to be stored to the User
@@ -158,18 +172,80 @@ const resolvers = {
           {
             $addToSet: { polls: newUserPoll },
           },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
 
-        return { poll_id: poll._id, poll_title: title, redirect: urlTitle };
+        return { poll_id: poll._id, title, redirect: urlTitle };
       }
     },
     castVote: async (
       parent,
-      { userName, poll_id, option_id, movie },
+      { userName, poll_id, option_id, movie, imdb_id, comment },
       context
     ) => {
-      console.log(userName, poll_id, option_id, movie);
+      let updatedUser, whichPoll;
+      console.log(option_id);
+      console.log(imdb_id);
+      if (comment.length > 0) {
+        console.log("adding a vote and a comment to poll");
+        whichPoll = await Poll.findOneAndUpdate(
+          { _id: poll_id },
+          {
+            $push: { voters: context.user._id, votes: option_id },
+            $addToSet: {
+              comments: {
+                poll_id,
+                user_id: context.user._id,
+                username: userName,
+                movie,
+                text: comment,
+              },
+            },
+          },
+          { new: true, useFindAndModify: false }
+        );
+      } else {
+        whichPoll = await Poll.findOneAndUpdate(
+          { _id: poll_id },
+          { $push: { votes: option_id, voters: context.user._id } },
+          { new: true, useFindAndModify: false }
+        );
+      }
+      if (comment.length > 0) {
+        updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: {
+              votes: { poll_id, option_id, movie },
+              comments: {
+                poll_id,
+                username: context.user.userName,
+                title: whichPoll.title,
+                urlTitle: whichPoll.urlTitle,
+                movie,
+                text: comment,
+              },
+            },
+            $push: { voted: poll_id },
+          },
+          { new: true, useFindAndModify: false }
+        );
+      } else {
+        console.log("adding a vote only to user");
+        updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { votes: { poll_id, option_id, movie } },
+            $push: { voted: poll_id },
+          },
+          { useFindAndModify: false }
+        );
+      }
+      const updatedMovie = await Movie.findOneAndUpdate(
+        { imdb_id: imdb_id },
+        { $inc: { votes: 1 } },
+        { new: true, useFindAndModify: false, upsert: true }
+      );
     },
   },
 };
