@@ -1,7 +1,7 @@
 // This component renders the Create a Poll page
 
 import "./Create.css";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SearchResult } from "../../components/SearchResult";
@@ -23,6 +23,11 @@ interface pollOptions {
   title: string;
   description: string;
 }
+
+// interface createProps {
+//   updateList: Dispatch<SetStateAction<number>>;
+//   currentList: number;
+// }
 
 export function Create() {
   // used to reset options values
@@ -86,6 +91,7 @@ export function Create() {
         },
       });
       console.log(data.addPoll);
+      // updateList(currentList + 1);
       navigate(data.addPoll.redirect);
     } catch (err: any) {
       if (err.message.indexOf("urlTitle") > -1) {

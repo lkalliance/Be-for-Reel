@@ -36,6 +36,7 @@ const client = new ApolloClient({
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+  // const [newPoll, setNewPoll] = useState(0);
   const userInfo: userData = Auth.getProfile();
   console.log(userInfo);
   console.log(samplePolls);
@@ -73,11 +74,17 @@ function App() {
           <Route
             path="/create"
             element={
-              !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
+              !Auth.loggedIn() ? (
+                <Navigate to="/" replace={true} />
+              ) : (
+                // <Create updateList={setNewPoll} currentList={newPoll} />
+                <Create />
+              )
             }
           />
           <Route
             path="/polls"
+            // element={<Directory uvotes={userInfo.votes} newPoll={newPoll} />}
             element={<Directory uvotes={userInfo.votes} />}
           />
           <Route path="*" element={<Home polls={samplePolls} />} />
