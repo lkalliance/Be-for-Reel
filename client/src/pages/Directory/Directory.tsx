@@ -1,19 +1,31 @@
 // This component renders a poll directory page
 
 import "./Directory.css";
-// import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+// import { useRecoilState, selector } from "recoil";
+// import { pollDirectoryAtom } from "../../recoil/atoms/pollDirectoryAtom";
 import { PollListing } from "../../components";
 import { QUERY_ALL_POLLS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import { userPollProps, userVoteProps } from "../../utils/interfaces";
+import {
+  userPollProps,
+  userVoteProps,
+  pollListProps,
+} from "../../utils/interfaces";
 
 interface directoryProps {
   uvotes: userVoteProps[];
-  // newPoll: number;
+  pollList: pollListProps;
+  downloaded: boolean;
+  setDownloaded: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Directory({ uvotes }: directoryProps) {
-  // const [reloader, setReloader] = useState(0);
+export function Directory({
+  uvotes,
+  pollList,
+  downloaded,
+  setDownloaded,
+}: directoryProps) {
   const { loading, data } = useQuery(QUERY_ALL_POLLS, {
     variables: { username: "" },
   });
@@ -22,7 +34,6 @@ export function Directory({ uvotes }: directoryProps) {
 
   return (
     <section id="directory">
-      {/* <div id="sortaState">{newPoll}</div> */}
       <ul>
         {list
           ? list.map((poll: userPollProps, index: number) => {

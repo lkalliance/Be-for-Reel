@@ -25,6 +25,7 @@ const resolvers = {
       return poll ? poll : false;
     },
     getPolls: async (parent) => {
+      console.log("I'm getting polls");
       const polls = await Poll.find();
       const list = polls.map((poll) => {
         return {
@@ -82,9 +83,6 @@ const resolvers = {
 
     addPoll: async (parent, { title, description, movieIds }, context) => {
       // make sure the user is actually logged in
-      console.log(title);
-      console.log(description);
-      console.log(movieIds);
       if (context.user) {
         const options = await Promise.all(
           movieIds.map(async (id) => {
@@ -183,69 +181,101 @@ const resolvers = {
       { userName, poll_id, option_id, movie, imdb_id, comment },
       context
     ) => {
-      let updatedUser, whichPoll;
-      console.log(option_id);
-      console.log(imdb_id);
-      if (comment.length > 0) {
-        console.log("adding a vote and a comment to poll");
-        whichPoll = await Poll.findOneAndUpdate(
-          { _id: poll_id },
-          {
-            $push: { voters: context.user._id, votes: option_id },
-            $addToSet: {
-              comments: {
-                poll_id,
-                user_id: context.user._id,
-                username: userName,
-                movie,
-                text: comment,
+      // make sure the user is actually logged in
+      if (context.user) {
+        let updatedUser, whichPoll, pollUser;
+
+        // if the user has already voted on this poll, leave
+        console.log(context.user);
+        const pollCheck = await Poll.findOne({ _id: poll_id });
+        if (pollCheck.voters.includes(context.user._id))
+          return new Error("You have already voted in this poll");
+
+        // first: update the poll
+        if (comment.length > 0) {
+          // if there's a comment, add the vote and the comment
+          whichPoll = await Poll.findOneAndUpdate(
+            { _id: poll_id },
+            {
+              $push: { voters: context.user._id, votes: option_id },
+              $addToSet: {
+                comments: {
+                  poll_id,
+                  user_id: context.user._id,
+                  username: userName,
+                  movie,
+                  text: comment,
+                },
               },
             },
-          },
-          { new: true, useFindAndModify: false }
-        );
-      } else {
-        whichPoll = await Poll.findOneAndUpdate(
-          { _id: poll_id },
-          { $push: { votes: option_id, voters: context.user._id } },
-          { new: true, useFindAndModify: false }
-        );
-      }
-      if (comment.length > 0) {
-        updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          {
-            $addToSet: {
-              votes: { poll_id, option_id, movie },
-              comments: {
-                poll_id,
-                username: context.user.userName,
-                title: whichPoll.title,
-                urlTitle: whichPoll.urlTitle,
-                movie,
-                text: comment,
+            { new: true, useFindAndModify: false }
+          );
+        } else {
+          // if there's no comment, just add the vote
+          whichPoll = await Poll.findOneAndUpdate(
+            { _id: poll_id },
+            { $push: { votes: option_id, voters: context.user._id } },
+            { new: true, useFindAndModify: false }
+          );
+        }
+
+        // second: update the user that voted
+        if (comment.length > 0) {
+          // if there's a comment, add it and the vote
+          updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            {
+              $addToSet: {
+                votes: { poll_id, option_id, movie },
+                comments: {
+                  poll_id,
+                  username: context.user.userName,
+                  title: whichPoll.title,
+                  urlTitle: whichPoll.urlTitle,
+                  movie,
+                  text: comment,
+                },
               },
+              $push: { voted: poll_id },
             },
-            $push: { voted: poll_id },
-          },
-          { new: true, useFindAndModify: false }
-        );
-      } else {
-        console.log("adding a vote only to user");
-        updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          {
-            $addToSet: { votes: { poll_id, option_id, movie } },
-            $push: { voted: poll_id },
-          },
-          { useFindAndModify: false }
+            { new: true, useFindAndModify: false }
+          );
+        } else {
+          // if there's no comment, just add the vote
+          updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            {
+              $addToSet: { votes: { poll_id, option_id, movie } },
+              $push: { voted: poll_id },
+            },
+            { useFindAndModify: false }
+          );
+        }
+
+        // third: update the poll stored on the user record
+        if (comment.length > 0) {
+          // if there's a comment, add it and the vote
+          pollUser = await User.findOneAndUpdate(
+            { _id: whichPoll.user_id, "polls.poll_id": whichPoll._id },
+            { $inc: { "polls.$.votes": 1, "polls.$.comments": 1 } },
+            { new: true, useFindAndModify: false }
+          );
+        } else {
+          // if there's no comment, just add the vote
+          pollUser = await User.findOneAndUpdate(
+            { _id: whichPoll.user_id, "polls.poll_id": whichPoll._id },
+            { $inc: { "polls.$.votes": 1 } },
+            { new: true, useFindAndModify: false }
+          );
+        }
+
+        // fourth: update the movie's overall vote count
+        const updatedMovie = await Movie.findOneAndUpdate(
+          { imdb_id: imdb_id },
+          { $inc: { votes: 1 } },
+          { new: true, useFindAndModify: false, upsert: true }
         );
       }
-      const updatedMovie = await Movie.findOneAndUpdate(
-        { imdb_id: imdb_id },
-        { $inc: { votes: 1 } },
-        { new: true, useFindAndModify: false, upsert: true }
-      );
     },
   },
 };

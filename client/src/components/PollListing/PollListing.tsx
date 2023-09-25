@@ -2,6 +2,7 @@
 
 import "./PollListing.css";
 import { userPollProps } from "../../utils/interfaces";
+import { useNavigate } from "react-router-dom";
 
 interface listProps {
   index: number;
@@ -9,10 +10,17 @@ interface listProps {
 }
 
 export function PollListing({ index, poll }: listProps) {
+  const navigate = useNavigate();
+  const clickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigate(poll.urlTitle);
+  };
   return (
     <li className="poll-listing">
-      <a href={poll.urlTitle}>{poll.title}</a> (
-      {`${poll.username}, ${poll.votes} votes, ${poll.comments} comments`})
+      <a href="#" onClick={clickHandler}>
+        {poll.title}
+      </a>{" "}
+      ({`${poll.username}, ${poll.votes} votes, ${poll.comments} comments`})
     </li>
   );
 }
