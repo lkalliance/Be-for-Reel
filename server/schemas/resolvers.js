@@ -25,6 +25,7 @@ const resolvers = {
       return poll ? poll : false;
     },
     getPolls: async (parent) => {
+      console.log("I'm getting polls");
       const polls = await Poll.find();
       const list = polls.map((poll) => {
         return {

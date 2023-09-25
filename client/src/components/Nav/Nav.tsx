@@ -2,7 +2,7 @@
 
 import "./Nav.css";
 import auth from "../../utils/auth";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface navProps {
   uname: string;
@@ -15,7 +15,7 @@ export function Nav({ uname }: navProps) {
         {auth.loggedIn() ? (
           <>
             <li>
-              <Link to={`/${uname}`}>{`${uname}`}</Link>
+              <NavLink to={`/${uname}`}>{`${uname}`}</NavLink>
             </li>
             <li>
               <a
@@ -29,7 +29,7 @@ export function Nav({ uname }: navProps) {
               </a>
             </li>
             <li>
-              <Link to="/create">Create a Poll</Link>
+              <NavLink to="/create">Create a Poll</NavLink>
             </li>
           </>
         ) : (
@@ -38,10 +38,10 @@ export function Nav({ uname }: navProps) {
           </li>
         )}
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/polls">Polls</Link>
+          <NavLink to="/polls">Polls</NavLink>
         </li>
       </ul>
     </nav>
