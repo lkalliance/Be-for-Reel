@@ -12,7 +12,7 @@ export interface userPollProps {
   comments: number;
 }
 
-interface userCommentProps {
+export interface userCommentProps {
   // data stored for each user comment
   poll_id: string;
   username: string;

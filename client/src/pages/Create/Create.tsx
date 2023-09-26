@@ -4,11 +4,9 @@ import "./Create.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { pollDirectoryAtom } from "../../recoil/atoms/pollDirectoryAtom";
 import { pollListProps } from "../../utils/interfaces";
 import { SearchResult } from "../../components/SearchResult";
-import { movieProps, userData } from "../../utils/interfaces";
+import { movieProps } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS } from "../../utils/queries";
 
@@ -67,21 +65,21 @@ export function Create({ updateList, currentList }: createProps) {
     refetchQueries: [QUERY_ALL_POLLS],
   });
 
-  const clearAll = () => {
-    setSearchField("");
-    setOptions(blankOptions as searchOptions);
-    setResults([]);
-    setSelected([]);
-    setSelectedIds([]);
-    setPollData({
-      title: "",
-      description: "",
-    });
-    setErrorMessage("");
-    setSearching(false);
-    setBuilding(false);
-    setNoResults(false);
-  };
+  // const clearAll = () => {
+  //   setSearchField("");
+  //   setOptions(blankOptions as searchOptions);
+  //   setResults([]);
+  //   setSelected([]);
+  //   setSelectedIds([]);
+  //   setPollData({
+  //     title: "",
+  //     description: "",
+  //   });
+  //   setErrorMessage("");
+  //   setSearching(false);
+  //   setBuilding(false);
+  //   setNoResults(false);
+  // };
 
   const handleCreate = async () => {
     // handler for submission of quiz to be created

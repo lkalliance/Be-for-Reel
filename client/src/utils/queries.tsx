@@ -7,6 +7,9 @@ export const QUERY_SINGLE_USER = gql`
       polls {
         poll_id
         title
+        urlTitle
+        votes
+        comments
       }
       userName
       votes {
