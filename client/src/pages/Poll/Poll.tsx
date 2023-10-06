@@ -1,11 +1,18 @@
 // This component renders a poll
 
 import "./Poll.css";
+import { TextareaHTMLAttributes, useState } from "react";
 import { useParams } from "react-router-dom";
-import { QUERY_SINGLE_POLL } from "../../utils/queries";
+import {
+  QUERY_SINGLE_POLL,
+  QUERY_ALL_POLLS,
+  QUERY_SINGLE_USER,
+} from "../../utils/queries";
 import { VOTE } from "../../utils/mutations";
+import Auth from "../../utils/auth";
+
 import { useQuery, useMutation } from "@apollo/client";
-import { optionProps, userVoteProps } from "../../utils/interfaces";
+import { optionProps, userVoteProps, userData } from "../../utils/interfaces";
 
 import { Question } from "../../components";
 import { Option } from "../../components";
@@ -19,7 +26,25 @@ interface pollProps {
 
 export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   const { username, pollname } = useParams();
-  const [castVote] = useMutation(VOTE);
+  const userInfo: userData = Auth.getProfile();
+
+  const [castVote] = useMutation(VOTE, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ALL_POLLS,
+        variables: { username: "" },
+      },
+      {
+        query: QUERY_SINGLE_USER,
+        variables: { username: userInfo.username },
+      },
+    ],
+  });
+  const [comment, setComment] = useState("");
+
+  const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+  };
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const voteData = e.currentTarget.id.split("&&&");
@@ -31,9 +56,10 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
           poll_id: voteData[1],
           option_id: voteData[2],
           imdb_id: voteData[3],
-          comment: "xxxxxx",
+          comment,
         },
       });
+      setComment("");
     } catch (err: any) {
       console.log(err);
     }
@@ -50,6 +76,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
       {loggedin && poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
+          <textarea id="comment" onChange={handleComment}></textarea>
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (

@@ -4,13 +4,11 @@ import "./Create.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { pollDirectoryAtom } from "../../recoil/atoms/pollDirectoryAtom";
-import { pollListProps } from "../../utils/interfaces";
 import { SearchResult } from "../../components/SearchResult";
-import { movieProps, userData } from "../../utils/interfaces";
+import { movieProps, pollListProps, userData } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
-import { QUERY_ALL_POLLS } from "../../utils/queries";
+import Auth from "../../utils/auth";
+import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 
 interface searchOptions {
   from: string;
@@ -63,25 +61,36 @@ export function Create({ updateList, currentList }: createProps) {
   const [noResults, setNoResults] = useState<boolean>(false);
   const [building, setBuilding] = useState<boolean>(false);
 
+  const userInfo: userData = Auth.getProfile();
+
   const [addPoll] = useMutation(ADD_POLL, {
-    refetchQueries: [QUERY_ALL_POLLS],
+    refetchQueries: () => [
+      {
+        query: QUERY_ALL_POLLS,
+        variables: { username: "" },
+      },
+      {
+        query: QUERY_SINGLE_USER,
+        variables: { username: userInfo.username },
+      },
+    ],
   });
 
-  const clearAll = () => {
-    setSearchField("");
-    setOptions(blankOptions as searchOptions);
-    setResults([]);
-    setSelected([]);
-    setSelectedIds([]);
-    setPollData({
-      title: "",
-      description: "",
-    });
-    setErrorMessage("");
-    setSearching(false);
-    setBuilding(false);
-    setNoResults(false);
-  };
+  // const clearAll = () => {
+  //   setSearchField("");
+  //   setOptions(blankOptions as searchOptions);
+  //   setResults([]);
+  //   setSelected([]);
+  //   setSelectedIds([]);
+  //   setPollData({
+  //     title: "",
+  //     description: "",
+  //   });
+  //   setErrorMessage("");
+  //   setSearching(false);
+  //   setBuilding(false);
+  //   setNoResults(false);
+  // };
 
   const handleCreate = async () => {
     // handler for submission of quiz to be created
