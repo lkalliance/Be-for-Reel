@@ -1,6 +1,7 @@
 // This component renders a poll
 
 import "./Poll.css";
+import { TextareaHTMLAttributes, useState } from "react";
 import { useParams } from "react-router-dom";
 import { QUERY_SINGLE_POLL } from "../../utils/queries";
 import { VOTE } from "../../utils/mutations";
@@ -20,6 +21,11 @@ interface pollProps {
 export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   const { username, pollname } = useParams();
   const [castVote] = useMutation(VOTE);
+  const [comment, setComment] = useState("");
+
+  const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+  };
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const voteData = e.currentTarget.id.split("&&&");
@@ -31,9 +37,10 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
           poll_id: voteData[1],
           option_id: voteData[2],
           imdb_id: voteData[3],
-          comment: "xxxxxx",
+          comment,
         },
       });
+      setComment("");
     } catch (err: any) {
       console.log(err);
     }
@@ -50,6 +57,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
       {loggedin && poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
+          <textarea id="comment" onChange={handleComment}></textarea>
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (

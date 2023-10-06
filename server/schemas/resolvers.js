@@ -185,6 +185,8 @@ const resolvers = {
       if (context.user) {
         let updatedUser, whichPoll, pollUser;
 
+        console.log(comment);
+
         // if the user has already voted on this poll, leave
         console.log(context.user);
         const pollCheck = await Poll.findOne({ _id: poll_id });
