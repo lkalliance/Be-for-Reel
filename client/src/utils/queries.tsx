@@ -55,6 +55,7 @@ export const QUERY_SINGLE_POLL = gql`
       comments {
         text
         username
+        movie
       }
       votes
       voters

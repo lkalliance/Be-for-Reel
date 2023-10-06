@@ -68,7 +68,7 @@ export interface optionProps {
   votes: number;
 }
 
-interface pollCommentProps {
+export interface pollCommentProps {
   // data included with each comment on the poll
   poll_id: string;
   title: string;
