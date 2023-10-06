@@ -12,10 +12,14 @@ import { VOTE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 import { useQuery, useMutation } from "@apollo/client";
-import { optionProps, userVoteProps, userData } from "../../utils/interfaces";
+import {
+  optionProps,
+  userVoteProps,
+  userData,
+  pollCommentProps,
+} from "../../utils/interfaces";
 
-import { Question } from "../../components";
-import { Option } from "../../components";
+import { Question, Option, Comment } from "../../components";
 import { Key } from "react";
 
 interface pollProps {
@@ -70,6 +74,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
+  console.log(poll);
 
   return (
     <section id="poll">
@@ -89,6 +94,18 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
                 />
               );
             }
+          )}
+          {poll.comments.length > 0 ? (
+            <div>
+              <h3>User comments</h3>
+              {poll.comments.map(
+                (comment: pollCommentProps, index: Key | null | undefined) => {
+                  return <Comment key={index} comm={comment}></Comment>;
+                }
+              )}
+            </div>
+          ) : (
+            <div></div>
           )}
         </>
       ) : (
