@@ -42,6 +42,10 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
         query: QUERY_SINGLE_USER,
         variables: { username: userInfo.username },
       },
+      {
+        query: QUERY_SINGLE_POLL,
+        variables: { username, pollname },
+      },
     ],
   });
   const [comment, setComment] = useState("");
@@ -64,6 +68,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
         },
       });
       setComment("");
+      console.log(document.querySelector("#comment"));
     } catch (err: any) {
       console.log(err);
     }
@@ -74,14 +79,17 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  console.log(poll);
 
   return (
     <section id="poll">
       {loggedin && poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
-          <textarea id="comment" onChange={handleComment}></textarea>
+          <textarea
+            id="comment"
+            onChange={handleComment}
+            value={comment}
+          ></textarea>
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (
@@ -100,6 +108,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
               <h3>User comments</h3>
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
+                  console.log(comment);
                   return <Comment key={index} comm={comment}></Comment>;
                 }
               )}

@@ -186,6 +186,11 @@ const resolvers = {
         let updatedUser, whichPoll, pollUser;
 
         console.log(comment);
+        console.log(movie);
+        console.log(imdb_id);
+        console.log(poll_id);
+        console.log(option_id);
+        console.log(userName);
 
         // if the user has already voted on this poll, leave
         console.log(context.user);
