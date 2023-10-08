@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const url = `mongodb+srv://lkalliance:${process.env.DB_PASSWORD}@lkalliance.jkjosg0.mongodb.net/br4_db?retryWrites=true&w=majority`;
+
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/be_for_reel_db",
+  // process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/b4r_db",
+  url,
   { useNewUrlParser: true },
   { useUnifiedTopology: true }
 );
-
-// const url = `mongodb+srv://lkalliance:${process.env.DB_PASSWORD}@lkalliance.jkjosg0.mongodb.net/shelf_life_db?retryWrites=true&w=majority`;
 
 // mongoose.connect(url, {
 //   useNewUrlParser: true,
