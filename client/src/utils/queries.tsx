@@ -78,3 +78,21 @@ export const QUERY_ALL_POLLS = gql`
     }
   }
 `;
+
+export const QUERY_HOME_POLLS = gql`
+  query GetHomePolls {
+    getHomePolls {
+      polls {
+        _id
+        title
+        urlTitle
+        username
+        description
+        options {
+          image
+        }
+        created_on
+      }
+    }
+  }
+`;

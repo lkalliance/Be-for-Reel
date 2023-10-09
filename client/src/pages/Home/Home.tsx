@@ -3,25 +3,34 @@
 import "./Home.css";
 import { Card } from "../../components";
 import { pollProps } from "../../utils";
+import { useQuery } from "@apollo/client";
+import { QUERY_HOME_POLLS } from "../../utils/queries";
 
 interface homeProps {
   polls: pollProps[];
 }
 
 export function Home({ polls }: homeProps) {
+  const { loading, data } = useQuery(QUERY_HOME_POLLS);
+  if (!loading) console.log(data.getHomePolls.polls);
   return (
     <section id="home">
-      {polls.map((poll: pollProps, index: number) => {
-        const which = index > 3 ? 3 : index;
-        return (
-          <Card
-            key={index}
-            title={poll.title}
-            image="https://m.media-amazon.com/images/M/MV5BZTY3YjYxZGQtMTM2YS00ZmYwLWFlM2QtOWFlMTU1NTAyZDQ2XkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_Ratio0.6762_AL_.jpg}"
-            index={index}
-          />
-        );
-      })}
+      {loading ? (
+        <div>loading...</div>
+      ) : (
+        data.getHomePolls.polls.map((poll: pollProps, index: number) => {
+          const whichPoster = Math.trunc(Math.random() * poll.options.length);
+          return (
+            <Card
+              key={index}
+              title={poll.title}
+              urlTitle={poll.urlTitle}
+              poster={poll.options[whichPoster].image}
+              user={poll.username}
+            />
+          );
+        })
+      )}
     </section>
   );
 }

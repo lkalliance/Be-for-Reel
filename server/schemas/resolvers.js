@@ -27,6 +27,7 @@ const resolvers = {
     getPolls: async (parent) => {
       console.log("I'm getting polls");
       const polls = await Poll.find();
+      console.log(polls);
       const list = polls.map((poll) => {
         return {
           poll_id: poll._id,
@@ -37,6 +38,32 @@ const resolvers = {
           comments: poll.comments.length,
         };
       });
+
+      return list ? { polls: list } : { polls: false };
+    },
+    getHomePolls: async (parent) => {
+      console.log("I'm getting home polls");
+      const polls = await Poll.find();
+
+      // create a list of random indexes
+      const pollList = [];
+      while (pollList.length < 6) {
+        const rand = Math.trunc(Math.random() * polls.length);
+        if (pollList.indexOf(rand) === -1) pollList.push(rand);
+      }
+
+      const list = pollList.map((pollIndex) => {
+        return {
+          _id: polls[pollIndex]._id,
+          title: polls[pollIndex].title,
+          urlTitle: polls[pollIndex].urlTitle,
+          username: polls[pollIndex].username,
+          options: polls[pollIndex].options,
+          created_on: polls[pollIndex].created_on,
+        };
+      });
+
+      console.log(list);
 
       return list ? { polls: list } : { polls: false };
     },
