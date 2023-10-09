@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { Schema, model } = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const userPolls = new Schema({
   poll_id: {
@@ -66,6 +67,11 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  compareUserName: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   email: {
     type: String,
     required: true,
@@ -84,6 +90,9 @@ const userSchema = new Schema({
   voted: [String],
   comments: [userComments],
 });
+
+// include the unique validator
+userSchema.plugin(uniqueValidator);
 
 // set up pre-save middleware to create password
 userSchema.pre("save", async function (next) {

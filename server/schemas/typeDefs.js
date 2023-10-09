@@ -14,6 +14,7 @@ const typeDefs = gql`
 
   type User {
     userName: String!
+    compareUserName: String!
     email: String!
     password: String!
     created: String
