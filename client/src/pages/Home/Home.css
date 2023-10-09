@@ -1,5 +1,7 @@
 section#home {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 section#home img {

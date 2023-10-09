@@ -12,7 +12,6 @@ interface homeProps {
 
 export function Home({ polls }: homeProps) {
   const { loading, data } = useQuery(QUERY_HOME_POLLS);
-  if (!loading) console.log(data.getHomePolls.polls);
   return (
     <section id="home">
       {loading ? (
