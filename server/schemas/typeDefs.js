@@ -71,6 +71,10 @@ const typeDefs = gql`
     voters: [String]
   }
 
+  type homePolls {
+    polls: [Poll]
+  }
+
   type userPolls {
     poll_id: String!
     username: String!
@@ -117,6 +121,7 @@ const typeDefs = gql`
     getMyVotes(username: String!): User
     getUser(username: String!): User
     getPolls(username: String): pollList
+    getHomePolls: homePolls
   }
 
   type Mutation {
