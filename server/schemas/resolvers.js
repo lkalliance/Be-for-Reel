@@ -168,9 +168,14 @@ const resolvers = {
         );
 
         const today = Date();
-        const urlTitle = `/${context.user.userName}/${title
+        const pathUserName = context.user.userName
+          .replaceAll(/\s+/g, " ")
+          .replace(/[^A-Za-z0-9\s-]/g, "")
+          .replaceAll(" ", "-")
+          .toLowerCase();
+        const urlTitle = `/${pathUserName}/${title
           .toLowerCase()
-          .replace(/[^a-zA-Z\d\s:]/g, "")
+          .replace(/[^a-zA-Z\d\s]/g, "")
           .replace(/[\s]+/g, "-")}`;
 
         // construct the object to be stored to the Polls collection
