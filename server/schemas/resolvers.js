@@ -75,14 +75,14 @@ const resolvers = {
       const alteredUserName = userName
         .replaceAll(/\s+/g, " ")
         .replace(/[^A-Za-z0-9\s]/g, "");
-      console.log(userName);
-      console.log(alteredUserName);
-      const user = await User.findOne({ userName: alteredUserName });
+      const userUname = await User.findOne({ userName: alteredUserName });
+      const userEmail = await User.findOne({ email: userName });
 
-      if (!user) {
+      if (!userUname && !userEmail) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
+      const user = userUname || userEmail;
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
