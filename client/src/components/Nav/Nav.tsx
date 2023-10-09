@@ -34,7 +34,7 @@ export function Nav({ uname }: navProps) {
           </>
         ) : (
           <li>
-            <a href="/login">Log in or sign up</a>
+            <NavLink to="/login">Log in or sign up</NavLink>
           </li>
         )}
         <li>
