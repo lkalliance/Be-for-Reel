@@ -54,10 +54,10 @@ export function LoginForm({ setLogIn }: loginState) {
 
   return (
     <form>
-      <label>username</label>
+      <label>username or email</label>
       <input
         type="text"
-        placeholder="username"
+        placeholder="username or email"
         id="loginUsername"
         name="loginUsername"
         value={loginForm.loginUsername}

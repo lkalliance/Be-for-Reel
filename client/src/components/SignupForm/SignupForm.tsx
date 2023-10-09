@@ -38,6 +38,7 @@ export function SignupForm({ setLogIn }: loginState) {
       setSignupForm({ ...signupForm, signupPassword: "" });
       return false;
     }
+
     return true;
   };
 
@@ -89,7 +90,10 @@ export function SignupForm({ setLogIn }: loginState) {
       }
     } catch (err: any) {
       // evaluate returned error for type of failure
-      if (err.message.indexOf("userName") > -1) {
+      if (
+        err.message.indexOf("userName") > -1 ||
+        err.message.indexOf("compareUserName") > -1
+      ) {
         setErrorMessage(
           `The username "${signupForm.signupUsername}" has already been used.`
         );

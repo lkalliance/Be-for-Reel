@@ -46,8 +46,15 @@ const resolvers = {
       const { userName, email, password } = args;
 
       const today = Date();
+      const alteredUserName = userName
+        .replaceAll(/\s+/g, " ")
+        .replace(/[^A-Za-z0-9\s]/g, "");
+      const comparisonUserName = alteredUserName
+        .replaceAll(" ", "-")
+        .toLowerCase();
       const newUser = {
-        userName,
+        userName: alteredUserName,
+        compareUserName: comparisonUserName,
         email,
         password,
         created: today,
@@ -65,12 +72,17 @@ const resolvers = {
     },
 
     login: async (parent, { userName, password }) => {
-      const user = await User.findOne({ userName });
+      const alteredUserName = userName
+        .replaceAll(/\s+/g, " ")
+        .replace(/[^A-Za-z0-9\s]/g, "");
+      const userUname = await User.findOne({ userName: alteredUserName });
+      const userEmail = await User.findOne({ email: userName });
 
-      if (!user) {
+      if (!userUname && !userEmail) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
+      const user = userUname || userEmail;
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
@@ -132,7 +144,7 @@ const resolvers = {
         const urlTitle = `/${context.user.userName}/${title
           .toLowerCase()
           .replace(/[^a-zA-Z\d\s:]/g, "")
-          .replace(/[\s]/g, "-")}`;
+          .replace(/[\s]+/g, "-")}`;
 
         // construct the object to be stored to the Polls collection
         const newPoll = {
