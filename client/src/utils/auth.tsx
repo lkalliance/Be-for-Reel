@@ -1,16 +1,7 @@
 // Various functions having to do with logging in and out
 
 import decode from "jwt-decode";
-import { userVoteProps } from "./interfaces";
-
-interface userData {
-  email: string;
-  userName: string;
-  votes: userVoteProps[];
-  _id: string;
-  iat: number;
-  exp: number;
-}
+import { userVoteProps, userData } from "./interfaces";
 
 interface userInfoReturn {
   data: userData;
@@ -21,13 +12,14 @@ class AuthService {
     if (this.loggedIn()) {
       const userInfo: userInfoReturn = decode(this.getToken());
       return {
-        username: userInfo.data.userName,
+        userName: userInfo.data.userName,
         email: userInfo.data.email,
-        id: userInfo.data._id,
+        _id: userInfo.data._id,
+        compareUserName: userInfo.data.compareUserName,
         votes: userInfo.data.votes,
       };
     }
-    return { username: "", id: "", votes: [] };
+    return { userName: "", _id: "", email: "", compareUserName: "", votes: [] };
   }
 
   loggedIn() {

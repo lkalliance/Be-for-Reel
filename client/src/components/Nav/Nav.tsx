@@ -6,16 +6,17 @@ import { NavLink } from "react-router-dom";
 
 interface navProps {
   uname: string;
+  lookup: string;
 }
 
-export function Nav({ uname }: navProps) {
+export function Nav({ uname, lookup }: navProps) {
   return (
     <nav>
       <ul>
         {auth.loggedIn() ? (
           <>
             <li>
-              <NavLink to={`/${uname}`}>{`${uname}`}</NavLink>
+              <NavLink to={`/${lookup}`}>{`${uname}`}</NavLink>
             </li>
             <li>
               <a

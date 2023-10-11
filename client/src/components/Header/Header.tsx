@@ -5,13 +5,14 @@ import { Nav } from "../../components";
 
 interface headerProps {
   uname: string;
+  lookup: string;
 }
 
-export function Header({ uname }: headerProps) {
+export function Header({ uname, lookup }: headerProps) {
   return (
     <header>
       <img src="/b4r-full.png" alt="Be for Reel" />
-      <Nav uname={uname} />
+      <Nav uname={uname} lookup={lookup} />
     </header>
   );
 }

@@ -6,7 +6,7 @@ const fetch = require("axios");
 const resolvers = {
   Query: {
     getUser: async (parent, { username }) => {
-      const user = await User.findOne({ userName: username });
+      const user = await User.findOne({ compareUserName: username });
       return user ? user : false;
     },
     getMyVotes: async (parent, { username }) => {
@@ -75,8 +75,9 @@ const resolvers = {
       const today = Date();
       const alteredUserName = userName
         .replaceAll(/\s+/g, " ")
-        .replace(/[^A-Za-z0-9\s]/g, "");
+        .replace(/[^A-Za-z0-9\s\'\‘]/g, "");
       const comparisonUserName = alteredUserName
+        .replace(/[\'\‘']/g, "")
         .replaceAll(" ", "-")
         .toLowerCase();
       const newUser = {
@@ -100,9 +101,14 @@ const resolvers = {
 
     login: async (parent, { userName, password }) => {
       const alteredUserName = userName
-        .replaceAll(/\s+/g, " ")
-        .replace(/[^A-Za-z0-9\s]/g, "");
-      const userUname = await User.findOne({ userName: alteredUserName });
+        .replace(/\s+/g, " ")
+        .replace(/[^A-Za-z0-9\s]/g, "")
+        .replace(/[\s]/g, "-")
+        .toLowerCase();
+
+      const userUname = await User.findOne({
+        compareUserName: alteredUserName,
+      });
       const userEmail = await User.findOne({ email: userName });
 
       if (!userUname && !userEmail) {

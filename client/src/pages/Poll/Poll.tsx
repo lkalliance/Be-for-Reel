@@ -40,7 +40,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
       },
       {
         query: QUERY_SINGLE_USER,
-        variables: { username: userInfo.username },
+        variables: { username: userInfo.userName },
       },
       {
         query: QUERY_SINGLE_POLL,

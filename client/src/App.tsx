@@ -41,10 +41,12 @@ function App() {
   const [pollDownload, setPollDownload] = useState(false);
   const userInfo: userData = Auth.getProfile();
 
+  console.log(userInfo);
+
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Header uname={userInfo.username} />
+        <Header uname={userInfo.userName} lookup={userInfo.compareUserName} />
         <Routes>
           {/* defaulting to the "About" tab */}
           <Route path="/" element={<Home polls={samplePolls} />} />
@@ -66,7 +68,7 @@ function App() {
               <Poll
                 uvotes={userInfo.votes}
                 loggedin={loggedIn}
-                currUser={userInfo.username}
+                currUser={userInfo.userName}
               />
             }
           />
