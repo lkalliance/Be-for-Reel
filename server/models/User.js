@@ -67,7 +67,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  compareUserName: {
+  lookupName: {
     type: String,
     required: true,
     unique: true,

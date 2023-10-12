@@ -103,8 +103,10 @@ export interface loginState {
 }
 
 export type userData = {
-  username: string;
-  id: string;
+  userName: string;
+  lookupName: string;
+  _id: string;
+  email: string;
   votes: userVoteProps[];
 };
 

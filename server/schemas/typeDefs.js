@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type User {
     userName: String!
-    compareUserName: String!
+    lookupName: String!
     email: String!
     password: String!
     created: String
@@ -117,9 +117,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    getPoll(username: String!, pollname: String!): Poll
+    getPoll(lookupname: String!, pollname: String!): Poll
     getMyVotes(username: String!): User
-    getUser(username: String!): User
+    getUser(lookupname: String!): User
     getPolls(username: String): pollList
     getHomePolls: homePolls
   }

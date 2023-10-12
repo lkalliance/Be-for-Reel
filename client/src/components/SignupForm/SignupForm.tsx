@@ -77,6 +77,7 @@ export function SignupForm({ setLogIn }: loginState) {
           },
         });
 
+        console.log("Submitting the username");
         await Auth.login(data.addUser.token);
         // if the addition successful, show as logged in
         setLogIn(true);
@@ -92,7 +93,7 @@ export function SignupForm({ setLogIn }: loginState) {
       // evaluate returned error for type of failure
       if (
         err.message.indexOf("userName") > -1 ||
-        err.message.indexOf("compareUserName") > -1
+        err.message.indexOf("lookupName") > -1
       ) {
         setErrorMessage(
           `The username "${signupForm.signupUsername}" has already been used.`
