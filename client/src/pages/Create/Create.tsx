@@ -71,7 +71,7 @@ export function Create({ updateList, currentList }: createProps) {
       },
       {
         query: QUERY_SINGLE_USER,
-        variables: { username: userInfo.userName },
+        variables: { lookupname: userInfo.lookupName },
       },
     ],
   });

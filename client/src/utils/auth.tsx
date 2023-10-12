@@ -15,11 +15,11 @@ class AuthService {
         userName: userInfo.data.userName,
         email: userInfo.data.email,
         _id: userInfo.data._id,
-        compareUserName: userInfo.data.compareUserName,
+        lookupName: userInfo.data.lookupName,
         votes: userInfo.data.votes,
       };
     }
-    return { userName: "", _id: "", email: "", compareUserName: "", votes: [] };
+    return { userName: "", _id: "", email: "", lookupName: "", votes: [] };
   }
 
   loggedIn() {

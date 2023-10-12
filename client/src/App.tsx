@@ -46,7 +46,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Header uname={userInfo.userName} lookup={userInfo.compareUserName} />
+        <Header uname={userInfo.userName} lookup={userInfo.lookupName} />
         <Routes>
           {/* defaulting to the "About" tab */}
           <Route path="/" element={<Home polls={samplePolls} />} />
@@ -63,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path="/:username/:pollname"
+            path="/:lookupname/:pollname"
             element={
               <Poll
                 uvotes={userInfo.votes}

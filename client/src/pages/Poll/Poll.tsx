@@ -29,7 +29,7 @@ interface pollProps {
 }
 
 export function Poll({ uvotes, loggedin, currUser }: pollProps) {
-  const { username, pollname } = useParams();
+  const { lookupname, pollname } = useParams();
   const userInfo: userData = Auth.getProfile();
 
   const [castVote] = useMutation(VOTE, {
@@ -40,11 +40,11 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
       },
       {
         query: QUERY_SINGLE_USER,
-        variables: { username: userInfo.userName },
+        variables: { lookupname: userInfo.lookupName },
       },
       {
         query: QUERY_SINGLE_POLL,
-        variables: { username, pollname },
+        variables: { lookupname, pollname },
       },
     ],
   });
@@ -75,10 +75,12 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   };
 
   const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
-    variables: { username, pollname },
+    variables: { lookupname, pollname },
   });
 
   const poll = data?.getPoll;
+
+  console.log(poll);
 
   return (
     <section id="poll">

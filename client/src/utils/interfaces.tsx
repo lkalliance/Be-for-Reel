@@ -104,7 +104,7 @@ export interface loginState {
 
 export type userData = {
   userName: string;
-  compareUserName: string;
+  lookupName: string;
   _id: string;
   email: string;
   votes: userVoteProps[];

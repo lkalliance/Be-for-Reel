@@ -1,12 +1,17 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+const {
+  cleanUsername,
+  createLookupName,
+  createUrlTitle,
+} = require("../utils/typeUtils");
 const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
 
 const resolvers = {
   Query: {
-    getUser: async (parent, { username }) => {
-      const user = await User.findOne({ compareUserName: username });
+    getUser: async (parent, { lookupname }) => {
+      const user = await User.findOne({ lookupName: lookupname });
       return user ? user : false;
     },
     getMyVotes: async (parent, { username }) => {
@@ -20,14 +25,16 @@ const resolvers = {
       });
       return user ? { votes: user.votes } : false;
     },
-    getPoll: async (parent, { username, pollname }) => {
-      const poll = await Poll.findOne({ urlTitle: `/${username}/${pollname}` });
+    getPoll: async (parent, { lookupname, pollname }) => {
+      console.log(lookupname);
+      const poll = await Poll.findOne({
+        urlTitle: `/${lookupname}/${pollname}`,
+      });
       return poll ? poll : false;
     },
     getPolls: async (parent) => {
       console.log("I'm getting polls");
       const polls = await Poll.find();
-      console.log(polls);
       const list = polls.map((poll) => {
         return {
           poll_id: poll._id,
@@ -63,26 +70,20 @@ const resolvers = {
         };
       });
 
-      console.log(list);
-
       return list ? { polls: list } : { polls: false };
     },
   },
   Mutation: {
     addUser: async (parent, args) => {
+      console.log("I'm adding a user");
       const { userName, email, password } = args;
 
       const today = Date();
-      const alteredUserName = userName
-        .replaceAll(/\s+/g, " ")
-        .replace(/[^A-Za-z0-9\s\'\‘]/g, "");
-      const comparisonUserName = alteredUserName
-        .replace(/[\'\‘']/g, "")
-        .replaceAll(" ", "-")
-        .toLowerCase();
+      const cleanedUserName = cleanUsername(userName);
+      const lookupName = createLookupName(userName);
       const newUser = {
-        userName: alteredUserName,
-        compareUserName: comparisonUserName,
+        userName: cleanedUserName,
+        lookupName,
         email,
         password,
         created: today,
@@ -100,14 +101,10 @@ const resolvers = {
     },
 
     login: async (parent, { userName, password }) => {
-      const alteredUserName = userName
-        .replace(/\s+/g, " ")
-        .replace(/[^A-Za-z0-9\s]/g, "")
-        .replace(/[\s]/g, "-")
-        .toLowerCase();
+      const lookupName = createLookupName(userName);
 
       const userUname = await User.findOne({
-        compareUserName: alteredUserName,
+        lookupName,
       });
       const userEmail = await User.findOne({ email: userName });
 
@@ -174,15 +171,7 @@ const resolvers = {
         );
 
         const today = Date();
-        const pathUserName = context.user.userName
-          .replaceAll(/\s+/g, " ")
-          .replace(/[^A-Za-z0-9\s]/g, "")
-          .replaceAll(" ", "-")
-          .toLowerCase();
-        const urlTitle = `/${pathUserName}/${title
-          .toLowerCase()
-          .replace(/[^a-zA-Z\d\s\-]/g, "")
-          .replace(/[\s]+/g, "-")}`;
+        const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
 
         // construct the object to be stored to the Polls collection
         const newPoll = {

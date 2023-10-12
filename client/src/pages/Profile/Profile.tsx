@@ -14,7 +14,7 @@ export function Profile() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loading, data } = useQuery(QUERY_SINGLE_USER, {
-    variables: { username },
+    variables: { lookupname: username },
   });
 
   const userData = data?.getUser || {};
@@ -32,6 +32,7 @@ export function Profile() {
             return (
               <div key={index}>
                 <h4>{comment.title}</h4>
+                <h6>{comment.movie}</h6>
                 {comment.text}
                 <div>
                   poll: <Link to={comment.urlTitle}>{comment.title}</Link>
