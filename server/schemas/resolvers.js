@@ -224,15 +224,7 @@ const resolvers = {
       if (context.user) {
         let updatedUser, whichPoll, pollUser;
 
-        console.log(comment);
-        console.log(movie);
-        console.log(imdb_id);
-        console.log(poll_id);
-        console.log(option_id);
-        console.log(userName);
-
         // if the user has already voted on this poll, leave
-        console.log(context.user);
         const pollCheck = await Poll.findOne({ _id: poll_id });
         if (pollCheck.voters.includes(context.user._id))
           return new Error("You have already voted in this poll");
@@ -294,9 +286,12 @@ const resolvers = {
               $addToSet: { votes: { poll_id, option_id, movie } },
               $push: { voted: poll_id },
             },
-            { useFindAndModify: false }
+            { new: true, useFindAndModify: false }
           );
         }
+        // update his token
+
+        const token = signToken(updatedUser);
 
         // third: update the poll stored on the user record
         if (comment.length > 0) {
@@ -321,6 +316,9 @@ const resolvers = {
           { $inc: { votes: 1 } },
           { new: true, useFindAndModify: false, upsert: true }
         );
+
+        // return the updated Poll and token
+        return { poll: whichPoll, token: { token, user: updatedUser } };
       }
     },
   },

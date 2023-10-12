@@ -108,6 +108,7 @@ export type userData = {
   _id: string;
   email: string;
   votes: userVoteProps[];
+  voted: string[];
 };
 
 // These interfaces are used for the return from IMDb's title search

@@ -68,7 +68,8 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
         },
       });
       setComment("");
-      console.log(document.querySelector("#comment"));
+
+      await Auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
     }
@@ -79,8 +80,15 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
+  console.log(data);
 
-  console.log(poll);
+  console.log(
+    data
+      ? userInfo.voted.includes(poll._id)
+        ? "You have voted in this poll"
+        : "You have not voted in this poll"
+      : "Waiting for data"
+  );
 
   return (
     <section id="poll">
