@@ -13,7 +13,6 @@ import { setContext } from "@apollo/client/link/context";
 import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./components";
-import { samplePolls } from "./utils/fakedata";
 import { userData, userPollProps } from "./utils/interfaces";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
@@ -39,7 +38,6 @@ function App() {
   const emptyPollList: Array<userPollProps> = [];
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
   const [pollList, setPollList] = useState({ polls: emptyPollList });
-  const [pollDownload, setPollDownload] = useState(false);
   const userInfo: userData = Auth.getProfile();
 
   return (
@@ -48,8 +46,7 @@ function App() {
         <Header uname={userInfo.userName} lookup={userInfo.lookupName} />
         <Routes>
           {/* defaulting to the "About" tab */}
-          <Route path="/" element={<Home polls={samplePolls} />} />
-          {/* <Route index element={<Navigate to="/" />} /> */}
+          <Route path="/" element={<Home />} />
 
           <Route
             path="/login"
@@ -73,22 +70,11 @@ function App() {
                 <Navigate to="/" replace={true} />
               ) : (
                 <Create updateList={setPollList} currentList={pollList} />
-                // <Create />
               )
             }
           />
-          <Route
-            path="/polls"
-            element={
-              <Directory
-                pollList={pollList}
-                downloaded={pollDownload}
-                setDownloaded={setPollDownload}
-              />
-            }
-            // element={<Directory uvotes={userInfo.votes} />}
-          />
-          <Route path="*" element={<Home polls={samplePolls} />} />
+          <Route path="/polls" element={<Directory />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
     </ApolloProvider>

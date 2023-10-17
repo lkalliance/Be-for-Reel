@@ -1,7 +1,7 @@
 // Various functions having to do with logging in and out
 
 import decode from "jwt-decode";
-import { userVoteProps, userData } from "./interfaces";
+import { userData } from "./interfaces";
 
 interface userInfoReturn {
   data: userData;
@@ -12,10 +12,13 @@ export class AuthService {
     if (this.loggedIn()) {
       const userInfo: userInfoReturn = decode(this.getToken());
       return {
+        // user name to display
         userName: userInfo.data.userName,
         email: userInfo.data.email,
         _id: userInfo.data._id,
+        // user name to lookup
         lookupName: userInfo.data.lookupName,
+        // object that holds user's votes for reference
         votes: userInfo.data.votes,
       };
     }
@@ -33,14 +36,14 @@ export class AuthService {
     return token ? true : false;
   }
 
-  isTokenExpired(token: string) {
-    const decoded = decode(token);
-    // if (decoded.exp < Date.now() / 1000) {
-    //   localStorage.removeItem("id_token");
-    //   return true;
-    // }
-    return false;
-  }
+  // isTokenExpired(token: string) {
+  //   const decoded = decode(token);
+  //   if (decoded.exp < Date.now() / 1000) {
+  //     localStorage.removeItem("id_token");
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   getToken() {
     return localStorage.getItem("id_token") || "";
@@ -48,7 +51,6 @@ export class AuthService {
 
   login(idToken: string) {
     localStorage.setItem("id_token", idToken);
-    // window.location.assign("/");
   }
 
   logout() {
@@ -57,5 +59,3 @@ export class AuthService {
     window.location.assign("/");
   }
 }
-
-const authService = new AuthService();

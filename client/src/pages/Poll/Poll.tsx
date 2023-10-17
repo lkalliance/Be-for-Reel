@@ -1,8 +1,8 @@
 // This component renders a poll
 
 import "./Poll.css";
-import { TextareaHTMLAttributes, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   QUERY_SINGLE_POLL,
   QUERY_ALL_POLLS,
@@ -14,7 +14,6 @@ import { AuthService } from "../../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   optionProps,
-  userVoteProps,
   userData,
   pollCommentProps,
 } from "../../utils/interfaces";
@@ -27,14 +26,17 @@ interface pollProps {
   currUser: string;
 }
 
-export function Poll({ loggedin, currUser }: pollProps) {
+export function Poll({ currUser }: pollProps) {
   const Auth = new AuthService();
   const loggedIn = Auth.loggedIn();
 
+  // get username and poll name from parameters
   const { lookupname, pollname } = useParams();
+  // get all user info
   const userInfo: userData = Auth.getProfile();
 
   const [castVote] = useMutation(VOTE, {
+    // when casting a vote, refetch poll directory, user and this poll
     refetchQueries: () => [
       {
         query: QUERY_ALL_POLLS,
@@ -53,10 +55,14 @@ export function Poll({ loggedin, currUser }: pollProps) {
   const [comment, setComment] = useState("");
 
   const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // keep track of comment as it is typed
     setComment(e.target.value);
   };
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // handle vote submission
+
+    // parse the option id for values
     const voteData = e.currentTarget.id.split("&&&");
     try {
       const { data } = await castVote({
@@ -71,7 +77,8 @@ export function Poll({ loggedin, currUser }: pollProps) {
       });
       setComment("");
 
-      await Auth.login(data.castVote.token.token);
+      // after voting, update user token with newly cast vote
+      Auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
     }
@@ -85,13 +92,18 @@ export function Poll({ loggedin, currUser }: pollProps) {
 
   return (
     <section id="poll">
-      {poll ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
         <>
           <Question q={poll.title} d={poll.description} />
           {loggedIn ? (
+            // user is logged in: either show user's vote or comment text area
             userInfo.votes[poll._id] ? (
+              // user has voted on this poll, show their vote
               <div>You voted for "{userInfo.votes[poll._id]}"</div>
             ) : (
+              // user has not voted on this poll, show comment form
               <textarea
                 id="comment"
                 onChange={handleComment}
@@ -99,7 +111,11 @@ export function Poll({ loggedin, currUser }: pollProps) {
               ></textarea>
             )
           ) : (
-            <div>Log in to vote and to see results and comments</div>
+            // user is not logged in, prompt them to
+            <div>
+              <Link to={"/login"}>Log in</Link> to vote and to see results and
+              comments
+            </div>
           )}
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
@@ -122,6 +138,7 @@ export function Poll({ loggedin, currUser }: pollProps) {
             }
           )}
           {loggedIn && poll.comments.length > 0 ? (
+            // user is logged in, show the comments
             <div>
               <h3>User comments</h3>
               {poll.comments.map(
@@ -131,11 +148,10 @@ export function Poll({ loggedin, currUser }: pollProps) {
               )}
             </div>
           ) : (
+            //user is not logged in, hide comments
             <div></div>
           )}
         </>
-      ) : (
-        <div>Loading...</div>
       )}
     </section>
   );

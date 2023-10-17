@@ -33,7 +33,6 @@ interface createProps {
 
 export function Create({ updateList, currentList }: createProps) {
   const Auth = new AuthService();
-  // const [pollList, setPollList] = useRecoilState(pollDirectoryAtom);
   // used to reset options values
   const blankOptions = {
     from: "",
@@ -77,28 +76,15 @@ export function Create({ updateList, currentList }: createProps) {
     ],
   });
 
-  // const clearAll = () => {
-  //   setSearchField("");
-  //   setOptions(blankOptions as searchOptions);
-  //   setResults([]);
-  //   setSelected([]);
-  //   setSelectedIds([]);
-  //   setPollData({
-  //     title: "",
-  //     description: "",
-  //   });
-  //   setErrorMessage("");
-  //   setSearching(false);
-  //   setBuilding(false);
-  //   setNoResults(false);
-  // };
-
   const handleCreate = async () => {
     // handler for submission of quiz to be created
 
     // poll title must exist and at least two films selected
     if (!(pollData.title.length > 0 && selected.length > 1)) return;
+
+    // display the alert that poll is being built
     setBuilding(true);
+
     try {
       const { data } = await addPoll({
         variables: {
@@ -107,6 +93,8 @@ export function Create({ updateList, currentList }: createProps) {
           movieIds: selectedIds,
         },
       });
+
+      // once poll is created, navigate the browser to it
       navigate(data.addPoll.redirect);
     } catch (err: any) {
       if (err.message.indexOf("urlTitle") > -1) {
