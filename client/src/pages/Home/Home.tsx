@@ -6,11 +6,7 @@ import { pollProps } from "../../utils";
 import { useQuery } from "@apollo/client";
 import { QUERY_HOME_POLLS } from "../../utils/queries";
 
-interface homeProps {
-  polls: pollProps[];
-}
-
-export function Home({ polls }: homeProps) {
+export function Home() {
   const { loading, data } = useQuery(QUERY_HOME_POLLS);
   return (
     <section id="home">

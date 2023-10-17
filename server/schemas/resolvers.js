@@ -59,6 +59,7 @@ const resolvers = {
       }
 
       const list = pollList.map((pollIndex) => {
+        // generate list of polls from random indexes
         return {
           _id: polls[pollIndex]._id,
           title: polls[pollIndex].title,
@@ -74,12 +75,15 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      console.log("I'm adding a user");
       const { userName, email, password } = args;
-
       const today = Date();
+
+      // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
+      // confert username to lookup name
+      // (all lower case, alphanumeric, and hyphens for spaces)
       const lookupName = createLookupName(userName);
+
       const newUser = {
         userName: cleanedUserName,
         lookupName,
@@ -92,7 +96,6 @@ const resolvers = {
       };
 
       const user = await User.create(newUser);
-
       if (!user) return { message: "Operation failed" };
 
       const token = signToken(user);
@@ -100,17 +103,21 @@ const resolvers = {
     },
 
     login: async (parent, { userName, password }) => {
+      // convert input username to cleansed lookupname
       const lookupName = createLookupName(userName);
 
+      // search for user both by username and by email
       const userUname = await User.findOne({
         lookupName,
       });
       const userEmail = await User.findOne({ email: userName });
 
+      // if neither succeeds, indicate
       if (!userUname && !userEmail) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
+      // use whichever search succeeded and check password
       const user = userUname || userEmail;
       const correctPw = await user.isCorrectPassword(password);
 
@@ -288,8 +295,7 @@ const resolvers = {
             { new: true, useFindAndModify: false }
           );
         }
-        // update his token
-
+        // update his token with added vote
         const token = signToken(updatedUser);
 
         // third: update the poll stored on the user record

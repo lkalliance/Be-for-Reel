@@ -14,6 +14,7 @@ export function LoginForm({ setLogIn }: loginState) {
     loginPassword: "",
   });
   const [errorMessage, setErrorMessage] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [login, { error, data }] = useMutation(LOGIN);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +33,7 @@ export function LoginForm({ setLogIn }: loginState) {
       return;
     }
 
+    // Clear the login form
     setLoginForm({
       loginUsername: "",
       loginPassword: "",
@@ -45,8 +47,8 @@ export function LoginForm({ setLogIn }: loginState) {
         },
       });
 
-      console.log(data);
-      await Auth.login(data.login.token);
+      // store the login token
+      Auth.login(data.login.token);
       setLogIn(true);
     } catch (err) {
       setErrorMessage(true);

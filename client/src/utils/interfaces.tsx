@@ -105,6 +105,7 @@ export interface loginState {
 type pollKey = string;
 
 export type userData = {
+  // user info stored in token
   userName: string;
   lookupName: string;
   _id: string;

@@ -23,6 +23,7 @@ export function Profile() {
   return (
     <section id="profile">
       {userData.created ? (
+        // the user exists, render their data
         <>
           <h2>{userData.userName}</h2>
           <p>{`member since ${createdOn.getFullYear()}`}</p>
@@ -42,6 +43,7 @@ export function Profile() {
           })}
         </>
       ) : (
+        // the user doesn't exist, tell the user so
         <div>
           The user <span>{username}</span> does not exist.
         </div>

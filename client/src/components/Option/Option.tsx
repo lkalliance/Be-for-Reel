@@ -43,10 +43,14 @@ export function Option({
           </a>
 
           {loggedIn ? (
+            // user is logged in: show a vote button or the vote total
             voted ? (
+              // user has voted: show the vote total for this option
               <div>{`${votes} vote${votes !== 1 ? "s" : ""}`}</div>
             ) : (
+              // user has not voted: show the vote button
               <button
+                // id contains data on its movie, poll, and more
                 id={`${opt.movie}&&&${poll}&&&${opt._id}&&&${opt.imdb_id}`}
                 onClick={handleVote}
               >
@@ -54,6 +58,7 @@ export function Option({
               </button>
             )
           ) : (
+            // user is not logged in, show neither vote total nor button
             ""
           )}
         </div>
