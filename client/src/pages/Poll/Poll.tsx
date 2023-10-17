@@ -9,7 +9,7 @@ import {
   QUERY_SINGLE_USER,
 } from "../../utils/queries";
 import { VOTE } from "../../utils/mutations";
-import Auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -28,6 +28,8 @@ interface pollProps {
 }
 
 export function Poll({ loggedin, currUser }: pollProps) {
+  const Auth = new AuthService();
+
   const { lookupname, pollname } = useParams();
   const userInfo: userData = Auth.getProfile();
 
@@ -104,6 +106,12 @@ export function Poll({ loggedin, currUser }: pollProps) {
                   opt={option}
                   poll={poll._id}
                   voted={userInfo.votes[poll._id]}
+                  votes={
+                    userInfo.votes[poll._id]
+                      ? poll.votes.filter((vote: string) => vote === option._id)
+                          .length
+                      : undefined
+                  }
                   handleVote={handleVote}
                 />
               );

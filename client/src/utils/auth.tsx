@@ -7,7 +7,7 @@ interface userInfoReturn {
   data: userData;
 }
 
-class AuthService {
+export class AuthService {
   getProfile() {
     if (this.loggedIn()) {
       const userInfo: userInfoReturn = decode(this.getToken());
@@ -58,4 +58,4 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authService = new AuthService();

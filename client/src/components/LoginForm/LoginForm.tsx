@@ -3,11 +3,12 @@
 import "./LoginForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 import { LOGIN } from "../../utils";
 import { loginState } from "../../utils/interfaces";
 
 export function LoginForm({ setLogIn }: loginState) {
+  const Auth = new AuthService();
   const [loginForm, setLoginForm] = useState({
     loginUsername: "",
     loginPassword: "",

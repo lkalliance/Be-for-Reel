@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Auth from "./utils/auth";
+import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./components";
 import { samplePolls } from "./utils/fakedata";
@@ -35,6 +35,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const Auth = new AuthService();
   const emptyPollList: Array<userPollProps> = [];
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
   const [pollList, setPollList] = useState({ polls: emptyPollList });
