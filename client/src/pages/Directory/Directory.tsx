@@ -14,14 +14,12 @@ import {
 } from "../../utils/interfaces";
 
 interface directoryProps {
-  uvotes: userVoteProps[];
   pollList: pollListProps;
   downloaded: boolean;
   setDownloaded: Dispatch<SetStateAction<boolean>>;
 }
 
 export function Directory({
-  uvotes,
   pollList,
   downloaded,
   setDownloaded,

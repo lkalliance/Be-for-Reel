@@ -9,7 +9,7 @@ import {
   QUERY_SINGLE_USER,
 } from "../../utils/queries";
 import { VOTE } from "../../utils/mutations";
-import Auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -23,12 +23,14 @@ import { Question, Option, Comment } from "../../components";
 import { Key } from "react";
 
 interface pollProps {
-  uvotes: userVoteProps[];
   loggedin: boolean;
   currUser: string;
 }
 
-export function Poll({ uvotes, loggedin, currUser }: pollProps) {
+export function Poll({ loggedin, currUser }: pollProps) {
+  const Auth = new AuthService();
+  const loggedIn = Auth.loggedIn();
+
   const { lookupname, pollname } = useParams();
   const userInfo: userData = Auth.getProfile();
 
@@ -68,7 +70,8 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
         },
       });
       setComment("");
-      console.log(document.querySelector("#comment"));
+
+      await Auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
     }
@@ -80,18 +83,24 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
 
   const poll = data?.getPoll;
 
-  console.log(poll);
-
   return (
     <section id="poll">
-      {loggedin && poll ? (
+      {poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
-          <textarea
-            id="comment"
-            onChange={handleComment}
-            value={comment}
-          ></textarea>
+          {loggedIn ? (
+            userInfo.votes[poll._id] ? (
+              <div>You voted for "{userInfo.votes[poll._id]}"</div>
+            ) : (
+              <textarea
+                id="comment"
+                onChange={handleComment}
+                value={comment}
+              ></textarea>
+            )
+          ) : (
+            <div>Log in to vote and to see results and comments</div>
+          )}
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (
@@ -99,18 +108,24 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
                   key={index}
                   opt={option}
                   poll={poll._id}
-                  voted={poll.voted}
+                  loggedIn={loggedIn}
+                  voted={userInfo.votes[poll._id]}
+                  votes={
+                    userInfo.votes[poll._id]
+                      ? poll.votes.filter((vote: string) => vote === option._id)
+                          .length
+                      : undefined
+                  }
                   handleVote={handleVote}
                 />
               );
             }
           )}
-          {poll.comments.length > 0 ? (
+          {loggedIn && poll.comments.length > 0 ? (
             <div>
               <h3>User comments</h3>
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
-                  console.log(comment);
                   return <Comment key={index} comm={comment}></Comment>;
                 }
               )}
@@ -120,7 +135,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
           )}
         </>
       ) : (
-        <div>Show nothing</div>
+        <div>Loading...</div>
       )}
     </section>
   );

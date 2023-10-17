@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Auth from "./utils/auth";
+import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./components";
 import { samplePolls } from "./utils/fakedata";
@@ -35,13 +35,12 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const Auth = new AuthService();
   const emptyPollList: Array<userPollProps> = [];
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
   const [pollList, setPollList] = useState({ polls: emptyPollList });
   const [pollDownload, setPollDownload] = useState(false);
   const userInfo: userData = Auth.getProfile();
-
-  console.log(userInfo);
 
   return (
     <ApolloProvider client={client}>
@@ -64,13 +63,7 @@ function App() {
           />
           <Route
             path="/:lookupname/:pollname"
-            element={
-              <Poll
-                uvotes={userInfo.votes}
-                loggedin={loggedIn}
-                currUser={userInfo.userName}
-              />
-            }
+            element={<Poll loggedin={loggedIn} currUser={userInfo.userName} />}
           />
           <Route path="/:username" element={<Profile />} />
           <Route
@@ -88,7 +81,6 @@ function App() {
             path="/polls"
             element={
               <Directory
-                uvotes={userInfo.votes}
                 pollList={pollList}
                 downloaded={pollDownload}
                 setDownloaded={setPollDownload}

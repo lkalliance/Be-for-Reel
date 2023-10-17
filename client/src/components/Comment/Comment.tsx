@@ -8,7 +8,6 @@ interface commProps {
 }
 
 export function Comment({ comm }: commProps) {
-  console.log(comm);
   return (
     <div className="comment">
       <h4>{comm.username}</h4>

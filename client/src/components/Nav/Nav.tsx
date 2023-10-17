@@ -1,7 +1,7 @@
 // This component renders the navigation
 
 import "./Nav.css";
-import auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 import { NavLink } from "react-router-dom";
 
 interface navProps {
@@ -10,10 +10,11 @@ interface navProps {
 }
 
 export function Nav({ uname, lookup }: navProps) {
+  const Auth = new AuthService();
   return (
     <nav>
       <ul>
-        {auth.loggedIn() ? (
+        {Auth.loggedIn() ? (
           <>
             <li>
               <NavLink to={`/${lookup}`}>{`${uname}`}</NavLink>
@@ -23,7 +24,7 @@ export function Nav({ uname, lookup }: navProps) {
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  auth.logout();
+                  Auth.logout();
                 }}
               >
                 Log out

@@ -105,6 +105,11 @@ const typeDefs = gql`
     redirect: String
   }
 
+  type voteReturn {
+    poll: Poll
+    token: Auth
+  }
+
   type pollList {
     polls: [userPolls]
   }
@@ -139,7 +144,7 @@ const typeDefs = gql`
       movie: String
       imdb_id: String
       comment: String
-    ): Poll
+    ): voteReturn
   }
 `;
 

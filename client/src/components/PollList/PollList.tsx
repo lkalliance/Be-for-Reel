@@ -5,7 +5,6 @@ import { pollListProps } from "../../utils/interfaces";
 import { Link } from "react-router-dom";
 
 export function PollList({ polls }: pollListProps) {
-  console.log(polls);
   return (
     <div>
       <h3>Polls</h3>

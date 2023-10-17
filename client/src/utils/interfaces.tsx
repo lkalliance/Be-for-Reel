@@ -102,12 +102,14 @@ export interface loginState {
   setLogIn: Dispatch<SetStateAction<boolean>>;
 }
 
+type pollKey = string;
+
 export type userData = {
   userName: string;
   lookupName: string;
   _id: string;
   email: string;
-  votes: userVoteProps[];
+  votes: { [key in pollKey]?: string };
 };
 
 // These interfaces are used for the return from IMDb's title search

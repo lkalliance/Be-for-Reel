@@ -7,7 +7,7 @@ interface userInfoReturn {
   data: userData;
 }
 
-class AuthService {
+export class AuthService {
   getProfile() {
     if (this.loggedIn()) {
       const userInfo: userInfoReturn = decode(this.getToken());
@@ -19,7 +19,13 @@ class AuthService {
         votes: userInfo.data.votes,
       };
     }
-    return { userName: "", _id: "", email: "", lookupName: "", votes: [] };
+    return {
+      userName: "",
+      _id: "",
+      email: "",
+      lookupName: "",
+      votes: {},
+    };
   }
 
   loggedIn() {
@@ -29,7 +35,6 @@ class AuthService {
 
   isTokenExpired(token: string) {
     const decoded = decode(token);
-    console.log(decoded);
     // if (decoded.exp < Date.now() / 1000) {
     //   localStorage.removeItem("id_token");
     //   return true;
@@ -53,4 +58,4 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authService = new AuthService();

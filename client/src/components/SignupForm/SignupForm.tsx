@@ -3,7 +3,7 @@
 import "./SignupForm.css";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 import { ADD_USER } from "../../utils";
 import { loginState } from "../../utils/interfaces";
 
@@ -14,6 +14,7 @@ interface formData {
 }
 
 export function SignupForm({ setLogIn }: loginState) {
+  const Auth = new AuthService();
   const [signupForm, setSignupForm] = useState({
     signupUsername: "",
     signupEmail: "",
@@ -77,7 +78,6 @@ export function SignupForm({ setLogIn }: loginState) {
           },
         });
 
-        console.log("Submitting the username");
         await Auth.login(data.addUser.token);
         // if the addition successful, show as logged in
         setLogIn(true);

@@ -21,4 +21,11 @@ module.exports = {
       .replace(/[\s]+/g, "-");
     return pollUrlTitle;
   },
+  createVoteGuide: function (votes) {
+    const voteObj = {};
+    votes.map((vote) => {
+      voteObj[vote.poll_id] = vote.movie;
+    });
+    return voteObj;
+  },
 };

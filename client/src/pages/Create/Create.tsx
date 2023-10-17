@@ -7,7 +7,7 @@ import { useMutation } from "@apollo/client";
 import { SearchResult } from "../../components/SearchResult";
 import { movieProps, pollListProps, userData } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
-import Auth from "../../utils/auth";
+import { AuthService } from "../../utils/auth";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 
 interface searchOptions {
@@ -32,6 +32,7 @@ interface createProps {
 }
 
 export function Create({ updateList, currentList }: createProps) {
+  const Auth = new AuthService();
   // const [pollList, setPollList] = useRecoilState(pollDirectoryAtom);
   // used to reset options values
   const blankOptions = {

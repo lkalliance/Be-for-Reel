@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const secret = "youkilledtheinvisibleswordsman";
 const expiration = "30d";
+const utils = require("./typeUtils");
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -24,8 +25,9 @@ module.exports = {
 
     return req;
   },
-  signToken: function ({ email, userName, lookupName, _id, voted }) {
-    const payload = { email, userName, lookupName, _id, voted };
+  signToken: function ({ email, userName, lookupName, _id, votes }) {
+    const voteGuide = utils.createVoteGuide(votes);
+    const payload = { email, userName, lookupName, _id, votes: voteGuide };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

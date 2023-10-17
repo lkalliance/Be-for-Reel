@@ -6,11 +6,6 @@ export const LOGIN = gql`
       token
       user {
         userName
-        votes {
-          poll_id
-          option_id
-          movie
-        }
       }
     }
   }
@@ -57,23 +52,37 @@ export const VOTE = gql`
       imdb_id: $imdb_id
       comment: $comment
     ) {
-      title
-      options {
-        companies
-        contentRating
-        directors
-        genres
-        image
-        imdb_id
-        movie
-        plot
-        ratings {
-          rottenTomatoes
-          imDb
+      poll {
+        title
+        votes
+        options {
+          companies
+          contentRating
+          directors
+          genres
+          image
+          imdb_id
+          movie
+          plot
+          ratings {
+            rottenTomatoes
+            imDb
+          }
+          stars
+          trailer
+          wikipedia
         }
-        stars
-        trailer
-        wikipedia
+      }
+      token {
+        token
+        user {
+          userName
+          votes {
+            poll_id
+            option_id
+            movie
+          }
+        }
       }
     }
   }
