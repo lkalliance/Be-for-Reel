@@ -29,6 +29,7 @@ interface pollProps {
 
 export function Poll({ loggedin, currUser }: pollProps) {
   const Auth = new AuthService();
+  const loggedIn = Auth.loggedIn();
 
   const { lookupname, pollname } = useParams();
   const userInfo: userData = Auth.getProfile();
@@ -70,8 +71,6 @@ export function Poll({ loggedin, currUser }: pollProps) {
       });
       setComment("");
 
-      console.log(data);
-
       await Auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
@@ -86,17 +85,21 @@ export function Poll({ loggedin, currUser }: pollProps) {
 
   return (
     <section id="poll">
-      {loggedin && poll ? (
+      {poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
-          {userInfo.votes[poll._id] ? (
-            <div>You voted for "{userInfo.votes[poll._id]}"</div>
+          {loggedIn ? (
+            userInfo.votes[poll._id] ? (
+              <div>You voted for "{userInfo.votes[poll._id]}"</div>
+            ) : (
+              <textarea
+                id="comment"
+                onChange={handleComment}
+                value={comment}
+              ></textarea>
+            )
           ) : (
-            <textarea
-              id="comment"
-              onChange={handleComment}
-              value={comment}
-            ></textarea>
+            <div>Log in to vote and to see results and comments</div>
           )}
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
@@ -105,6 +108,7 @@ export function Poll({ loggedin, currUser }: pollProps) {
                   key={index}
                   opt={option}
                   poll={poll._id}
+                  loggedIn={loggedIn}
                   voted={userInfo.votes[poll._id]}
                   votes={
                     userInfo.votes[poll._id]
@@ -117,7 +121,7 @@ export function Poll({ loggedin, currUser }: pollProps) {
               );
             }
           )}
-          {poll.comments.length > 0 ? (
+          {loggedIn && poll.comments.length > 0 ? (
             <div>
               <h3>User comments</h3>
               {poll.comments.map(
@@ -131,7 +135,7 @@ export function Poll({ loggedin, currUser }: pollProps) {
           )}
         </>
       ) : (
-        <div>Show nothing</div>
+        <div>Loading...</div>
       )}
     </section>
   );

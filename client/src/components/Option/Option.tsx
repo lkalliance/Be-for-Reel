@@ -8,10 +8,18 @@ interface optProps {
   poll: string;
   voted: string | undefined;
   votes: number | undefined;
+  loggedIn: boolean;
   handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Option({ opt, voted, votes, poll, handleVote }: optProps) {
+export function Option({
+  opt,
+  voted,
+  votes,
+  poll,
+  handleVote,
+  loggedIn,
+}: optProps) {
   return (
     <div className="option">
       <h2>{opt.movie}</h2>
@@ -33,15 +41,20 @@ export function Option({ opt, voted, votes, poll, handleVote }: optProps) {
           <a href={opt.trailer} target="_blank" rel="noreferrer">
             Trailer
           </a>
-          {voted ? (
-            <div>{`${votes} vote${votes !== 1 ? "s" : ""}`}</div>
+
+          {loggedIn ? (
+            voted ? (
+              <div>{`${votes} vote${votes !== 1 ? "s" : ""}`}</div>
+            ) : (
+              <button
+                id={`${opt.movie}&&&${poll}&&&${opt._id}&&&${opt.imdb_id}`}
+                onClick={handleVote}
+              >
+                Vote for me!
+              </button>
+            )
           ) : (
-            <button
-              id={`${opt.movie}&&&${poll}&&&${opt._id}&&&${opt.imdb_id}`}
-              onClick={handleVote}
-            >
-              Vote for me!
-            </button>
+            ""
           )}
         </div>
       </div>
