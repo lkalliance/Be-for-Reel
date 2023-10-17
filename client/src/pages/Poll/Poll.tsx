@@ -23,12 +23,11 @@ import { Question, Option, Comment } from "../../components";
 import { Key } from "react";
 
 interface pollProps {
-  uvotes: userVoteProps[];
   loggedin: boolean;
   currUser: string;
 }
 
-export function Poll({ uvotes, loggedin, currUser }: pollProps) {
+export function Poll({ loggedin, currUser }: pollProps) {
   const { lookupname, pollname } = useParams();
   const userInfo: userData = Auth.getProfile();
 
@@ -69,6 +68,8 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
       });
       setComment("");
 
+      console.log(data);
+
       await Auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
@@ -80,26 +81,21 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  console.log(data);
-
-  console.log(
-    data
-      ? userInfo.voted.includes(poll._id)
-        ? "You have voted in this poll"
-        : "You have not voted in this poll"
-      : "Waiting for data"
-  );
 
   return (
     <section id="poll">
       {loggedin && poll ? (
         <>
           <Question q={poll.title} d={poll.description} />
-          <textarea
-            id="comment"
-            onChange={handleComment}
-            value={comment}
-          ></textarea>
+          {userInfo.votes[poll._id] ? (
+            <div>You voted for "{userInfo.votes[poll._id]}"</div>
+          ) : (
+            <textarea
+              id="comment"
+              onChange={handleComment}
+              value={comment}
+            ></textarea>
+          )}
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (
@@ -107,7 +103,7 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
                   key={index}
                   opt={option}
                   poll={poll._id}
-                  voted={poll.voted}
+                  voted={userInfo.votes[poll._id]}
                   handleVote={handleVote}
                 />
               );
@@ -118,7 +114,6 @@ export function Poll({ uvotes, loggedin, currUser }: pollProps) {
               <h3>User comments</h3>
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
-                  console.log(comment);
                   return <Comment key={index} comm={comment}></Comment>;
                 }
               )}

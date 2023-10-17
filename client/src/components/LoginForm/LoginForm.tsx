@@ -43,7 +43,8 @@ export function LoginForm({ setLogIn }: loginState) {
           password: loginForm.loginPassword,
         },
       });
-      console.log(data.login);
+
+      console.log(data);
       await Auth.login(data.login.token);
       setLogIn(true);
     } catch (err) {

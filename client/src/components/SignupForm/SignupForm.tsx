@@ -77,7 +77,6 @@ export function SignupForm({ setLogIn }: loginState) {
           },
         });
 
-        console.log("Submitting the username");
         await Auth.login(data.addUser.token);
         // if the addition successful, show as logged in
         setLogIn(true);

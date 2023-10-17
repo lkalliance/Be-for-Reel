@@ -6,7 +6,7 @@ import { optionProps } from "../../utils";
 interface optProps {
   opt: optionProps;
   poll: string;
-  voted: boolean;
+  voted: string | undefined;
   handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

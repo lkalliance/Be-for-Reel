@@ -11,13 +11,11 @@ class AuthService {
   getProfile() {
     if (this.loggedIn()) {
       const userInfo: userInfoReturn = decode(this.getToken());
-      console.log(userInfo);
       return {
         userName: userInfo.data.userName,
         email: userInfo.data.email,
         _id: userInfo.data._id,
         lookupName: userInfo.data.lookupName,
-        voted: userInfo.data.voted,
         votes: userInfo.data.votes,
       };
     }
@@ -26,8 +24,7 @@ class AuthService {
       _id: "",
       email: "",
       lookupName: "",
-      voted: [],
-      votes: [],
+      votes: {},
     };
   }
 
@@ -38,7 +35,6 @@ class AuthService {
 
   isTokenExpired(token: string) {
     const decoded = decode(token);
-    console.log(decoded);
     // if (decoded.exp < Date.now() / 1000) {
     //   localStorage.removeItem("id_token");
     //   return true;
@@ -51,7 +47,6 @@ class AuthService {
   }
 
   login(idToken: string) {
-    console.log(idToken);
     localStorage.setItem("id_token", idToken);
     // window.location.assign("/");
   }

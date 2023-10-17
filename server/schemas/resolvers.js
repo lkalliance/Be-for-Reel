@@ -26,7 +26,6 @@ const resolvers = {
       return user ? { votes: user.votes } : false;
     },
     getPoll: async (parent, { lookupname, pollname }) => {
-      console.log(lookupname);
       const poll = await Poll.findOne({
         urlTitle: `/${lookupname}/${pollname}`,
       });
@@ -318,7 +317,7 @@ const resolvers = {
         );
 
         // return the updated Poll and token
-        return { poll: whichPoll, token: { token, user: updatedUser } };
+        return { poll: whichPoll, token: { token } };
       }
     },
   },

@@ -41,8 +41,6 @@ function App() {
   const [pollDownload, setPollDownload] = useState(false);
   const userInfo: userData = Auth.getProfile();
 
-  console.log(userInfo);
-
   return (
     <ApolloProvider client={client}>
       <div className="App">
@@ -64,13 +62,7 @@ function App() {
           />
           <Route
             path="/:lookupname/:pollname"
-            element={
-              <Poll
-                uvotes={userInfo.votes}
-                loggedin={loggedIn}
-                currUser={userInfo.userName}
-              />
-            }
+            element={<Poll loggedin={loggedIn} currUser={userInfo.userName} />}
           />
           <Route path="/:username" element={<Profile />} />
           <Route
@@ -88,7 +80,6 @@ function App() {
             path="/polls"
             element={
               <Directory
-                uvotes={userInfo.votes}
                 pollList={pollList}
                 downloaded={pollDownload}
                 setDownloaded={setPollDownload}
