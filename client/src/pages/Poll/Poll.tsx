@@ -97,6 +97,9 @@ export function Poll({ currUser }: pollProps) {
       ) : (
         <>
           <Question q={poll.title} d={poll.description} />
+          <h4>
+            <Link to={`/${lookupname}`}>{poll.username}</Link>
+          </h4>
           {loggedIn ? (
             // user is logged in: either show user's vote or comment text area
             userInfo.votes[poll._id] ? (
