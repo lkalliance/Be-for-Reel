@@ -218,184 +218,192 @@ export function Create({ updateList, currentList }: createProps) {
   };
 
   return (
-    <section id="create" className="container">
-      <h2>Create a Poll</h2>
-      <div className="row">
-        <div id="selected" className="col-6">
-          <form>
-            <fieldset>
-              <input
-                type="text"
-                id="title"
-                placeholder="Poll title"
-                value={pollData.title}
-                onChange={(e) => {
-                  setErrorMessage("");
-                  setPollData({
-                    title: e.target.value,
-                    description: pollData.description,
-                  });
-                }}
-              />
-              <textarea
-                id="description"
-                placeholder="Poll description"
-                value={pollData.description}
-                onChange={(e) => {
-                  setPollData({
-                    title: pollData.title,
-                    description: e.target.value,
-                  });
-                }}
-              ></textarea>
-            </fieldset>
-          </form>
-          <button
-            onClick={handleCreate}
-            disabled={!(pollData.title.length > 0 && selected.length > 1)}
-          >
-            Create poll
-          </button>
-          {errorMessage.length > 0 ? (
-            <div className="alert alert-danger">{errorMessage}</div>
-          ) : (
-            ""
-          )}
-          {building ? (
-            <div className="alert alert-primary">Building your poll...</div>
-          ) : (
-            ""
-          )}
-          <h3>Selected Films</h3>
-          <ul>
-            {selected.map((selected, index) => {
-              return (
-                <SearchResult
-                  value={selected}
-                  key={index}
-                  dataIndex={index}
-                  type="selected"
-                  onClick={selectResult}
-                />
-              );
-            })}
-          </ul>
-        </div>
-        <div id="titleSearch" className="col-6">
-          <h2>Search for a title</h2>
-          <input
-            id="titleSearchBox"
-            type="text"
-            onKeyUp={handleReturn}
-            value={searchField}
-            onChange={(e) => {
-              setNoResults(false);
-              setSearchField(e.target.value);
-            }}
-          />
-          <h3>Search options</h3>
-          <form>
-            <fieldset>
-              <legend>Released</legend>
-              <input
-                type="text"
-                id="from"
-                placeholder="From"
-                onChange={handleOption}
-                value={String(options.from)}
-              />
-              <input
-                type="text"
-                id="to"
-                placeholder="To"
-                onChange={handleOption}
-                value={String(options.to)}
-              />
-            </fieldset>
-            <fieldset>
-              <legend>Limit to just these US ratings</legend>
-              <div>
+    <section id="create">
+      <div className="container">
+        <h1>Create a Poll</h1>
+        <div className="row">
+          <div id="selected" className="col-6">
+            <h2>About your poll</h2>
+            <form>
+              <fieldset>
                 <input
-                  type="checkbox"
-                  id="G"
-                  name="G"
-                  onChange={handleOption}
-                  checked={Boolean(options.G)}
+                  type="text"
+                  id="title"
+                  placeholder="Poll title"
+                  value={pollData.title}
+                  onChange={(e) => {
+                    setErrorMessage("");
+                    setPollData({
+                      title: e.target.value,
+                      description: pollData.description,
+                    });
+                  }}
                 />
-                <label htmlFor="G">G</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="PG"
-                  name="PG"
-                  onChange={handleOption}
-                  checked={Boolean(options.PG)}
-                />
-                <label htmlFor="PG">PG</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="PG13"
-                  name="PG13"
-                  onChange={handleOption}
-                  checked={Boolean(options.PG13)}
-                />
-                <label htmlFor="PG13">PG-13</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="R"
-                  name="R"
-                  onChange={handleOption}
-                  checked={Boolean(options.R)}
-                />
-                <label htmlFor="R">R</label>
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <input
-                  type="checkbox"
-                  id="oscar"
-                  name="oscar"
-                  onChange={handleOption}
-                  checked={Boolean(options.oscar)}
-                />
-                <label htmlFor="oscar">Nominated for Best Picture</label>
-              </div>
-            </fieldset>
-          </form>
-          <button onClick={handleSearchSubmit}>Search for title</button>
-
-          <div id="results">
-            <h3>Search Results</h3>
-            {searching ? (
-              <div className="alert alert-primary">Searching for titles...</div>
+                <textarea
+                  id="description"
+                  placeholder="Poll description"
+                  value={pollData.description}
+                  onChange={(e) => {
+                    setPollData({
+                      title: pollData.title,
+                      description: e.target.value,
+                    });
+                  }}
+                ></textarea>
+              </fieldset>
+            </form>
+            <button
+              onClick={handleCreate}
+              disabled={!(pollData.title.length > 0 && selected.length > 1)}
+            >
+              Create poll
+            </button>
+            {errorMessage.length > 0 ? (
+              <div className="alert alert-danger">{errorMessage}</div>
             ) : (
               ""
             )}
-            {noResults ? (
-              <div className="alert alert-danger">No search results</div>
+            {building ? (
+              <div className="alert alert-primary">Building your poll...</div>
             ) : (
               ""
             )}
-            <ul>
-              {results.map((result, index) => {
-                if (selectedIds.indexOf(result.id) >= 0) return "";
+            <h3>Selected Films</h3>
+            <ul id="selected">
+              {selected.map((selected, index) => {
                 return (
                   <SearchResult
-                    value={result}
+                    value={selected}
                     key={index}
                     dataIndex={index}
-                    type="search"
+                    type="selected"
                     onClick={selectResult}
                   />
                 );
               })}
             </ul>
+          </div>
+          <div id="titleSearch" className="col-6">
+            <h2>Search for a title</h2>
+            <fieldset>
+              <input
+                id="titleSearchBox"
+                type="text"
+                placeholder="Title"
+                onKeyUp={handleReturn}
+                value={searchField}
+                onChange={(e) => {
+                  setNoResults(false);
+                  setSearchField(e.target.value);
+                }}
+              />
+            </fieldset>
+            <h3>Search options</h3>
+            <form>
+              <fieldset id="released">
+                <legend>Released</legend>
+                <input
+                  type="text"
+                  id="from"
+                  placeholder="From"
+                  onChange={handleOption}
+                  value={String(options.from)}
+                />
+                <input
+                  type="text"
+                  id="to"
+                  placeholder="To"
+                  onChange={handleOption}
+                  value={String(options.to)}
+                />
+              </fieldset>
+              <fieldset>
+                <legend>Limit to just these US ratings</legend>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="G"
+                    name="G"
+                    onChange={handleOption}
+                    checked={Boolean(options.G)}
+                  />
+                  <label htmlFor="G">G</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="PG"
+                    name="PG"
+                    onChange={handleOption}
+                    checked={Boolean(options.PG)}
+                  />
+                  <label htmlFor="PG">PG</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="PG13"
+                    name="PG13"
+                    onChange={handleOption}
+                    checked={Boolean(options.PG13)}
+                  />
+                  <label htmlFor="PG13">PG-13</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="R"
+                    name="R"
+                    onChange={handleOption}
+                    checked={Boolean(options.R)}
+                  />
+                  <label htmlFor="R">R</label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="oscar"
+                    name="oscar"
+                    onChange={handleOption}
+                    checked={Boolean(options.oscar)}
+                  />
+                  <label htmlFor="oscar">Nominated for Best Picture</label>
+                </div>
+              </fieldset>
+            </form>
+            <button onClick={handleSearchSubmit}>Search for title</button>
+
+            <div id="results">
+              <h3>Search Results</h3>
+              {searching ? (
+                <div className="alert alert-primary">
+                  Searching for titles...
+                </div>
+              ) : (
+                ""
+              )}
+              {noResults ? (
+                <div className="alert alert-danger">No search results</div>
+              ) : (
+                ""
+              )}
+              <ul>
+                {results.map((result, index) => {
+                  if (selectedIds.indexOf(result.id) >= 0) return "";
+                  return (
+                    <SearchResult
+                      value={result}
+                      key={index}
+                      dataIndex={index}
+                      type="search"
+                      onClick={selectResult}
+                    />
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

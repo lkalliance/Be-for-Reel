@@ -13,7 +13,7 @@ export function Question({ question, description, username }: questionProps) {
   return (
     <div className="question">
       <h1>{question}</h1>
-      <div>{description}</div>
+      <p>{description}</p>
       <h4>
         <UsernameLink username={username} />
       </h4>

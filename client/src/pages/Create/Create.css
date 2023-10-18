@@ -1,3 +1,87 @@
 section#create {
   position: relative;
 }
+
+section#create .container {
+  margin: 0;
+  max-width: 100%;
+}
+
+section#create button {
+  margin-top: 10px;
+}
+
+section#create input,
+section#create textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: none;
+  padding: 6px;
+  font-size: 1em;
+  line-height: 1.2em;
+}
+
+section#create #released input {
+  width: 40%;
+  margin-right: 10px;
+}
+
+section#create textarea {
+  height: 80px;
+}
+
+section#create input[type="checkbox"] {
+  float: left;
+  margin-right: 4px;
+  width: auto;
+  position: relative;
+  top: 6px;
+}
+
+section#create h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+section#create h2 {
+  color: white;
+}
+
+section#create h4 {
+  color: var(--primary-link-hover);
+  font-weight: bold;
+}
+
+section#create span {
+  color: white;
+  margin-right: 10px;
+}
+
+section#create legend {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+section#create fieldset {
+  margin-top: 15px;
+}
+
+section#create li {
+  border: 1px solid var(--secondary-background);
+  margin: 0 0 10px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+section#create li:hover {
+  background-color: var(--dark-li-hover);
+}
+
+section#create li p {
+  margin-bottom: 0;
+}
+
+section#create ul#selected h4 {
+  margin-bottom: 0;
+}

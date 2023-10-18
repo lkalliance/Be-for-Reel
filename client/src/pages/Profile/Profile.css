@@ -1,3 +1,20 @@
 section#profile {
   position: relative;
 }
+
+section#profile h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+section#profile p {
+  padding: 4px 0 8px;
+  border: 1px solid var(--primary-border);
+  border-width: 1px 0 1px;
+  margin-bottom: 20px;
+  color: var(--primary-link-hover);
+}
+
+section#profile h2 {
+  margin-top: 25px;
+}

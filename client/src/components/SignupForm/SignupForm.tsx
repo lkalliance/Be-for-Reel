@@ -116,52 +116,53 @@ export function SignupForm({ setLogIn }: loginState) {
   };
 
   return (
-    <form>
-      <label>username</label>
-      <input
-        type="text"
-        placeholder="username"
-        id="signupUsername"
-        name="signupUsername"
-        value={signupForm.signupUsername}
-        onChange={handleInputChange}
-      />
-      <label>email</label>
-      <input
-        type="text"
-        placeholder="email@sample.com"
-        id="signupEmail"
-        name="signupEmail"
-        value={signupForm.signupEmail}
-        onChange={handleInputChange}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        placeholder="password"
-        id="signupPassword"
-        name="signupPassword"
-        value={signupForm.signupPassword}
-        onChange={handleInputChange}
-      />
-      <button
-        type="submit"
-        disabled={
-          !(
-            signupForm.signupUsername &&
-            signupForm.signupPassword &&
-            signupForm.signupEmail
-          )
-        }
-        onClick={handleSignupSubmit}
-      >
-        Submit
-      </button>
-      {errorMessage.length > 0 ? (
-        <div className="alert alert-danger">{errorMessage}</div>
-      ) : (
-        ""
-      )}
-    </form>
+    <div>
+      <h1>Sign Up</h1>
+
+      <form>
+        <label>username</label>
+        <input
+          type="text"
+          id="signupUsername"
+          name="signupUsername"
+          value={signupForm.signupUsername}
+          onChange={handleInputChange}
+        />
+        <label>email</label>
+        <input
+          type="text"
+          id="signupEmail"
+          name="signupEmail"
+          value={signupForm.signupEmail}
+          onChange={handleInputChange}
+        />
+        <label>password</label>
+        <input
+          type="password"
+          id="signupPassword"
+          name="signupPassword"
+          value={signupForm.signupPassword}
+          onChange={handleInputChange}
+        />
+        <button
+          type="submit"
+          disabled={
+            !(
+              signupForm.signupUsername &&
+              signupForm.signupPassword &&
+              signupForm.signupEmail
+            )
+          }
+          onClick={handleSignupSubmit}
+        >
+          Submit
+        </button>
+        {errorMessage.length > 0 ? (
+          <div className="alert alert-danger">{errorMessage}</div>
+        ) : (
+          ""
+        )}
+      </form>
+    </div>
   );
 }

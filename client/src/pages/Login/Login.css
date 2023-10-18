@@ -1,3 +1,15 @@
 section#login {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+section#login div {
+  width: 48%;
+}
+
+section#login div.alert {
+  width: 100%;
+  margin-top: 20px;
 }

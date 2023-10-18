@@ -22,7 +22,7 @@ export function Option({
 }: optProps) {
   return (
     <div className="option">
-      <h2>{opt.movie}</h2>
+      <h3>{opt.movie}</h3>
       <div>{opt.stars}</div>
       <div className="optinfo">
         <img src={opt.image} alt={opt.movie} />

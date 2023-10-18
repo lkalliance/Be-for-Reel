@@ -57,37 +57,38 @@ export function LoginForm({ setLogIn }: loginState) {
   };
 
   return (
-    <form>
-      <label>username or email</label>
-      <input
-        type="text"
-        placeholder="username or email"
-        id="loginUsername"
-        name="loginUsername"
-        value={loginForm.loginUsername}
-        onChange={handleInputChange}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        placeholder="password"
-        id="loginPassword"
-        name="loginPassword"
-        value={loginForm.loginPassword}
-        onChange={handleInputChange}
-      />
-      <button
-        type="submit"
-        disabled={!(loginForm.loginUsername && loginForm.loginPassword)}
-        onClick={handleLoginSubmit}
-      >
-        Submit
-      </button>
-      {errorMessage ? (
-        <div className="alert alert-danger">Incorrect login credentials</div>
-      ) : (
-        ""
-      )}
-    </form>
+    <div>
+      <h1>Log in</h1>
+      <form>
+        <label>username or email</label>
+        <input
+          type="text"
+          id="loginUsername"
+          name="loginUsername"
+          value={loginForm.loginUsername}
+          onChange={handleInputChange}
+        />
+        <label>password</label>
+        <input
+          type="text"
+          id="loginPassword"
+          name="loginPassword"
+          value={loginForm.loginPassword}
+          onChange={handleInputChange}
+        />
+        <button
+          type="submit"
+          disabled={!(loginForm.loginUsername && loginForm.loginPassword)}
+          onClick={handleLoginSubmit}
+        >
+          Submit
+        </button>
+        {errorMessage ? (
+          <div className="alert alert-danger">Incorrect login credentials</div>
+        ) : (
+          ""
+        )}
+      </form>
+    </div>
   );
 }

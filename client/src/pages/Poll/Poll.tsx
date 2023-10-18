@@ -96,32 +96,34 @@ export function Poll({ currUser }: pollProps) {
         <div>Loading...</div>
       ) : (
         <>
-          <Question
-            question={poll.title}
-            description={poll.description}
-            username={poll.username}
-          />
+          <div id="question">
+            <Question
+              question={poll.title}
+              description={poll.description}
+              username={poll.username}
+            />
 
-          {loggedIn ? (
-            // user is logged in: either show user's vote or comment text area
-            userInfo.votes[poll._id] ? (
-              // user has voted on this poll, show their vote
-              <div>You voted for "{userInfo.votes[poll._id]}"</div>
+            {loggedIn ? (
+              // user is logged in: either show user's vote or comment text area
+              userInfo.votes[poll._id] ? (
+                // user has voted on this poll, show their vote
+                <p id="yourvote">You voted for "{userInfo.votes[poll._id]}"</p>
+              ) : (
+                // user has not voted on this poll, show comment form
+                <textarea
+                  id="comment"
+                  onChange={handleComment}
+                  value={comment}
+                ></textarea>
+              )
             ) : (
-              // user has not voted on this poll, show comment form
-              <textarea
-                id="comment"
-                onChange={handleComment}
-                value={comment}
-              ></textarea>
-            )
-          ) : (
-            // user is not logged in, prompt them to
-            <div>
-              <Link to={"/login"}>Log in</Link> to vote and to see results and
-              comments
-            </div>
-          )}
+              // user is not logged in, prompt them to
+              <div>
+                <Link to={"/login"}>Log in</Link> to vote and to see results and
+                comments
+              </div>
+            )}
+          </div>
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
               return (
@@ -145,7 +147,7 @@ export function Poll({ currUser }: pollProps) {
           {loggedIn && poll.comments.length > 0 ? (
             // user is logged in, show the comments
             <div>
-              <h3>User comments</h3>
+              <h2>User comments</h2>
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
                   return <Comment key={index} comm={comment}></Comment>;
