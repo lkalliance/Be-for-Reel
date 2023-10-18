@@ -2,6 +2,8 @@
 
 import "./Comment.css";
 import { pollCommentProps } from "../../utils/interfaces";
+import { Link } from "react-router-dom";
+import { UsernameLink } from "../../components";
 
 interface commProps {
   comm: pollCommentProps;
@@ -10,7 +12,9 @@ interface commProps {
 export function Comment({ comm }: commProps) {
   return (
     <div className="comment">
-      <h4>{comm.username}</h4>
+      <h4>
+        <UsernameLink username={comm.username} />
+      </h4>
       {comm.movie ? <h5>{comm.movie}</h5> : ""}
       <p>{comm.text}</p>
     </div>

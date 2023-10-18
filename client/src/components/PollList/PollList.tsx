@@ -16,7 +16,9 @@ export function PollList({ polls }: pollListProps) {
             return (
               <li key={index}>
                 <Link to={poll.urlTitle}>{poll.title}</Link>{" "}
-                {`${poll.votes} votes and ${poll.comments} comments`}
+                {`${poll.votes} vote`}
+                {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
+                {poll.comments !== 1 ? "s" : ""}
               </li>
             );
           })}

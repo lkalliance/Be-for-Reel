@@ -35,6 +35,7 @@ export const QUERY_SINGLE_POLL = gql`
       _id
       title
       description
+      username
       options {
         _id
         companies

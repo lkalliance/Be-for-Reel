@@ -96,7 +96,12 @@ export function Poll({ currUser }: pollProps) {
         <div>Loading...</div>
       ) : (
         <>
-          <Question q={poll.title} d={poll.description} />
+          <Question
+            question={poll.title}
+            description={poll.description}
+            username={poll.username}
+          />
+
           {loggedIn ? (
             // user is logged in: either show user's vote or comment text area
             userInfo.votes[poll._id] ? (

@@ -2,6 +2,7 @@
 
 import "./Card.css";
 import { Link } from "react-router-dom";
+import { UsernameLink } from "../../components";
 
 interface cardProps {
   title: string;
@@ -16,7 +17,9 @@ export function Card({ title, poster, urlTitle, user }: cardProps) {
       <h2>
         <Link to={urlTitle}>{title}</Link>
       </h2>
-      <h4>{user}</h4>
+      <h4>
+        <UsernameLink username={user} />
+      </h4>
       <img src={poster} alt={title} />
     </div>
   );

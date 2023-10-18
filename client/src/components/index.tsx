@@ -8,3 +8,4 @@ export { Question } from "./Question";
 export { PollList } from "./PollList";
 export { Comment } from "./Comment";
 export { PollListing } from "./PollListing";
+export { UsernameLink } from "./UsernameLink";
