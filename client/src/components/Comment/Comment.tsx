@@ -2,8 +2,8 @@
 
 import "./Comment.css";
 import { pollCommentProps } from "../../utils/interfaces";
-import { createLookupName } from "../../utils/typeUtils";
 import { Link } from "react-router-dom";
+import { UsernameLink } from "../../components";
 
 interface commProps {
   comm: pollCommentProps;
@@ -13,7 +13,7 @@ export function Comment({ comm }: commProps) {
   return (
     <div className="comment">
       <h4>
-        <Link to={`/${createLookupName(comm.username)}`}>{comm.username}</Link>
+        <UsernameLink username={comm.username} />
       </h4>
       {comm.movie ? <h5>{comm.movie}</h5> : ""}
       <p>{comm.text}</p>
