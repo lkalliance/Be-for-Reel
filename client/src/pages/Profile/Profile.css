@@ -18,3 +18,9 @@ section#profile p {
 section#profile h2 {
   margin-top: 25px;
 }
+
+section#profile em {
+  font-size: 0.8em;
+  display: block;
+  text-indent: 12px;
+}

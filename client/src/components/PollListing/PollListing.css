@@ -1,3 +1,25 @@
 .poll-listing {
   list-style-type: none;
+  margin-bottom: 12px;
+}
+
+.poll-listing span {
+  white-space: no-wrap;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.poll-listing span a {
+  color: rgb(221, 199, 73);
+}
+
+.poll-listing span a:hover {
+  color: white;
+}
+
+.poll-listing em {
+  font-size: 0.8em;
+  display: block;
+  text-indent: 12px;
 }

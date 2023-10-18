@@ -12,10 +12,15 @@ interface listProps {
 export function PollListing({ poll }: listProps) {
   return (
     <li className="poll-listing">
-      <Link to={poll.urlTitle}>{poll.title}</Link> (
-      <UsernameLink username={poll.username} />,{` ${poll.votes} vote`}
-      {poll.votes !== 1 ? "s" : ""}, {`${poll.comments} comment`}
-      {poll.comments !== 1 ? "s" : ""})
+      <Link to={poll.urlTitle}>{poll.title}</Link>
+      <span>
+        <UsernameLink username={poll.username} />
+      </span>
+      <em>
+        {` ${poll.votes} vote`}
+        {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
+        {poll.comments !== 1 ? "s" : ""}
+      </em>
     </li>
   );
 }

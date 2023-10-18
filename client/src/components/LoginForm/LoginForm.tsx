@@ -70,7 +70,7 @@ export function LoginForm({ setLogIn }: loginState) {
         />
         <label>password</label>
         <input
-          type="text"
+          type="password"
           id="loginPassword"
           name="loginPassword"
           value={loginForm.loginPassword}
