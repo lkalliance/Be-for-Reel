@@ -9,5 +9,7 @@ interface usernameLinkProps {
 }
 
 export function UsernameLink({ username }: usernameLinkProps) {
+  console.log(`The UsernameLink component thinks the user is ${username}`);
+
   return <Link to={`/${createLookupName(username)}`}>{username}</Link>;
 }
