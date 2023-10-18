@@ -14,7 +14,9 @@ export function PollListing({ poll }: listProps) {
     <li className="poll-listing">
       <Link to={poll.urlTitle}>{poll.title}</Link> (
       <Link to={`/${createLookupName(poll.username)}`}>{poll.username}</Link>,
-      {` ${poll.votes} votes, ${poll.comments} comments`})
+      {` ${poll.votes} vote`}
+      {poll.votes !== 1 ? "s" : ""}, {`${poll.comments} comment`}
+      {poll.comments !== 1 ? "s" : ""})
     </li>
   );
 }
