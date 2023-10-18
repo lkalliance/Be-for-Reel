@@ -2,6 +2,7 @@
 
 import "./PollListing.css";
 import { userPollProps } from "../../utils/interfaces";
+import { createLookupName } from "../../utils/typeUtils";
 import { Link } from "react-router-dom";
 
 interface listProps {
@@ -12,7 +13,8 @@ export function PollListing({ poll }: listProps) {
   return (
     <li className="poll-listing">
       <Link to={poll.urlTitle}>{poll.title}</Link> (
-      {`${poll.username}, ${poll.votes} votes, ${poll.comments} comments`})
+      <Link to={`/${createLookupName(poll.username)}`}>{poll.username}</Link>,
+      {` ${poll.votes} votes, ${poll.comments} comments`})
     </li>
   );
 }
