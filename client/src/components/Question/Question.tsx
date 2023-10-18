@@ -1,17 +1,22 @@
 // This component renders a poll question
 
 import "./Question.css";
+import { UsernameLink } from "../../components";
 
 interface questionProps {
-  q: string;
-  d: string;
+  question: string;
+  description: string;
+  username: string;
 }
 
-export function Question({ q, d }: questionProps) {
+export function Question({ question, description, username }: questionProps) {
   return (
     <div className="question">
-      <h1>{q}</h1>
-      <div>{d}</div>
+      <h1>{question}</h1>
+      <div>{description}</div>
+      <h4>
+        <UsernameLink username={username} />
+      </h4>
     </div>
   );
 }
