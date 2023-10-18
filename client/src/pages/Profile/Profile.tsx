@@ -25,19 +25,18 @@ export function Profile() {
       {userData.created ? (
         // the user exists, render their data
         <>
-          <h2>{userData.userName}</h2>
-          <p>{`member since ${createdOn.getFullYear()}`}</p>
+          <h1>{userData.userName}</h1>
+          <h4>{`member since ${createdOn.getFullYear()}`}</h4>
           {userData ? <PollList polls={userData.polls} /> : <div></div>}
-          <h3>Comments</h3>
+          <h2>Comments</h2>
           {userData.comments.map((comment: userCommentProps, index: Key) => {
             return (
               <div key={index}>
-                <h4>{comment.title}</h4>
-                <h6>{comment.movie}</h6>
-                {comment.text}
-                <div>
+                <h3>
                   poll: <Link to={comment.urlTitle}>{comment.title}</Link>
-                </div>
+                </h3>
+                <h4>{`Your vote: "${comment.movie}"`}</h4>
+                <p>{comment.text}</p>
               </div>
             );
           })}

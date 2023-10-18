@@ -12,10 +12,10 @@ interface commProps {
 export function Comment({ comm }: commProps) {
   return (
     <div className="comment">
-      <h4>
+      <h3>
         <UsernameLink username={comm.username} />
-      </h4>
-      {comm.movie ? <h5>{comm.movie}</h5> : ""}
+      </h3>
+      {comm.movie ? <h4>"{comm.movie}"</h4> : ""}
       <p>{comm.text}</p>
     </div>
   );

@@ -18,9 +18,9 @@ export function Card({ title, poster, urlTitle, user }: cardProps) {
       <h2>
         <Link to={urlTitle}>{title}</Link>
       </h2>
-      <h4>
+      <h3>
         <UsernameLink username={user} />
-      </h4>
+      </h3>
       <img src={poster} alt={title} />
     </div>
   );

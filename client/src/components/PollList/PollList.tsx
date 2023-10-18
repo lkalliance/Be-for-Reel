@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export function PollList({ polls }: pollListProps) {
   return (
     <div>
-      <h3>Polls</h3>
+      <h2>Polls</h2>
       {[polls].length === 0 ? (
         `No polls created`
       ) : (

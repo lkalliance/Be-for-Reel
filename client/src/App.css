@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
+:root {
+  --page-background: black;
+  --primary-background: rgb(0, 0, 52);
+  --secondary-background: rgb(188, 192, 226);
+  --primary-text: rgb(168, 179, 227);
+  --secondary-text: rgb(0, 0, 52);
+  --primary-link: white;
+  --primary-link-hover: gold;
+  --secondary-link: rgb(191, 25, 25);
+  --secondary-link-hover: white;
+  --dark-link: rgb(0, 0, 52);
+  --dark-link-hover: rgb(176, 13, 13);
+  --primary-border: rgb(94, 94, 157);
+  --dark-li-hover: rgb(55, 55, 111);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  background-color: black;
+  min-height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+li {
+  list-style-type: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+section {
+  height: 100%;
+  padding: 20px;
+  color: var(--primary-text);
+  background-color: var(--page-background);
 }
 
-.App-link {
-  color: #61dafb;
+section a {
+  text-decoration: none;
+  color: var(--primary-link);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+section a:hover {
+  color: var(--primary-link-hover);
+}
+
+section input,
+section textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: none;
+  padding: 6px;
+  font-size: 1em;
+  line-height: 1.2em;
+}
+
+section button,
+section button:disabled:hover {
+  border: none;
+  border-radius: 4px;
+  color: var(--primary-background);
+  background-color: var(--secondary-background);
+}
+
+section button:disabled,
+section button:disabled:hover {
+  color: var(--primary-border);
+  opacity: 0.5;
+  cursor: default;
+}
+
+section button:hover {
+  background-color: var(--primary-link-hover);
+}
+
+section ul {
+  padding-left: 0;
+}
+
+section h1 {
+  font-size: 1.8em;
+  line-height: 1.2em;
+}
+
+section h2 {
+  font-size: 1.5em;
+  line-height: 1em;
+}
+
+section h3 {
+  font-size: 1.2em;
+  line-height: 0.9em;
+}
+
+section h4 {
+  font-size: 1em;
+  line-height: 0.8em;
+}
+
+section h5 {
+  font-size: 0.8em;
+  line-height: 0.7em;
+}
+
+section h6 {
+  font-size: 0.6em;
+  line-height: 0.5em;
 }
