@@ -2,11 +2,12 @@ section#login {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 section#login div {
-  width: 48%;
+  max-width: 350px;
+  margin: 0 10px 40px;
 }
 
 section#login div.alert {

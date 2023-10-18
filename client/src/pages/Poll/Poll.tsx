@@ -112,6 +112,7 @@ export function Poll({ currUser }: pollProps) {
                 // user has not voted on this poll, show comment form
                 <textarea
                   id="comment"
+                  placeholder="Leave a comment here when you vote!"
                   onChange={handleComment}
                   value={comment}
                 ></textarea>

@@ -24,6 +24,12 @@
   color: var(--secondary-link);
 }
 
+#poll #comment {
+  max-width: 300px;
+  height: 80px;
+  margin: 8px 0 0;
+}
+
 #poll h1 {
   margin: 10px 0 0;
 }

@@ -2,6 +2,7 @@ section#home {
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 section#home img {

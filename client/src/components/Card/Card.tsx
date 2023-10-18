@@ -12,7 +12,6 @@ interface cardProps {
 }
 
 export function Card({ title, poster, urlTitle, user }: cardProps) {
-  console.log(`This card thinks the user is ${user}`);
   return (
     <div className="card">
       <h2>

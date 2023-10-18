@@ -15,10 +15,12 @@ export function PollList({ polls }: pollListProps) {
           {polls.map((poll, index) => {
             return (
               <li key={index}>
-                <Link to={poll.urlTitle}>{poll.title}</Link>{" "}
-                {`${poll.votes} vote`}
-                {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
-                {poll.comments !== 1 ? "s" : ""}
+                <Link to={poll.urlTitle}>{poll.title}</Link>
+                <em>
+                  {`${poll.votes} vote`}
+                  {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
+                  {poll.comments !== 1 ? "s" : ""}
+                </em>
               </li>
             );
           })}
