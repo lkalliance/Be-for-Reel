@@ -12,6 +12,9 @@ const movieSchema = new Schema({
   image: {
     type: String,
   },
+  year: {
+    type: Number,
+  },
   votes: {
     type: Number,
     default: 0,

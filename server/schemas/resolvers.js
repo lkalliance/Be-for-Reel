@@ -42,18 +42,18 @@ const resolvers = {
           username: poll.username,
           votes: poll.votes.length,
           comments: poll.comments.length,
+          expires_on: poll.expires_on,
         };
       });
 
       return list ? { polls: list } : { polls: false };
     },
     getHomePolls: async (parent) => {
-      console.log("I'm getting home polls");
       const polls = await Poll.find();
-
       // create a list of random indexes
       const pollList = [];
-      while (pollList.length < 6) {
+      const limit = polls.length >= 6 ? 6 : polls.length;
+      while (pollList.length < limit) {
         const rand = Math.trunc(Math.random() * polls.length);
         if (pollList.indexOf(rand) === -1) pollList.push(rand);
       }
@@ -67,6 +67,7 @@ const resolvers = {
           username: polls[pollIndex].username,
           options: polls[pollIndex].options,
           created_on: polls[pollIndex].created_on,
+          expires_on: polls[pollIndex].expires_on,
         };
       });
 
@@ -141,8 +142,10 @@ const resolvers = {
             };
             const movieData = await fetch.request(getMovies);
             const movie = movieData.data;
+
             const option = {
               movie: movie.title,
+              year: movie.year,
               imdb_id: movie.id,
               stars: movie.stars,
               plot: movie.plot,
@@ -168,6 +171,7 @@ const resolvers = {
               const newMovie = await Movie.create({
                 imdb_id: movie.id,
                 image: movie.image,
+                year: movie.year,
                 title: movie.title,
               });
             }
@@ -176,7 +180,13 @@ const resolvers = {
           })
         );
 
-        const today = Date();
+        const today = new Date();
+        const expires = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + 14,
+          today.getHours()
+        );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
 
         // construct the object to be stored to the Polls collection
@@ -187,11 +197,14 @@ const resolvers = {
           user_id: context.user._id,
           username: context.user.userName,
           created_on: today,
+          expires_on: expires,
           options,
           comments: [],
           votes: [],
           voters: [],
         };
+
+        console.log(newPoll.expires_on);
 
         // construct the object to be stored to the User
         const newUserPoll = {

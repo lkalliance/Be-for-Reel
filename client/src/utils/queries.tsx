@@ -44,6 +44,7 @@ export const QUERY_SINGLE_POLL = gql`
         genres
         image
         imdb_id
+        year
         movie
         plot
         ratings {
@@ -62,6 +63,7 @@ export const QUERY_SINGLE_POLL = gql`
       votes
       voters
       created_on
+      expires_on
     }
   }
 `;
@@ -76,6 +78,7 @@ export const QUERY_ALL_POLLS = gql`
         username
         votes
         comments
+        expires_on
       }
     }
   }

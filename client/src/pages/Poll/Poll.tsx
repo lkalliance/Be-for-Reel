@@ -26,15 +26,6 @@ interface pollProps {
   currUser: string;
 }
 
-interface voteProps {
-  userName: string;
-  movie: string;
-  poll_id: string;
-  option_id: string;
-  imdb_id: string;
-  comment: string;
-}
-
 export function Poll({ currUser }: pollProps) {
   const Auth = new AuthService();
   const loggedIn = Auth.loggedIn();
