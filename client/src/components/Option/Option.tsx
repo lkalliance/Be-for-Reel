@@ -79,7 +79,9 @@ export function Option({
             // user is logged in: show a vote button or the vote total
             voted ? (
               // user has voted: show the vote total for this option
-              <div>{`${votes} vote${votes !== 1 ? "s" : ""}`}</div>
+              <div className="votes">{`${votes} vote${
+                votes !== 1 ? "s" : ""
+              }`}</div>
             ) : (
               // user has not voted: show the vote button
               <div></div>
