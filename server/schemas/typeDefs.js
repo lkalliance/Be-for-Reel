@@ -35,6 +35,7 @@ const typeDefs = gql`
   type pollOption {
     _id: ID
     movie: String!
+    year: Int
     imdb_id: String!
     stars: String
     plot: String
@@ -65,6 +66,7 @@ const typeDefs = gql`
     user_id: String!
     username: String!
     created_on: String!
+    expires_on: String!
     options: [pollOption]
     comments: [pollComment]
     votes: [String]
@@ -82,6 +84,7 @@ const typeDefs = gql`
     urlTitle: String!
     votes: Int
     comments: Int
+    expires_on: String
   }
 
   type userComments {

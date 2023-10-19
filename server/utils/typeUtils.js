@@ -5,7 +5,7 @@ module.exports = {
     // remove all special characters but single quotes
     const cleanedName = userName
       .replace(/\s+/g, " ")
-      .replace(/[^A-Za-z0-9\s\'\‘]/g, "");
+      .replace(/[^A-Za-z0-9\s\'\‘\,]/g, "");
     return cleanedName;
   },
   createLookupName: function (userName) {

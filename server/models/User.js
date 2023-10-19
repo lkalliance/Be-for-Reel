@@ -17,6 +17,7 @@ const userPolls = new Schema({
   },
   votes: Number,
   comments: Number,
+  expires_on: Date,
 });
 
 const userVotes = new Schema({

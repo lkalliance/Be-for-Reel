@@ -28,6 +28,10 @@ const pollOption = new Schema({
     type: String,
     required: true,
   },
+  year: {
+    type: Number,
+    required: false,
+  },
   imdb_id: {
     type: String,
     required: true,
@@ -117,6 +121,10 @@ const pollSchema = new Schema({
     required: true,
   },
   created_on: {
+    type: Date,
+    required: true,
+  },
+  expires_on: {
     type: Date,
     required: true,
   },
