@@ -3,12 +3,23 @@
 import "./Option.css";
 import { optionProps } from "../../utils";
 
+interface voteProps {
+  userName: string;
+  movie: string;
+  poll_id: string;
+  option_id: string;
+  imdb_id: string;
+  comment: string;
+}
+
 interface optProps {
   opt: optionProps;
-  poll: string;
   voted: string | undefined;
   votes: number | undefined;
   loggedIn: boolean;
+  selected: voteProps;
+  select: (e: React.SetStateAction<voteProps>) => void;
+  comment: (e: React.SetStateAction<string>) => void;
   handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -16,12 +27,34 @@ export function Option({
   opt,
   voted,
   votes,
-  poll,
-  handleVote,
   loggedIn,
+  selected,
+  select,
+  comment,
 }: optProps) {
+  const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    const { tagName } = e.target as HTMLElement;
+    const { className } = e.currentTarget as HTMLElement;
+    if (!voted && loggedIn && tagName !== "A") {
+      const voteObj = {
+        ...selected,
+        movie: opt.movie,
+        option_id: className === "option selected" ? "" : opt._id,
+        imdb_id: opt.imdb_id,
+      };
+      select(voteObj);
+      comment("");
+    }
+  };
+
   return (
-    <div className="option">
+    <div
+      className={`option${selected.option_id === opt._id ? " selected" : ""}${
+        !loggedIn || voted ? " nohover" : ""
+      }`}
+      onClick={handleSelect}
+    >
       <h3>{opt.movie}</h3>
       <div>{opt.stars}</div>
       <div className="optinfo">
@@ -46,16 +79,12 @@ export function Option({
             // user is logged in: show a vote button or the vote total
             voted ? (
               // user has voted: show the vote total for this option
-              <div>{`${votes} vote${votes !== 1 ? "s" : ""}`}</div>
+              <div className="votes">{`${votes} vote${
+                votes !== 1 ? "s" : ""
+              }`}</div>
             ) : (
               // user has not voted: show the vote button
-              <button
-                // id contains data on its movie, poll, and more
-                id={`${opt.movie}&&&${poll}&&&${opt._id}&&&${opt.imdb_id}`}
-                onClick={handleVote}
-              >
-                Vote for me!
-              </button>
+              <div></div>
             )
           ) : (
             // user is not logged in, show neither vote total nor button

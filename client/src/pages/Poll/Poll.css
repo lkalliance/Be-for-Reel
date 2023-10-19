@@ -24,6 +24,33 @@
   color: var(--secondary-link);
 }
 
+#poll #question button:disabled:hover,
+#poll #question button {
+  background-color: var(--primary-background);
+  border: none;
+  margin-top: 8px;
+  color: white;
+  width: 80px;
+}
+
+#poll #question button:hover {
+  background-color: var(--primary-link-hover);
+  color: var(--primary-background);
+}
+
+#poll #question button:disabled,
+#poll #question textarea:disabled {
+  opacity: 0.5;
+}
+
+#poll #question fieldset {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  max-width: 300px;
+}
+
 #poll #comment {
   max-width: 300px;
   height: 80px;
@@ -40,6 +67,7 @@
 }
 
 #poll h3 {
-  margin-top: 20px;
+  margin-top: 0;
   color: var(--primary-link-hover);
+  cursor: pointer;
 }

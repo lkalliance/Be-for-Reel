@@ -26,6 +26,15 @@ interface pollProps {
   currUser: string;
 }
 
+interface voteProps {
+  userName: string;
+  movie: string;
+  poll_id: string;
+  option_id: string;
+  imdb_id: string;
+  comment: string;
+}
+
 export function Poll({ currUser }: pollProps) {
   const Auth = new AuthService();
   const loggedIn = Auth.loggedIn();
@@ -34,6 +43,13 @@ export function Poll({ currUser }: pollProps) {
   const { lookupname, pollname } = useParams();
   // get all user info
   const userInfo: userData = Auth.getProfile();
+
+  // get the poll
+  const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
+    variables: { lookupname, pollname },
+  });
+
+  const poll = data?.getPoll;
 
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
@@ -53,6 +69,14 @@ export function Poll({ currUser }: pollProps) {
     ],
   });
   const [comment, setComment] = useState("");
+  const [selected, setSelected] = useState({
+    userName: currUser,
+    movie: "",
+    poll_id: "",
+    option_id: "",
+    imdb_id: "",
+    comment: "",
+  });
 
   const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // keep track of comment as it is typed
@@ -62,18 +86,10 @@ export function Poll({ currUser }: pollProps) {
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     // handle vote submission
 
-    // parse the option id for values
-    const voteData = e.currentTarget.id.split("&&&");
     try {
+      const voteVars = { ...selected, comment, poll_id: poll._id };
       const { data } = await castVote({
-        variables: {
-          userName: currUser,
-          movie: voteData[0],
-          poll_id: voteData[1],
-          option_id: voteData[2],
-          imdb_id: voteData[3],
-          comment,
-        },
+        variables: voteVars,
       });
       setComment("");
 
@@ -83,12 +99,6 @@ export function Poll({ currUser }: pollProps) {
       console.log(err);
     }
   };
-
-  const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
-    variables: { lookupname, pollname },
-  });
-
-  const poll = data?.getPoll;
 
   return (
     <section id="poll">
@@ -110,12 +120,21 @@ export function Poll({ currUser }: pollProps) {
                 <p id="yourvote">You voted for "{userInfo.votes[poll._id]}"</p>
               ) : (
                 // user has not voted on this poll, show comment form
-                <textarea
-                  id="comment"
-                  placeholder="Leave a comment here when you vote!"
-                  onChange={handleComment}
-                  value={comment}
-                ></textarea>
+                <fieldset>
+                  <textarea
+                    id="comment"
+                    placeholder="Make a selection, add an optional comment, and click to vote!"
+                    onChange={handleComment}
+                    value={comment}
+                    disabled={selected.option_id === ""}
+                  ></textarea>
+                  <button
+                    disabled={selected.option_id === ""}
+                    onClick={handleVote}
+                  >
+                    Vote!
+                  </button>
+                </fieldset>
               )
             ) : (
               // user is not logged in, prompt them to
@@ -131,8 +150,10 @@ export function Poll({ currUser }: pollProps) {
                 <Option
                   key={index}
                   opt={option}
-                  poll={poll._id}
                   loggedIn={loggedIn}
+                  selected={selected}
+                  select={setSelected}
+                  comment={setComment}
                   voted={userInfo.votes[poll._id]}
                   votes={
                     userInfo.votes[poll._id]
