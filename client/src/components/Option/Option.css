@@ -21,15 +21,13 @@
 }
 
 .option .votes {
-  position: absolute;
-  right: 18px;
-  bottom: 12px;
   padding: 6px 8px;
   border-radius: 4px;
-  border: 2px solid white;
-  background-color: var(--secondary-background);
-  color: var(--secondary-link);
+  background-color: rgb(47, 62, 114);
+  color: white;
   font-weight: bold;
+  text-align: center;
+  margin-top: 12px;
 }
 
 .option h2 {
