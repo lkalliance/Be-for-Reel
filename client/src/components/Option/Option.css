@@ -1,3 +1,24 @@
+.option {
+  border: 1px solid var(--secondary-background);
+  border-radius: 6px;
+  padding: 12px 18px;
+  margin-bottom: 15px;
+}
+
+.option.selected {
+  background-color: rgb(49, 49, 76);
+}
+
+.option:hover {
+  border-width: 4px;
+  padding: 9px 15px;
+}
+
+.option.nohover:hover {
+  border-width: 1px;
+  padding: 12px 18px;
+}
+
 .option h2 {
   margin: 6px 0 0;
   font-size: 1.1em;
@@ -6,9 +27,7 @@
 .optinfo {
   display: flex;
   flex-direction: row;
-  margin: 6px 0 20px;
-  border: 1px solid black;
-  padding: 10px;
+  margin: 6px 0 0;
 }
 
 .optinfo img {

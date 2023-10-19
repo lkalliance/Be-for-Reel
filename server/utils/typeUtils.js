@@ -13,8 +13,7 @@ module.exports = {
     // lowercase alphanumeric, with hyphens for spaces
     const lookupName = userName
       .replace(/\s+/g, " ")
-      .replace(/[^A-Za-z0-9\s\'\‘]/g, "")
-      .replace(/[\'\‘']/g, "")
+      .replace(/[^A-Za-z0-9\s]/g, "")
       .replaceAll(" ", "-")
       .toLowerCase();
     return lookupName;

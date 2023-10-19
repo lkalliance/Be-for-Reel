@@ -228,7 +228,7 @@ const resolvers = {
     ) => {
       // make sure the user is actually logged in
       if (context.user) {
-        let updatedUser, whichPoll, pollUser;
+        let updatedUser, whichPoll;
 
         // if the user has already voted on this poll, leave
         const pollCheck = await Poll.findOne({ _id: poll_id });
