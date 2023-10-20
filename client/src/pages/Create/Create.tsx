@@ -222,7 +222,7 @@ export function Create({ updateList, currentList }: createProps) {
       <div className="container">
         <h1>Create a Poll</h1>
         <div className="row">
-          <div id="selected" className="col-6">
+          <div id="selected" className="col-12 col-sm-6">
             <h2>About your poll</h2>
             <form>
               <fieldset>
@@ -283,7 +283,7 @@ export function Create({ updateList, currentList }: createProps) {
               })}
             </ul>
           </div>
-          <div id="titleSearch" className="col-6">
+          <div id="titleSearch" className="col-12 col-sm-6">
             <h2>Search for a title</h2>
             <fieldset>
               <input

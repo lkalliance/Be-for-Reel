@@ -6,14 +6,18 @@ nav ul {
   list-style-type: none;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: end;
 }
 
 nav li {
   list-style-type: none;
+  padding: 0;
+  margin-left: 6px;
 }
 
 nav li a {
   font-weight: bold;
+  font-size: 0.9em;
   text-decoration: none;
-  margin: 0 6px;
 }

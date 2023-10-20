@@ -1,3 +1,7 @@
 form {
   position: relative;
 }
+
+section#login .alert {
+  margin-left: 0;
+}
