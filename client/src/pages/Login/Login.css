@@ -7,10 +7,10 @@ section#login {
 
 section#login div {
   max-width: 350px;
-  margin: 0 10px 40px;
+  margin: 0 10px 30px;
 }
 
 section#login div.alert {
   width: 100%;
-  margin-top: 20px;
+  margin: 20px 0 0;
 }

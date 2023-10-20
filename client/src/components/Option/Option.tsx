@@ -61,19 +61,21 @@ export function Option({
         <img src={opt.image} alt={opt.movie} />
         <div>
           {opt.plot}
-          <a
-            href={`https://www.imdb.com/title/${opt.imdb_id}/`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            IMDb
-          </a>
-          <a href={opt.wikipedia} target="_blank" rel="noreferrer">
-            Wikipedia
-          </a>
-          <a href={opt.trailer} target="_blank" rel="noreferrer">
-            Trailer
-          </a>
+          <div>
+            <a
+              href={`https://www.imdb.com/title/${opt.imdb_id}/`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              IMDb
+            </a>
+            <a href={opt.wikipedia} target="_blank" rel="noreferrer">
+              Wikipedia
+            </a>
+            <a href={opt.trailer} target="_blank" rel="noreferrer">
+              Trailer
+            </a>
+          </div>
 
           {loggedIn ? (
             // user is logged in: show a vote button or the vote total

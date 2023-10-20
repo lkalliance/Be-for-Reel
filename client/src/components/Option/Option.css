@@ -37,17 +37,21 @@
 
 .optinfo {
   display: flex;
+  align-content: start;
   flex-direction: row;
   margin: 6px 0 0;
 }
 
 .optinfo img {
   width: 75px;
+  height: auto;
   margin-right: 12px;
+  align-self: start;
 }
 
 .optinfo a {
+  font-size: 0.8em;
   font-weight: bold;
-  padding: 0 10px;
+  margin-right: 10px;
   text-decoration: none;
 }

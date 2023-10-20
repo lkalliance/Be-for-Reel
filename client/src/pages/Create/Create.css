@@ -32,11 +32,9 @@ section#create textarea {
 }
 
 section#create input[type="checkbox"] {
-  float: left;
   margin-right: 4px;
   width: auto;
   position: relative;
-  top: 6px;
 }
 
 section#create h3 {
@@ -51,6 +49,7 @@ section#create h2 {
 section#create h4 {
   color: var(--primary-link-hover);
   font-weight: bold;
+  line-height: 1.1em;
 }
 
 section#create span {
