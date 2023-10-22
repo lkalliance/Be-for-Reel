@@ -35,4 +35,11 @@ module.exports = {
     });
     return voteObj;
   },
+  condenseGenres: function (genreLists) {
+    // finds genres common to all provided movies
+    const genres = genreLists.reduce((prev, curr) =>
+      prev.filter((element) => curr.includes(element))
+    );
+    return genres;
+  },
 };

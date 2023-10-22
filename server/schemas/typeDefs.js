@@ -128,7 +128,7 @@ const typeDefs = gql`
     getPoll(lookupname: String!, pollname: String!): Poll
     getMyVotes(username: String!): User
     getUser(lookupname: String!): User
-    getPolls(username: String): pollList
+    getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
   }
 

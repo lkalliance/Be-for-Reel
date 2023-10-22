@@ -4,6 +4,7 @@ const {
   cleanUsername,
   createLookupName,
   createUrlTitle,
+  condenseGenres,
 } = require("../utils/typeUtils");
 const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
@@ -31,9 +32,9 @@ const resolvers = {
       });
       return poll ? poll : false;
     },
-    getPolls: async (parent) => {
-      console.log("I'm getting polls");
-      const polls = await Poll.find();
+    getPolls: async (parent, { genre }) => {
+      const lookupGenre = genre || "all";
+      const polls = await Poll.find({ genre: lookupGenre });
       const list = polls.map((poll) => {
         return {
           poll_id: poll._id,
@@ -133,6 +134,7 @@ const resolvers = {
     addPoll: async (parent, { title, description, movieIds }, context) => {
       // make sure the user is actually logged in
       if (context.user) {
+        const optGenres = [];
         const options = await Promise.all(
           movieIds.map(async (id) => {
             // for each given movie id, get the info from IMDb
@@ -142,6 +144,12 @@ const resolvers = {
             };
             const movieData = await fetch.request(getMovies);
             const movie = movieData.data;
+            const gList = movie.genreList.map((genre) => {
+              return genre.value.toLowerCase();
+            });
+
+            gList.push("all");
+            optGenres.push(gList);
 
             const option = {
               movie: movie.title,
@@ -189,11 +197,14 @@ const resolvers = {
         );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
 
+        const lookupGenre = condenseGenres(optGenres);
+
         // construct the object to be stored to the Polls collection
         const newPoll = {
           title,
           urlTitle,
           description,
+          genre: lookupGenre.length > 0 ? lookupGenre : ["all"],
           user_id: context.user._id,
           username: context.user.userName,
           created_on: today,

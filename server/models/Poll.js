@@ -112,6 +112,9 @@ const pollSchema = new Schema({
     type: String,
     required: false,
   },
+  genre: {
+    type: [String],
+  },
   user_id: {
     type: String,
     required: true,
