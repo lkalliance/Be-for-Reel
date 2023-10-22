@@ -13,10 +13,15 @@ export function Directory() {
     variables: { username: "", genre },
   });
 
+  const genreTitle = genre
+    ? genre.charAt(0).toUpperCase() + genre.slice(1)
+    : "Recent polls";
+
   const list = data?.getPolls.polls || false;
 
   return (
     <section id="directory">
+      {genreTitle ? <h1>{genreTitle}</h1> : ""}
       <ul>
         {list
           ? list.map((poll: userPollProps, index: number) => {
