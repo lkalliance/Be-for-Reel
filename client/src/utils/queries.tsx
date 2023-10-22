@@ -69,8 +69,8 @@ export const QUERY_SINGLE_POLL = gql`
 `;
 
 export const QUERY_ALL_POLLS = gql`
-  query GetPolls($username: String) {
-    getPolls(username: $username) {
+  query GetPolls($username: String, $genre: String) {
+    getPolls(username: $username, genre: $genre) {
       polls {
         poll_id
         title

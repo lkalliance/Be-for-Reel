@@ -7,7 +7,7 @@ nav ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 nav li {

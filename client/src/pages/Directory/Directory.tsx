@@ -2,13 +2,15 @@
 
 import "./Directory.css";
 import { PollListing } from "../../components";
+import { useParams } from "react-router-dom";
 import { QUERY_ALL_POLLS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import { userPollProps } from "../../utils/interfaces";
 
 export function Directory() {
+  const { genre } = useParams();
   const { data } = useQuery(QUERY_ALL_POLLS, {
-    variables: { username: "" },
+    variables: { username: "", genre },
   });
 
   const list = data?.getPolls.polls || false;

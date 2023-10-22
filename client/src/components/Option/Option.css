@@ -37,7 +37,7 @@
 
 .optinfo {
   display: flex;
-  align-content: start;
+  align-content: flext-start;
   flex-direction: row;
   margin: 6px 0 0;
 }
@@ -46,7 +46,7 @@
   width: 75px;
   height: auto;
   margin-right: 12px;
-  align-self: start;
+  align-self: flex-start;
 }
 
 .optinfo a {

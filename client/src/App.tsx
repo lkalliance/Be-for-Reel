@@ -58,6 +58,8 @@ function App() {
               )
             }
           />
+          <Route path="/polls/:genre" element={<Directory />} />
+
           <Route
             path="/:lookupname/:pollname"
             element={<Poll loggedin={loggedIn} currUser={userInfo.userName} />}
