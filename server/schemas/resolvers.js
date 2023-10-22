@@ -4,6 +4,7 @@ const {
   cleanUsername,
   createLookupName,
   createUrlTitle,
+  condenseGenres,
 } = require("../utils/typeUtils");
 const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
@@ -133,6 +134,7 @@ const resolvers = {
     addPoll: async (parent, { title, description, movieIds }, context) => {
       // make sure the user is actually logged in
       if (context.user) {
+        const optGenres = [];
         const options = await Promise.all(
           movieIds.map(async (id) => {
             // for each given movie id, get the info from IMDb
@@ -142,6 +144,11 @@ const resolvers = {
             };
             const movieData = await fetch.request(getMovies);
             const movie = movieData.data;
+            const gList = movie.genreList.map((genre) => {
+              return genre.value;
+            });
+
+            optGenres.push(gList);
 
             const option = {
               movie: movie.title,
@@ -194,6 +201,7 @@ const resolvers = {
           title,
           urlTitle,
           description,
+          genre: condenseGenres(optGenres),
           user_id: context.user._id,
           username: context.user.userName,
           created_on: today,
