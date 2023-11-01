@@ -11,8 +11,7 @@ import { AuthService } from "../../utils/auth";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 
 interface searchOptions {
-  from: string;
-  to: string;
+  decade: string;
   years: boolean;
   G: boolean;
   PG: boolean;
@@ -35,8 +34,7 @@ export function Create({ updateList, currentList }: createProps) {
   const Auth = new AuthService();
   // used to reset options values
   const blankOptions = {
-    from: "",
-    to: "",
+    decade: "0",
     years: false,
     G: false,
     PG: false,
@@ -46,6 +44,7 @@ export function Create({ updateList, currentList }: createProps) {
   };
 
   const navigate = useNavigate();
+  const maxTries = 3; // maximum number of times we'll query IMDb for one search
 
   const [searchField, setSearchField] = useState("");
   const [options, setOptions] = useState(blankOptions as searchOptions);
@@ -106,6 +105,12 @@ export function Create({ updateList, currentList }: createProps) {
     }
   };
 
+  const getFilms = async (url: string) => {
+    const movieData = await fetch(url);
+    const result = await movieData.json();
+    return result;
+  };
+
   const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
@@ -116,14 +121,15 @@ export function Create({ updateList, currentList }: createProps) {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { to, from, years, G, PG, PG13, R, oscar } = options;
+    const { decade, G, PG, PG13, R, oscar } = options;
+    const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${searchField}`;
     let paramParts = [];
 
-    if (years) {
+    if (mathDecade > 0) {
       // if there are years to search, add the parameters for from and to
-      if (Number(from) > 0) paramParts.push(`from=${from}`);
-      if (Number(to) > 0) paramParts.push(`to=${to}`);
+      paramParts.push(`from=${1910 + 10 * mathDecade}`);
+      paramParts.push(`to=${1919 + 10 * mathDecade}`);
     }
     if (G || PG || PG13 || R) {
       // if there are limits on ratings, add those parameters
@@ -140,8 +146,12 @@ export function Create({ updateList, currentList }: createProps) {
     // create the search URL from the base plus the parameters
     searchUrl += paramParts.length > 0 ? `?${paramParts.join("&")}` : "";
 
-    const movieData = await fetch(searchUrl);
-    const result = await movieData.json();
+    let result: movieProps[] = [],
+      tries = 0;
+    while (tries < maxTries && result.length === 0) {
+      result = await getFilms(searchUrl);
+      tries++;
+    }
 
     // sort results by number of IMDb rating votes
     result.sort((a: movieProps, b: movieProps) => {
@@ -161,21 +171,22 @@ export function Create({ updateList, currentList }: createProps) {
     const { id, value } = e.target;
     const today = new Date();
     const thisYear = Number(today.getFullYear());
-    let changeYear = id === "from" || id === "to";
+    // let changeYear = id === "from" || id === "to";
 
     // if it's a year field, set the new value as the text in the field
     // if it's a checkbox, set the new value as the opposite of before
-    const newValue = changeYear ? value : !options[id as keyof searchOptions];
+    const newValue =
+      id === "decade" ? value : !options[id as keyof searchOptions];
     const newOptions = { ...options, [id]: newValue };
 
-    // make sure year range isn't before 1927 or after current
-    newOptions.years =
-      !(newOptions.from === "" && newOptions.to === "") &&
-      (newOptions.from === "" ||
-        (Number(newOptions.from) >= 1927 &&
-          Number(newOptions.from) <= thisYear)) &&
-      (newOptions.to === "" ||
-        (Number(newOptions.to) >= 1927 && Number(newOptions.to) <= thisYear));
+    // // make sure year range isn't before 1927 or after current
+    // newOptions.years =
+    //   !(newOptions.from === "" && newOptions.to === "") &&
+    //   (newOptions.from === "" ||
+    //     (Number(newOptions.from) >= 1927 &&
+    //       Number(newOptions.from) <= thisYear)) &&
+    //   (newOptions.to === "" ||
+    //     (Number(newOptions.to) >= 1927 && Number(newOptions.to) <= thisYear));
 
     setOptions(newOptions);
   };
@@ -301,8 +312,22 @@ export function Create({ updateList, currentList }: createProps) {
             <h3>Search options</h3>
             <form>
               <fieldset id="released">
-                <legend>Released</legend>
+                <legend>
+                  Release decade:{" "}
+                  {options.decade === "0"
+                    ? "all"
+                    : `${1910 + 10 * parseInt(options.decade)}'s`}
+                </legend>
                 <input
+                  type="range"
+                  className="form-range"
+                  min="0"
+                  max="11"
+                  id="decade"
+                  value={parseInt(options.decade)}
+                  onChange={handleOption}
+                ></input>
+                {/* <input
                   type="text"
                   id="from"
                   placeholder="From"
@@ -315,7 +340,7 @@ export function Create({ updateList, currentList }: createProps) {
                   placeholder="To"
                   onChange={handleOption}
                   value={String(options.to)}
-                />
+                /> */}
               </fieldset>
               <fieldset>
                 <legend>Limit to just these US ratings</legend>
