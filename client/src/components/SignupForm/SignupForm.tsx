@@ -6,37 +6,41 @@ import { useMutation } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { ADD_USER } from "../../utils";
 import { loginState } from "../../utils/interfaces";
+import { InputText } from "../../components";
 
 interface formData {
-  signupUsername: string;
-  signupEmail: string;
-  signupPassword: string;
+  [key: string]: string;
 }
 
-export function SignupForm({ setLogIn }: loginState) {
+export function SignupForm({
+  setLogIn,
+  stateObj,
+  handleChange,
+  clear,
+  formSetter,
+  strErr,
+  setStrErr,
+}: loginState) {
   const Auth = new AuthService();
-  const [signupForm, setSignupForm] = useState({
-    signupUsername: "",
-    signupEmail: "",
-    signupPassword: "",
-  });
-  const [errorMessage, setErrorMessage] = useState("");
+
   const [addUser] = useMutation(ADD_USER);
 
-  const validateForm = ({ signupPassword, signupEmail }: formData) => {
+  const validateForm = ({ sPassword, sEmail }: formData) => {
+    if (!formSetter) return;
     // Validate each field of the form
 
     // is this a properly-formed email?
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(signupEmail)) {
-      setErrorMessage("Please provide a valid email address.");
-      setSignupForm({ ...signupForm, signupEmail: "" });
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(sEmail)) {
+      if (setStrErr) setStrErr("Please provide a valid email address.");
+      formSetter({ ...stateObj, sEmail: "" });
       return false;
     }
 
     // is this a long enough password?
-    if (signupPassword.length < 8) {
-      setErrorMessage("Please create a password of at least eight characters");
-      setSignupForm({ ...signupForm, signupPassword: "" });
+    if (sPassword.length < 8) {
+      if (setStrErr)
+        setStrErr("Please create a password of at least eight characters");
+      formSetter({ ...stateObj, sPassword: "" });
       return false;
     }
 
@@ -45,22 +49,20 @@ export function SignupForm({ setLogIn }: loginState) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Handler to track value of each signup field
-    setErrorMessage("");
-    const { name, value } = e.target;
-    setSignupForm({ ...signupForm, [name]: value });
+
+    // if something is amiss and no handler passed down, exit
+    if (!handleChange) return;
+    handleChange(e);
   };
 
   const handleSignupSubmit = async (e: React.MouseEvent) => {
     // Handler for submitting signup form
 
+    if (!stateObj || !clear || !formSetter) return;
     e.preventDefault();
     if (
       // return if one of the form fields isn't filled in
-      !(
-        signupForm.signupUsername &&
-        signupForm.signupPassword &&
-        signupForm.signupEmail
-      )
+      !(stateObj.sUsername && stateObj.sPassword && stateObj.sEmail)
     ) {
       e.preventDefault();
       e.stopPropagation();
@@ -68,13 +70,13 @@ export function SignupForm({ setLogIn }: loginState) {
     }
 
     try {
-      if (validateForm(signupForm)) {
+      if (validateForm(stateObj)) {
         // if validated, add the user
         const { data } = await addUser({
           variables: {
-            userName: signupForm.signupUsername,
-            email: signupForm.signupEmail,
-            password: signupForm.signupPassword,
+            userName: stateObj.sUsername,
+            email: stateObj.sEmail,
+            password: stateObj.sPassword,
           },
         });
 
@@ -83,10 +85,10 @@ export function SignupForm({ setLogIn }: loginState) {
         setLogIn(true);
 
         // clear the form
-        setSignupForm({
-          signupUsername: "",
-          signupEmail: "",
-          signupPassword: "",
+        formSetter({
+          sUsername: "",
+          sEmail: "",
+          sPassword: "",
         });
       }
     } catch (err: any) {
@@ -95,21 +97,23 @@ export function SignupForm({ setLogIn }: loginState) {
         err.message.indexOf("userName") > -1 ||
         err.message.indexOf("lookupName") > -1
       ) {
-        setErrorMessage(
-          `The username "${signupForm.signupUsername}" has already been used.`
-        );
-        setSignupForm({ ...signupForm, signupUsername: "" });
+        if (setStrErr)
+          setStrErr(
+            `The username "${stateObj.sUsername}" has already been used.`
+          );
+        formSetter({ ...stateObj, sUsername: "" });
       } else if (err.message.indexOf("email") > -1) {
-        setErrorMessage(
-          `The email address "${signupForm.signupEmail}" has already been used.`
-        );
-        setSignupForm({ ...signupForm, signupEmail: "" });
+        if (setStrErr)
+          setStrErr(
+            `The email address "${stateObj.sEmail}" has already been used.`
+          );
+        formSetter({ ...stateObj, sEmail: "" });
       } else {
-        setErrorMessage("Account creation failed");
-        setSignupForm({
-          signupUsername: "",
-          signupEmail: "",
-          signupPassword: "",
+        if (setStrErr) setStrErr("Account creation failed");
+        formSetter({
+          sUsername: "",
+          sEmail: "",
+          sPassword: "",
         });
       }
     }
@@ -121,44 +125,38 @@ export function SignupForm({ setLogIn }: loginState) {
 
       <form>
         <label>username</label>
-        <input
+        <InputText
           type="text"
-          id="signupUsername"
-          name="signupUsername"
-          value={signupForm.signupUsername}
-          onChange={handleInputChange}
+          val={stateObj ? stateObj.sUsername : ""}
+          setValue={handleInputChange}
+          id="sUsername"
         />
         <label>email</label>
-        <input
-          type="text"
-          id="signupEmail"
-          name="signupEmail"
-          value={signupForm.signupEmail}
-          onChange={handleInputChange}
+        <InputText
+          type="email"
+          val={stateObj ? stateObj.sEmail : ""}
+          setValue={handleInputChange}
+          id="sEmail"
         />
         <label>password</label>
-        <input
+        <InputText
           type="password"
-          id="signupPassword"
-          name="signupPassword"
-          value={signupForm.signupPassword}
-          onChange={handleInputChange}
+          val={stateObj ? stateObj.sPassword : ""}
+          setValue={handleInputChange}
+          id="sPassword"
         />
         <button
           type="submit"
           disabled={
-            !(
-              signupForm.signupUsername &&
-              signupForm.signupPassword &&
-              signupForm.signupEmail
-            )
+            !stateObj ||
+            !(stateObj.sUsername && stateObj.sPassword && stateObj.sEmail)
           }
           onClick={handleSignupSubmit}
         >
           Submit
         </button>
-        {errorMessage.length > 0 ? (
-          <div className="alert alert-danger">{errorMessage}</div>
+        {strErr && strErr.length > 0 ? (
+          <div className="alert alert-danger">{strErr}</div>
         ) : (
           ""
         )}
