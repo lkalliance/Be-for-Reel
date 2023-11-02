@@ -98,8 +98,16 @@ export interface pollListProps {
 }
 
 export interface loginState {
-  // login boolean
+  // login boolean and passing handlers
   setLogIn: Dispatch<SetStateAction<boolean>>;
+  stateObj?: { [key: string]: string };
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clear?: (form: string) => void;
+  formSetter?: Dispatch<SetStateAction<any>>;
+  boolErr?: boolean;
+  strErr?: string;
+  setBoolErr?: Dispatch<SetStateAction<boolean>>;
+  setStrErr?: Dispatch<SetStateAction<string>>;
 }
 
 type pollKey = string;
