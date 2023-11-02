@@ -9,16 +9,8 @@ import { movieProps, pollListProps, userData } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { AuthService } from "../../utils/auth";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
-
-interface searchOptions {
-  decade: string;
-  years: boolean;
-  G: boolean;
-  PG: boolean;
-  PG13: boolean;
-  R: boolean;
-  oscar: boolean;
-}
+import { searchOptions } from "../../utils/interfaces";
+import { MovieSearch } from "../../components";
 
 interface pollOptions {
   title: string;
@@ -179,15 +171,6 @@ export function Create({ updateList, currentList }: createProps) {
       id === "decade" ? value : !options[id as keyof searchOptions];
     const newOptions = { ...options, [id]: newValue };
 
-    // // make sure year range isn't before 1927 or after current
-    // newOptions.years =
-    //   !(newOptions.from === "" && newOptions.to === "") &&
-    //   (newOptions.from === "" ||
-    //     (Number(newOptions.from) >= 1927 &&
-    //       Number(newOptions.from) <= thisYear)) &&
-    //   (newOptions.to === "" ||
-    //     (Number(newOptions.to) >= 1927 && Number(newOptions.to) <= thisYear));
-
     setOptions(newOptions);
   };
 
@@ -296,109 +279,17 @@ export function Create({ updateList, currentList }: createProps) {
           </div>
           <div id="titleSearch" className="col-12 col-sm-6">
             <h2>Search for a title</h2>
-            <fieldset>
-              <input
-                id="titleSearchBox"
-                type="text"
-                placeholder="Title"
-                onKeyUp={handleReturn}
-                value={searchField}
-                onChange={(e) => {
-                  setNoResults(false);
-                  setSearchField(e.target.value);
-                }}
-              />
-            </fieldset>
-            <h3>Search options</h3>
-            <form>
-              <fieldset id="released">
-                <legend>
-                  Release decade:{" "}
-                  {options.decade === "0"
-                    ? "all"
-                    : `${1910 + 10 * parseInt(options.decade)}'s`}
-                </legend>
-                <input
-                  type="range"
-                  className="form-range"
-                  min="0"
-                  max="11"
-                  id="decade"
-                  value={parseInt(options.decade)}
-                  onChange={handleOption}
-                ></input>
-                {/* <input
-                  type="text"
-                  id="from"
-                  placeholder="From"
-                  onChange={handleOption}
-                  value={String(options.from)}
-                />
-                <input
-                  type="text"
-                  id="to"
-                  placeholder="To"
-                  onChange={handleOption}
-                  value={String(options.to)}
-                /> */}
-              </fieldset>
-              <fieldset>
-                <legend>Limit to just these US ratings</legend>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="G"
-                    name="G"
-                    onChange={handleOption}
-                    checked={Boolean(options.G)}
-                  />
-                  <label htmlFor="G">G</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="PG"
-                    name="PG"
-                    onChange={handleOption}
-                    checked={Boolean(options.PG)}
-                  />
-                  <label htmlFor="PG">PG</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="PG13"
-                    name="PG13"
-                    onChange={handleOption}
-                    checked={Boolean(options.PG13)}
-                  />
-                  <label htmlFor="PG13">PG-13</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="R"
-                    name="R"
-                    onChange={handleOption}
-                    checked={Boolean(options.R)}
-                  />
-                  <label htmlFor="R">R</label>
-                </div>
-              </fieldset>
-              <fieldset>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="oscar"
-                    name="oscar"
-                    onChange={handleOption}
-                    checked={Boolean(options.oscar)}
-                  />
-                  <label htmlFor="oscar">Nominated for Best Picture</label>
-                </div>
-              </fieldset>
-            </form>
-            <button onClick={handleSearchSubmit}>Search for title</button>
+
+            <MovieSearch
+              searchField={searchField}
+              setSearchField={setSearchField}
+              noResults={noResults}
+              setNoResults={setNoResults}
+              options={options}
+              handleOption={handleOption}
+              handleReturn={handleReturn}
+              handleSearchSubmit={handleSearchSubmit}
+            />
 
             <div id="results">
               <h3>Search Results</h3>

@@ -1,5 +1,6 @@
 // This component renders an input box (text, email, password)
 
+import "./InputText.css";
 import { useState } from "react";
 
 interface inputProps {
