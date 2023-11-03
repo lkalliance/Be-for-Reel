@@ -10,9 +10,10 @@ import { ADD_POLL } from "../../utils/mutations";
 import { AuthService } from "../../utils/auth";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 import { searchOptions } from "../../utils/interfaces";
-import { MovieSearch } from "../../pageComponents";
+import { MovieSearch, AboutPoll } from "../../pageComponents";
 
 interface pollOptions {
+  [key: string]: string;
   title: string;
   description: string;
 }
@@ -174,6 +175,18 @@ export function Create({ updateList, currentList }: createProps) {
     setOptions(newOptions);
   };
 
+  const handlePollData = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    console.log(pollData[e.target.id]);
+    // clear any error message
+    setErrorMessage("");
+    // update the poll data
+    setPollData({ ...pollData, [e.target.id]: e.target.value });
+  };
+
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
     if (e.key === "Enter") {
@@ -218,34 +231,7 @@ export function Create({ updateList, currentList }: createProps) {
         <div className="row">
           <div id="selected" className="col-12 col-sm-6">
             <h2>About your poll</h2>
-            <form>
-              <fieldset>
-                <input
-                  type="text"
-                  id="title"
-                  placeholder="Poll title"
-                  value={pollData.title}
-                  onChange={(e) => {
-                    setErrorMessage("");
-                    setPollData({
-                      title: e.target.value,
-                      description: pollData.description,
-                    });
-                  }}
-                />
-                <textarea
-                  id="description"
-                  placeholder="Poll description"
-                  value={pollData.description}
-                  onChange={(e) => {
-                    setPollData({
-                      title: pollData.title,
-                      description: e.target.value,
-                    });
-                  }}
-                ></textarea>
-              </fieldset>
-            </form>
+            <AboutPoll pollData={pollData} handlePollData={handlePollData} />
             <button
               onClick={handleCreate}
               disabled={!(pollData.title.length > 0 && selected.length > 1)}
