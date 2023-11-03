@@ -1,7 +1,6 @@
 // This component renders the signup form
 
 import "./SignupForm.css";
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { ADD_USER } from "../../utils";
@@ -129,6 +128,7 @@ export function SignupForm({
           type="text"
           val={stateObj ? stateObj.sUsername : ""}
           setValue={handleInputChange}
+          capitalize="off"
           id="sUsername"
         />
         <label>email</label>

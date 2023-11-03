@@ -1,7 +1,3 @@
-export { Header } from "./Header";
-export { Nav } from "./Nav";
-export { SignupForm } from "./SignupForm";
-export { LoginForm } from "./LoginForm";
 export { Option } from "./Option";
 export { Card } from "./Card";
 export { Question } from "./Question";
@@ -10,4 +6,3 @@ export { Comment } from "./Comment";
 export { PollListing } from "./PollListing";
 export { UsernameLink } from "./UsernameLink";
 export { InputText } from "./InputText";
-export { MovieSearch } from "./MovieSearch";

@@ -1,7 +1,7 @@
 // This compnent renders the page header
 
 import "./Header.css";
-import { Nav } from "../../components";
+import { Nav } from "../../pageComponents";
 
 interface headerProps {
   uname: string;

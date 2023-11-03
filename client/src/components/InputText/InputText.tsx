@@ -6,12 +6,23 @@ import { useState } from "react";
 interface inputProps {
   type: string;
   id: string;
+  placeholder?: string;
   limit?: number;
   val?: string;
+  capitalize?: string;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  keyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export function InputText({ val, setValue, id, type }: inputProps) {
+export function InputText({
+  val,
+  setValue,
+  id,
+  type,
+  placeholder,
+  keyUp,
+  capitalize,
+}: inputProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +34,11 @@ export function InputText({ val, setValue, id, type }: inputProps) {
       setLocalVal(value);
     }
   };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // if a keyup handler has been passed down, use it...
+    if (keyUp) keyUp(e);
+    else return;
+  };
 
   // this is our input field
   return (
@@ -30,8 +46,11 @@ export function InputText({ val, setValue, id, type }: inputProps) {
       type={type}
       id={id}
       name={id}
+      placeholder={placeholder || ""}
+      autoCapitalize={capitalize || "on"}
       value={val ? val : localVal}
       onChange={handleChange}
+      onKeyUp={handleKeyUp}
     />
   );
 }

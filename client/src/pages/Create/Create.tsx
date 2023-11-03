@@ -10,7 +10,7 @@ import { ADD_POLL } from "../../utils/mutations";
 import { AuthService } from "../../utils/auth";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 import { searchOptions } from "../../utils/interfaces";
-import { MovieSearch } from "../../components";
+import { MovieSearch } from "../../pageComponents";
 
 interface pollOptions {
   title: string;

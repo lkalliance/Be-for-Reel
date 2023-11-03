@@ -3,6 +3,7 @@
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import { searchOptions } from "../../utils/interfaces";
+import { InputText } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -24,19 +25,22 @@ export function MovieSearch({
   handleOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNoResults(false);
+    setSearchField(e.target.value);
+  };
+
   return (
     <>
       <fieldset>
-        <input
-          id="titleSearchBox"
+        <InputText
           type="text"
+          id="titleSearchBox"
           placeholder="Title"
-          onKeyUp={handleReturn}
-          value={searchField}
-          onChange={(e) => {
-            setNoResults(false);
-            setSearchField(e.target.value);
-          }}
+          capitalize="off"
+          val={searchField}
+          setValue={handleChange}
+          keyUp={handleReturn}
         />
       </fieldset>
       <h3>Search options</h3>
