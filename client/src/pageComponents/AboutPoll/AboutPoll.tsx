@@ -1,7 +1,7 @@
 // This page component renders the "About your poll" form
 
 import "./AboutPoll.css";
-import { InputText } from "../../components";
+import { InputText, TextAreaField } from "../../components";
 
 interface aboutPollProps {
   pollData: {
@@ -26,12 +26,12 @@ export function AboutPoll({ pollData, handlePollData }: aboutPollProps) {
           val={pollData.title}
           setValue={handlePollData}
         />
-        <textarea
+        <TextAreaField
           id="description"
           placeholder="Poll description"
-          value={pollData.description}
-          onChange={handlePollData}
-        ></textarea>
+          val={pollData.description}
+          setValue={handlePollData}
+        />
       </fieldset>
     </form>
   );

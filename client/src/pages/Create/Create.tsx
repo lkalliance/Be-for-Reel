@@ -180,7 +180,6 @@ export function Create({ updateList, currentList }: createProps) {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    console.log(pollData[e.target.id]);
     // clear any error message
     setErrorMessage("");
     // update the poll data

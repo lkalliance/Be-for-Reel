@@ -7,3 +7,4 @@ export { PollListing } from "./PollListing";
 export { UsernameLink } from "./UsernameLink";
 export { InputText } from "./InputText";
 export { Checkbox } from "./Checkbox";
+export { TextAreaField } from "./TextAreaField";
