@@ -123,6 +123,17 @@ export type userData = {
 
 // These interfaces are used for the return from IMDb's title search
 
+export interface searchOptions {
+  // search option form elements
+  decade: string;
+  years: boolean;
+  G: boolean;
+  PG: boolean;
+  PG13: boolean;
+  R: boolean;
+  oscar: boolean;
+}
+
 interface genreObj {
   // genres attached to films by IMDb
   key: string;

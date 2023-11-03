@@ -12,7 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 
 import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
-import { Header } from "./components";
+import { Header } from "./pageComponents";
 import { userData, userPollProps } from "./utils/interfaces";
 
 const httpLink = createHttpLink({ uri: "/graphql" });

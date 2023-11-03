@@ -1,31 +1,29 @@
-// This component renders an input box (text, email, password)
+// This component renders a textarea element
 
-import "./InputText.css";
+import "./TextAreaField.css";
 import { useState } from "react";
 
-interface inputProps {
-  type: string;
+interface textAreaProps {
   id: string;
   placeholder?: string;
   limit?: number;
   val?: string;
-  capitalize?: string;
-  setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  keyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  setValue?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  keyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
-export function InputText({
+export function TextAreaField({
+  id,
+  placeholder,
+  limit,
   val,
   setValue,
-  id,
-  type,
-  placeholder,
   keyUp,
-  capitalize,
-}: inputProps) {
+}: textAreaProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // if a change handler has been passed down, use it...
     if (setValue) setValue(e);
     else {
@@ -34,23 +32,20 @@ export function InputText({
       setLocalVal(value);
     }
   };
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // if a keyup handler has been passed down, use it...
     if (keyUp) keyUp(e);
     else return;
   };
 
-  // this is our input field
   return (
-    <input
-      type={type}
+    <textarea
       id={id}
-      name={id}
-      placeholder={placeholder || ""}
-      autoCapitalize={capitalize || "on"}
+      placeholder={placeholder ? placeholder : ""}
       value={val ? val : localVal}
       onChange={handleChange}
       onKeyUp={handleKeyUp}
-    />
+    ></textarea>
   );
 }

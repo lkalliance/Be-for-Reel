@@ -68,6 +68,7 @@ export function LoginForm({
           type="text"
           val={stateObj ? stateObj.lUsername : ""}
           setValue={handleInputChange}
+          capitalize="off"
           id="lUsername"
         />
         <label>password</label>
