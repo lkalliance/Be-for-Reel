@@ -3,7 +3,7 @@
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import { searchOptions } from "../../utils/interfaces";
-import { InputText } from "../../components";
+import { InputText, Checkbox } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -25,9 +25,16 @@ export function MovieSearch({
   handleOption,
   handleSearchSubmit,
 }: movieSearchProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // on any input, clear the warning that there are no results
     setNoResults(false);
     setSearchField(e.target.value);
+  };
+
+  const handleOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // on any input, clear the warning that there are no results
+    setNoResults(false);
+    handleOption(e);
   };
 
   return (
@@ -39,7 +46,7 @@ export function MovieSearch({
           placeholder="Title"
           capitalize="off"
           val={searchField}
-          setValue={handleChange}
+          setValue={handleSearchChange}
           keyUp={handleReturn}
         />
       </fieldset>
@@ -65,54 +72,44 @@ export function MovieSearch({
         <fieldset>
           <legend>Limit to just these US ratings</legend>
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               id="G"
-              name="G"
-              onChange={handleOption}
-              checked={Boolean(options.G)}
+              setValue={handleOptChange}
+              val={Boolean(options.G)}
             />
             <label htmlFor="G">G</label>
           </div>
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               id="PG"
-              name="PG"
-              onChange={handleOption}
-              checked={Boolean(options.PG)}
+              setValue={handleOptChange}
+              val={Boolean(options.PG)}
             />
             <label htmlFor="PG">PG</label>
           </div>
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               id="PG13"
-              name="PG13"
-              onChange={handleOption}
-              checked={Boolean(options.PG13)}
+              setValue={handleOptChange}
+              val={Boolean(options.PG13)}
             />
             <label htmlFor="PG13">PG-13</label>
           </div>
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               id="R"
-              name="R"
-              onChange={handleOption}
-              checked={Boolean(options.R)}
+              setValue={handleOptChange}
+              val={Boolean(options.R)}
             />
             <label htmlFor="R">R</label>
           </div>
         </fieldset>
         <fieldset>
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               id="oscar"
-              name="oscar"
-              onChange={handleOption}
-              checked={Boolean(options.oscar)}
+              setValue={handleOptChange}
+              val={Boolean(options.oscar)}
             />
             <label htmlFor="oscar">Nominated for Best Picture</label>
           </div>
