@@ -1,13 +1,12 @@
 // This component renders a user profile page
 
 import "./Profile.css";
-import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
-import { QUERY_SINGLE_USER } from "../../utils";
-import { PollList } from "../../components";
-import { userCommentProps } from "../../utils";
 import { Key } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { userCommentProps } from "../../utils/interfaces";
+import { QUERY_SINGLE_USER } from "../../utils/queries";
+import { PollList } from "../../components";
 
 export function Profile() {
   const { username } = useParams();

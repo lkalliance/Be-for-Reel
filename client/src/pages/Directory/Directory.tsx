@@ -3,7 +3,8 @@
 import "./Directory.css";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { userPollProps, QUERY_ALL_POLLS } from "../../utils";
+import { userPollProps } from "../../utils/interfaces";
+import { QUERY_ALL_POLLS } from "../../utils/queries";
 import { PollListing } from "../../components";
 
 export function Directory() {

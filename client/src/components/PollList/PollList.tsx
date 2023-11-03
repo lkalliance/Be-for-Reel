@@ -2,7 +2,7 @@
 
 import "./PollList.css";
 import { Link } from "react-router-dom";
-import { pollListProps } from "../../utils";
+import { pollListProps } from "../../utils/interfaces";
 
 export function PollList({ polls }: pollListProps) {
   return (

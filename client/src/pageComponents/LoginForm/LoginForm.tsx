@@ -2,7 +2,8 @@
 
 import "./LoginForm.css";
 import { useMutation } from "@apollo/client";
-import { LOGIN, loginState } from "../../utils";
+import { loginState } from "../../utils/interfaces";
+import { LOGIN } from "../../utils/mutations";
 import { AuthService } from "../../utils/auth";
 import { InputText } from "../../components";
 

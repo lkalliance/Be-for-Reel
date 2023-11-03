@@ -1,7 +1,7 @@
 // This component renders a single search result or selected film
 
 import "./SearchResult.css";
-import { movieProps } from "../../utils";
+import { movieProps } from "../../utils/interfaces";
 
 interface resultProps {
   value: movieProps;

@@ -3,7 +3,8 @@
 import "./SignupForm.css";
 import { useMutation } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
-import { ADD_USER, loginState } from "../../utils";
+import { loginState } from "../../utils/interfaces";
+import { ADD_USER } from "../../utils/mutations";
 import { InputText } from "../../components";
 
 interface formData {

@@ -2,7 +2,7 @@
 
 import "./Login.css";
 import { useState } from "react";
-import { loginState } from "../../utils";
+import { loginState } from "../../utils/interfaces";
 import { LoginForm, SignupForm } from "../../pageComponents";
 
 export function Login({ setLogIn }: loginState) {

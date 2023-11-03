@@ -1,7 +1,7 @@
 // This component renders a single comment on a poll page
 
 import "./Comment.css";
-import { pollCommentProps } from "../../utils";
+import { pollCommentProps } from "../../utils/interfaces";
 import { UsernameLink } from "../../components";
 
 interface commProps {

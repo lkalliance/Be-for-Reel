@@ -2,7 +2,7 @@
 
 import "./PollListing.css";
 import { Link } from "react-router-dom";
-import { userPollProps } from "../../utils";
+import { userPollProps } from "../../utils/interfaces";
 import { UsernameLink } from "../../components";
 
 interface listProps {

@@ -6,17 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import {
-  // interfaces
   movieProps,
   pollListProps,
   userData,
   searchOptions,
-  // mutations
-  ADD_POLL,
-  // queries
-  QUERY_ALL_POLLS,
-  QUERY_SINGLE_USER,
-} from "../../utils";
+} from "../../utils/interfaces";
+import { ADD_POLL } from "../../utils/mutations";
+import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 

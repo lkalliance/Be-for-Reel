@@ -5,20 +5,17 @@ import { useState, Key } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthService } from "../../utils/auth";
 import {
-  // interfaces
   optionProps,
   userData,
   pollCommentProps,
-  // queries
+} from "../../utils/interfaces";
+import { VOTE } from "../../utils/mutations";
+import {
   QUERY_SINGLE_POLL,
   QUERY_ALL_POLLS,
   QUERY_SINGLE_USER,
-  // mutations
-  VOTE,
-} from "../../utils";
-
+} from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-
 import { Question, Option, Comment } from "../../components";
 
 interface pollProps {
