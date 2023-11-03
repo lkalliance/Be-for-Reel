@@ -1,10 +1,9 @@
 // This component renders the home page
 
 import "./Home.css";
-import { Card } from "../../components";
-import { pollProps } from "../../utils";
 import { useQuery } from "@apollo/client";
-import { QUERY_HOME_POLLS } from "../../utils";
+import { pollProps, QUERY_HOME_POLLS } from "../../utils";
+import { Card } from "../../components";
 
 export function Home() {
   const { loading, data } = useQuery(QUERY_HOME_POLLS);

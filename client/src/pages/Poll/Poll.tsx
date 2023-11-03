@@ -1,21 +1,25 @@
 // This component renders a poll
 
 import "./Poll.css";
-import { useState } from "react";
+import { useState, Key } from "react";
 import { useParams, Link } from "react-router-dom";
+import { AuthService } from "../../utils/auth";
 import {
+  // interfaces
+  optionProps,
+  userData,
+  pollCommentProps,
+  // queries
   QUERY_SINGLE_POLL,
   QUERY_ALL_POLLS,
   QUERY_SINGLE_USER,
+  // mutations
+  VOTE,
 } from "../../utils";
-import { VOTE } from "../../utils";
-import { AuthService } from "../../utils/auth";
 
 import { useQuery, useMutation } from "@apollo/client";
-import { optionProps, userData, pollCommentProps } from "../../utils";
 
 import { Question, Option, Comment } from "../../components";
-import { Key } from "react";
 
 interface pollProps {
   loggedin: boolean;

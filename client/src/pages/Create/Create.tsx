@@ -4,13 +4,21 @@ import "./Create.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { SearchResult } from "../../components/SearchResult";
-import { movieProps, pollListProps, userData } from "../../utils";
-import { ADD_POLL } from "../../utils";
 import { AuthService } from "../../utils/auth";
-import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
-import { searchOptions } from "../../utils/interfaces";
+import {
+  // interfaces
+  movieProps,
+  pollListProps,
+  userData,
+  searchOptions,
+  // mutations
+  ADD_POLL,
+  // queries
+  QUERY_ALL_POLLS,
+  QUERY_SINGLE_USER,
+} from "../../utils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
+import { SearchResult } from "../../components";
 
 interface pollOptions {
   [key: string]: string;

@@ -1,8 +1,8 @@
 // This compnent renders the page header
 
 import "./Header.css";
-import { Nav } from "../../pageComponents";
 import { Link } from "react-router-dom";
+import { Nav } from "../../pageComponents";
 
 interface headerProps {
   uname: string;

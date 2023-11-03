@@ -1,11 +1,10 @@
 // This component renders a poll directory page
 
 import "./Directory.css";
-import { PollListing } from "../../components";
 import { useParams } from "react-router-dom";
-import { QUERY_ALL_POLLS } from "../../utils";
 import { useQuery } from "@apollo/client";
-import { userPollProps } from "../../utils";
+import { userPollProps, QUERY_ALL_POLLS } from "../../utils";
+import { PollListing } from "../../components";
 
 export function Directory() {
   const { genre } = useParams();

@@ -1,8 +1,8 @@
 // This component renders the navigation
 
 import "./Nav.css";
-import { AuthService } from "../../utils/auth";
 import { NavLink } from "react-router-dom";
+import { AuthService } from "../../utils/auth";
 
 interface navProps {
   uname: string;
