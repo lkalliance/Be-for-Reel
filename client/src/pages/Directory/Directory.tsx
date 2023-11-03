@@ -3,9 +3,9 @@
 import "./Directory.css";
 import { PollListing } from "../../components";
 import { useParams } from "react-router-dom";
-import { QUERY_ALL_POLLS } from "../../utils/queries";
+import { QUERY_ALL_POLLS } from "../../utils";
 import { useQuery } from "@apollo/client";
-import { userPollProps } from "../../utils/interfaces";
+import { userPollProps } from "../../utils";
 
 export function Directory() {
   const { genre } = useParams();

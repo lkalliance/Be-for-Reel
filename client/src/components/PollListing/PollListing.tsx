@@ -1,7 +1,7 @@
 // This components renders a single poll listing on a list of polls
 
 import "./PollListing.css";
-import { userPollProps } from "../../utils/interfaces";
+import { userPollProps } from "../../utils";
 import { Link } from "react-router-dom";
 import { UsernameLink } from "../../components";
 

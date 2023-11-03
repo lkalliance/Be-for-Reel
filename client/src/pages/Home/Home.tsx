@@ -4,7 +4,7 @@ import "./Home.css";
 import { Card } from "../../components";
 import { pollProps } from "../../utils";
 import { useQuery } from "@apollo/client";
-import { QUERY_HOME_POLLS } from "../../utils/queries";
+import { QUERY_HOME_POLLS } from "../../utils";
 
 export function Home() {
   const { loading, data } = useQuery(QUERY_HOME_POLLS);

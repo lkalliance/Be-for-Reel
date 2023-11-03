@@ -5,10 +5,10 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SearchResult } from "../../components/SearchResult";
-import { movieProps, pollListProps, userData } from "../../utils/interfaces";
-import { ADD_POLL } from "../../utils/mutations";
+import { movieProps, pollListProps, userData } from "../../utils";
+import { ADD_POLL } from "../../utils";
 import { AuthService } from "../../utils/auth";
-import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
+import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
 import { searchOptions } from "../../utils/interfaces";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 

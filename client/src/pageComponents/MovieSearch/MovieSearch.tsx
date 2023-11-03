@@ -2,7 +2,7 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
-import { searchOptions } from "../../utils/interfaces";
+import { searchOptions } from "../../utils";
 import { InputText, Checkbox } from "../../components";
 
 interface movieSearchProps {

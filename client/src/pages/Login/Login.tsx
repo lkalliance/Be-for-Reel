@@ -3,7 +3,7 @@
 import "./Login.css";
 import { useState } from "react";
 import { LoginForm, SignupForm } from "../../pageComponents";
-import { loginState } from "../../utils/interfaces";
+import { loginState } from "../../utils";
 
 export function Login({ setLogIn }: loginState) {
   const [loginError, setLoginError] = useState(false);

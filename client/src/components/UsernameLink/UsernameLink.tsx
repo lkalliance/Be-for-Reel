@@ -1,7 +1,7 @@
 // This components renders a single poll listing on a list of polls
 
 import "./UsernameLink.css";
-import { createLookupName } from "../../utils/typeUtils";
+import { createLookupName } from "../../utils";
 import { Link } from "react-router-dom";
 
 interface usernameLinkProps {

@@ -1,7 +1,7 @@
 // This component renders a list of polls
 
 import "./PollList.css";
-import { pollListProps } from "../../utils/interfaces";
+import { pollListProps } from "../../utils";
 import { Link } from "react-router-dom";
 
 export function PollList({ polls }: pollListProps) {
