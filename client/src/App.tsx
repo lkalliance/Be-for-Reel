@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
   ApolloClient,
@@ -13,7 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
 import { Header } from "./pageComponents";
-import { userData, userPollProps } from "./utils/interfaces";
+import { userData, userPollProps } from "./utils";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {

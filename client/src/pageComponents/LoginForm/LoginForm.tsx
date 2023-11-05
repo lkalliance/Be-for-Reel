@@ -2,9 +2,9 @@
 
 import "./LoginForm.css";
 import { useMutation } from "@apollo/client";
-import { AuthService } from "../../utils/auth";
-import { LOGIN } from "../../utils";
 import { loginState } from "../../utils/interfaces";
+import { LOGIN } from "../../utils/mutations";
+import { AuthService } from "../../utils/auth";
 import { InputText } from "../../components";
 
 export function LoginForm({

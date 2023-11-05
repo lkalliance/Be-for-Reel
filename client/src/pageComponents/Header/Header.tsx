@@ -1,6 +1,7 @@
 // This compnent renders the page header
 
 import "./Header.css";
+import { Link } from "react-router-dom";
 import { Nav } from "../../pageComponents";
 
 interface headerProps {
@@ -11,7 +12,9 @@ interface headerProps {
 export function Header({ uname, lookup }: headerProps) {
   return (
     <header>
-      <img src="/b4r-full.png" alt="Be for Reel" />
+      <Link to="/">
+        <img src="/b4r-full.png" alt="Be for Reel" />
+      </Link>
       <Nav uname={uname} lookup={lookup} />
     </header>
   );

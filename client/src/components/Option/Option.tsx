@@ -1,7 +1,7 @@
 // This component renders a voting option
 
 import "./Option.css";
-import { optionProps } from "../../utils";
+import { optionProps } from "../../utils/interfaces";
 
 interface voteProps {
   userName: string;

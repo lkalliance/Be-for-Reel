@@ -2,8 +2,8 @@
 
 import "./Login.css";
 import { useState } from "react";
-import { LoginForm, SignupForm } from "../../pageComponents";
 import { loginState } from "../../utils/interfaces";
+import { LoginForm, SignupForm } from "../../pageComponents";
 
 export function Login({ setLogIn }: loginState) {
   const [loginError, setLoginError] = useState(false);

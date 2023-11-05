@@ -2,7 +2,6 @@
 
 import "./Comment.css";
 import { pollCommentProps } from "../../utils/interfaces";
-import { Link } from "react-router-dom";
 import { UsernameLink } from "../../components";
 
 interface commProps {
