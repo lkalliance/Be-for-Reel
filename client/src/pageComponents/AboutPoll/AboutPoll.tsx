@@ -22,6 +22,7 @@ export function AboutPoll({ pollData, handlePollData }: aboutPollProps) {
         <InputText
           type="text"
           id="title"
+          max={60}
           placeholder="Poll title"
           val={pollData.title}
           setValue={handlePollData}
@@ -29,6 +30,7 @@ export function AboutPoll({ pollData, handlePollData }: aboutPollProps) {
         <TextAreaField
           id="description"
           placeholder="Poll description"
+          max={200}
           val={pollData.description}
           setValue={handlePollData}
         />

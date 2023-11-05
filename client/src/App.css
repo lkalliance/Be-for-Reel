@@ -103,3 +103,7 @@ section h6 {
   font-size: 0.6em;
   line-height: 0.5em;
 }
+
+.hidden {
+  display: none;
+}

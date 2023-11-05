@@ -10,6 +10,10 @@ section#login div {
   margin: 0 10px 30px;
 }
 
+section#login div.limit {
+  margin: 0;
+}
+
 section#login div.alert {
   width: 100%;
   margin: 20px 0 0;
