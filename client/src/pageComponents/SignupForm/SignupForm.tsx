@@ -127,6 +127,7 @@ export function SignupForm({
         <InputText
           type="text"
           val={stateObj ? stateObj.sUsername : ""}
+          max={30}
           setValue={handleInputChange}
           capitalize="off"
           id="sUsername"
@@ -142,6 +143,7 @@ export function SignupForm({
         <InputText
           type="password"
           val={stateObj ? stateObj.sPassword : ""}
+          min={8}
           setValue={handleInputChange}
           id="sPassword"
         />

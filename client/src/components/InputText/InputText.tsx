@@ -7,7 +7,8 @@ interface inputProps {
   type: string;
   id: string;
   placeholder?: string;
-  limit?: number;
+  min?: number;
+  max?: number;
   val?: string;
   capitalize?: string;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,18 +23,26 @@ export function InputText({
   placeholder,
   keyUp,
   capitalize,
+  min,
+  max,
 }: inputProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
+  const [charCount, setCharCount] = useState(0);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    // check against a maxiumum value and stop if it's already reached
+    if (max && value.length > max) return;
     // if a change handler has been passed down, use it...
     if (setValue) setValue(e);
-    else {
-      // ...otherwise just update the local state
-      const { value } = e.target;
-      setLocalVal(value);
-    }
+    // ...otherwise just update the local state
+    else setLocalVal(value);
+    // update the character count
+    setCharCount(value.length);
   };
+
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // if a keyup handler has been passed down, use it...
     if (keyUp) keyUp(e);
@@ -42,15 +51,30 @@ export function InputText({
 
   // this is our input field
   return (
-    <input
-      type={type}
-      id={id}
-      name={id}
-      placeholder={placeholder || ""}
-      autoCapitalize={capitalize || "on"}
-      value={val ? val : localVal}
-      onChange={handleChange}
-      onKeyUp={handleKeyUp}
-    />
+    <>
+      <input
+        type={type}
+        id={id}
+        name={id}
+        placeholder={placeholder || ""}
+        autoCapitalize={capitalize || "on"}
+        value={val ? val : localVal}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
+      />
+      <div className={min || max ? "limit" : "hidden"}>
+        {min
+          ? charCount === 0
+            ? `minimum of ${min} characters`
+            : charCount >= min
+            ? `minmum of ${min} characters met`
+            : `${charCount} characters (min. ${min})`
+          : max
+          ? charCount === 0
+            ? `maximum of ${max} characters`
+            : `${charCount} of ${max} characters`
+          : ""}
+      </div>
+    </>
   );
 }

@@ -13,7 +13,7 @@ nav ul {
 nav li {
   list-style-type: none;
   padding: 0;
-  margin-left: 6px;
+  margin: 0 6px;
 }
 
 nav li a {

@@ -6,7 +6,8 @@ import { useState } from "react";
 interface textAreaProps {
   id: string;
   placeholder?: string;
-  limit?: number;
+  min?: number;
+  max?: number;
   val?: string;
   setValue?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   keyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -15,22 +16,27 @@ interface textAreaProps {
 export function TextAreaField({
   id,
   placeholder,
-  limit,
+  min,
+  max,
   val,
   setValue,
   keyUp,
 }: textAreaProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
+  const [charCount, setCharCount] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+
+    // check against a maxiumum value and stop if it's already reached
+    if (max && value.length > max) return;
     // if a change handler has been passed down, use it...
     if (setValue) setValue(e);
-    else {
-      // ...otherwise just update the local state
-      const { value } = e.target;
-      setLocalVal(value);
-    }
+    // ...otherwise just update the local state
+    else setLocalVal(value);
+    // update the character count
+    setCharCount(value.length);
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -40,12 +46,25 @@ export function TextAreaField({
   };
 
   return (
-    <textarea
-      id={id}
-      placeholder={placeholder ? placeholder : ""}
-      value={val ? val : localVal}
-      onChange={handleChange}
-      onKeyUp={handleKeyUp}
-    ></textarea>
+    <>
+      <textarea
+        id={id}
+        placeholder={placeholder ? placeholder : ""}
+        value={val ? val : localVal}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
+      ></textarea>
+      <div className={min || max ? "limit" : "hidden"}>
+        {min
+          ? charCount === 0
+            ? `minimum of ${min} characters`
+            : `${charCount} characters (min. ${min})`
+          : max
+          ? charCount === 0
+            ? `maximum of ${max} characters`
+            : `${charCount} of ${max} characters`
+          : ""}
+      </div>
+    </>
   );
 }
