@@ -16,7 +16,7 @@ import {
   QUERY_SINGLE_USER,
 } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { Question, Option, Comment } from "../../components";
+import { Question, Option, Comment, TextAreaField } from "../../components";
 
 interface pollProps {
   loggedin: boolean;
@@ -109,13 +109,13 @@ export function Poll({ currUser }: pollProps) {
               ) : (
                 // user has not voted on this poll, show comment form
                 <fieldset>
-                  <textarea
+                  <TextAreaField
                     id="comment"
                     placeholder="Make a selection, add an optional comment, and click to vote!"
-                    onChange={handleComment}
-                    value={comment}
+                    setValue={handleComment}
+                    val={comment}
                     disabled={selected.option_id === ""}
-                  ></textarea>
+                  />
                   <button
                     disabled={selected.option_id === ""}
                     onClick={handleVote}

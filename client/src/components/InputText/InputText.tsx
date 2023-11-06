@@ -11,6 +11,7 @@ interface inputProps {
   min?: number;
   max?: number;
   val?: string;
+  disabled?: boolean;
   capitalize?: string;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   keyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -27,6 +28,7 @@ export function InputText({
   capitalize,
   min,
   max,
+  disabled,
 }: inputProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
@@ -63,7 +65,8 @@ export function InputText({
         name={id}
         placeholder={placeholder || ""}
         autoCapitalize={capitalize || "on"}
-        value={val ? val : localVal}
+        value={val || localVal}
+        disabled={disabled || false}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
       />
