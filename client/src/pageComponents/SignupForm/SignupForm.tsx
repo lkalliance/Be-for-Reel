@@ -123,25 +123,25 @@ export function SignupForm({
       <h1>Sign Up</h1>
 
       <form>
-        <label>username</label>
         <InputText
           type="text"
+          label="username"
           val={stateObj ? stateObj.sUsername : ""}
           max={30}
           setValue={handleInputChange}
           capitalize="off"
           id="sUsername"
         />
-        <label>email</label>
         <InputText
           type="email"
+          label="email"
           val={stateObj ? stateObj.sEmail : ""}
           setValue={handleInputChange}
           id="sEmail"
         />
-        <label>password</label>
         <InputText
           type="password"
+          label="password"
           val={stateObj ? stateObj.sPassword : ""}
           min={8}
           setValue={handleInputChange}

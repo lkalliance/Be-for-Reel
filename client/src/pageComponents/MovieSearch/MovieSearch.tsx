@@ -74,44 +74,44 @@ export function MovieSearch({
           <div>
             <Checkbox
               id="G"
+              label="G"
               setValue={handleOptChange}
               val={Boolean(options.G)}
             />
-            <label htmlFor="G">G</label>
           </div>
           <div>
             <Checkbox
               id="PG"
+              label="PG"
               setValue={handleOptChange}
               val={Boolean(options.PG)}
             />
-            <label htmlFor="PG">PG</label>
           </div>
           <div>
             <Checkbox
               id="PG13"
+              label="PG-13"
               setValue={handleOptChange}
               val={Boolean(options.PG13)}
             />
-            <label htmlFor="PG13">PG-13</label>
           </div>
           <div>
             <Checkbox
               id="R"
+              label="R"
               setValue={handleOptChange}
               val={Boolean(options.R)}
             />
-            <label htmlFor="R">R</label>
           </div>
         </fieldset>
         <fieldset>
           <div>
             <Checkbox
               id="oscar"
+              label="Nominated for Best Picture"
               setValue={handleOptChange}
               val={Boolean(options.oscar)}
             />
-            <label htmlFor="oscar">Nominated for Best Picture</label>
           </div>
         </fieldset>
       </form>

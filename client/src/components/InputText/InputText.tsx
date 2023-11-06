@@ -7,6 +7,7 @@ interface inputProps {
   type: string;
   id: string;
   placeholder?: string;
+  label?: string;
   min?: number;
   max?: number;
   val?: string;
@@ -21,6 +22,7 @@ export function InputText({
   id,
   type,
   placeholder,
+  label,
   keyUp,
   capitalize,
   min,
@@ -52,6 +54,9 @@ export function InputText({
   // this is our input field
   return (
     <>
+      <label htmlFor={id} className={label ? "" : "hidden"}>
+        {label}
+      </label>
       <input
         type={type}
         id={id}

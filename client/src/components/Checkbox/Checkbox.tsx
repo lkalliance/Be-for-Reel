@@ -4,11 +4,12 @@ import { useState } from "react";
 
 interface checkboxProps {
   id: string;
+  label?: string;
   val?: boolean;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Checkbox({ id, val, setValue }: checkboxProps) {
+export function Checkbox({ id, label, val, setValue }: checkboxProps) {
   // create a local state as a fallback
   const [localVal, setLocalVal] = useState(false);
 
@@ -19,12 +20,17 @@ export function Checkbox({ id, val, setValue }: checkboxProps) {
   };
 
   return (
-    <input
-      type="checkbox"
-      id={id}
-      name={id}
-      onChange={handleChange}
-      checked={val ? val : localVal}
-    />
+    <>
+      <input
+        type="checkbox"
+        id={id}
+        name={id}
+        onChange={handleChange}
+        checked={val ? val : localVal}
+      />
+      <label htmlFor={id} className={label ? "" : "hidden"}>
+        {label}
+      </label>
+    </>
   );
 }
