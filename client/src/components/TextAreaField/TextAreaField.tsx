@@ -10,6 +10,7 @@ interface textAreaProps {
   min?: number;
   max?: number;
   val?: string;
+  disabled?: boolean;
   setValue?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   keyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
@@ -21,6 +22,7 @@ export function TextAreaField({
   min,
   max,
   val,
+  disabled,
   setValue,
   keyUp,
 }: textAreaProps) {
@@ -55,7 +57,8 @@ export function TextAreaField({
       <textarea
         id={id}
         placeholder={placeholder ? placeholder : ""}
-        value={val ? val : localVal}
+        value={val || localVal}
+        disabled={disabled || false}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
       ></textarea>

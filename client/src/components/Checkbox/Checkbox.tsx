@@ -6,10 +6,17 @@ interface checkboxProps {
   id: string;
   label?: string;
   val?: boolean;
+  disabled?: boolean;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Checkbox({ id, label, val, setValue }: checkboxProps) {
+export function Checkbox({
+  id,
+  label,
+  val,
+  disabled,
+  setValue,
+}: checkboxProps) {
   // create a local state as a fallback
   const [localVal, setLocalVal] = useState(false);
 
@@ -25,8 +32,9 @@ export function Checkbox({ id, label, val, setValue }: checkboxProps) {
         type="checkbox"
         id={id}
         name={id}
+        disabled={disabled || false}
         onChange={handleChange}
-        checked={val ? val : localVal}
+        checked={val || localVal}
       />
       <label htmlFor={id} className={label ? "" : "hidden"}>
         {label}
