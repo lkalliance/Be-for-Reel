@@ -3,7 +3,7 @@
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import { searchOptions } from "../../utils";
-import { InputText, Checkbox } from "../../components";
+import { InputText, Checkbox, Slider } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -53,21 +53,19 @@ export function MovieSearch({
       <h3>Search options</h3>
       <form>
         <fieldset id="released">
-          <legend>
-            Release decade:{" "}
-            {options.decade === "0"
-              ? "all"
-              : `${1910 + 10 * parseInt(options.decade)}'s`}
-          </legend>
-          <input
-            type="range"
-            className="form-range"
-            min="0"
-            max="11"
+          <Slider
             id="decade"
-            value={parseInt(options.decade)}
-            onChange={handleOption}
-          ></input>
+            val={parseInt(options.decade)}
+            setValue={handleOptChange}
+            min={0}
+            max={11}
+            label={`Release decade: 
+            ${
+              options.decade === "0"
+                ? "all"
+                : `${1910 + 10 * parseInt(options.decade)}'s`
+            }`}
+          />
         </fieldset>
         <fieldset>
           <legend>Limit to just these US ratings</legend>
