@@ -2,8 +2,8 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
-import { searchOptions } from "../../utils";
-import { InputText, Checkbox, Slider } from "../../components";
+import { searchOptions } from "../../utils/interfaces";
+import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
 
 interface movieSearchProps {
   searchField: string;

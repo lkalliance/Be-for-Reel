@@ -5,12 +5,13 @@ interface sliderProps {
   id: string;
   label?: string;
   val?: number;
-  min?: number;
-  max?: number;
+  min: number;
+  max: number;
   step?: number;
   disabled?: boolean;
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
 export function Slider({
   id,
   setValue,
