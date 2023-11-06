@@ -6,6 +6,7 @@ import { useState } from "react";
 interface textAreaProps {
   id: string;
   placeholder?: string;
+  label?: string;
   min?: number;
   max?: number;
   val?: string;
@@ -16,6 +17,7 @@ interface textAreaProps {
 export function TextAreaField({
   id,
   placeholder,
+  label,
   min,
   max,
   val,
@@ -47,6 +49,9 @@ export function TextAreaField({
 
   return (
     <>
+      <label htmlFor={id} className={label ? "" : "hidden"}>
+        {label}
+      </label>
       <textarea
         id={id}
         placeholder={placeholder ? placeholder : ""}
