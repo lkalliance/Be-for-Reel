@@ -1,6 +1,6 @@
 /* custom CSS here */
 
-.double-slider {
+.slider-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.double-slider input {
+.slider-container input {
   padding: 0;
 }
 
@@ -58,13 +58,13 @@
 }
 
 /* Removing the default appearance */
-.double-slider input,
-.double-slider input::-webkit-slider-thumb {
+.thumb,
+.thumb::-webkit-slider-thumb {
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-.double-slider input {
+.thumb {
   pointer-events: none;
   position: absolute;
   height: 0;
@@ -72,20 +72,20 @@
   outline: none;
 }
 
-.double-slider input-zindex-3 {
+.thumb-zindex-3 {
   z-index: 3;
 }
 
-.double-slider input-zindex-4 {
+.thumb-zindex-4 {
   z-index: 4;
 }
 
-.double-slider input-zindex-5 {
+.thumb-zindex-5 {
   z-index: 5;
 }
 
 /* For Chrome browsers */
-.double-slider input::-webkit-slider-thumb {
+.thumb::-webkit-slider-thumb {
   background-color: #3769df;
   border: none;
   border-radius: 50%;
@@ -99,7 +99,7 @@
 }
 
 /* For Firefox browsers */
-.double-slider input::-moz-range-thumb {
+.thumb::-moz-range-thumb {
   background-color: #3769df;
   border: none;
   border-radius: 50%;

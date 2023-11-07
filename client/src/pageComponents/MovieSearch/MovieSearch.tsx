@@ -2,8 +2,15 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
-import { searchOptions } from "../../utils/interfaces";
-import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
+import { searchOptions, dualOptions } from "../../utils/interfaces";
+import { convertLengthVals, convertGrossVals } from "../../utils/typeUtils";
+import {
+  InputText,
+  Checkbox,
+  Slider,
+  DoubleSlider,
+  MultiSlider,
+} from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -13,6 +20,7 @@ interface movieSearchProps {
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDualOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchSubmit: () => void;
 }
 
@@ -23,6 +31,7 @@ export function MovieSearch({
   options,
   handleReturn,
   handleOption,
+  handleDualOption,
   handleSearchSubmit,
 }: movieSearchProps) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +44,12 @@ export function MovieSearch({
     // on any input, clear the warning that there are no results
     setNoResults(false);
     handleOption(e);
+  };
+
+  const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNoResults(false);
+    if (handleDualOption) handleDualOption(e);
+    else return;
   };
 
   return (
@@ -67,6 +82,52 @@ export function MovieSearch({
             }`}
           />
         </fieldset>
+        {/* <MultiSlider
+          min={0}
+          max={1000}
+          step={100}
+          prefix="$"
+          suffix=" M"
+          onChange={({ min, max }: { max: number; min: number }) => {
+            console.log(`min = ${min}, max = ${max}`);
+          }}
+        /> */}
+        <DoubleSlider
+          id="length"
+          min={0}
+          max={9}
+          step={1}
+          label={`Length: ${
+            options.length.min === 0 && options.length.max === 9
+              ? "any"
+              : options.length.min === 0
+              ? `${convertLengthVals(options.length.max).label} or shorter`
+              : options.length.max === 9
+              ? `${convertLengthVals(options.length.min).label} or longer`
+              : `between ${convertLengthVals(options.length.min).label} and ${
+                  convertLengthVals(options.length.max).label
+                }`
+          }`}
+          setValue={handleDualOptChange}
+        />
+        <DoubleSlider
+          id="gross"
+          min={0}
+          max={7}
+          step={1}
+          label={`Worldwide gross: ${
+            options.gross.min === 0 && options.gross.max === 7
+              ? "any"
+              : options.gross.min === 0
+              ? `${convertGrossVals(options.gross.max).label} or less`
+              : options.gross.max === 7
+              ? `${convertGrossVals(options.gross.min).label} or more`
+              : `between ${convertGrossVals(options.gross.min).label} and ${
+                  convertGrossVals(options.gross.max).label
+                }`
+          }`}
+          setValue={handleDualOptChange}
+        />
         <fieldset>
           <legend>Limit to just these US ratings</legend>
           <div>

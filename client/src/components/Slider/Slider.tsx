@@ -1,4 +1,5 @@
 // This componenent renders a range slider
+import "./Slider.css";
 import { useState } from "react";
 
 interface sliderProps {
@@ -41,7 +42,7 @@ export function Slider({
         max={max}
         step={step || ""}
         id={id}
-        value={val || 0}
+        value={val || min}
         onChange={handleChange}
       ></input>
     </>

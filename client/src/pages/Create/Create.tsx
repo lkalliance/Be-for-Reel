@@ -10,6 +10,7 @@ import {
   pollListProps,
   userData,
   searchOptions,
+  dualOptions,
 } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
@@ -33,6 +34,14 @@ export function Create({ updateList, currentList }: createProps) {
   const blankOptions = {
     decade: "0",
     years: false,
+    length: {
+      min: 0,
+      max: 9,
+    },
+    gross: {
+      min: 0,
+      max: 7,
+    },
     G: false,
     PG: false,
     PG13: false,
@@ -118,7 +127,7 @@ export function Create({ updateList, currentList }: createProps) {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar } = options;
+    const { decade, G, PG, PG13, R, oscar, length, gross } = options;
     const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${searchField}`;
     let paramParts = [];
@@ -139,6 +148,14 @@ export function Create({ updateList, currentList }: createProps) {
     }
     // if Best Pic Winner is checked, add that parameter
     if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
+    if (length.min > 0 || length.max > 0) {
+      // if movie length is selected, add those parameters
+      console.log("length params");
+    }
+    if (gross.min > 0 || gross.max > 0) {
+      // if gross is selected, add those parameters
+      console.log("gross params");
+    }
 
     // create the search URL from the base plus the parameters
     searchUrl += paramParts.length > 0 ? `?${paramParts.join("&")}` : "";
@@ -177,6 +194,17 @@ export function Create({ updateList, currentList }: createProps) {
     const newOptions = { ...options, [id]: newValue };
 
     setOptions(newOptions);
+  };
+
+  const handleDualOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    const pieces = id.split("-");
+    const optionPiece = options[pieces[0]];
+    if (typeof optionPiece === "object") {
+      const newOptionPiece = { ...optionPiece, [pieces[1]]: parseInt(value) };
+      const newOptions = { ...options, [pieces[0]]: newOptionPiece };
+      setOptions(newOptions);
+    }
   };
 
   const handlePollData = (
@@ -276,6 +304,7 @@ export function Create({ updateList, currentList }: createProps) {
               setNoResults={setNoResults}
               options={options}
               handleOption={handleOption}
+              handleDualOption={handleDualOption}
               handleReturn={handleReturn}
               handleSearchSubmit={handleSearchSubmit}
             />

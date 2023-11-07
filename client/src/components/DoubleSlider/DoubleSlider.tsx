@@ -1,75 +1,76 @@
-// This component renders a two-handled slider (really two separate sliders)
-import { useState } from "react";
+// This component renders a two-handled slider
+import "./DoubleSlider.css";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { dualOptions } from "../../utils/interfaces";
+const classnames = require("classnames");
 
 interface doubleSliderProps {
   id: string;
+  min: number;
+  max: number;
   label?: string;
-  min1: number;
-  max1: number;
-  min2: number;
-  max2: number;
-  val1?: number;
-  val2?: number;
   step?: number;
-  disabled?: boolean;
-  setValue1?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setValue2?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function DoubleSlider({
   id,
-  label,
-  min1,
-  max1,
-  min2,
-  max2,
-  val1,
-  val2,
+  min,
+  max,
   step,
-  setValue1,
-  setValue2,
+  setValue,
+  label,
 }: doubleSliderProps) {
-  // create a local states as a fallback
-  const [localVal1, setLocalVal1] = useState(0);
-  const [localVal2, setLocalVal2] = useState(0);
+  const [minVal, setMinVal] = useState(min);
+  const [maxVal, setMaxVal] = useState(max);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    const which = id.charAt(id.length - 1);
-    console.log(which);
-    // if a handler has been passed in, use it, otherwised just do the local
-    if (which === "1") {
-      if (setValue1) setValue1(e);
-      else setLocalVal1(parseInt(value));
-    } else if (which === "2") {
-      if (setValue2) setValue2(e);
-      else setLocalVal2(parseInt(value));
+    const val = parseInt(value);
+    const pieces = id.split("-");
+    if (pieces[1] === "min") {
+      if (val <= maxVal - (step || 1)) {
+        setMinVal(val);
+        if (setValue) setValue(e);
+      }
+    } else {
+      if (val >= minVal + (step || 1)) {
+        setMaxVal(val);
+        if (setValue) setValue(e);
+      }
     }
   };
 
   return (
     <>
+      {" "}
       <legend className={label ? "" : "hidden"}>{label}</legend>
-      <input
-        type="range"
-        className="form-range"
-        min={min1}
-        max={max1}
-        step={step || ""}
-        id={`${id}1`}
-        value={val1 || localVal1}
-        onChange={handleChange}
-      ></input>
-      <input
-        type="range"
-        className="form-range"
-        min={min2}
-        max={max2}
-        step={step || ""}
-        id={`${id}2`}
-        value={val2 || localVal2}
-        onChange={handleChange}
-      ></input>
+      <div id={id} className="double-slider">
+        <input
+          id={`${id}-min`}
+          name={`${id}-min`}
+          type="range"
+          min={min}
+          max={max}
+          value={minVal}
+          step={step || ""}
+          onChange={handleChange}
+        />
+        <input
+          id={`${id}-max`}
+          name={`${id}-max`}
+          type="range"
+          min={min}
+          max={max}
+          value={maxVal}
+          step={step || ""}
+          onChange={handleChange}
+        />
+        <div className="slider">
+          <div className="slider-track"></div>
+          <div className="slider-range"></div>
+        </div>
+      </div>
     </>
   );
 }
