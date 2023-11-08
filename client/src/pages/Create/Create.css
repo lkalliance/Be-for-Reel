@@ -11,7 +11,7 @@ section#create button {
   margin-top: 10px;
 }
 
-section#create input,
+section#create input[type="text"],
 section#create textarea {
   width: 100%;
   margin-bottom: 0;
@@ -22,7 +22,7 @@ section#create textarea {
   line-height: 1.2em;
 }
 
-section#create #released input {
+section#create #released input[type="text"] {
   width: 40%;
   margin-right: 10px;
 }
@@ -51,11 +51,6 @@ section#create h4 {
   color: var(--primary-link-hover);
   font-weight: bold;
   line-height: 1.1em;
-}
-
-section#create span {
-  color: white;
-  margin-right: 10px;
 }
 
 section#create legend {

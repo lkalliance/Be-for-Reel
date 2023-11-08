@@ -9,3 +9,5 @@ export { InputText } from "./InputText";
 export { Checkbox } from "./Checkbox";
 export { TextAreaField } from "./TextAreaField";
 export { SearchResult } from "./SearchResult";
+export { Slider } from "./Slider";
+export { DoubleSlider } from "./DoubleSlider";

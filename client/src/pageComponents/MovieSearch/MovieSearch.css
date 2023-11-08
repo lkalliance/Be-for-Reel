@@ -1,1 +1,7 @@
-/* specialized css goes here */
+fieldset.double {
+  position: relative;
+}
+
+fieldset.double input {
+  position: absolute;
+}

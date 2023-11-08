@@ -125,13 +125,27 @@ export type userData = {
 
 export interface searchOptions {
   // search option form elements
+  [key: string]: string | boolean | { min: number; max: number };
   decade: string;
   years: boolean;
+  length: {
+    min: number;
+    max: number;
+  };
+  gross: {
+    min: number;
+    max: number;
+  };
   G: boolean;
   PG: boolean;
   PG13: boolean;
   R: boolean;
   oscar: boolean;
+}
+
+export interface dualOptions {
+  min: number;
+  max: number;
 }
 
 interface genreObj {

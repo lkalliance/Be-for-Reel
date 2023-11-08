@@ -2,8 +2,9 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
-import { searchOptions } from "../../utils";
-import { InputText, Checkbox } from "../../components";
+import { searchOptions } from "../../utils/interfaces";
+import { convertLengthVals, convertGrossVals } from "../../utils/typeUtils";
+import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -13,6 +14,7 @@ interface movieSearchProps {
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDualOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchSubmit: () => void;
 }
 
@@ -23,8 +25,10 @@ export function MovieSearch({
   options,
   handleReturn,
   handleOption,
+  handleDualOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  console.log(options);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
     setNoResults(false);
@@ -36,6 +40,24 @@ export function MovieSearch({
     setNoResults(false);
     handleOption(e);
   };
+
+  const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNoResults(false);
+    if (handleDualOption) handleDualOption(e);
+    else return;
+  };
+
+  // count all the options configured, to determine if search button is live
+  const usedRatings =
+    (options.G ? 1 : 0) +
+    (options.PG ? 1 : 0) +
+    (options.PG13 ? 1 : 0) +
+    (options.R ? 1 : 0);
+  const usedOpts =
+    (options.decade === "0" ? 0 : 1) +
+    (options.length.min === 0 && options.length.max === 0 ? 0 : 1) +
+    (options.oscar ? 1 : 0) +
+    (usedRatings === 1 || usedRatings === 2 ? 1 : 0);
 
   return (
     <>
@@ -53,22 +75,63 @@ export function MovieSearch({
       <h3>Search options</h3>
       <form>
         <fieldset id="released">
-          <legend>
-            Release decade:{" "}
-            {options.decade === "0"
-              ? "all"
-              : `${1910 + 10 * parseInt(options.decade)}'s`}
-          </legend>
-          <input
-            type="range"
-            className="form-range"
-            min="0"
-            max="11"
+          <Slider
             id="decade"
-            value={parseInt(options.decade)}
-            onChange={handleOption}
-          ></input>
+            val={+options.decade}
+            setValue={handleOptChange}
+            min={0}
+            max={11}
+            label="Release decade"
+            labelVal={`${
+              options.decade === "0"
+                ? "all"
+                : `${1910 + 10 * parseInt(options.decade)}'s`
+            }`}
+            sliderKey={{ min: "earlier", max: "later" }}
+          />
         </fieldset>
+        <DoubleSlider
+          id="length"
+          min={0}
+          max={8}
+          step={1}
+          startVal={{ min: options.length.min, max: options.length.max }}
+          label={"Length"}
+          labelVal={`${
+            options.length.min === 0 && options.length.max === 8
+              ? "any"
+              : options.length.min === 0
+              ? `${convertLengthVals(options.length.max).label} or shorter`
+              : options.length.max === 8
+              ? `${convertLengthVals(options.length.min).label} or longer`
+              : `between ${convertLengthVals(options.length.min).label} and ${
+                  convertLengthVals(options.length.max).label
+                }`
+          }`}
+          sliderKey={{ min: "shorter", max: "longer" }}
+          setValue={handleDualOptChange}
+        />
+        {/* <DoubleSlider
+          id="gross"
+          min={0}
+          max={7}
+          step={1}
+          startVal={{ min: options.gross.min, max: options.gross.max }}
+          label={"Worldwide gross"}
+          labelVal={`${
+            options.gross.min === 0 && options.gross.max === 7
+              ? "any"
+              : options.gross.min === 0
+              ? `${convertGrossVals(options.gross.max).label} or less`
+              : options.gross.max === 7
+              ? `${convertGrossVals(options.gross.min).label} or more`
+              : `between ${convertGrossVals(options.gross.min).label} and ${
+                  convertGrossVals(options.gross.max).label
+                }`
+          }`}
+          sliderKey={{ min: "less", max: "more" }}
+          setValue={handleDualOptChange}
+        /> */}
         <fieldset>
           <legend>Limit to just these US ratings</legend>
           <div>
@@ -115,7 +178,12 @@ export function MovieSearch({
           </div>
         </fieldset>
       </form>
-      <button onClick={handleSearchSubmit}>Search for title</button>
+      <button
+        onClick={handleSearchSubmit}
+        disabled={searchField.length === 0 && usedOpts < 2}
+      >
+        Search for films
+      </button>
     </>
   );
 }

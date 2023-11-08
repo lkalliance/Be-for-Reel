@@ -1,0 +1,58 @@
+/* custom CSS goes here */
+
+/* custom CSS here */
+
+.single-slider {
+  width: 100%;
+  min-width: 1vh;
+  padding: 10px;
+  border: 1px solid var(--primary-text);
+  position: relative;
+  margin: 10px 0 0;
+  background-color: rgb(41, 41, 56);
+}
+
+.single-slider input {
+  height: 0;
+  outline: none;
+  padding: 0;
+}
+
+/* styles for key */
+
+.single-slider div.legend {
+  width: 92%;
+  margin: 2px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  font-size: 0.75em;
+}
+
+section div.legend span.upper,
+section div.legend span.lower {
+  margin: 0;
+  color: white;
+}
+
+/* for title and value */
+
+.single-slider legend.sliderTitle {
+  display: flex;
+  align-items: end;
+  font-size: 0.9em;
+  line-height: 1.5em;
+  width: 100%;
+  justify-content: start;
+  margin-bottom: 0;
+}
+
+legend.sliderTitle span.val {
+  color: white;
+  margin-left: 8px;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 0.75em;
+  line-height: 1.5em;
+  text-align: right;
+}

@@ -13,6 +13,7 @@ import {
 } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
+import { convertLengthVals } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
@@ -33,6 +34,14 @@ export function Create({ updateList, currentList }: createProps) {
   const blankOptions = {
     decade: "0",
     years: false,
+    length: {
+      min: 2,
+      max: 8,
+    },
+    gross: {
+      min: 1,
+      max: 7,
+    },
     G: false,
     PG: false,
     PG13: false,
@@ -43,19 +52,19 @@ export function Create({ updateList, currentList }: createProps) {
   const navigate = useNavigate();
   const maxTries = 3; // maximum number of times we'll query IMDb for one search
 
-  const [searchField, setSearchField] = useState("");
-  const [options, setOptions] = useState(blankOptions as searchOptions);
-  const [results, setResults] = useState<movieProps[]>([]);
-  const [selected, setSelected] = useState<movieProps[]>([]);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [searchField, setSearchField] = useState(""); // tracks text in movie title search field
+  const [options, setOptions] = useState(blankOptions as searchOptions); // tracks title search options
+  const [results, setResults] = useState<movieProps[]>([]); // tracks results from most recent search
+  const [selected, setSelected] = useState<movieProps[]>([]); // tracks movies selected for poll
+  const [selectedIds, setSelectedIds] = useState<string[]>([]); // tracks IMDb ids of selected movies
   const [pollData, setPollData] = useState<pollOptions>({
     title: "",
     description: "",
-  });
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [searching, setSearching] = useState<boolean>(false);
-  const [noResults, setNoResults] = useState<boolean>(false);
-  const [building, setBuilding] = useState<boolean>(false);
+  }); // tracks text in poll title and description fields
+  const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
+  const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
+  const [noResults, setNoResults] = useState<boolean>(false); // tracks error message stating no search results
+  const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
 
   const userInfo: userData = Auth.getProfile();
 
@@ -111,16 +120,18 @@ export function Create({ updateList, currentList }: createProps) {
   const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
-    if (searchField === "") return;
+    // if (searchField === "") return;
 
     // erase existing results and show that we're searching
     setResults([]);
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar } = options;
+    const { decade, G, PG, PG13, R, oscar, length, gross } = options;
     const mathDecade = parseInt(decade);
-    let searchUrl = `/api/search/${searchField}`;
+    let searchUrl = `/api/search/${
+      searchField.length > 0 ? searchField : "noTitle"
+    }`;
     let paramParts = [];
 
     if (mathDecade > 0) {
@@ -139,6 +150,14 @@ export function Create({ updateList, currentList }: createProps) {
     }
     // if Best Pic Winner is checked, add that parameter
     if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
+    if (length.min > 0 || length.max < 8) {
+      // if there is a time range, add that parameter
+      paramParts.push(
+        `runtime=${
+          length.min === 0 ? "" : convertLengthVals(length.min).minutes
+        },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}}`
+      );
+    }
 
     // create the search URL from the base plus the parameters
     searchUrl += paramParts.length > 0 ? `?${paramParts.join("&")}` : "";
@@ -159,12 +178,12 @@ export function Create({ updateList, currentList }: createProps) {
     setResults(result);
     setSearching(false);
     setNoResults(result.length === 0);
-    setSearchField("");
-    setOptions(blankOptions);
+    // setSearchField("");
+    // setOptions(blankOptions);
   };
 
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Handler to track changes to search options
+    // Handler to track single-value changes to search options
     const { id, value } = e.target;
     const today = new Date();
     const thisYear = Number(today.getFullYear());
@@ -179,7 +198,22 @@ export function Create({ updateList, currentList }: createProps) {
     setOptions(newOptions);
   };
 
+  const handleDualOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Special hander to track changes to search options for double-sliders
+    const { id, value } = e.target;
+
+    // id will be created from option identifier and min/max designation
+    const pieces = id.split("-");
+    const optionPiece = options[pieces[0]];
+    if (typeof optionPiece === "object") {
+      const newOptionPiece = { ...optionPiece, [pieces[1]]: +value };
+      const newOptions = { ...options, [pieces[0]]: newOptionPiece };
+      setOptions(newOptions);
+    }
+  };
+
   const handlePollData = (
+    // Handler for managing changes to poll title and description
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
@@ -276,6 +310,7 @@ export function Create({ updateList, currentList }: createProps) {
               setNoResults={setNoResults}
               options={options}
               handleOption={handleOption}
+              handleDualOption={handleDualOption}
               handleReturn={handleReturn}
               handleSearchSubmit={handleSearchSubmit}
             />

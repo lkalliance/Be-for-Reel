@@ -112,6 +112,7 @@ export function Poll({ currUser }: pollProps) {
                   <TextAreaField
                     id="comment"
                     placeholder="Make a selection, add an optional comment, and click to vote!"
+                    max={400}
                     setValue={handleComment}
                     val={comment}
                     disabled={selected.option_id === ""}

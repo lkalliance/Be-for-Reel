@@ -4,7 +4,7 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
-    const { from, to, certificates, groups } = req.query || false;
+    const { from, to, certificates, groups, runtime } = req.query || false;
 
     const today = new Date();
     const thisYear = today.getFullYear();
@@ -19,9 +19,16 @@ router.get("/api/search/:string", async (req, res) => {
     // build the movie rating and Best Picture winner parameters
     if (certificates) queryParams.push(`certificates=${certificates}`);
     if (groups) queryParams.push(`groups=${groups}`);
+    if (runtime) queryParams.push(`runtime=${runtime}`);
 
-    let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${process.env.IMDB_API_KEY}?title=${req.params.string}&title_type=feature&has=plot&sort=boxoffice_gross_us,desc`;
+    let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${
+      process.env.IMDB_API_KEY
+    }?${
+      req.params.string === "noTitle" ? "" : `title=${req.params.string}&`
+    }title_type=feature&num_votes=5000,has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+
+    console.log(searchUrl);
 
     const options = {
       method: "GET",
