@@ -2,15 +2,9 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
-import { searchOptions, dualOptions } from "../../utils/interfaces";
+import { searchOptions } from "../../utils/interfaces";
 import { convertLengthVals, convertGrossVals } from "../../utils/typeUtils";
-import {
-  InputText,
-  Checkbox,
-  Slider,
-  DoubleSlider,
-  MultiSlider,
-} from "../../components";
+import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -70,44 +64,38 @@ export function MovieSearch({
         <fieldset id="released">
           <Slider
             id="decade"
-            val={parseInt(options.decade)}
+            val={+options.decade}
             setValue={handleOptChange}
             min={0}
             max={11}
-            label={`Release decade: 
-            ${
+            label="Release decade"
+            labelVal={`${
               options.decade === "0"
                 ? "all"
                 : `${1910 + 10 * parseInt(options.decade)}'s`
             }`}
+            sliderKey={{ min: "earlier", max: "later" }}
           />
         </fieldset>
-        {/* <MultiSlider
-          min={0}
-          max={1000}
-          step={100}
-          prefix="$"
-          suffix=" M"
-          onChange={({ min, max }: { max: number; min: number }) => {
-            console.log(`min = ${min}, max = ${max}`);
-          }}
-        /> */}
         <DoubleSlider
           id="length"
           min={0}
-          max={9}
+          max={8}
           step={1}
-          label={`Length: ${
-            options.length.min === 0 && options.length.max === 9
+          startVal={{ min: options.length.min, max: options.length.max }}
+          label={"Length"}
+          labelVal={`${
+            options.length.min === 0 && options.length.max === 8
               ? "any"
               : options.length.min === 0
               ? `${convertLengthVals(options.length.max).label} or shorter`
-              : options.length.max === 9
+              : options.length.max === 8
               ? `${convertLengthVals(options.length.min).label} or longer`
               : `between ${convertLengthVals(options.length.min).label} and ${
                   convertLengthVals(options.length.max).label
                 }`
           }`}
+          sliderKey={{ min: "shorter", max: "longer" }}
           setValue={handleDualOptChange}
         />
         <DoubleSlider
@@ -115,7 +103,9 @@ export function MovieSearch({
           min={0}
           max={7}
           step={1}
-          label={`Worldwide gross: ${
+          startVal={{ min: options.gross.min, max: options.gross.max }}
+          label={"Worldwide gross"}
+          labelVal={`${
             options.gross.min === 0 && options.gross.max === 7
               ? "any"
               : options.gross.min === 0
@@ -126,6 +116,7 @@ export function MovieSearch({
                   convertGrossVals(options.gross.max).label
                 }`
           }`}
+          sliderKey={{ min: "less", max: "more" }}
           setValue={handleDualOptChange}
         />
         <fieldset>

@@ -10,6 +10,7 @@
 
 .slider-container input {
   padding: 0;
+  width: 95%;
 }
 
 .slider {
@@ -27,13 +28,16 @@
 
 .slider-track,
 .slider-range {
+  top: -1px;
   border-radius: 3px;
-  height: 5px;
+  height: 7px;
 }
 
 .slider-track {
   background-color: #ffffff;
-  width: 100%;
+  width: 190px;
+  margin-left: 5px;
+  margin-right: 5px;
   z-index: 1;
 }
 

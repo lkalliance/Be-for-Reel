@@ -2,7 +2,7 @@
 
 import "./MultiSlider.css";
 import { useState, useRef, useCallback, useEffect } from "react";
-const classnames = require("classnames");
+import classnames from "classnames";
 
 interface multiSliderProps {
   min: number;

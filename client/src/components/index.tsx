@@ -11,4 +11,3 @@ export { TextAreaField } from "./TextAreaField";
 export { SearchResult } from "./SearchResult";
 export { Slider } from "./Slider";
 export { DoubleSlider } from "./DoubleSlider";
-export { MultiSlider } from "./MultiSlider";

@@ -53,11 +53,6 @@ section#create h4 {
   line-height: 1.1em;
 }
 
-section#create span {
-  color: white;
-  margin-right: 10px;
-}
-
 section#create legend {
   font-size: 1em;
   font-weight: bold;
