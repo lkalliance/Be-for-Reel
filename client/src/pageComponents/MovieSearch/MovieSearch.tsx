@@ -182,7 +182,7 @@ export function MovieSearch({
         onClick={handleSearchSubmit}
         disabled={searchField.length === 0 && usedOpts < 2}
       >
-        Search for title
+        Search for films
       </button>
     </>
   );
