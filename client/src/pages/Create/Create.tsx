@@ -13,6 +13,7 @@ import {
 } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
+import { convertLengthVals } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
@@ -117,10 +118,9 @@ export function Create({ updateList, currentList }: createProps) {
   };
 
   const handleSearchSubmit = async () => {
-    console.log(options);
     // handler for movie title search submission
 
-    if (searchField === "") return;
+    // if (searchField === "") return;
 
     // erase existing results and show that we're searching
     setResults([]);
@@ -129,7 +129,9 @@ export function Create({ updateList, currentList }: createProps) {
     // set up items to use in constructing the URL
     const { decade, G, PG, PG13, R, oscar, length, gross } = options;
     const mathDecade = parseInt(decade);
-    let searchUrl = `/api/search/${searchField}`;
+    let searchUrl = `/api/search/${
+      searchField.length > 0 ? searchField : "noTitle"
+    }`;
     let paramParts = [];
 
     if (mathDecade > 0) {
@@ -149,10 +151,12 @@ export function Create({ updateList, currentList }: createProps) {
     // if Best Pic Winner is checked, add that parameter
     if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
     if (length.min > 0 || length.max < 8) {
-      // if movie length is selected, add those parameters
-    }
-    if (gross.min > 0 || gross.max < 7) {
-      // if gross is selected, add those parameters
+      // if there is a time range, add that parameter
+      paramParts.push(
+        `runtime=${
+          length.min === 0 ? "" : convertLengthVals(length.min).minutes
+        },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}}`
+      );
     }
 
     // create the search URL from the base plus the parameters
@@ -175,7 +179,7 @@ export function Create({ updateList, currentList }: createProps) {
     setSearching(false);
     setNoResults(result.length === 0);
     // setSearchField("");
-    setOptions(blankOptions);
+    // setOptions(blankOptions);
   };
 
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {

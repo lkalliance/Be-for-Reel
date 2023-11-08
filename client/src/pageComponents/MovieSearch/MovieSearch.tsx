@@ -28,6 +28,7 @@ export function MovieSearch({
   handleDualOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  console.log(options);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
     setNoResults(false);
@@ -45,6 +46,18 @@ export function MovieSearch({
     if (handleDualOption) handleDualOption(e);
     else return;
   };
+
+  // count all the options configured, to determine if search button is live
+  const usedRatings =
+    (options.G ? 1 : 0) +
+    (options.PG ? 1 : 0) +
+    (options.PG13 ? 1 : 0) +
+    (options.R ? 1 : 0);
+  const usedOpts =
+    (options.decade === "0" ? 0 : 1) +
+    (options.length.min === 0 && options.length.max === 0 ? 0 : 1) +
+    (options.oscar ? 1 : 0) +
+    (usedRatings === 1 || usedRatings === 2 ? 1 : 0);
 
   return (
     <>
@@ -98,7 +111,7 @@ export function MovieSearch({
           sliderKey={{ min: "shorter", max: "longer" }}
           setValue={handleDualOptChange}
         />
-        <DoubleSlider
+        {/* <DoubleSlider
           id="gross"
           min={0}
           max={7}
@@ -118,7 +131,7 @@ export function MovieSearch({
           }`}
           sliderKey={{ min: "less", max: "more" }}
           setValue={handleDualOptChange}
-        />
+        /> */}
         <fieldset>
           <legend>Limit to just these US ratings</legend>
           <div>
@@ -165,7 +178,12 @@ export function MovieSearch({
           </div>
         </fieldset>
       </form>
-      <button onClick={handleSearchSubmit}>Search for title</button>
+      <button
+        onClick={handleSearchSubmit}
+        disabled={searchField.length === 0 && usedOpts < 2}
+      >
+        Search for title
+      </button>
     </>
   );
 }

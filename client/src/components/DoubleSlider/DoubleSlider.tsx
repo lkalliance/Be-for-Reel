@@ -58,8 +58,6 @@ export function DoubleSlider({
     }
   };
 
-  console.log(minVal, maxVal);
-
   return (
     <>
       {" "}
