@@ -1,4 +1,22 @@
 // This component renders a two-handled slider
+
+/* REQUIRED PROPS:
+id: the string to be the basis of the sliders' ids and names
+min: the low value of the range covered by the slider group
+max: the high value of the range covered by the slider group */
+
+/* OPTIONAL PROPS:
+label: the string to appear as a title for the slider group
+labelVal: the string to describe the current selected range
+step: the amount of change in value per slider position (defaults to 1)
+startVal: an object with starting values for each slider:
+  -- min: the low value for the slider group (defaults to min)
+  -- max: the high value for the slider group (defaults to max)
+sliderKey: an object with labels for each end of the slider group:
+  -- min: text to display on the left side of the slider group
+  -- max: text to display on the right side of the slider group
+setValue: a callback function for slider group onChange */
+
 import "./DoubleSlider.css";
 import { useState, useRef, useCallback, useEffect } from "react";
 import classnames from "classnames";

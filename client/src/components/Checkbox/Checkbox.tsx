@@ -1,5 +1,14 @@
 // This compenent renders a checkbox
 
+/* REQUIRED PROPS:
+id: the string to be used as the id and name of the checkbox */
+
+/* OPTIONAL PROPS:
+label: the string to appear at the right of the checkbox
+val: the boolean value of the checkbox (defaults to false)
+disabled: the boolean of the checkbox disabled state (defaults to false)
+setValue: a callback function for checkbox onChange */
+
 import { useState } from "react";
 
 interface checkboxProps {

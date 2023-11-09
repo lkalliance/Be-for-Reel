@@ -1,5 +1,10 @@
 // This component renders a poll question
 
+/* REQUIRED PROPS:
+question: string of the text of the poll question
+description: string of the description of the poll
+username: string of the username of the poll's creator */
+
 import "./Question.css";
 import { UsernameLink } from "../../components";
 
