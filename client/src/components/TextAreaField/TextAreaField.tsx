@@ -1,5 +1,18 @@
 // This component renders a textarea element
 
+/* REQUIRED PROPS:
+id: the string to be the basis of the textarea's id and name */
+
+/* OPTIONAL PROPS:
+label: the string to appear as a title for the textarea
+placeholder: the string to appear as the the textarea placeholder
+val: a string used as the value of the textarea (defaults to "")
+min: the minimum required length of the text
+max: the maximum allowed length of the text
+disabled: a boolean to set the disabled property (defaults to false)
+setValue: a callback function for textarea onChange
+keyUp: a callback function for textarea keyUp */
+
 import "./TextAreaField.css";
 import { useState } from "react";
 

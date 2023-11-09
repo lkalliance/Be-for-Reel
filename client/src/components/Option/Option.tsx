@@ -1,5 +1,22 @@
 // This component renders a voting option
 
+/* REQUIRED PROPS:
+opt: an object with all properties of this option (movie info, id, number of votes...)
+voted: a string (or undefined) indicating if the user voted on this poll
+votes: a number (or undefined) indicating the number of votes on this option
+loggedIn: a boolean indicating if the user is logged in
+selected: an object with all the information needed for a vote on this option:
+  -- userName: the username of the current user
+  -- movie: the movie represented by this option
+  -- poll_id: the _id of the current poll
+  -- option_id: the _id of this option
+  -- imdb_id: this option's movie's IMDb id
+  -- comment: the value of any added comment by the user
+select: a callback setting the poll's state indicating the selected option
+comment: a callback setting the value of the comment text area
+handleVote: a callback for the casting of a vote for this option
+  (this will be used only if the UI addes the voting action directly to the options) */
+
 import "./Option.css";
 import { optionProps } from "../../utils/interfaces";
 

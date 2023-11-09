@@ -1,10 +1,25 @@
 // This component renders an input box (text, email, password)
 
+/* REQUIRED PROPS:
+type: a string identifying the input type ("text", "email" or "password")
+id: the string to be used as the id and name of the input */
+
+/* OPTIONAL PROPS:
+label: the string to appear as a title for the input
+placeholder: the string to appear as the the input placeholder
+val: a string used as the value of the input (defaults to "")
+min: the minimum required length of the text
+max: the maximum allowed length of the text
+disabled: a boolean to set the disabled property
+capitalize: a string to set as the autocapitalize value (defaults to "on")
+setValue: a callback function for input onChange
+keyUp: a callback function for input keyUp */
+
 import "./InputText.css";
 import { useState } from "react";
 
 interface inputProps {
-  type: string;
+  type: "text" | "email" | "password";
   id: string;
   placeholder?: string;
   label?: string;
@@ -12,7 +27,7 @@ interface inputProps {
   max?: number;
   val?: string;
   disabled?: boolean;
-  capitalize?: string;
+  capitalize?: "words" | "sentences" | "characters" | "off";
   setValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   keyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
