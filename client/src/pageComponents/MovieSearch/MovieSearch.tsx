@@ -28,7 +28,6 @@ export function MovieSearch({
   handleDualOption,
   handleSearchSubmit,
 }: movieSearchProps) {
-  console.log(options);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
     setNoResults(false);
@@ -111,27 +110,6 @@ export function MovieSearch({
           sliderKey={{ min: "shorter", max: "longer" }}
           setValue={handleDualOptChange}
         />
-        {/* <DoubleSlider
-          id="gross"
-          min={0}
-          max={7}
-          step={1}
-          startVal={{ min: options.gross.min, max: options.gross.max }}
-          label={"Worldwide gross"}
-          labelVal={`${
-            options.gross.min === 0 && options.gross.max === 7
-              ? "any"
-              : options.gross.min === 0
-              ? `${convertGrossVals(options.gross.max).label} or less`
-              : options.gross.max === 7
-              ? `${convertGrossVals(options.gross.min).label} or more`
-              : `between ${convertGrossVals(options.gross.min).label} and ${
-                  convertGrossVals(options.gross.max).label
-                }`
-          }`}
-          sliderKey={{ min: "less", max: "more" }}
-          setValue={handleDualOptChange}
-        /> */}
         <fieldset>
           <legend>Limit to just these US ratings</legend>
           <div>
