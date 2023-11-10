@@ -3,11 +3,15 @@
 import "./Directory.css";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { userPollProps } from "../../utils/interfaces";
+import { AuthService } from "../../utils/auth";
+import { userPollProps, userData } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS } from "../../utils/queries";
 import { PollListing } from "../../components";
 
 export function Directory() {
+  const Auth = new AuthService();
+  const { votes } = Auth.getProfile();
+
   const { genre } = useParams();
   const { data } = useQuery(QUERY_ALL_POLLS, {
     variables: { username: "", genre },
@@ -25,7 +29,13 @@ export function Directory() {
       <ul>
         {list
           ? list.map((poll: userPollProps, index: number) => {
-              return <PollListing key={index} poll={poll} />;
+              return (
+                <PollListing
+                  key={index}
+                  poll={poll}
+                  vote={votes[poll.poll_id] ? votes[poll.poll_id] : undefined}
+                />
+              );
             })
           : ""}
       </ul>

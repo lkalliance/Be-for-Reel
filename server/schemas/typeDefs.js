@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+
   type Auth {
     token: ID
     user: User
@@ -84,7 +86,7 @@ const typeDefs = gql`
     urlTitle: String!
     votes: Int
     comments: Int
-    expires_on: String
+    expires_on: Date
   }
 
   type userComments {

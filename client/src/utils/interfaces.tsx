@@ -10,6 +10,7 @@ export interface userPollProps {
   urlTitle: string;
   votes: number;
   comments: number;
+  expires_on: Date;
 }
 
 export interface userCommentProps {

@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+const { DateResolver } = require("graphql-scalars");
 const {
   cleanUsername,
   createLookupName,
@@ -10,6 +11,7 @@ const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
 
 const resolvers = {
+  Date: DateResolver,
   Query: {
     getUser: async (parent, { lookupname }) => {
       const user = await User.findOne({ lookupName: lookupname });
@@ -38,6 +40,7 @@ const resolvers = {
         created_on: -1,
       });
       const list = polls.map((poll) => {
+        console.log(poll.expires_on);
         return {
           poll_id: poll._id,
           title: poll.title,

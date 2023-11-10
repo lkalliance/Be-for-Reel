@@ -44,3 +44,22 @@ export const convertGrossVals = (index: number) => {
   const text = ["$0", "$1M", "$10M", "$100M", "$250M", "$500M", "$1B", "any"];
   return { gross: conversions[index], label: text[index] };
 };
+
+export const convertMonth = (date: Date) => {
+  const months = [
+    "Jan.",
+    "Feb.",
+    "Mar.",
+    "Apr.",
+    "May",
+    "June",
+    "July",
+    "Aug.",
+    "Sep.",
+    "Oct.",
+    "Nov.",
+    "Dec",
+  ];
+
+  return `${months[date.getMonth()]} ${date.getDate()}`;
+};
