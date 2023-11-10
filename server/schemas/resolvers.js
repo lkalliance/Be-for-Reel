@@ -34,7 +34,9 @@ const resolvers = {
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
-      const polls = await Poll.find({ genre: lookupGenre });
+      const polls = await Poll.find({ genre: lookupGenre }).sort({
+        created_on: -1,
+      });
       const list = polls.map((poll) => {
         return {
           poll_id: poll._id,
