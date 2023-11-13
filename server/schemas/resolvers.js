@@ -10,6 +10,8 @@ const {
 } = require("../utils/typeUtils");
 const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
+const today = new Date();
+console.log(today);
 
 const resolvers = {
   Date: DateResolver,
@@ -66,7 +68,11 @@ const resolvers = {
         : { polls: false, genres };
     },
     getHomePolls: async (parent) => {
-      const polls = await Poll.find();
+      const polls = await Poll.find({
+        expires_on: {
+          $gt: new Date(),
+        },
+      });
       // create a list of random indexes
       const pollList = [];
       const limit = polls.length >= 6 ? 6 : polls.length;
@@ -245,8 +251,6 @@ const resolvers = {
           votes: [],
           voters: [],
         };
-
-        console.log(newPoll.expires_on);
 
         // construct the object to be stored to the User
         const newUserPoll = {
