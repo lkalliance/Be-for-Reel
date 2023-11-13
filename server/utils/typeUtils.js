@@ -42,4 +42,17 @@ module.exports = {
     );
     return genres;
   },
+  createGenreList: function (polls) {
+    // creates a master list of all genres
+    const genres = ["all"];
+    // iterate over all polls
+    for (let i = 0; i < polls.length; i++) {
+      const thisPoll = polls[i];
+      for (let ii = 0; ii < thisPoll.genre.length; ii++) {
+        const thisGenre = thisPoll.genre[ii];
+        if (!genres.includes(thisGenre)) genres.push(thisGenre);
+      }
+    }
+    return genres;
+  },
 };

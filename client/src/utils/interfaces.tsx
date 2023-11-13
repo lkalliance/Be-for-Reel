@@ -10,6 +10,7 @@ export interface userPollProps {
   urlTitle: string;
   votes: number;
   comments: number;
+  expires_on: Date;
 }
 
 export interface userCommentProps {
@@ -92,9 +93,15 @@ export interface pollProps {
   comments: pollCommentProps[];
 }
 
+export interface genreProps {
+  // data provided for each genre
+  title: string;
+}
+
 export interface pollListProps {
   // data provided for each poll
   polls: userPollProps[];
+  genres?: string[];
 }
 
 export interface loginState {

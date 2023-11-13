@@ -3,6 +3,10 @@
   margin-bottom: 12px;
 }
 
+.poll-listing.expired {
+  opacity: 0.5;
+}
+
 .poll-listing span {
   white-space: no-wrap;
   font-size: 0.8em;

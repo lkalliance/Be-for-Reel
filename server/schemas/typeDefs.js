@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+
   type Auth {
     token: ID
     user: User
@@ -65,8 +67,8 @@ const typeDefs = gql`
     description: String
     user_id: String!
     username: String!
-    created_on: String!
-    expires_on: String!
+    created_on: Date!
+    expires_on: Date!
     options: [pollOption]
     comments: [pollComment]
     votes: [String]
@@ -84,7 +86,7 @@ const typeDefs = gql`
     urlTitle: String!
     votes: Int
     comments: Int
-    expires_on: String
+    expires_on: Date
   }
 
   type userComments {
@@ -113,8 +115,13 @@ const typeDefs = gql`
     token: Auth
   }
 
+  type Genre {
+    title: String
+  }
+
   type pollList {
     polls: [userPolls]
+    genres: [String]
   }
 
   type Movie {
@@ -130,6 +137,7 @@ const typeDefs = gql`
     getUser(lookupname: String!): User
     getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
+    getGenres: Genre
   }
 
   type Mutation {

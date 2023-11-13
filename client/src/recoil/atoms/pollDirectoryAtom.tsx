@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const pollDirectoryAtom = atom({
-  key: "pollDirectory",
-  default: [],
+export const genresAtom = atom({
+  key: "genres",
+  default: ["all"],
 });
