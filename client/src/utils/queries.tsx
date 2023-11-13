@@ -80,6 +80,7 @@ export const QUERY_ALL_POLLS = gql`
         comments
         expires_on
       }
+      genres
     }
   }
 `;
@@ -98,6 +99,14 @@ export const QUERY_HOME_POLLS = gql`
         }
         created_on
       }
+    }
+  }
+`;
+
+export const QUERY_GENRES = gql`
+  query GetGenres {
+    getGenres {
+      titles
     }
   }
 `;

@@ -6,6 +6,7 @@ const {
   createLookupName,
   createUrlTitle,
   condenseGenres,
+  createGenreList,
 } = require("../utils/typeUtils");
 const { User, Poll, Movie } = require("../models");
 const fetch = require("axios");
@@ -36,23 +37,33 @@ const resolvers = {
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
-      const polls = await Poll.find({ genre: lookupGenre }).sort({
+      const polls = await Poll.find().sort({
         created_on: -1,
       });
+      const genres = createGenreList(polls);
       const list = polls.map((poll) => {
-        console.log(poll.expires_on);
         return {
           poll_id: poll._id,
           title: poll.title,
           urlTitle: poll.urlTitle,
           username: poll.username,
+          genre: poll.genre,
           votes: poll.votes.length,
           comments: poll.comments.length,
           expires_on: poll.expires_on,
         };
       });
 
-      return list ? { polls: list } : { polls: false };
+      const filteredList =
+        lookupGenre === "all"
+          ? list
+          : list.filter((poll) => {
+              return poll.genre.includes(lookupGenre);
+            });
+
+      return filteredList
+        ? { polls: filteredList, genres }
+        : { polls: false, genres };
     },
     getHomePolls: async (parent) => {
       const polls = await Poll.find();
@@ -78,6 +89,21 @@ const resolvers = {
       });
 
       return list ? { polls: list } : { polls: false };
+    },
+    getGenres: async (parent) => {
+      const polls = await Poll.find();
+      const titles = ["all"];
+      // iterate over each poll
+      for (let i = 0; i < polls.length; i++) {
+        const thisPoll = polls[i];
+        // iterate over each poll's genres
+        for (let i = 0; i < thisPoll.genre.length; i++) {
+          // if it's not accounted for, add the genre
+          if (!titles.includes(thisPoll.genre[i]))
+            titles.push(thisPoll.genre[i]);
+        }
+      }
+      return { titles };
     },
   },
   Mutation: {

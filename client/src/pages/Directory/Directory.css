@@ -1,3 +1,24 @@
 section#directory {
   position: relative;
 }
+
+select.titleSelect {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--primary-link-hover);
+  font-size: 1.8em;
+  font-weight: 500;
+  border: none;
+  background-image: none;
+  padding: 4px 10px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+select.titleSelect:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+select.titleSelect option {
+  text-align: center;
+}

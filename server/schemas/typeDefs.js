@@ -115,8 +115,13 @@ const typeDefs = gql`
     token: Auth
   }
 
+  type Genre {
+    title: String
+  }
+
   type pollList {
     polls: [userPolls]
+    genres: [String]
   }
 
   type Movie {
@@ -132,6 +137,7 @@ const typeDefs = gql`
     getUser(lookupname: String!): User
     getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
+    getGenres: Genre
   }
 
   type Mutation {
