@@ -67,8 +67,8 @@ const typeDefs = gql`
     description: String
     user_id: String!
     username: String!
-    created_on: String!
-    expires_on: String!
+    created_on: Date!
+    expires_on: Date!
     options: [pollOption]
     comments: [pollComment]
     votes: [String]

@@ -39,6 +39,11 @@ export function Poll({ currUser }: pollProps) {
 
   const poll = data?.getPoll;
 
+  const expires = loading ? null : new Date(poll.expires_on);
+  const expired = loading || !expires ? null : new Date() > expires;
+
+  console.log(expired);
+
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
     refetchQueries: () => [
@@ -106,7 +111,7 @@ export function Poll({ currUser }: pollProps) {
               userInfo.votes[poll._id] ? (
                 // user has voted on this poll, show their vote
                 <p id="yourvote">You voted for "{userInfo.votes[poll._id]}"</p>
-              ) : (
+              ) : !expired ? (
                 // user has not voted on this poll, show comment form
                 <fieldset>
                   <TextAreaField
@@ -124,6 +129,8 @@ export function Poll({ currUser }: pollProps) {
                     Vote!
                   </button>
                 </fieldset>
+              ) : (
+                ""
               )
             ) : (
               // user is not logged in, prompt them to
@@ -132,6 +139,7 @@ export function Poll({ currUser }: pollProps) {
                 comments
               </div>
             )}
+            {expired ? <p className="expired">This poll is closed</p> : ""}
           </div>
           {poll.options.map(
             (option: optionProps, index: Key | null | undefined) => {
