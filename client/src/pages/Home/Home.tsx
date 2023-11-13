@@ -14,16 +14,18 @@ export function Home() {
         <div>loading...</div>
       ) : (
         data.getHomePolls.polls.map((poll: pollProps, index: number) => {
-          const whichPoster = Math.trunc(Math.random() * poll.options.length);
-          return (
-            <Card
-              key={index}
-              title={poll.title}
-              urlTitle={poll.urlTitle}
-              poster={poll.options[whichPoster].image}
-              user={poll.username}
-            />
-          );
+          if (poll) {
+            const whichPoster = Math.trunc(Math.random() * poll.options.length);
+            return (
+              <Card
+                key={index}
+                title={poll.title}
+                urlTitle={poll.urlTitle}
+                poster={poll.options[whichPoster].image}
+                user={poll.username}
+              />
+            );
+          }
         })
       )}
     </section>
