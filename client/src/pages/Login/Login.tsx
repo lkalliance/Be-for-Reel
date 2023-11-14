@@ -21,9 +21,7 @@ export function Login({ setLogIn }: loginState) {
   const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Handler for changes to login fields
     const { name, value } = e.target;
-    console.log(
-      `I'm on the page's login change handler, and the value is ${value}`
-    );
+
     setLoginForm({ ...loginForm, [name]: value });
     setLoginError(false);
     setSignupForm({ sUsername: "", sEmail: "", sPassword: "" });

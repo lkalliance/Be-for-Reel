@@ -25,7 +25,6 @@ export function LoginForm({
     // if something is amiss and no handler passed down, exit
     if (!handleChange) return;
     handleChange(e);
-    console.log(stateObj);
   };
 
   const handleLoginSubmit = async (e: React.MouseEvent) => {

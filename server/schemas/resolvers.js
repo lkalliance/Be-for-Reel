@@ -51,7 +51,7 @@ const resolvers = {
       const list = polls
         ? polls.map((poll) => {
             return {
-              poll_id: poll._id,
+              poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
               title: poll.title,
               urlTitle: poll.urlTitle,
               username: poll.username,
@@ -63,6 +63,8 @@ const resolvers = {
             };
           })
         : [];
+
+      console.log(list);
 
       return list ? { polls: list } : null;
     },
@@ -305,7 +307,7 @@ const resolvers = {
         if (comment.length > 0) {
           // if there's a comment, add the vote and the comment
           whichPoll = await Poll.findOneAndUpdate(
-            { _id: poll_id },
+            { _id: poll_id, "options._id": option_id },
             {
               $push: { voters: context.user._id, votes: option_id },
               $addToSet: {
@@ -317,14 +319,18 @@ const resolvers = {
                   text: comment,
                 },
               },
+              $inc: { "options.$.votes": 1 },
             },
             { new: true, useFindAndModify: false }
           );
         } else {
           // if there's no comment, just add the vote
           whichPoll = await Poll.findOneAndUpdate(
-            { _id: poll_id },
-            { $push: { votes: option_id, voters: context.user._id } },
+            { _id: poll_id, "options._id": option_id },
+            {
+              $push: { votes: option_id, voters: context.user._id },
+              $inc: { "options.$.votes": 1 },
+            },
             { new: true, useFindAndModify: false }
           );
         }

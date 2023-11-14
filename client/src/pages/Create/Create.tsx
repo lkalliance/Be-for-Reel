@@ -35,7 +35,7 @@ export function Create({ updateList, currentList }: createProps) {
     decade: "0",
     years: false,
     length: {
-      min: 2,
+      min: 1,
       max: 8,
     },
     gross: {
