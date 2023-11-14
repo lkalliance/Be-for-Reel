@@ -23,6 +23,7 @@ interface listProps {
 export function PollListing({ poll, vote }: listProps) {
   const expires = new Date(poll.expires_on);
   const expired = new Date(poll.expires_on) < new Date();
+  console.log(poll);
   return (
     <li
       className={

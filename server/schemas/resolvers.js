@@ -58,18 +58,11 @@ const resolvers = {
               genre: poll.genre,
               votes: lookupGenre === "all" ? poll.votes.length : poll.votes,
               comments:
-                lookupGenre === "all" ? poll.comments.length : poll.votes,
+                lookupGenre === "all" ? poll.comments.length : poll.comments,
               expires_on: poll.expires_on,
             };
           })
         : [];
-
-      // const filteredList =
-      //   lookupGenre === "all"
-      //     ? list
-      //     : list.filter((poll) => {
-      //         return poll.genre.includes(lookupGenre);
-      //       });
 
       return list ? { polls: list } : null;
     },

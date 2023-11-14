@@ -120,6 +120,10 @@ const typeDefs = gql`
     polls: [userPolls]
   }
 
+  type GenreList {
+    titles: [String]
+  }
+
   type pollList {
     polls: [userPolls]
   }
@@ -137,7 +141,7 @@ const typeDefs = gql`
     getUser(lookupname: String!): User
     getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
-    getGenres: [String]
+    getGenres: GenreList
   }
 
   type Mutation {

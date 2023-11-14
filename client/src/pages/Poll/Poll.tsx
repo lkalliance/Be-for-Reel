@@ -42,14 +42,12 @@ export function Poll({ currUser }: pollProps) {
   const expires = loading ? null : new Date(poll.expires_on);
   const expired = loading || !expires ? null : new Date() > expires;
 
-  console.log(expired);
-
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
     refetchQueries: () => [
       {
         query: QUERY_ALL_POLLS,
-        variables: { username: "" },
+        variables: { genre: poll.genre },
       },
       {
         query: QUERY_SINGLE_USER,
