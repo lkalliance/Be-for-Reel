@@ -326,8 +326,11 @@ const resolvers = {
         } else {
           // if there's no comment, just add the vote
           whichPoll = await Poll.findOneAndUpdate(
-            { _id: poll_id },
-            { $push: { votes: option_id, voters: context.user._id } },
+            { _id: poll_id, "options._id": option_id },
+            {
+              $push: { votes: option_id, voters: context.user._id },
+              $inc: { "options.$.votes": 1 },
+            },
             { new: true, useFindAndModify: false }
           );
         }

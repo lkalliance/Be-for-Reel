@@ -55,6 +55,7 @@ export interface optionProps {
   // data included with each poll option
   _id: string;
   movie: string;
+  year: number;
   imdb_id: string;
   stars: string;
   plot: string;

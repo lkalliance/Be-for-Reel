@@ -38,9 +38,24 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-
+  let opts = loading ? [] : [...poll.options];
   const expires = loading ? null : new Date(poll.expires_on);
   const expired = loading || !expires ? null : new Date() > expires;
+
+  if (!loading) {
+    // trap for loading
+    if (userInfo.votes[poll._id] || expired) {
+      // if the user has voted, or the poll is expired, sort by votes
+      opts.sort((a: optionProps, b: optionProps) => {
+        return b.votes - a.votes;
+      });
+    } else {
+      // otherwise, sort by year descending
+      opts.sort((a: optionProps, b: optionProps) => {
+        return a.year - b.year;
+      });
+    }
+  }
 
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
@@ -139,28 +154,21 @@ export function Poll({ currUser }: pollProps) {
             )}
             {expired ? <p className="expired">This poll is closed</p> : ""}
           </div>
-          {poll.options.map(
-            (option: optionProps, index: Key | null | undefined) => {
-              return (
-                <Option
-                  key={index}
-                  opt={option}
-                  loggedIn={loggedIn}
-                  selected={selected}
-                  select={setSelected}
-                  comment={setComment}
-                  voted={userInfo.votes[poll._id]}
-                  votes={
-                    userInfo.votes[poll._id]
-                      ? poll.votes.filter((vote: string) => vote === option._id)
-                          .length
-                      : undefined
-                  }
-                  handleVote={handleVote}
-                />
-              );
-            }
-          )}
+          {opts.map((option: optionProps, index: Key | null | undefined) => {
+            return (
+              <Option
+                key={index}
+                opt={option}
+                loggedIn={loggedIn}
+                selected={selected}
+                select={setSelected}
+                comment={setComment}
+                voted={userInfo.votes[poll._id]}
+                votes={userInfo.votes[poll._id] ? option.votes : undefined}
+                handleVote={handleVote}
+              />
+            );
+          })}
           {loggedIn && poll.comments.length > 0 ? (
             // user is logged in, show the comments
             <div>
