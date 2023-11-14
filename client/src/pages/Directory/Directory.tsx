@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
-import { userPollProps, genreProps } from "../../utils/interfaces";
+import { userPollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
 import { PollListing, Select } from "../../components";
 
@@ -13,17 +13,26 @@ export function Directory() {
   const navigate = useNavigate();
   const Auth = new AuthService();
   const { votes } = Auth.getProfile();
-
   const { genre } = useParams();
-  const [genreVal, setGenreVal] = useState(genre);
-  const { loading, data } = useQuery(QUERY_ALL_POLLS, {
+
+  // get the relevant polls
+  const getPolls = useQuery(QUERY_ALL_POLLS, {
+    variables: { username: "", genre },
+  });
+  // get all genres
+  const getGenres = useQuery(QUERY_GENRES, {
     variables: { username: "", genre },
   });
 
-  const list = data?.getPolls.polls || false;
-  const genres: string[] = loading ? ["loading"] : data.getPolls.genres;
+  const list = getPolls.data?.getPolls.polls || [];
+  console.log(list);
+
+  // generate list of sorted genre objects
+  const genres: string[] = getGenres.loading
+    ? ["loading"]
+    : getGenres.data.getGenres.titles;
   const sortedGenres = ["all", ...genres.slice(1).sort()];
-  const genreList = sortedGenres.map((genre) => {
+  const genreObjs = sortedGenres.map((genre) => {
     return {
       value: genre,
       title: genre.charAt(0).toUpperCase() + genre.slice(1),
@@ -37,12 +46,16 @@ export function Directory() {
 
   return (
     <section id="directory">
-      <Select
-        id="genreSelect"
-        options={genreList}
-        val={genre}
-        setValue={handleSelect}
-      />
+      {getGenres.loading ? (
+        ""
+      ) : (
+        <Select
+          id="genreSelect"
+          options={genreObjs}
+          val={genre}
+          setValue={handleSelect}
+        />
+      )}
       <ul>
         {list
           ? list.map((poll: userPollProps, index: number) => {

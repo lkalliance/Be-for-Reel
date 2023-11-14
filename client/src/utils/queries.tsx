@@ -80,7 +80,6 @@ export const QUERY_ALL_POLLS = gql`
         comments
         expires_on
       }
-      genres
     }
   }
 `;
