@@ -51,7 +51,7 @@ const resolvers = {
       const list = polls
         ? polls.map((poll) => {
             return {
-              poll_id: poll._id,
+              poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
               title: poll.title,
               urlTitle: poll.urlTitle,
               username: poll.username,
@@ -63,6 +63,8 @@ const resolvers = {
             };
           })
         : [];
+
+      console.log(list);
 
       return list ? { polls: list } : null;
     },
