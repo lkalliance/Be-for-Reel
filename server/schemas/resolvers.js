@@ -8,10 +8,9 @@ const {
   condenseGenres,
   createGenreList,
 } = require("../utils/typeUtils");
-const { User, Poll, Movie } = require("../models");
+const { User, Poll, Movie, Genre } = require("../models");
 const fetch = require("axios");
 const today = new Date();
-console.log(today);
 
 const resolvers = {
   Date: DateResolver,
@@ -39,33 +38,40 @@ const resolvers = {
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
-      const polls = await Poll.find().sort({
-        created_on: -1,
-      });
-      const genres = createGenreList(polls);
-      const list = polls.map((poll) => {
-        return {
-          poll_id: poll._id,
-          title: poll.title,
-          urlTitle: poll.urlTitle,
-          username: poll.username,
-          genre: poll.genre,
-          votes: poll.votes.length,
-          comments: poll.comments.length,
-          expires_on: poll.expires_on,
-        };
-      });
-
-      const filteredList =
+      const rawPolls =
         lookupGenre === "all"
-          ? list
-          : list.filter((poll) => {
-              return poll.genre.includes(lookupGenre);
-            });
+          ? await Poll.find().sort({
+              created_on: -1,
+            })
+          : await Genre.find({ title: genre });
 
-      return filteredList
-        ? { polls: filteredList, genres }
-        : { polls: false, genres };
+      const polls = lookupGenre === "all" ? rawPolls : rawPolls[0].polls;
+
+      // const genres = createGenreList(polls);
+      const list = polls
+        ? polls.map((poll) => {
+            return {
+              poll_id: poll._id,
+              title: poll.title,
+              urlTitle: poll.urlTitle,
+              username: poll.username,
+              genre: poll.genre,
+              votes: lookupGenre === "all" ? poll.votes.length : poll.votes,
+              comments:
+                lookupGenre === "all" ? poll.comments.length : poll.votes,
+              expires_on: poll.expires_on,
+            };
+          })
+        : [];
+
+      // const filteredList =
+      //   lookupGenre === "all"
+      //     ? list
+      //     : list.filter((poll) => {
+      //         return poll.genre.includes(lookupGenre);
+      //       });
+
+      return list ? { polls: list } : null;
     },
     getHomePolls: async (parent) => {
       const polls = await Poll.find({
@@ -97,17 +103,11 @@ const resolvers = {
       return list ? { polls: list } : { polls: false };
     },
     getGenres: async (parent) => {
-      const polls = await Poll.find();
+      const genres = await Genre.find();
       const titles = ["all"];
-      // iterate over each poll
-      for (let i = 0; i < polls.length; i++) {
-        const thisPoll = polls[i];
-        // iterate over each poll's genres
-        for (let i = 0; i < thisPoll.genre.length; i++) {
-          // if it's not accounted for, add the genre
-          if (!titles.includes(thisPoll.genre[i]))
-            titles.push(thisPoll.genre[i]);
-        }
+      // iterate over each genre
+      for (let i = 0; i < genres.length; i++) {
+        titles.push(genres[i].title);
       }
       return { titles };
     },
@@ -252,11 +252,12 @@ const resolvers = {
           voters: [],
         };
 
-        // construct the object to be stored to the User
+        // construct the object to be stored to the User and Genre
         const newUserPoll = {
           title,
           urlTitle,
           username: context.user.userName,
+          expires_on: expires,
           votes: 0,
           comments: 0,
         };
@@ -265,7 +266,7 @@ const resolvers = {
         const poll = await Poll.create(newPoll);
         if (!poll) return { message: "Operation failed" };
 
-        // add the new poll's id to the object we're attaching to the user
+        // add the new poll's id to the object we're attaching to the user...
         newUserPoll.poll_id = poll._id;
 
         // add the poll to the currently logged-in user's document
@@ -276,6 +277,19 @@ const resolvers = {
           },
           { new: true, useFindAndModify: false }
         );
+
+        // add the poll to its genres
+        if (newPoll.genre.length > 0) {
+          for (let i = 0; i < newPoll.genre.length; i++) {
+            if (newPoll.genre[i] !== "all") {
+              const updatedGenre = await Genre.findOneAndUpdate(
+                { title: poll.genre[i] },
+                { $addToSet: { polls: newUserPoll } },
+                { upsert: true, new: true, useFindAndModify: false }
+              );
+            }
+          }
+        }
 
         return { poll_id: poll._id, title, redirect: urlTitle };
       }
@@ -374,7 +388,28 @@ const resolvers = {
           );
         }
 
-        // fourth: update the movie's overall vote count
+        // fourth: update the poll on each of its genres
+        for (let i = 0; i < whichPoll.genre.length; i++) {
+          if (whichPoll.genre[i] !== "all") {
+            // don't update "all"
+            if (comment.length > 0) {
+              pollGenre = await Genre.findOneAndUpdate(
+                { title: whichPoll.genre[i], "polls.poll_id": whichPoll._id },
+                { $inc: { "polls.$.votes": 1, "polls.$.comments": 1 } },
+                { new: true, useFindAndModify: false }
+              );
+            } else {
+              // if there's no comment, just add the vote
+              pollGenre = await Genre.findOneAndUpdate(
+                { title: whichPoll.genre[i], "polls.poll_id": whichPoll._id },
+                { $inc: { "polls.$.votes": 1 } },
+                { new: true, useFindAndModify: false }
+              );
+            }
+          }
+        }
+
+        // fifth: update the movie's overall vote count
         const updatedMovie = await Movie.findOneAndUpdate(
           { imdb_id: imdb_id },
           { $inc: { votes: 1 } },

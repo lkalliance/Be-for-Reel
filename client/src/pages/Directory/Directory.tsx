@@ -21,14 +21,25 @@ export function Directory() {
   });
 
   const list = data?.getPolls.polls || false;
-  const genres: string[] = loading ? ["loading"] : data.getPolls.genres;
-  const sortedGenres = ["all", ...genres.slice(1).sort()];
-  const genreList = sortedGenres.map((genre) => {
-    return {
-      value: genre,
-      title: genre.charAt(0).toUpperCase() + genre.slice(1),
-    };
-  });
+  // const genres: string[] = loading ? ["loading"] : data.getPolls.genres;
+  // const sortedGenres = ["all", ...genres.slice(1).sort()];
+  // const genreList = sortedGenres.map((genre) => {
+  //   return {
+  //     value: genre,
+  //     title: genre.charAt(0).toUpperCase() + genre.slice(1),
+  //   };
+  // });
+
+  console.log(loading ? "loading" : list);
+
+  const genreList = [
+    { value: "all", title: "All" },
+    { value: "action", title: "Action" },
+
+    { value: "adventure", title: "Adventure" },
+
+    { value: "comedy", title: "Comedy" },
+  ];
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;

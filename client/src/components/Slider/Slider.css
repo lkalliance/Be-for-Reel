@@ -25,7 +25,7 @@
   margin: 2px auto 0;
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   font-size: 0.75em;
 }
 
@@ -39,11 +39,11 @@ section div.legend span.lower {
 
 .single-slider legend.sliderTitle {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   font-size: 0.9em;
   line-height: 1.5em;
   width: 100%;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 0;
 }
 

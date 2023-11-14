@@ -11,8 +11,16 @@ const userPolls = new Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   urlTitle: {
     type: String,
+    required: true,
+  },
+  expires_on: {
+    type: Date,
     required: true,
   },
   votes: Number,
@@ -112,4 +120,4 @@ userSchema.methods.isCorrectPassword = async function (password) {
 
 const User = model("User", userSchema);
 
-module.exports = User;
+module.exports = { User, userPolls };
