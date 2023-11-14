@@ -73,6 +73,10 @@ const pollOption = new Schema({
     type: String,
     required: false,
   },
+  votes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const pollComment = new Schema({

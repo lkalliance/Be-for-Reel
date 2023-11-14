@@ -49,6 +49,7 @@ const typeDefs = gql`
     genres: String
     companies: String
     trailer: String
+    votes: Int
   }
 
   type pollComment {

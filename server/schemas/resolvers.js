@@ -305,7 +305,7 @@ const resolvers = {
         if (comment.length > 0) {
           // if there's a comment, add the vote and the comment
           whichPoll = await Poll.findOneAndUpdate(
-            { _id: poll_id },
+            { _id: poll_id, "options._id": option_id },
             {
               $push: { voters: context.user._id, votes: option_id },
               $addToSet: {
@@ -317,6 +317,7 @@ const resolvers = {
                   text: comment,
                 },
               },
+              $inc: { "options.$.votes": 1 },
             },
             { new: true, useFindAndModify: false }
           );

@@ -54,6 +54,7 @@ export const QUERY_SINGLE_POLL = gql`
         stars
         trailer
         wikipedia
+        votes
       }
       comments {
         text
