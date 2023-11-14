@@ -23,15 +23,26 @@ Be for Reel is a web app, and all it requires is a web browser to interact with 
 
 Using Be for Reel is simple. First of all, the user must have an account. Visit the site, and click the "Log in/Sign up" link in the upper right. I the signup form on the right, provide a unique email address and username and a password to create the account.
 
-Upon logging in, you can view and vote in polls; visit the Polls page for a current list of all submitted polls. You may also create their own polls, by accessing the Create a Poll page (link in the upper right). To create a poll, on that page provide a poll name and a brief description. Then in the area to the right (or, on your mobile device, below), perform a title search for a movie or movies to add to your poll. You can search on any title string, and provide a range of years for release data, specify specific ratings, or limit results ot Oscar nominees.
+### Create a Poll
+Upon logging in, you can view and vote in polls; visit the Polls page for a current list of all submitted polls. You may also create their own polls, by accessing the Create a Poll page (link in the upper right). To create a poll, on that page provide a poll name and a brief description. Then in the area to the right (or, on your mobile device, below), perform a title search for a movie or movies to add to your poll. You can search on any title string, select a specific decade, specify specific ratings, or limit results to Oscar nominees.
 
 Once the reults of the search appear, click or tap on whatever titles you'd like to add to the poll, and see them appear in the selections area on the left (or, on your mobile device, above). If you have second thoughts about including the movie, click or tap on it again to remove it from the selections list. Then click "Create Poll". Your poll is active and ready to accept votes!
+
+### Vote on a Poll
 
 To vote on a poll, click or tap on a poll name on either the Home page (where six random polls appear) or on the Polls page, or on a user profile. View the films provided as poll options, each with a list of stars, a brief plot synopsis, and links to the film's IMDb page, Wikipedia page, and trailer. Select a movie for which to cast your vote by clicking or tapping on it anywhere in its box, and note that the box highlights to indicate you've eelected it. Second thoughts before casting your vote? Click or tap the film again to de-select it, or just click or tap on a different option to select that one instead.
 
 When you're satisfied with your selection, enter an optional comment or review, and click the "Vote" button. Each user may vote only once on each poll. Return to the poll and the voting controls are gone, replaced by an indication of how you voted.
 
 Each user has their own profile page, listing each of the polls they've created, and any comments they've left. Click a username anywhere (listed with a poll, or your own user name in the navigation at the top) to view that user's profile.
+
+### Genre Assignment
+
+Each poll is assigned one or more genres automatically. It will appear on genre-specific poll lists for any genre that IMDb has assigned to every single movie option in the poll.
+
+### Poll Expiration
+
+The polls close on each poll two weeks after its creation. 
 
 ## Application Features
 
