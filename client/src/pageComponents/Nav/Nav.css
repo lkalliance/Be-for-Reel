@@ -2,12 +2,13 @@ div.navbar-nav a.nav-link {
   color: var(--link);
   margin-left: 10px;
   text-align: right;
-  font-size: 1em;
-  line-height: 1em;
+  font-size: 1.2em;
+  line-height: 1.5em;
 }
 
 nav.navbar div.container {
   align-items: flex-end;
+  padding: 0;
   max-width: 100% !important;
 }
 

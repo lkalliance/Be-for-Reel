@@ -62,3 +62,14 @@ body h1 {
   color: white;
   text-shadow: 2px 2px var(--secondary-color);
 }
+
+button.btn.btn-primary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+button.btn.btn-primary:hover {
+  background-color: var(--link-hover);
+  border-color: var(--link-hover);
+  color: black;
+}

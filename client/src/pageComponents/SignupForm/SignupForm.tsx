@@ -119,7 +119,7 @@ export function SignupForm({
   };
 
   return (
-    <div>
+    <div id="signupFormContainer">
       <h1>Sign Up</h1>
 
       <form>
@@ -154,6 +154,7 @@ export function SignupForm({
             !(stateObj.sUsername && stateObj.sPassword && stateObj.sEmail)
           }
           onClick={handleSignupSubmit}
+          className="btn btn-primary"
         >
           Submit
         </button>

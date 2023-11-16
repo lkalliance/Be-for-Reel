@@ -5,16 +5,22 @@ section#login {
   justify-content: space-around;
 }
 
-section#login div {
+section#login div#loginFormContainer,
+section#login div#signupFormContainer {
   max-width: 350px;
-  margin: 0 10px 30px;
+  margin-bottom: 40px;
+  min-width: 250px;
 }
 
-section#login div.limit {
-  margin: 0;
+section#login input {
+  width: 100%;
 }
 
 section#login div.alert {
   width: 100%;
   margin: 20px 0 0;
+}
+
+section#login button {
+  margin-top: 15px;
 }
