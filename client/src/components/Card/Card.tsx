@@ -15,18 +15,26 @@ interface cardProps {
   urlTitle: string;
   poster: string;
   user: string;
+  votes: number;
 }
 
-export function Card({ title, poster, urlTitle, user }: cardProps) {
+export function Card({ title, poster, urlTitle, user, votes }: cardProps) {
   return (
-    <div className="card">
-      <h2>
-        <Link to={urlTitle}>{title}</Link>
-      </h2>
-      <h3>
-        <UsernameLink username={user} />
-      </h3>
-      <img src={poster} alt={title} />
+    <div className="col">
+      <div className="card custom-card">
+        <Link to={urlTitle} className="img-link">
+          <img src={poster} className="card-img-top" alt={title} />
+          <div className="card-body custom-body">
+            <div className="title-container">
+              <h5 className="card-title">{title}</h5>
+            </div>
+          </div>
+        </Link>
+        <p className="card-text votes">votes: {votes}</p>
+        <p className="card-text user">
+          <UsernameLink username={user} />
+        </p>
+      </div>
     </div>
   );
 }

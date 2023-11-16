@@ -1,39 +1,57 @@
+/* Card css here */
+
 .card {
-  position: relative;
-  width: 300px;
-  margin: 12px;
+  min-height: 300px;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.card .title-container h5 {
+  font-weight: 700;
+  font-size: 1.2em;
+  line-height: 1.1em;
+}
+
+.card-img-top {
+  object-fit: cover;
+  max-height: 200px;
+  object-position: top;
+}
+
+.card-img {
+  margin-top: -20px;
+}
+
+.img-link {
+  padding-right: 0;
+}
+
+.card-title {
+  text-align: center !important;
+  margin-top: 6px;
+}
+
+.title-container {
+  overflow: hidden;
+}
+
+.card-body.custom-body {
+  padding: 0.5em 0.5em 25px;
+}
+
+body p.card-text.votes,
+body p.card-text.user {
+  margin: 0;
   padding: 12px;
-  background-color: var(--secondary-background);
+  position: absolute;
+  bottom: 0;
+  font-size: 0.75em;
+  color: #8d8d8d;
 }
 
-.card h2 {
-  text-align: center;
+body p.card-text.user a {
+  font-size: 1.1em;
 }
 
-.card h2 a {
-  color: var(--dark-link);
-}
-
-.card h2 a:hover {
-  color: var(--dark-link-hover);
-}
-
-.card h3 {
-  margin-bottom: 10px;
-  text-align: center;
-  border: 1px solid var(--primary-border);
-  border-width: 1px 0 1px;
-  padding: 6px;
-}
-
-.card h3 a {
-  color: var(--secondary-link);
-}
-
-.card h3 a:hover {
-  color: var(--secondary-link-hover);
-}
-
-.card img {
-  margin: auto;
+p.card-text.user {
+  right: 0;
 }

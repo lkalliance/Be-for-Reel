@@ -1,109 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;600;700&display=swap");
+
 :root {
-  --page-background: black;
-  --primary-background: rgb(0, 0, 52);
-  --secondary-background: rgb(188, 192, 226);
-  --primary-text: rgb(168, 179, 227);
-  --secondary-text: rgb(0, 0, 52);
-  --primary-link: white;
-  --primary-link-hover: gold;
-  --secondary-link: rgb(191, 25, 25);
-  --secondary-link-hover: white;
-  --dark-link: rgb(0, 0, 52);
-  --dark-link-hover: rgb(176, 13, 13);
-  --primary-border: rgb(94, 94, 157);
-  --dark-li-hover: rgb(55, 55, 111);
+  --link: rgb(250, 246, 246);
+  --link-hover: #deb992;
+  --secondary-color: #1ba098;
+  --tertiary-color: rgb(18, 40, 62);
 }
 
-html,
-body {
-  background-color: black;
+html {
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-li {
-  list-style-type: none;
+body {
+  flex-grow: 1;
+  position: relative;
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  background-image: url("/images/all.jpg");
+  background-size: cover;
+  padding: 20px;
+  padding-bottom: 100px;
+  background-color: #01141e;
+  background-repeat: no-repeat;
 }
 
 section {
-  height: 100%;
-  padding: 20px;
-  color: var(--primary-text);
-  background-color: var(--page-background);
+  margin-top: 20px;
 }
 
-section a {
+body a {
+  color: var(--link);
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.2s ease-in-out;
   text-decoration: none;
-  color: var(--primary-link);
 }
 
-section a:hover {
-  color: var(--primary-link-hover);
+body a:hover {
+  color: var(--link-hover);
 }
 
-section input,
-section textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: none;
-  padding: 6px;
-  font-size: 1em;
-  line-height: 1.2em;
-}
-
-section button,
-section button:disabled:hover {
-  border: none;
-  border-radius: 4px;
-  color: var(--primary-background);
-  background-color: var(--secondary-background);
-}
-
-section button:disabled,
-section button:disabled:hover {
-  color: var(--primary-border);
+textarea:disabled,
+input:disabled,
+button:disabled {
   opacity: 0.5;
-  cursor: default;
 }
 
-section button:hover {
-  background-color: var(--primary-link-hover);
-}
-
-section ul {
-  padding-left: 0;
-}
-
-section h1 {
-  font-size: 1.8em;
-  line-height: 1.2em;
-}
-
-section h2 {
-  font-size: 1.5em;
-  line-height: 1em;
-}
-
-section h3 {
-  font-size: 1.2em;
-  line-height: 1.1em;
-}
-
-section h4 {
-  font-size: 1em;
-  line-height: 0.8em;
-}
-
-section h5 {
-  font-size: 0.8em;
-  line-height: 0.7em;
-}
-
-section h6 {
-  font-size: 0.6em;
-  line-height: 0.5em;
-}
-
-.hidden {
-  display: none;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
 }
