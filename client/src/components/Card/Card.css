@@ -7,7 +7,7 @@
 
 .card .title-container h5 {
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.4em;
   line-height: 1.1em;
 }
 
@@ -50,6 +50,11 @@ body p.card-text.user {
 
 body p.card-text.user a {
   font-size: 1.1em;
+  color: var(--link-hover);
+}
+
+body p.card-text.user a:hover {
+  color: var(--link);
 }
 
 p.card-text.user {

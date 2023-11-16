@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;600;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Limelight&family=Raleway:wght@100;300;400;500;600;700&display=swap");
 :root {
   --link: rgb(250, 246, 246);
   --link-hover: #deb992;
@@ -23,7 +22,7 @@ body {
   padding: 20px;
   padding-bottom: 100px;
   background-color: #01141e;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 
 section {
@@ -56,4 +55,10 @@ h4,
 h5,
 h6 {
   font-weight: 600;
+}
+
+body h1 {
+  font-family: Limelight;
+  color: white;
+  text-shadow: 2px 2px var(--secondary-color);
 }

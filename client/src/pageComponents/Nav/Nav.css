@@ -1,7 +1,51 @@
-nav {
-  padding-top: 0;
+div.navbar-nav a.nav-link {
+  color: var(--link);
+  margin-left: 10px;
+  text-align: right;
+  font-size: 1em;
+  line-height: 1em;
 }
 
-nav img {
-  height: 80px;
+nav.navbar div.container {
+  align-items: flex-end;
+  max-width: 100% !important;
+}
+
+nav.navbar div.me-auto.navbar-nav {
+  margin-right: 0 !important;
+  /* flex-direction: row; */
+}
+
+div.navbar-nav a.nav-link:hover {
+  color: var(--link-hover);
+}
+
+div.navbar-collapse {
+  justify-content: flex-end;
+}
+
+nav a.nav-link.user {
+  color: var(--link-hover) !important;
+  font-weight: 700;
+}
+
+nav a.nav-link.user:hover {
+  color: var(--link);
+}
+
+nav.navbar {
+  padding: 0;
+}
+
+div.navbar-nav {
+  justify-content: flex-end;
+}
+
+button.navbar-toggler {
+  padding: 0 6px;
+  margin-bottom: 10px;
+}
+
+button.navbar-toggler span.navbar-toggler-icon {
+  width: 1em;
 }
