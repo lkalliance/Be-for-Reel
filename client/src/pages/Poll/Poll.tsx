@@ -115,7 +115,9 @@ export function Poll({ currUser }: pollProps) {
           <div id="question">
             <Question
               question={poll.title}
-              description={poll.description}
+              description={
+                poll.description.length > 0 ? poll.description : undefined
+              }
               username={poll.username}
             />
 
@@ -131,6 +133,8 @@ export function Poll({ currUser }: pollProps) {
                     id="comment"
                     placeholder="Make a selection, add an optional comment, and click to vote!"
                     max={400}
+                    height={60}
+                    width={250}
                     setValue={handleComment}
                     val={comment}
                     disabled={selected.option_id === ""}
@@ -138,6 +142,7 @@ export function Poll({ currUser }: pollProps) {
                   <button
                     disabled={selected.option_id === ""}
                     onClick={handleVote}
+                    className="btn btn-primary"
                   >
                     Vote!
                   </button>
@@ -154,24 +159,28 @@ export function Poll({ currUser }: pollProps) {
             )}
             {expired ? <p className="expired">This poll is closed</p> : ""}
           </div>
-          {opts.map((option: optionProps, index: Key | null | undefined) => {
-            return (
-              <Option
-                key={index}
-                opt={option}
-                loggedIn={loggedIn}
-                selected={selected}
-                select={setSelected}
-                comment={setComment}
-                voted={userInfo.votes[poll._id]}
-                votes={userInfo.votes[poll._id] ? option.votes : undefined}
-                handleVote={handleVote}
-              />
-            );
-          })}
+          <div id="options">
+            {opts.map((option: optionProps, index: Key | null | undefined) => {
+              return (
+                <Option
+                  key={index}
+                  winner={index === 0}
+                  opt={option}
+                  loggedIn={loggedIn}
+                  expired={expired}
+                  selected={selected}
+                  select={setSelected}
+                  comment={setComment}
+                  voted={userInfo.votes[poll._id]}
+                  votes={userInfo.votes[poll._id] ? option.votes : undefined}
+                  handleVote={handleVote}
+                />
+              );
+            })}
+          </div>
           {loggedIn && poll.comments.length > 0 ? (
             // user is logged in, show the comments
-            <div>
+            <div id="comments" className="container">
               <h2>User comments</h2>
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {

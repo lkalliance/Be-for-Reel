@@ -3,7 +3,10 @@
   --link: rgb(250, 246, 246);
   --link-hover: #deb992;
   --secondary-color: #1ba098;
-  --tertiary-color: rgb(18, 40, 62);
+  --tertiary-color: rgb(22, 51, 81);
+  --dark-text: #888888;
+  --item-background: rgba(0, 0, 0, 0.5);
+  --item-background-light: rgba(255, 255, 255, 0.1);
 }
 
 html {
@@ -57,10 +60,10 @@ h6 {
   font-weight: 600;
 }
 
-body h1 {
+body h1,
+body h2 {
   font-family: Limelight;
   color: white;
-  text-shadow: 2px 2px var(--secondary-color);
 }
 
 button.btn.btn-primary {
@@ -72,4 +75,8 @@ button.btn.btn-primary:hover {
   background-color: var(--link-hover);
   border-color: var(--link-hover);
   color: black;
+}
+
+.hidden {
+  display: none;
 }

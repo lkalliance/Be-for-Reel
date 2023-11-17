@@ -23,6 +23,8 @@ interface textAreaProps {
   min?: number;
   max?: number;
   val?: string;
+  height?: number;
+  width?: number;
   disabled?: boolean;
   setValue?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   keyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -38,6 +40,8 @@ export function TextAreaField({
   disabled,
   setValue,
   keyUp,
+  height,
+  width,
 }: textAreaProps) {
   // create a local state to be used if none passed down
   const [localVal, setLocalVal] = useState("");
@@ -63,7 +67,7 @@ export function TextAreaField({
   };
 
   return (
-    <>
+    <div className="textarea">
       <label htmlFor={id} className={label ? "" : "hidden"}>
         {label}
       </label>
@@ -86,6 +90,6 @@ export function TextAreaField({
             : `${charCount} of ${max} characters`
           : ""}
       </div>
-    </>
+    </div>
   );
 }

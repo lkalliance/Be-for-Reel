@@ -18,6 +18,8 @@ handleVote: a callback for the casting of a vote for this option
   (this will be used only if the UI addes the voting action directly to the options) */
 
 import "./Option.css";
+import Accordion from "react-bootstrap/Accordion";
+import { useState, useRef } from "react";
 import { optionProps } from "../../utils/interfaces";
 
 interface voteProps {
@@ -30,9 +32,11 @@ interface voteProps {
 }
 
 interface optProps {
+  winner: boolean;
   opt: optionProps;
   voted: string | undefined;
   votes: number | undefined;
+  expired: boolean | null;
   loggedIn: boolean;
   selected: voteProps;
   select: (e: React.SetStateAction<voteProps>) => void;
@@ -41,75 +45,106 @@ interface optProps {
 }
 
 export function Option({
+  winner,
   opt,
   voted,
   votes,
   loggedIn,
+  expired,
   selected,
   select,
   comment,
 }: optProps) {
+  const [details, setDetails] = useState(false);
+  const infoRef = useRef<HTMLDivElement>(null);
+
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const { tagName } = e.target as HTMLElement;
+    // const { tagName } = e.target as HTMLElement;
     const { className } = e.currentTarget as HTMLElement;
-    if (!voted && loggedIn && tagName !== "A") {
-      const voteObj = {
-        ...selected,
-        movie: opt.movie,
-        option_id: className === "option selected" ? "" : opt._id,
-        imdb_id: opt.imdb_id,
-      };
-      select(voteObj);
-      comment("");
+    const voteObj = {
+      ...selected,
+      movie: opt.movie,
+      option_id: className.indexOf("sel") === -1 ? opt._id : "",
+      imdb_id: opt.imdb_id,
+    };
+    select(voteObj);
+    comment("");
+  };
+
+  const handleShowHide = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (infoRef.current !== null) {
+      console.log(infoRef.current);
+      setDetails(!details);
+      const closed = infoRef.current.style.maxHeight === "0px";
+      infoRef.current.style.maxHeight = closed ? "220px" : "0";
     }
   };
 
   return (
     <div
-      className={`option${selected.option_id === opt._id ? " selected" : ""}${
-        !loggedIn || voted ? " nohover" : ""
-      }`}
-      onClick={handleSelect}
+      className={`container option${
+        selected.option_id === opt._id ? " selected" : ""
+      }${!loggedIn || voted ? " nohover" : ""}`}
     >
-      <h3>{opt.movie}</h3>
-      <div>{opt.stars}</div>
-      <div className="optinfo">
-        <img src={opt.image} alt={opt.movie} />
-        <div>
-          {opt.plot}
-          <div>
-            <a
-              href={`https://www.imdb.com/title/${opt.imdb_id}/`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              IMDb
-            </a>
-            <a href={opt.wikipedia} target="_blank" rel="noreferrer">
-              Wikipedia
-            </a>
-            <a href={opt.trailer} target="_blank" rel="noreferrer">
-              Trailer
-            </a>
+      <div className="row container">
+        <div className="title row col">
+          <h3 className="col title-text">
+            {opt.movie} <span className="year">({opt.year})</span>
+          </h3>
+          <a
+            href={window.location.toString()}
+            className="col show-hide"
+            onClick={handleShowHide}
+          >
+            {details ? "hide details" : "show details"}
+          </a>
+          <div className="optinfo" ref={infoRef} style={{ maxHeight: "0px" }}>
+            <img src={opt.image} alt={opt.movie} />
+            <div>
+              <strong className="stars">{opt.stars}</strong>
+              {opt.plot}
+              <div className="info-links">
+                <a
+                  href={`https://www.imdb.com/title/${opt.imdb_id}/`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  IMDb
+                </a>
+                <a href={opt.wikipedia} target="_blank" rel="noreferrer">
+                  Wikipedia
+                </a>
+                <a href={opt.trailer} target="_blank" rel="noreferrer">
+                  Trailer
+                </a>
+              </div>
+            </div>
           </div>
-
-          {loggedIn ? (
-            // user is logged in: show a vote button or the vote total
-            voted ? (
-              // user has voted: show the vote total for this option
-              <div className="votes">{`${votes} vote${
-                votes !== 1 ? "s" : ""
-              }`}</div>
-            ) : (
-              // user has not voted: show the vote button
-              <div></div>
-            )
-          ) : (
-            // user is not logged in, show neither vote total nor button
-            ""
-          )}
         </div>
+        {loggedIn ? (
+          // user is logged in: show a vote button or the vote total
+          voted || expired ? (
+            // user has voted or the poll is expired: show the vote total for this option
+            <div className={`tab col${expired && winner ? " winner" : ""}`}>
+              {votes}
+            </div>
+          ) : (
+            // user has not voted: indicate to select
+            <button
+              className={`btn col${
+                selected.option_id === opt._id ? " sel" : ""
+              }`}
+              onClick={handleSelect}
+            >
+              select
+            </button>
+          )
+        ) : (
+          // user is not logged in, show neither vote total nor button
+          <div></div>
+        )}
       </div>
     </div>
   );

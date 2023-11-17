@@ -17,7 +17,7 @@ interface navProps {
 export function HeaderNav({ uname, lookup }: navProps) {
   const Auth = new AuthService();
   return (
-    <Navbar expand="sm" collapseOnSelect={true} bg="transparent" variant="dark">
+    <Navbar expand="md" collapseOnSelect={true} bg="transparent" variant="dark">
       <Container>
         <Link to="/" className="navbar-brand">
           <img src="/b4r-full.png" alt="Be for Reel" />
