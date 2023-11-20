@@ -23,10 +23,6 @@
 .option.selected.nohover:hover {
   background-color: rgba(78, 89, 135, 0.5);
 }
-/* 
-.option:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-} */
 
 .option.nohover:hover {
   background-color: rgba(0, 0, 0, 0.5);
@@ -99,7 +95,7 @@ div.accordion .accordion-item {
 .option h3 {
   margin: 0;
   font-size: 1.1em;
-  line-height: 2em;
+  line-height: 1.1em;
   font-weight: 700;
   flex-grow: 1;
 }
@@ -156,12 +152,19 @@ div.accordion .accordion-item {
   color: var(--link);
 }
 
-@media screen and (min-width: 600px) {
-  .option img {
-    display: inline;
+.optinfo img {
+  display: none;
+}
+
+.optinfo img,
+.optinfo div {
+  margin-top: 12px;
+}
+
+@media screen and (min-width: 400px) {
+  .optinfo img {
+    display: block;
     width: 75px;
-    height: auto;
     margin-right: 12px;
-    align-self: flex-start;
   }
 }
