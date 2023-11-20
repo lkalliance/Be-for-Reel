@@ -21,7 +21,7 @@
 .option.selected,
 .option.selected:hover,
 .option.selected.nohover:hover {
-  background-color: rgba(78, 89, 135, 0.5);
+  background-color: var(--item-background-hover);
 }
 
 .option.nohover:hover {

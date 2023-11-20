@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Limelight&family=Raleway:wght@100;300;400;500;600;700&display=swap");
 :root {
+  --page-background: #01141e;
   --link: rgb(250, 246, 246);
   --link-hover: #deb992;
   --secondary-color: #1ba098;
   --tertiary-color: rgb(22, 51, 81);
   --dark-text: #888888;
   --item-background: rgba(0, 0, 0, 0.5);
+  --item-background-hover: rgba(78, 89, 135, 0.5);
   --item-background-light: rgba(255, 255, 255, 0.1);
 }
 
@@ -20,11 +22,11 @@ body {
   position: relative;
   font-family: "Raleway", sans-serif;
   margin: 0;
-  background-image: url("/images/all.jpg");
-  background-size: cover;
+  /* background-image: url("/images/all.jpg"); */
+  /* background-size: cover; */
   padding: 20px;
   padding-bottom: 100px;
-  background-color: #01141e;
+  background-color: #01141e !important;
   /* background-repeat: no-repeat; */
 }
 

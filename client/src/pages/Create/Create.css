@@ -32,25 +32,19 @@ section#create textarea {
   margin-bottom: -5px;
 }
 
-section#create input[type="checkbox"] {
-  margin-right: 4px;
-  width: auto;
-  position: relative;
+section#create ul {
+  padding: 0;
+  margin: 0;
 }
 
 section#create h3 {
   margin-top: 20px;
   margin-bottom: 20px;
+  color: white;
 }
 
 section#create h2 {
   color: white;
-}
-
-section#create h4 {
-  color: var(--primary-link-hover);
-  font-weight: bold;
-  line-height: 1.1em;
 }
 
 section#create legend {
@@ -60,17 +54,6 @@ section#create legend {
 
 section#create fieldset {
   margin-top: 15px;
-}
-
-section#create li {
-  border: 1px solid var(--secondary-background);
-  margin: 0 0 10px;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-section#create li:hover {
-  background-color: var(--dark-li-hover);
 }
 
 section#create li p {

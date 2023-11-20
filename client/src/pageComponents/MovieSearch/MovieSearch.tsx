@@ -158,6 +158,7 @@ export function MovieSearch({
       </form>
       <button
         onClick={handleSearchSubmit}
+        className="btn btn-primary"
         disabled={searchField.length === 0 && usedOpts < 2}
       >
         Search for films
