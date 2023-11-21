@@ -6,6 +6,11 @@ div#question {
   text-align: center;
 }
 
+div#options {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 div#question h1 {
   text-align: center;
   margin: 0;
@@ -47,6 +52,7 @@ div#question button {
 div#comments {
   margin-top: 20px;
   padding: 0;
+  max-width: 800px;
 }
 
 div#comments h2 {
