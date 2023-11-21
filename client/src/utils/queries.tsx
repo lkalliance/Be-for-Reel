@@ -97,6 +97,7 @@ export const QUERY_HOME_POLLS = gql`
         options {
           image
         }
+        votes
         created_on
       }
     }

@@ -1,18 +1,59 @@
 section#profile {
   position: relative;
+  max-width: var(--main-max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-section#profile h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+section#profile h1 {
+  margin-bottom: 0;
+}
+
+section#profile h4 {
+  color: var(--link-hover);
+  font-style: italic;
+  margin: 0;
+}
+
+section#profile h5 {
+  margin-bottom: 0;
+}
+
+section#profile ul {
+  padding: 0;
+}
+
+section#profile li {
+  list-style-type: none;
+  background-color: var(--item-background);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  color: var(--dark-text);
+}
+
+section#profile li a {
+  color: var(--link-hover);
+}
+
+section#profile li a:hover {
+  color: var(--link);
+}
+
+section#profile div.comment {
+  font-size: 1em;
 }
 
 section#profile p {
   padding: 4px 0 8px;
   border: 1px solid var(--primary-border);
   border-width: 1px 0 1px;
-  margin-bottom: 20px;
+  margin: 0;
   color: var(--primary-link-hover);
+}
+
+section#profile p.your-vote {
+  color: var(--dark-text);
 }
 
 section#profile h2 {

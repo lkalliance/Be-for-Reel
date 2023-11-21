@@ -59,20 +59,20 @@ export function LoginForm({
   };
 
   return (
-    <div>
+    <div id="loginFormContainer">
       <h1>Log in</h1>
       <form>
-        <label>username or email</label>
         <InputText
           type="text"
+          label="username or email"
           val={stateObj ? stateObj.lUsername : ""}
           setValue={handleInputChange}
           capitalize="off"
           id="lUsername"
         />
-        <label>password</label>
         <InputText
           type="password"
+          label="password"
           val={stateObj ? stateObj.lPassword : ""}
           setValue={handleInputChange}
           id="lPassword"
@@ -83,6 +83,7 @@ export function LoginForm({
             stateObj ? !(stateObj.lUsername && stateObj.lPassword) : false
           }
           onClick={handleLoginSubmit}
+          className="btn btn-primary"
         >
           Submit
         </button>

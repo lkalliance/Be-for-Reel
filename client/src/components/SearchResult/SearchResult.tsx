@@ -26,16 +26,14 @@ export function SearchResult({ value, type, onClick, dataIndex }: resultProps) {
       data-type={type}
       onClick={onClick}
     >
+      <h4>{`${value.title} (${value.description})`}</h4>
       {type === "search" ? (
-        <>
-          <h4>{`${value.title} ${value.description}`}</h4>
-          <p>
-            <span>{value.stars} </span>
-            {value.plot}
-          </p>
-        </>
+        <p>
+          <span>{value.stars} </span>
+          {value.plot}
+        </p>
       ) : (
-        <h4>{`${value.title} ${value.description}`}</h4>
+        ""
       )}
     </li>
   );

@@ -92,6 +92,7 @@ const resolvers = {
           options: polls[pollIndex].options,
           created_on: polls[pollIndex].created_on,
           expires_on: polls[pollIndex].expires_on,
+          votes: polls[pollIndex].votes,
         };
       });
 

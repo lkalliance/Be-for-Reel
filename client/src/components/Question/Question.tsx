@@ -10,15 +10,15 @@ import { UsernameLink } from "../../components";
 
 interface questionProps {
   question: string;
-  description: string;
+  description?: string;
   username: string;
 }
 
 export function Question({ question, description, username }: questionProps) {
   return (
-    <div className="question">
+    <div>
       <h1>{question}</h1>
-      <p>{description}</p>
+      {description ? <p className="desc">{description}</p> : ""}
       <h4>
         <UsernameLink username={username} />
       </h4>

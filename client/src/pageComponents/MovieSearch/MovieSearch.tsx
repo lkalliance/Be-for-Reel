@@ -89,28 +89,30 @@ export function MovieSearch({
             sliderKey={{ min: "earlier", max: "later" }}
           />
         </fieldset>
-        <DoubleSlider
-          id="length"
-          min={0}
-          max={8}
-          step={1}
-          startVal={{ min: options.length.min, max: options.length.max }}
-          label={"Length"}
-          labelVal={`${
-            options.length.min === 0 && options.length.max === 8
-              ? "any"
-              : options.length.min === 0
-              ? `${convertLengthVals(options.length.max).label} or shorter`
-              : options.length.max === 8
-              ? `${convertLengthVals(options.length.min).label} or longer`
-              : `between ${convertLengthVals(options.length.min).label} and ${
-                  convertLengthVals(options.length.max).label
-                }`
-          }`}
-          sliderKey={{ min: "shorter", max: "longer" }}
-          setValue={handleDualOptChange}
-        />
         <fieldset>
+          <DoubleSlider
+            id="length"
+            min={0}
+            max={8}
+            step={1}
+            startVal={{ min: options.length.min, max: options.length.max }}
+            label={"Length"}
+            labelVal={`${
+              options.length.min === 0 && options.length.max === 8
+                ? "any"
+                : options.length.min === 0
+                ? `${convertLengthVals(options.length.max).label} or shorter`
+                : options.length.max === 8
+                ? `${convertLengthVals(options.length.min).label} or longer`
+                : `between ${convertLengthVals(options.length.min).label} and ${
+                    convertLengthVals(options.length.max).label
+                  }`
+            }`}
+            sliderKey={{ min: "shorter", max: "longer" }}
+            setValue={handleDualOptChange}
+          />
+        </fieldset>
+        <fieldset id="ratings">
           <legend>Limit to just these US ratings</legend>
           <div>
             <Checkbox
@@ -119,24 +121,24 @@ export function MovieSearch({
               setValue={handleOptChange}
               val={Boolean(options.G)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="PG"
               label="PG"
               setValue={handleOptChange}
               val={Boolean(options.PG)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="PG13"
               label="PG-13"
               setValue={handleOptChange}
               val={Boolean(options.PG13)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="R"
               label="R"
@@ -145,7 +147,7 @@ export function MovieSearch({
             />
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset id="oscars">
           <div>
             <Checkbox
               id="oscar"
@@ -158,6 +160,7 @@ export function MovieSearch({
       </form>
       <button
         onClick={handleSearchSubmit}
+        className="btn btn-primary"
         disabled={searchField.length === 0 && usedOpts < 2}
       >
         Search for films

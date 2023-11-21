@@ -5,11 +5,11 @@
 .single-slider {
   width: 100%;
   min-width: 1vh;
-  padding: 10px;
-  border: 1px solid var(--primary-text);
+  border-radius: 20px;
+  padding: 20px;
   position: relative;
-  margin: 10px 0 0;
-  background-color: rgb(41, 41, 56);
+  margin: 0;
+  background-color: var(--item-background);
 }
 
 .single-slider input {
@@ -27,6 +27,7 @@
   justify-content: space-between;
   align-items: flex-end;
   font-size: 0.75em;
+  vertical-align: baseline;
 }
 
 section div.legend span.upper,
@@ -38,10 +39,10 @@ section div.legend span.lower {
 /* for title and value */
 
 .single-slider legend.sliderTitle {
-  display: flex;
-  align-items: flex-end;
+  display: inline-block;
+  vertical-align: baseline;
+  color: var(--link-hover);
   font-size: 0.9em;
-  line-height: 1.5em;
   width: 100%;
   justify-content: flex-start;
   margin-bottom: 0;
@@ -53,6 +54,7 @@ legend.sliderTitle span.val {
   font-weight: bold;
   font-style: italic;
   font-size: 0.75em;
-  line-height: 1.5em;
   text-align: right;
+  display: inline-block;
+  vertical-align: baseline;
 }

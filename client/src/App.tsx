@@ -12,7 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 
 import { AuthService } from "./utils/auth";
 import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
-import { Header } from "./pageComponents";
+import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
@@ -78,6 +78,7 @@ function App() {
           <Route path="/polls" element={<Directory />} />
           <Route path="*" element={<Home />} />
         </Routes>
+        <Footer />
       </div>
     </ApolloProvider>
   );

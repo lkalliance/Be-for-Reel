@@ -266,40 +266,6 @@ export function Create({ updateList, currentList }: createProps) {
       <div className="container">
         <h1>Create a Poll</h1>
         <div className="row">
-          <div id="selected" className="col-12 col-sm-6">
-            <h2>About your poll</h2>
-            <AboutPoll pollData={pollData} handlePollData={handlePollData} />
-            <button
-              onClick={handleCreate}
-              disabled={!(pollData.title.length > 0 && selected.length > 1)}
-            >
-              Create poll
-            </button>
-            {errorMessage.length > 0 ? (
-              <div className="alert alert-danger">{errorMessage}</div>
-            ) : (
-              ""
-            )}
-            {building ? (
-              <div className="alert alert-primary">Building your poll...</div>
-            ) : (
-              ""
-            )}
-            <h3>Selected Films</h3>
-            <ul id="selected">
-              {selected.map((selected, index) => {
-                return (
-                  <SearchResult
-                    value={selected}
-                    key={index}
-                    dataIndex={index}
-                    type="selected"
-                    onClick={selectResult}
-                  />
-                );
-              })}
-            </ul>
-          </div>
           <div id="titleSearch" className="col-12 col-sm-6">
             <h2>Search for a title</h2>
 
@@ -344,6 +310,41 @@ export function Create({ updateList, currentList }: createProps) {
                 })}
               </ul>
             </div>
+          </div>
+          <div id="about" className="col-12 col-sm-6">
+            <h2>About your poll</h2>
+            <AboutPoll pollData={pollData} handlePollData={handlePollData} />
+            <button
+              onClick={handleCreate}
+              className="btn btn-primary"
+              disabled={!(pollData.title.length > 0 && selected.length > 1)}
+            >
+              Create poll
+            </button>
+            {errorMessage.length > 0 ? (
+              <div className="alert alert-danger">{errorMessage}</div>
+            ) : (
+              ""
+            )}
+            {building ? (
+              <div className="alert alert-primary">Building your poll...</div>
+            ) : (
+              ""
+            )}
+            <h3>Selected Films</h3>
+            <ul id="selected">
+              {selected.map((selected, index) => {
+                return (
+                  <SearchResult
+                    value={selected}
+                    key={index}
+                    dataIndex={index}
+                    type="selected"
+                    onClick={selectResult}
+                  />
+                );
+              })}
+            </ul>
           </div>
         </div>
       </div>

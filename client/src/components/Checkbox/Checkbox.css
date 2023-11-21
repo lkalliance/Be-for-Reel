@@ -1,1 +1,10 @@
 /* custom formats for all Checkboxes go here */
+
+input[type="checkbox"] + label {
+  color: var(--dark-text);
+  display: inline;
+  margin-left: 6px;
+  margin-right: 12px;
+  position: relative;
+  top: 2px;
+}

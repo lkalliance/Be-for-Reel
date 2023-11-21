@@ -1,23 +1,108 @@
+@keyframes expand {
+  from {
+    height: 0px;
+  }
+  to {
+    height: auto;
+  }
+}
+
 .option {
   position: relative;
-  border: 1px solid var(--secondary-background);
-  border-radius: 6px;
-  padding: 12px 18px;
-  margin-bottom: 15px;
+  display: flex;
+  border-radius: 20px;
+  background-color: var(--item-background);
+  padding: 18px;
+  margin-top: 15px;
+  color: white;
+  padding: 0;
 }
 
-.option.selected {
-  background-color: rgb(49, 49, 76);
-}
-
-.option:hover {
-  border-width: 4px;
-  padding: 9px 15px;
+.option.selected,
+.option.selected:hover,
+.option.selected.nohover:hover {
+  background-color: var(--item-background-hover);
 }
 
 .option.nohover:hover {
-  border-width: 1px;
-  padding: 12px 18px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.accordion.accordion-flush {
+  width: 100%;
+  background-color: transparent;
+}
+
+div.accordion .accordion-header button {
+  padding: 10px;
+}
+
+div.accordion .accordion-header button,
+div.accordion .accordion-item {
+  background-color: transparent;
+  color: white;
+}
+
+.option .title {
+  width: 100%;
+  padding: 12px 0 12px 20px;
+  align-items: center;
+}
+
+.option .title .title-text {
+  flex-grow: 1;
+  text-transform: uppercase;
+}
+
+.option .title .show-hide {
+  flex-grow: 0;
+  white-space: nowrap;
+  font-size: 0.75em;
+  text-align: right;
+  padding: 0;
+  color: var(--link-hover);
+}
+
+.option .title .show-hide:hover {
+  color: white;
+}
+
+.option button,
+.option div.tab {
+  width: 40px;
+  flex-grow: 0.1;
+  height: 100%;
+  border-radius: 0 20px 20px 0;
+  white-space: nowrap;
+  position: relative;
+  left: 24px;
+  font-size: 0.9em;
+  padding-right: 18px;
+  background-color: var(--tertiary-color);
+  color: rgb(90, 130, 200);
+}
+
+.option div.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  white-space: normal;
+}
+
+.option h3 {
+  margin: 0;
+  font-size: 1.1em;
+  line-height: 1.1em;
+  font-weight: 700;
+  flex-grow: 1;
+}
+
+.option h3 span.year {
+  font-size: 0.8em;
+  color: var(--dark-text);
 }
 
 .option .votes {
@@ -30,28 +115,56 @@
   margin-top: 12px;
 }
 
-.option h2 {
-  margin: 6px 0 0;
-  font-size: 1.1em;
-}
-
 .optinfo {
   display: flex;
+  font-size: 0.9em;
   align-content: flext-start;
   flex-direction: row;
   margin: 6px 0 0;
+  padding: 0 12px;
+  margin: 0;
+  overflow: hidden;
+  transition: max-height 1s;
 }
 
-.optinfo img {
-  width: 75px;
-  height: auto;
-  margin-right: 12px;
-  align-self: flex-start;
+.optinfo.hidden {
+  display: none;
+}
+
+.optinfo .info-links {
+  margin-top: 6px;
 }
 
 .optinfo a {
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
   margin-right: 10px;
   text-decoration: none;
+  color: var(--link-hover);
+}
+
+.optinfo strong {
+  margin-right: 12px;
+  color: var(--dark-text);
+}
+
+.optinfo a:hover {
+  color: var(--link);
+}
+
+.optinfo img {
+  display: none;
+}
+
+.optinfo img,
+.optinfo div {
+  margin-top: 12px;
+}
+
+@media screen and (min-width: 400px) {
+  .optinfo img {
+    display: block;
+    width: 75px;
+    margin-right: 12px;
+  }
 }

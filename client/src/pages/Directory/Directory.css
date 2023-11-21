@@ -1,3 +1,11 @@
 section#directory {
   position: relative;
+  max-width: var(--main-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section#directory select {
+  font-family: Limelight;
+  color: white;
 }

@@ -1,73 +1,67 @@
-.pollDescription {
-  margin: 0 0 20px;
+section#poll {
+  max-width: var(--main-max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#poll #question {
-  background-color: var(--secondary-background);
-  color: var(--primary-background);
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#poll #question h1 {
-  margin-top: 0;
-}
-
-#poll #question #yourvote {
-  margin: 0;
-  color: var(--primary-border);
-}
-
-#poll #question a {
-  color: var(--secondary-link);
-}
-
-#poll #question button:disabled:hover,
-#poll #question button {
-  background-color: var(--primary-background);
-  border: none;
-  margin-top: 8px;
+div#question {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 20px;
   color: white;
-  width: 80px;
+  text-align: center;
 }
 
-#poll #question button:hover {
-  background-color: var(--primary-link-hover);
-  color: var(--primary-background);
+div#options {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-#poll #question button:disabled,
-#poll #question textarea:disabled {
-  opacity: 0.5;
+div#question h1 {
+  text-align: center;
+  margin: 0;
 }
 
-#poll #question fieldset {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  margin: auto;
-  max-width: 300px;
+div#question h4 {
+  text-align: center;
 }
 
-#poll #comment {
-  max-width: 300px;
-  height: 80px;
-  margin: 8px 0 0;
+div#question a {
+  color: var(--link-hover);
+  font-size: 0.9em;
 }
 
-#poll h1 {
-  margin: 10px 0 0;
+div#question p.desc {
+  margin: 0;
 }
 
-#poll h2 {
-  border-top: 1px solid var(--secondary-background);
-  padding-top: 10px;
+div#question a:hover {
+  color: var(--link);
 }
 
-#poll h3 {
-  margin-top: 0;
-  color: var(--primary-link-hover);
-  cursor: pointer;
+div#question textarea {
+  width: 250px;
+  height: 125px;
+  margin-top: 6px;
+}
+
+div#question .textarea {
+  width: 250px;
+  margin: 0 auto;
+}
+
+div#question button {
+  width: 250px;
+  height: auto;
+}
+
+div#comments {
+  margin-top: 20px;
+  padding: 0;
+  max-width: 800px;
+}
+
+div#comments h2 {
+  text-align: center;
+  font-size: 1.8em;
 }

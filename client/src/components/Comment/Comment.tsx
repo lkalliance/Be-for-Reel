@@ -20,7 +20,7 @@ export function Comment({ comm }: commProps) {
       <h3>
         <UsernameLink username={comm.username} />
       </h3>
-      {comm.movie ? <h4>"{comm.movie}"</h4> : ""}
+      {comm.movie ? <h4>vote: "{comm.movie}"</h4> : ""}
       <p>{comm.text}</p>
     </div>
   );

@@ -2,19 +2,26 @@ section#login {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  max-width: var(--main-max-width);
 }
 
-section#login div {
-  max-width: 350px;
-  margin: 0 10px 30px;
+section#login div#loginFormContainer,
+section#login div#signupFormContainer {
+  margin-bottom: 40px;
+  min-width: 250px;
+  padding: 0 10px;
 }
 
-section#login div.limit {
-  margin: 0;
+section#login input {
+  width: 100%;
 }
 
 section#login div.alert {
   width: 100%;
   margin: 20px 0 0;
+}
+
+section#login button {
+  margin-top: 15px;
 }

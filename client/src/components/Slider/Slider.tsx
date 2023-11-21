@@ -61,7 +61,7 @@ export function Slider({
   return (
     <div className="single-slider">
       <legend className={label ? "sliderTitle" : "hidden"}>
-        <span>{label}</span>
+        {label}
         <span className="val">{labelVal || ""}</span>
       </legend>
       <input

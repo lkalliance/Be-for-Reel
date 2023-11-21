@@ -5,3 +5,15 @@ fieldset.double {
 fieldset.double input {
   position: absolute;
 }
+
+#ratings,
+#oscars {
+  background-color: var(--item-background);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#ratings legend,
+#oscars legend {
+  color: var(--link-hover);
+}
