@@ -2,6 +2,9 @@
   "name": "be-for-reel",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "18.x"
+  },
   "main": "server/server.tsx",
   "scripts": {
     "start": "node server/server.js",
