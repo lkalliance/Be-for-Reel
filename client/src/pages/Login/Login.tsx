@@ -49,24 +49,30 @@ export function Login({ setLogIn }: loginState) {
   };
 
   return (
-    <section id="login">
-      <LoginForm
-        setLogIn={setLogIn}
-        stateObj={loginForm}
-        handleChange={handleLoginChange}
-        clear={clearForm}
-        boolErr={loginError}
-        setBoolErr={setLoginError}
-      />
-      <SignupForm
-        setLogIn={setLogIn}
-        stateObj={signupForm}
-        handleChange={handleSignupChange}
-        clear={clearForm}
-        strErr={signupError}
-        setStrErr={setSignupError}
-        formSetter={setSignupForm}
-      />
+    <section id="login" className="container">
+      <div className="row">
+        <div className="col col-12 col-sm-6">
+          <LoginForm
+            setLogIn={setLogIn}
+            stateObj={loginForm}
+            handleChange={handleLoginChange}
+            clear={clearForm}
+            boolErr={loginError}
+            setBoolErr={setLoginError}
+          />
+        </div>
+        <div className="col col-12 col-sm-6">
+          <SignupForm
+            setLogIn={setLogIn}
+            stateObj={signupForm}
+            handleChange={handleSignupChange}
+            clear={clearForm}
+            strErr={signupError}
+            setStrErr={setSignupError}
+            formSetter={setSignupForm}
+          />
+        </div>
+      </div>
     </section>
   );
 }

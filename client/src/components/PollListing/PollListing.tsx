@@ -24,28 +24,30 @@ export function PollListing({ poll, vote }: listProps) {
   const expires = new Date(poll.expires_on);
   const expired = new Date(poll.expires_on) < new Date();
   return (
-    <li
-      className={
-        new Date(poll.expires_on) < new Date()
-          ? "poll-listing expired"
-          : "poll-listing"
-      }
-    >
-      <Link to={poll.urlTitle}>{poll.title}</Link>
-      <span>
-        <UsernameLink username={poll.username} />
-      </span>
-      {vote ? (
+    <div className="col col-12 col-lg-6">
+      <div
+        className={
+          new Date(poll.expires_on) < new Date()
+            ? "poll-listing expired"
+            : "poll-listing"
+        }
+      >
+        <Link to={poll.urlTitle}>{poll.title}</Link>
+        <span>
+          <UsernameLink username={poll.username} />
+        </span>
+        {vote ? (
+          <em>
+            you voted for <strong>{`${vote}`}</strong>
+          </em>
+        ) : null}
         <em>
-          you voted for <strong>{`${vote}`}</strong>
+          {` ${poll.votes} vote`}
+          {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
+          {poll.comments !== 1 ? "s" : ""}
+          {expired ? " (expired)" : ` (expires ${convertMonth(expires)})`}
         </em>
-      ) : null}
-      <em>
-        {` ${poll.votes} vote`}
-        {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
-        {poll.comments !== 1 ? "s" : ""}
-        {expired ? " (expired)" : ` (expires ${convertMonth(expires)})`}
-      </em>
-    </li>
+      </div>
+    </div>
   );
 }

@@ -2,6 +2,7 @@ section#create {
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  max-width: var(--main-max-width);
 }
 
 section#create div#about,
@@ -12,7 +13,6 @@ section#create div#titleSearch {
 
 section#create .container {
   margin: 0 auto;
-  max-width: 800px;
 }
 
 section#create button {

@@ -7,7 +7,7 @@ import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { userPollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
-import { PollListing, Select } from "../../components";
+import { PollListing, DirectoryColumn, Select } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
@@ -25,7 +25,10 @@ export function Directory() {
   });
 
   const list = getPolls.data?.getPolls.polls || [];
-  console.log(list);
+  const num = list.length;
+  const boundary = Math.round(num / 2);
+  const left = list.slice(0, boundary);
+  const right = list.slice(boundary, list.length);
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
@@ -45,18 +48,27 @@ export function Directory() {
   };
 
   return (
-    <section id="directory">
-      {getGenres.loading ? (
-        ""
-      ) : (
-        <Select
-          id="genreSelect"
-          options={genreObjs}
-          val={genre}
-          setValue={handleSelect}
-        />
-      )}
-      <ul>
+    <section id="directory" className="container">
+      <div className="row">
+        <div className="col col-12">
+          {getGenres.loading ? (
+            ""
+          ) : (
+            <Select
+              id="genreSelect"
+              options={genreObjs}
+              val={genre}
+              setValue={handleSelect}
+            />
+          )}
+        </div>
+        {/* <div className="col col-12 col-md-6">
+          <DirectoryColumn polls={left} votes={votes} />
+        </div>
+        <div className="col col-12 col-md-6">
+          <DirectoryColumn polls={right} votes={votes} />
+        </div> */}
+
         {list
           ? list.map((poll: userPollProps, index: number) => {
               return (
@@ -68,7 +80,7 @@ export function Directory() {
               );
             })
           : ""}
-      </ul>
+      </div>
     </section>
   );
 }

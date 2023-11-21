@@ -2,14 +2,15 @@ section#login {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  max-width: var(--main-max-width);
 }
 
 section#login div#loginFormContainer,
 section#login div#signupFormContainer {
-  max-width: 350px;
   margin-bottom: 40px;
   min-width: 250px;
+  padding: 0 10px;
 }
 
 section#login input {

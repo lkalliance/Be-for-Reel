@@ -334,7 +334,6 @@ export function Create({ updateList, currentList }: createProps) {
             <h3>Selected Films</h3>
             <ul id="selected">
               {selected.map((selected, index) => {
-                console.log(selected);
                 return (
                   <SearchResult
                     value={selected}

@@ -1,3 +1,9 @@
+section#poll {
+  max-width: var(--main-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div#question {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
