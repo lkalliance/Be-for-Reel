@@ -112,7 +112,7 @@ export function MovieSearch({
             setValue={handleDualOptChange}
           />
         </fieldset>
-        <fieldset>
+        <fieldset id="ratings">
           <legend>Limit to just these US ratings</legend>
           <div>
             <Checkbox
@@ -121,24 +121,24 @@ export function MovieSearch({
               setValue={handleOptChange}
               val={Boolean(options.G)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="PG"
               label="PG"
               setValue={handleOptChange}
               val={Boolean(options.PG)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="PG13"
               label="PG-13"
               setValue={handleOptChange}
               val={Boolean(options.PG13)}
             />
-          </div>
-          <div>
+            {/* </div> */}
+            {/* <div> */}
             <Checkbox
               id="R"
               label="R"
@@ -147,7 +147,7 @@ export function MovieSearch({
             />
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset id="oscars">
           <div>
             <Checkbox
               id="oscar"

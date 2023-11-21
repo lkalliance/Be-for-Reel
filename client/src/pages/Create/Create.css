@@ -1,10 +1,18 @@
 section#create {
   position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section#create div#about,
+section#create div#titleSearch {
+  max-width: 400px;
+  margin-bottom: 50px;
 }
 
 section#create .container {
-  margin: 0;
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 section#create button {
@@ -39,8 +47,9 @@ section#create ul {
 
 section#create h3 {
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: white;
+  font-size: 1.5em;
 }
 
 section#create h2 {
@@ -53,7 +62,7 @@ section#create legend {
 }
 
 section#create fieldset {
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 section#create li p {

@@ -9,6 +9,7 @@ val: the boolean value of the checkbox (defaults to false)
 disabled: the boolean of the checkbox disabled state (defaults to false)
 setValue: a callback function for checkbox onChange */
 
+import "./Checkbox.css";
 import { useState } from "react";
 
 interface checkboxProps {
@@ -45,7 +46,7 @@ export function Checkbox({
         onChange={handleChange}
         checked={val || localVal}
       />
-      <label htmlFor={id} className={label ? "" : "hidden"}>
+      <label htmlFor={id} className={`check-label ${label ? "" : "hidden"}`}>
         {label}
       </label>
     </>

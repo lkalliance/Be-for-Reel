@@ -311,7 +311,7 @@ export function Create({ updateList, currentList }: createProps) {
               </ul>
             </div>
           </div>
-          <div id="selected" className="col-12 col-sm-6">
+          <div id="about" className="col-12 col-sm-6">
             <h2>About your poll</h2>
             <AboutPoll pollData={pollData} handlePollData={handlePollData} />
             <button
