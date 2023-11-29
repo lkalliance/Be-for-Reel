@@ -165,6 +165,8 @@ const resolvers = {
     },
 
     addPoll: async (parent, { title, description, movieIds }, context) => {
+      // how many days before expiration
+      const age = 30;
       // make sure the user is actually logged in
       if (context.user) {
         const optGenres = [];
@@ -225,7 +227,7 @@ const resolvers = {
         const expires = new Date(
           today.getFullYear(),
           today.getMonth(),
-          today.getDate() + 14,
+          today.getDate() + age,
           today.getHours()
         );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
