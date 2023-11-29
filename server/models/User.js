@@ -23,6 +23,10 @@ const userPolls = new Schema({
     type: Date,
     required: true,
   },
+  winning: {
+    type: String,
+    required: false,
+  },
   votes: Number,
   comments: Number,
   expires_on: Date,

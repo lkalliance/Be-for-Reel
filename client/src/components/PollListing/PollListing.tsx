@@ -45,7 +45,7 @@ export function PollListing({ poll, vote }: listProps) {
           {` ${poll.votes} vote`}
           {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
           {poll.comments !== 1 ? "s" : ""}
-          {expired ? " (expired)" : ` (expires ${convertMonth(expires)})`}
+          {expired ? "" : ` (expires ${convertMonth(expires)})`}
         </em>
       </div>
     </div>

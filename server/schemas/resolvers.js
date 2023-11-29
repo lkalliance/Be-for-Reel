@@ -38,6 +38,10 @@ const resolvers = {
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
+      // to be used to identify expiration
+      // const expires = new Date(poll.expires_on);
+      // const expired = new Date(poll.expires_on) < new Date();
+
       const rawPolls =
         lookupGenre === "all"
           ? await Poll.find().sort({
@@ -63,8 +67,6 @@ const resolvers = {
             };
           })
         : [];
-
-      console.log(list);
 
       return list ? { polls: list } : null;
     },
@@ -165,6 +167,8 @@ const resolvers = {
     },
 
     addPoll: async (parent, { title, description, movieIds }, context) => {
+      // how many days before expiration
+      const age = 30;
       // make sure the user is actually logged in
       if (context.user) {
         const optGenres = [];
@@ -225,7 +229,7 @@ const resolvers = {
         const expires = new Date(
           today.getFullYear(),
           today.getMonth(),
-          today.getDate() + 14,
+          today.getDate() + age,
           today.getHours()
         );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
