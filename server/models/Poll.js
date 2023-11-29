@@ -145,6 +145,10 @@ const pollSchema = new Schema({
     type: [String],
     required: true,
   },
+  winning: {
+    type: [String],
+    required: false,
+  },
 });
 
 const Poll = model("Poll", pollSchema);

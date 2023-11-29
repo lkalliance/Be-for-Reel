@@ -7,7 +7,7 @@ import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { userPollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
-import { PollListing, DirectoryColumn, Select } from "../../components";
+import { PollListing, Select } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
@@ -25,10 +25,15 @@ export function Directory() {
   });
 
   const list = getPolls.data?.getPolls.polls || [];
-  const num = list.length;
-  const boundary = Math.round(num / 2);
-  const left = list.slice(0, boundary);
-  const right = list.slice(boundary, list.length);
+  // divide list into expired and not-expired
+  const notExpiredPolls: userPollProps[] = [];
+  const expiredPolls: userPollProps[] = [];
+
+  list.map((poll: userPollProps) => {
+    const expired = new Date(poll.expires_on) < new Date();
+    if (!expired) notExpiredPolls.push(poll);
+    else expiredPolls.push(poll);
+  });
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
@@ -62,15 +67,21 @@ export function Directory() {
             />
           )}
         </div>
-        {/* <div className="col col-12 col-md-6">
-          <DirectoryColumn polls={left} votes={votes} />
-        </div>
-        <div className="col col-12 col-md-6">
-          <DirectoryColumn polls={right} votes={votes} />
-        </div> */}
-
-        {list
-          ? list.map((poll: userPollProps, index: number) => {
+        <h3 className="col col-12">Active polls</h3>
+        {notExpiredPolls.length > 0
+          ? notExpiredPolls.map((poll: userPollProps, index: number) => {
+              return (
+                <PollListing
+                  key={index}
+                  poll={poll}
+                  vote={votes[poll.poll_id] ? votes[poll.poll_id] : undefined}
+                />
+              );
+            })
+          : ""}
+        <h3 className="col col-12">Expired polls</h3>
+        {expiredPolls.length > 0
+          ? expiredPolls.map((poll: userPollProps, index: number) => {
               return (
                 <PollListing
                   key={index}

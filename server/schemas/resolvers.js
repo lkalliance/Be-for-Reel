@@ -38,6 +38,10 @@ const resolvers = {
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
+      // to be used to identify expiration
+      // const expires = new Date(poll.expires_on);
+      // const expired = new Date(poll.expires_on) < new Date();
+
       const rawPolls =
         lookupGenre === "all"
           ? await Poll.find().sort({
@@ -63,8 +67,6 @@ const resolvers = {
             };
           })
         : [];
-
-      console.log(list);
 
       return list ? { polls: list } : null;
     },

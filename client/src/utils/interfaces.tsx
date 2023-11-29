@@ -11,6 +11,7 @@ export interface userPollProps {
   votes: number;
   comments: number;
   expires_on: Date;
+  winner?: string;
 }
 
 export interface userCommentProps {
@@ -89,6 +90,7 @@ export interface pollProps {
   title: string;
   urlTitle: string;
   description: string;
+  winning?: string;
   votes: string[];
   options: optionProps[];
   comments: pollCommentProps[];
