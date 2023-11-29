@@ -2,8 +2,9 @@
 
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
+import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
-import { convertLengthVals, convertGrossVals } from "../../utils/typeUtils";
+import { convertLengthVals } from "../../utils/typeUtils";
 import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
 
 interface movieSearchProps {
@@ -71,93 +72,107 @@ export function MovieSearch({
           keyUp={handleReturn}
         />
       </fieldset>
-      <h3>Search options</h3>
-      <form>
-        <fieldset id="released">
-          <Slider
-            id="decade"
-            val={+options.decade}
-            setValue={handleOptChange}
-            min={0}
-            max={11}
-            label="Release decade"
-            labelVal={`${
-              options.decade === "0"
-                ? "all"
-                : `${1910 + 10 * parseInt(options.decade)}'s`
-            }`}
-            sliderKey={{ min: "earlier", max: "later" }}
-          />
-        </fieldset>
-        <fieldset>
-          <DoubleSlider
-            id="length"
-            min={0}
-            max={8}
-            step={1}
-            startVal={{ min: options.length.min, max: options.length.max }}
-            label={"Length"}
-            labelVal={`${
-              options.length.min === 0 && options.length.max === 8
-                ? "any"
-                : options.length.min === 0
-                ? `${convertLengthVals(options.length.max).label} or shorter`
-                : options.length.max === 8
-                ? `${convertLengthVals(options.length.min).label} or longer`
-                : `between ${convertLengthVals(options.length.min).label} and ${
-                    convertLengthVals(options.length.max).label
-                  }`
-            }`}
-            sliderKey={{ min: "shorter", max: "longer" }}
-            setValue={handleDualOptChange}
-          />
-        </fieldset>
-        <fieldset id="ratings">
-          <legend>Limit to just these US ratings</legend>
-          <div>
-            <Checkbox
-              id="G"
-              label="G"
-              setValue={handleOptChange}
-              val={Boolean(options.G)}
-            />
-            {/* </div> */}
-            {/* <div> */}
-            <Checkbox
-              id="PG"
-              label="PG"
-              setValue={handleOptChange}
-              val={Boolean(options.PG)}
-            />
-            {/* </div> */}
-            {/* <div> */}
-            <Checkbox
-              id="PG13"
-              label="PG-13"
-              setValue={handleOptChange}
-              val={Boolean(options.PG13)}
-            />
-            {/* </div> */}
-            {/* <div> */}
-            <Checkbox
-              id="R"
-              label="R"
-              setValue={handleOptChange}
-              val={Boolean(options.R)}
-            />
-          </div>
-        </fieldset>
-        <fieldset id="oscars">
-          <div>
-            <Checkbox
-              id="oscar"
-              label="Nominated for Best Picture"
-              setValue={handleOptChange}
-              val={Boolean(options.oscar)}
-            />
-          </div>
-        </fieldset>
-      </form>
+      <Accordion flush>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Search Options</Accordion.Header>
+          <Accordion.Body>
+            <form>
+              <fieldset id="released">
+                <Slider
+                  id="decade"
+                  val={+options.decade}
+                  setValue={handleOptChange}
+                  min={0}
+                  max={11}
+                  label="Release decade"
+                  labelVal={`${
+                    options.decade === "0"
+                      ? "all"
+                      : `${1910 + 10 * parseInt(options.decade)}'s`
+                  }`}
+                  sliderKey={{ min: "earlier", max: "later" }}
+                />
+              </fieldset>
+              <fieldset>
+                <DoubleSlider
+                  id="length"
+                  min={0}
+                  max={8}
+                  step={1}
+                  startVal={{
+                    min: options.length.min,
+                    max: options.length.max,
+                  }}
+                  label={"Length"}
+                  labelVal={`${
+                    options.length.min === 0 && options.length.max === 8
+                      ? "any"
+                      : options.length.min === 0
+                      ? `${
+                          convertLengthVals(options.length.max).label
+                        } or shorter`
+                      : options.length.max === 8
+                      ? `${
+                          convertLengthVals(options.length.min).label
+                        } or longer`
+                      : `between ${
+                          convertLengthVals(options.length.min).label
+                        } and ${convertLengthVals(options.length.max).label}`
+                  }`}
+                  sliderKey={{ min: "shorter", max: "longer" }}
+                  setValue={handleDualOptChange}
+                />
+              </fieldset>
+              <fieldset id="ratings">
+                <legend>Limit to just these US ratings</legend>
+                <div>
+                  <Checkbox
+                    id="G"
+                    label="G"
+                    setValue={handleOptChange}
+                    val={Boolean(options.G)}
+                  />
+                  {/* </div> */}
+                  {/* <div> */}
+                  <Checkbox
+                    id="PG"
+                    label="PG"
+                    setValue={handleOptChange}
+                    val={Boolean(options.PG)}
+                  />
+                  {/* </div> */}
+                  {/* <div> */}
+                  <Checkbox
+                    id="PG13"
+                    label="PG-13"
+                    setValue={handleOptChange}
+                    val={Boolean(options.PG13)}
+                  />
+                  {/* </div> */}
+                  {/* <div> */}
+                  <Checkbox
+                    id="R"
+                    label="R"
+                    setValue={handleOptChange}
+                    val={Boolean(options.R)}
+                  />
+                </div>
+              </fieldset>
+              <fieldset id="oscars">
+                <div>
+                  <Checkbox
+                    id="oscar"
+                    label="Nominated for Best Picture"
+                    setValue={handleOptChange}
+                    val={Boolean(options.oscar)}
+                  />
+                </div>
+              </fieldset>
+            </form>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+
       <button
         onClick={handleSearchSubmit}
         className="btn btn-primary"

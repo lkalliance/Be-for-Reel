@@ -13,7 +13,46 @@ fieldset.double input {
   padding: 20px;
 }
 
+section#create fieldset#oscars {
+  margin-bottom: 0;
+}
+
 #ratings legend,
 #oscars legend {
   color: var(--link-hover);
+}
+
+/* h2.accordion-header {
+  background-color: var(--item-background-light);
+  border-radius: 8px 8px 0 0;
+} */
+
+div.accordion.accordion-flush {
+  background-color: var(--item-background-light);
+  border-radius: 8px;
+}
+
+div.accordion h2.accordion-header button {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  margin-top: 0;
+  padding: 12px;
+}
+
+section#create div.accordion-body {
+  padding: 12px;
+}
+
+section#create .accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  box-shadow: none;
+}
+
+section#create .accordion-button {
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-bottom: none;
 }
