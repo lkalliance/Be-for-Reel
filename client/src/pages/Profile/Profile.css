@@ -10,7 +10,6 @@ section#profile h1 {
 }
 
 section#profile h4 {
-  color: var(--link-hover);
   font-style: italic;
   margin: 0;
 }
@@ -29,7 +28,6 @@ section#profile li {
   padding: 12px;
   border-radius: 12px;
   margin-bottom: 6px;
-  color: var(--dark-text);
 }
 
 section#profile li a {
@@ -45,18 +43,21 @@ section#profile div.comment {
 }
 
 section#profile p {
-  padding: 4px 0 8px;
+  padding: 0 0 8px;
   border: 1px solid var(--primary-border);
   border-width: 1px 0 1px;
   margin: 0;
-  color: var(--primary-link-hover);
 }
 
-section#profile p.your-vote {
+section#profile span.your-vote {
+  font-weight: bold;
+}
+
+/* section#profile p.your-vote {
   color: var(--dark-text);
-}
+} */
 
-section#profile h2 {
+section#profile h3 {
   margin-top: 25px;
 }
 

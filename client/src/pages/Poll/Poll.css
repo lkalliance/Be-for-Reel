@@ -17,7 +17,7 @@ div#options {
   margin: 0 auto;
 }
 
-div#question h1 {
+div#question h2 {
   text-align: center;
   margin: 0;
 }
@@ -61,7 +61,6 @@ div#comments {
   max-width: 800px;
 }
 
-div#comments h2 {
+div#comments h3 {
   text-align: center;
-  font-size: 1.8em;
 }

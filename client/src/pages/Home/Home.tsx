@@ -12,7 +12,7 @@ export function Home() {
     <section id="home" className="container">
       <h1 className="homepage-title">Be for Reel</h1>
       <div className="lead">
-        <p>
+        <p className="lead">
           Be real about your favorite reels.
           <span className="extra">
             Participate in polls about your favorite movies. Create, vote, and

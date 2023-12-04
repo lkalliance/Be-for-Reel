@@ -267,7 +267,7 @@ export function Create({ updateList, currentList }: createProps) {
         <h1>Create a Poll</h1>
         <div className="row">
           <div id="titleSearch" className="col-12 col-sm-6">
-            <h2>Search for a title</h2>
+            <h3>Search for a title</h3>
 
             <MovieSearch
               searchField={searchField}
@@ -282,7 +282,7 @@ export function Create({ updateList, currentList }: createProps) {
             />
 
             <div id="results">
-              <h3>Search Results</h3>
+              <h5 className="center">Search Results</h5>
               {searching ? (
                 <div className="alert alert-primary">
                   Searching for titles...
@@ -312,7 +312,7 @@ export function Create({ updateList, currentList }: createProps) {
             </div>
           </div>
           <div id="about" className="col-12 col-sm-6">
-            <h2>About your poll</h2>
+            <h3>About your poll</h3>
             <AboutPoll pollData={pollData} handlePollData={handlePollData} />
             <button
               onClick={handleCreate}
@@ -331,7 +331,7 @@ export function Create({ updateList, currentList }: createProps) {
             ) : (
               ""
             )}
-            <h3>Selected Films</h3>
+            <h5 className="center">Selected Films</h5>
             <ul id="selected">
               {selected.map((selected, index) => {
                 return (

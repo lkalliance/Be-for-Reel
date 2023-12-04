@@ -26,7 +26,7 @@ export function Profile() {
           // the user exists, render their data
           <>
             <h1 className="col col-12">{userData.userName}</h1>
-            <h4 className="col col-12">{`member since ${createdOn.getFullYear()}`}</h4>
+            <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
 
             {userData ? (
               <div className="col col-12 col-sm-6">
@@ -36,20 +36,23 @@ export function Profile() {
               ""
             )}
             <div className="col col-12 col-sm-6">
-              <h2>Comments</h2>
-              {userData.comments.map(
-                (comment: userCommentProps, index: Key) => {
-                  return (
-                    <div className="comment" key={index}>
-                      <h5>
+              <h3>Comments</h3>
+              <ul>
+                {userData.comments.map(
+                  (comment: userCommentProps, index: Key) => {
+                    return (
+                      <li className="comment" key={index}>
                         <Link to={comment.urlTitle}>{comment.title}</Link>
-                      </h5>
-                      <p className="your-vote">{`Your vote: "${comment.movie}"`}</p>
-                      <p>{comment.text}</p>
-                    </div>
-                  );
-                }
-              )}
+                        <p className="sub-info">
+                          You voted for{" "}
+                          <span className="your-vote">{`${comment.movie}`}</span>
+                        </p>
+                        <p className="comment-text">{comment.text}</p>
+                      </li>
+                    );
+                  }
+                )}
+              </ul>
             </div>
           </>
         ) : (

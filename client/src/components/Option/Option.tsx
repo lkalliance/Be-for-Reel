@@ -84,44 +84,54 @@ export function Option({
 
   return (
     <div
-      className={`container option${
+      className={`container list-member-12 option${
         selected.option_id === opt._id ? " selected" : ""
       }${!loggedIn || voted ? " nohover" : ""}`}
     >
-      <div className="row container">
+      <div className="row container opt-container">
         <div className="title row col">
-          <h3 className="col title-text">
-            {opt.movie} <span className="year">({opt.year})</span>
-          </h3>
-          <a
-            href={window.location.toString()}
-            className="col show-hide"
-            onClick={handleShowHide}
-          >
-            {details ? "hide details" : "show details"}
-          </a>
-          <div className="optinfo" ref={infoRef} style={{ maxHeight: "0px" }}>
-            <img src={opt.image} alt={opt.movie} />
-            <div>
-              <strong className="stars">{opt.stars}</strong>
-              {opt.plot}
-              <div className="info-links">
-                <a
-                  href={`https://www.imdb.com/title/${opt.imdb_id}/`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  IMDb
-                </a>
-                <a href={opt.wikipedia} target="_blank" rel="noreferrer">
-                  Wikipedia
-                </a>
-                <a href={opt.trailer} target="_blank" rel="noreferrer">
-                  Trailer
-                </a>
-              </div>
-            </div>
-          </div>
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div>
+                  {opt.movie} <span className="year">({opt.year})</span>
+                </div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <img src={opt.image} alt={opt.movie} />
+                <div>
+                  <strong className="stars">{opt.stars}</strong>
+                  {opt.plot}
+                  <div className="info-links">
+                    <a
+                      className="reverse"
+                      href={`https://www.imdb.com/title/${opt.imdb_id}/`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      IMDb
+                    </a>
+                    <a
+                      className="reverse"
+                      href={opt.wikipedia}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Wikipedia
+                    </a>
+                    <a
+                      className="reverse"
+                      href={opt.trailer}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Trailer
+                    </a>
+                  </div>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
         {loggedIn ? (
           // user is logged in: show a vote button or the vote total
@@ -133,7 +143,7 @@ export function Option({
           ) : (
             // user has not voted: indicate to select
             <button
-              className={`btn col${
+              className={`selector btn col${
                 selected.option_id === opt._id ? " sel" : ""
               }`}
               onClick={handleSelect}

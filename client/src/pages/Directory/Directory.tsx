@@ -67,7 +67,9 @@ export function Directory() {
             />
           )}
         </div>
-        <h3 className="col col-12">Active polls</h3>
+        <div className="poll-type">
+          <h3 className="col col-12 center">Active polls</h3>
+        </div>
         {notExpiredPolls.length > 0
           ? notExpiredPolls.map((poll: userPollProps, index: number) => {
               return (
@@ -79,7 +81,9 @@ export function Directory() {
               );
             })
           : ""}
-        <h3 className="col col-12">Expired polls</h3>
+        <div className="poll-type">
+          <h3 className="col col-12 center">Expired polls</h3>
+        </div>
         {expiredPolls.length > 0
           ? expiredPolls.map((poll: userPollProps, index: number) => {
               return (

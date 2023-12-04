@@ -21,15 +21,19 @@ html {
 body {
   flex-grow: 1;
   position: relative;
-  font-family: "Raleway", sans-serif;
   margin: 0;
   padding: 20px;
   padding-bottom: 100px;
   background-color: #01141e !important;
 }
 
-section {
+body section {
   margin-top: 20px;
+  font-family: "Raleway", sans-serif;
+}
+
+body p {
+  color: var(--dark-text);
 }
 
 body a {
@@ -45,25 +49,99 @@ body a:hover {
   color: var(--link-hover);
 }
 
+body a.reverse {
+  color: var(--link-hover);
+}
+
+body a.reverse:hover {
+  color: var(--link);
+}
+
 textarea:disabled,
 input:disabled,
 button:disabled {
   opacity: 0.5;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
   font-weight: 600;
+  color: white !important;
 }
 
 body h1,
 body h2 {
   font-family: Limelight;
-  color: white;
+}
+
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: Raleway, sans-serif;
+}
+
+body h1 {
+  /* Used for main page headers */
+  font-size: 2rem;
+}
+
+body h2 {
+  /* Used for page section titles where title font needed */
+  font-size: 1.6rem;
+}
+
+body h3 {
+  /* Used for major page sections */
+  font-size: 1.2rem;
+}
+
+body h4 {
+  /* Used for sub-sections */
+  font-size: 1rem;
+}
+
+body h1.center,
+body h2.center,
+body h3.center,
+body h4.center,
+body h5.center,
+body h6.center {
+  /* Same as h4, centered with underline */
+  font-size: 1rem;
+  border-bottom: 1px solid var(--secondary-color);
+  text-align: center;
+  /* width: 75%; */
+  margin: 25px auto 12px;
+  padding: 0 0 8px;
+}
+
+body .sub-info {
+  /* accompanies headline, but not link */
+  color: var(--secondary-color) !important;
+  margin-top: 0;
+}
+
+body .list-member-20 {
+  /* creates rounded rectangle style */
+  padding: 16px 20px;
+  background-color: var(--item-background);
+  border-radius: 20px;
+  position: relative;
+  margin-top: 8px;
+}
+
+body .list-member-12 {
+  /* creates rounded rectangle style */
+  padding: 12px;
+  background-color: var(--item-background);
+  border-radius: 12px;
+  position: relative;
+  margin-top: 8px;
 }
 
 button.btn.btn-primary {
@@ -75,6 +153,28 @@ button.btn.btn-primary:hover {
   background-color: var(--link-hover);
   border-color: var(--link-hover);
   color: black;
+}
+
+div.accordion h2.accordion-header button {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  margin-top: 0;
+  padding: 12px;
+}
+
+section .accordion-button::after,
+section .accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  box-shadow: none;
+}
+
+section .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-bottom: none;
 }
 
 .hidden {

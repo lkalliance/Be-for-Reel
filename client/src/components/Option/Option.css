@@ -10,9 +10,9 @@
 .option {
   position: relative;
   display: flex;
-  border-radius: 20px;
-  background-color: var(--item-background);
-  padding: 18px;
+  /* border-radius: 20px;
+  background-color: var(--item-background); */
+  /* padding: 18px; */
   margin-top: 15px;
   color: white;
   padding: 0;
@@ -25,6 +25,7 @@ div.accordion.accordion-flush {
 
 div.accordion .accordion-header button {
   padding: 10px;
+  display: flex;
 }
 
 div.accordion .accordion-header button,
@@ -35,39 +36,41 @@ div.accordion .accordion-item {
 
 .option .title {
   width: 100%;
-  padding: 12px 0 12px 20px;
+  display: flex;
+  flex-grow: 1;
   align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  padding: 20px;
 }
 
-.option .title .title-text {
+.option h2 button {
+  padding-left: 20px;
+}
+
+.option.list-member-12 {
+  padding: 0;
+}
+
+.option .title h2 button {
   flex-grow: 1;
   text-transform: uppercase;
 }
 
-.option .title .show-hide {
-  flex-grow: 0;
-  white-space: nowrap;
-  font-size: 0.75em;
-  text-align: right;
-  padding: 0;
-  color: var(--link-hover);
+.option div.accordion-item button.accordion-button {
+  padding: 0 0 0 20px;
 }
 
-.option .title .show-hide:hover {
-  color: white;
-}
-
-.option button,
+.option button.selector,
 .option div.tab {
-  width: 40px;
-  flex-grow: 0.1;
+  flex-grow: 0.15;
+  min-width: 100px;
   height: 100%;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 0 12px 12px;
   white-space: nowrap;
   position: relative;
-  left: 24px;
+  left: 12px;
   font-size: 0.9em;
-  padding-right: 26px;
   background-color: var(--tertiary-color);
   color: rgb(90, 130, 200);
 }
@@ -82,16 +85,22 @@ div.accordion .accordion-item {
   white-space: normal;
 }
 
-.option h3 {
+.option .opt-container {
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* .option h3 {
   margin: 0;
   font-size: 1.1em;
   line-height: 1.1em;
   font-weight: 700;
   flex-grow: 1;
-}
+} */
 
-.option h3 span.year {
-  font-size: 0.8em;
+.option .title span.year {
+  font-size: 1rem;
   color: var(--dark-text);
 }
 
@@ -105,44 +114,36 @@ div.accordion .accordion-item {
   margin-top: 12px;
 }
 
-.optinfo {
+.option .accordion-body {
   display: flex;
-  font-size: 0.9em;
-  align-content: flext-start;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+  align-items: flext-start;
   flex-direction: row;
   margin: 6px 0 0;
-  padding: 0 12px;
+  padding: 6px 0 0 20px;
   margin: 0;
   overflow: hidden;
   transition: max-height 1s;
 }
 
-.optinfo.hidden {
-  display: none;
-}
-
-.optinfo .info-links {
+.option .accordion-body .info-links {
   margin-top: 6px;
 }
 
-.optinfo a {
+.option .accordion-body a {
   font-size: 1em;
   font-weight: bold;
   margin-right: 10px;
   text-decoration: none;
-  color: var(--link-hover);
 }
 
-.optinfo strong {
+.option .accordion-body strong {
   margin-right: 12px;
   color: var(--dark-text);
 }
 
-.optinfo a:hover {
-  color: var(--link);
-}
-
-.optinfo img {
+.option .accordion-body img {
   display: none;
 }
 
@@ -156,16 +157,26 @@ div.accordion .accordion-item {
 }
 
 @media screen and (min-width: 400px) {
-  .optinfo img {
+  .option .accordion-body img {
     display: block;
     width: 75px;
     margin-right: 12px;
+    align-self: flex-start;
   }
 
-  .option button,
+  .option button.selector,
+  .option div.tab {
+    border-radius: 0 12px 12px 0;
+  }
+
+  .option .opt-container {
+    flex-direction: row;
+  }
+
+  /* .option button,
   .option div.tab {
     padding-right: 18px;
-  }
+  } */
 }
 
 @media screen and (hover: hover) {

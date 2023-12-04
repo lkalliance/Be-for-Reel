@@ -10,12 +10,7 @@ section#directory select {
   color: white;
 }
 
-section#directory h3 {
-  color: white;
-  font-size: 1em;
-  text-align: center;
-  border-bottom: 1px solid var(--secondary-color);
-  padding: 0 0 8px;
-  width: 60%;
-  margin: 10px auto;
+section#directory h3.center {
+  /* margin-left: 12px;
+  margin-right: 12px; */
 }

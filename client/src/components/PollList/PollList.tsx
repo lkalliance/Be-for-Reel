@@ -7,7 +7,7 @@ import { pollListProps } from "../../utils/interfaces";
 export function PollList({ polls }: pollListProps) {
   return (
     <div>
-      <h2>Polls</h2>
+      <h3>Polls</h3>
       {[polls].length === 0 ? (
         `No polls created`
       ) : (

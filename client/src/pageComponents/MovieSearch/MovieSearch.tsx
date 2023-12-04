@@ -77,7 +77,7 @@ export function MovieSearch({
           <Accordion.Header>Search Options</Accordion.Header>
           <Accordion.Body>
             <form>
-              <fieldset id="released">
+              <fieldset id="released" className="list-member-20">
                 <Slider
                   id="decade"
                   val={+options.decade}
@@ -93,7 +93,7 @@ export function MovieSearch({
                   sliderKey={{ min: "earlier", max: "later" }}
                 />
               </fieldset>
-              <fieldset>
+              <fieldset className="list-member-20">
                 <DoubleSlider
                   id="length"
                   min={0}
@@ -123,7 +123,7 @@ export function MovieSearch({
                   setValue={handleDualOptChange}
                 />
               </fieldset>
-              <fieldset id="ratings">
+              <fieldset id="ratings" className="list-member-20">
                 <legend>Limit to just these US ratings</legend>
                 <div>
                   <Checkbox
@@ -132,24 +132,18 @@ export function MovieSearch({
                     setValue={handleOptChange}
                     val={Boolean(options.G)}
                   />
-                  {/* </div> */}
-                  {/* <div> */}
                   <Checkbox
                     id="PG"
                     label="PG"
                     setValue={handleOptChange}
                     val={Boolean(options.PG)}
                   />
-                  {/* </div> */}
-                  {/* <div> */}
                   <Checkbox
                     id="PG13"
                     label="PG-13"
                     setValue={handleOptChange}
                     val={Boolean(options.PG13)}
                   />
-                  {/* </div> */}
-                  {/* <div> */}
                   <Checkbox
                     id="R"
                     label="R"
@@ -158,7 +152,7 @@ export function MovieSearch({
                   />
                 </div>
               </fieldset>
-              <fieldset id="oscars">
+              <fieldset id="oscars" className="list-member-20">
                 <div>
                   <Checkbox
                     id="oscar"
