@@ -62,6 +62,7 @@ export function Option({
     e.stopPropagation();
     // const { tagName } = e.target as HTMLElement;
     const { className } = e.currentTarget as HTMLElement;
+    console.log(className);
     const voteObj = {
       ...selected,
       movie: opt.movie,
@@ -143,12 +144,12 @@ export function Option({
           ) : (
             // user has not voted: indicate to select
             <button
-              className={`selector btn col${
+              className={`picker btn col${
                 selected.option_id === opt._id ? " sel" : ""
               }`}
               onClick={handleSelect}
             >
-              select
+              {selected.option_id === opt._id ? "de" : ""}select
             </button>
           )
         ) : (

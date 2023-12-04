@@ -61,7 +61,7 @@ div.accordion .accordion-item {
   padding: 0 0 0 20px;
 }
 
-.option button.selector,
+.option button.picker,
 .option div.tab {
   flex-grow: 0.15;
   min-width: 100px;
@@ -72,7 +72,7 @@ div.accordion .accordion-item {
   left: 12px;
   font-size: 0.9em;
   background-color: var(--tertiary-color);
-  color: rgb(90, 130, 200);
+  color: white;
 }
 
 .option div.tab {
@@ -83,6 +83,12 @@ div.accordion .accordion-item {
   font-size: 2em;
   font-weight: 700;
   white-space: normal;
+  color: var(--tertiary-text);
+}
+
+.option div.tab.winner {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
 }
 
 .option .opt-container {
@@ -164,7 +170,7 @@ div.accordion .accordion-item {
     align-self: flex-start;
   }
 
-  .option button.selector,
+  .option button.picker,
   .option div.tab {
     border-radius: 0 12px 12px 0;
   }

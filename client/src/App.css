@@ -4,7 +4,10 @@
   --link: rgb(250, 246, 246);
   --link-hover: #deb992;
   --secondary-color: #1ba098;
-  --tertiary-color: rgb(22, 51, 81);
+  --tertiary-color: rgb(16, 36, 58);
+  --tertiary-text: rgb(70, 118, 168);
+  --highlight: rgb(126, 126, 31);
+  --highlight-text: rgb(217, 217, 71);
   --dark-text: #888888;
   --item-background: rgba(0, 0, 0, 0.5);
   --item-background-hover: rgba(78, 89, 135, 0.5);
