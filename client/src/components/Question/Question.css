@@ -1,3 +1,7 @@
 .question {
   position: relative;
 }
+
+section#poll p.desc {
+  color: white;
+}

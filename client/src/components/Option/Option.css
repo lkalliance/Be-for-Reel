@@ -1,22 +1,42 @@
-@keyframes expand {
-  from {
-    height: 0px;
-  }
-  to {
-    height: auto;
-  }
-}
-
 .option {
   position: relative;
   display: flex;
-  /* border-radius: 20px;
-  background-color: var(--item-background); */
-  /* padding: 18px; */
   margin-top: 15px;
   color: white;
   padding: 0;
 }
+
+.option .title {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  padding: 20px;
+}
+
+.option.list-member-12 {
+  padding: 0;
+}
+
+.option .title h2 button {
+  text-transform: uppercase;
+}
+
+.option .opt-container {
+  /* on small devices, votes/select button goes on bottom */
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.option .title span.year {
+  font-size: 1rem;
+  color: var(--dark-text);
+}
+
+/* for accordions */
 
 div.accordion.accordion-flush {
   width: 100%;
@@ -34,32 +54,11 @@ div.accordion .accordion-item {
   color: white;
 }
 
-.option .title {
-  width: 100%;
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 1.2rem;
-  padding: 20px;
-}
-
-.option h2 button {
-  padding-left: 20px;
-}
-
-.option.list-member-12 {
-  padding: 0;
-}
-
-.option .title h2 button {
-  flex-grow: 1;
-  text-transform: uppercase;
-}
-
 .option div.accordion-item button.accordion-button {
   padding: 0 0 0 20px;
 }
+
+/* for the selector or vote display */
 
 .option button.picker,
 .option div.tab {
@@ -89,35 +88,6 @@ div.accordion .accordion-item {
 .option div.tab.winner {
   background-color: var(--highlight);
   color: var(--highlight-text);
-}
-
-.option .opt-container {
-  justify-content: space-between;
-  flex-direction: column;
-  padding: 0;
-}
-
-/* .option h3 {
-  margin: 0;
-  font-size: 1.1em;
-  line-height: 1.1em;
-  font-weight: 700;
-  flex-grow: 1;
-} */
-
-.option .title span.year {
-  font-size: 1rem;
-  color: var(--dark-text);
-}
-
-.option .votes {
-  padding: 6px 8px;
-  border-radius: 4px;
-  background-color: rgb(47, 62, 114);
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 12px;
 }
 
 .option .accordion-body {
@@ -153,11 +123,6 @@ div.accordion .accordion-item {
   display: none;
 }
 
-.optinfo img,
-.optinfo div {
-  margin-top: 12px;
-}
-
 .option.selected {
   background-color: var(--item-background-hover);
 }
@@ -176,23 +141,7 @@ div.accordion .accordion-item {
   }
 
   .option .opt-container {
+    /* on larger screens, select button/votes are on right */
     flex-direction: row;
-  }
-
-  /* .option button,
-  .option div.tab {
-    padding-right: 18px;
-  } */
-}
-
-@media screen and (hover: hover) {
-  .option.selected,
-  .option.selected:hover,
-  .option.selected.nohover:hover {
-    background-color: var(--item-background-hover);
-  }
-
-  .option.nohover:hover {
-    background-color: rgba(0, 0, 0, 0.5);
   }
 }

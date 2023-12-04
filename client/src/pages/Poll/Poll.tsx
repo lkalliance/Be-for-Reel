@@ -112,7 +112,7 @@ export function Poll({ currUser }: pollProps) {
         <div>Loading...</div>
       ) : (
         <>
-          <div id="question">
+          <div id="question" className="list-member-20">
             <Question
               question={poll.title}
               description={
@@ -125,7 +125,9 @@ export function Poll({ currUser }: pollProps) {
               // user is logged in: either show user's vote or comment text area
               userInfo.votes[poll._id] ? (
                 // user has voted on this poll, show their vote
-                <p id="yourvote">You voted for "{userInfo.votes[poll._id]}"</p>
+                <p id="yourvote">
+                  You voted for <strong>{userInfo.votes[poll._id]}</strong>
+                </p>
               ) : !expired ? (
                 // user has not voted on this poll, show comment form
                 <fieldset>

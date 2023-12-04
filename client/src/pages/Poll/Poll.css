@@ -5,20 +5,15 @@ section#poll {
 }
 
 div#question {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
-  padding: 20px;
-  color: white;
   text-align: center;
 }
 
-div#options {
-  max-width: 800px;
-  margin: 0 auto;
+p#yourvote {
+  color: var(--secondary-color);
+  margin-top: 15px;
 }
 
-div#question h2 {
-  text-align: center;
+p.expired {
   margin: 0;
 }
 
@@ -26,17 +21,8 @@ div#question h4 {
   text-align: center;
 }
 
-div#question a {
-  color: var(--link-hover);
-  font-size: 0.9em;
-}
-
 div#question p.desc {
   margin: 0;
-}
-
-div#question a:hover {
-  color: var(--link);
 }
 
 div#question textarea {

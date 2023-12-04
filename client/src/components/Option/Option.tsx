@@ -19,7 +19,6 @@ handleVote: a callback for the casting of a vote for this option
 
 import "./Option.css";
 import Accordion from "react-bootstrap/Accordion";
-import { useState, useRef } from "react";
 import { optionProps } from "../../utils/interfaces";
 
 interface voteProps {
@@ -55,9 +54,6 @@ export function Option({
   select,
   comment,
 }: optProps) {
-  const [details, setDetails] = useState(false);
-  const infoRef = useRef<HTMLDivElement>(null);
-
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     // const { tagName } = e.target as HTMLElement;
@@ -71,16 +67,6 @@ export function Option({
     };
     select(voteObj);
     comment("");
-  };
-
-  const handleShowHide = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    if (infoRef.current !== null) {
-      console.log(infoRef.current);
-      setDetails(!details);
-      const closed = infoRef.current.style.maxHeight === "0px";
-      infoRef.current.style.maxHeight = closed ? "220px" : "0";
-    }
   };
 
   return (
