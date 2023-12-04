@@ -28,8 +28,8 @@ export function PollListing({ poll, vote }: listProps) {
       <div
         className={
           new Date(poll.expires_on) < new Date()
-            ? "poll-listing expired"
-            : "poll-listing"
+            ? "poll-listing list-member-12 expired"
+            : "poll-listing list-member-12"
         }
       >
         <Link to={poll.urlTitle}>{poll.title}</Link>
@@ -37,16 +37,16 @@ export function PollListing({ poll, vote }: listProps) {
           <UsernameLink username={poll.username} />
         </span>
         {vote ? (
-          <em>
+          <p className="sub-info">
             you voted for <strong>{`${vote}`}</strong>
-          </em>
+          </p>
         ) : null}
-        <em>
+        <p>
           {` ${poll.votes} vote`}
           {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
           {poll.comments !== 1 ? "s" : ""}
           {expired ? "" : ` (expires ${convertMonth(expires)})`}
-        </em>
+        </p>
       </div>
     </div>
   );

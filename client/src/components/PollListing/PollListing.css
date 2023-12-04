@@ -1,34 +1,18 @@
 .poll-listing {
   list-style-type: none;
-  margin: 0 0 12px;
-  background-color: var(--item-background);
-  border-radius: 12px;
-  padding: 12px;
 }
 
 .poll-listing.expired {
   opacity: 0.5;
 }
 
-.poll-listing span {
-  white-space: no-wrap;
-  font-size: 0.8em;
-  font-weight: bold;
-  margin-left: 10px;
+.poll-listing p {
+  color: white;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .poll-listing span a {
-  color: rgb(221, 199, 73);
   font-size: 0.9rem;
-}
-
-.poll-listing span a:hover {
-  color: white;
-}
-
-.poll-listing em {
-  font-size: 0.8em;
-  color: var(--dark-text);
-  display: block;
-  margin-left: 12px;
+  margin-left: 10px;
 }

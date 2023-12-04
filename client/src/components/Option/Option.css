@@ -1,22 +1,42 @@
-@keyframes expand {
-  from {
-    height: 0px;
-  }
-  to {
-    height: auto;
-  }
-}
-
 .option {
   position: relative;
   display: flex;
-  border-radius: 20px;
-  background-color: var(--item-background);
-  padding: 18px;
   margin-top: 15px;
   color: white;
   padding: 0;
 }
+
+.option .title {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  padding: 20px;
+}
+
+.option.list-member-12 {
+  padding: 0;
+}
+
+.option .title h2 button {
+  text-transform: uppercase;
+}
+
+.option .opt-container {
+  /* on small devices, votes/select button goes on bottom */
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.option .title span.year {
+  font-size: 1rem;
+  color: var(--dark-text);
+}
+
+/* for accordions */
 
 div.accordion.accordion-flush {
   width: 100%;
@@ -25,6 +45,7 @@ div.accordion.accordion-flush {
 
 div.accordion .accordion-header button {
   padding: 10px;
+  display: flex;
 }
 
 div.accordion .accordion-header button,
@@ -33,43 +54,24 @@ div.accordion .accordion-item {
   color: white;
 }
 
-.option .title {
-  width: 100%;
-  padding: 12px 0 12px 20px;
-  align-items: center;
+.option div.accordion-item button.accordion-button {
+  padding: 0 0 0 20px;
 }
 
-.option .title .title-text {
-  flex-grow: 1;
-  text-transform: uppercase;
-}
+/* for the selector or vote display */
 
-.option .title .show-hide {
-  flex-grow: 0;
-  white-space: nowrap;
-  font-size: 0.75em;
-  text-align: right;
-  padding: 0;
-  color: var(--link-hover);
-}
-
-.option .title .show-hide:hover {
-  color: white;
-}
-
-.option button,
+.option button.picker,
 .option div.tab {
-  width: 40px;
-  flex-grow: 0.1;
+  flex-grow: 0.15;
+  min-width: 100px;
   height: 100%;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 0 12px 12px;
   white-space: nowrap;
   position: relative;
-  left: 24px;
+  left: 12px;
   font-size: 0.9em;
-  padding-right: 26px;
   background-color: var(--tertiary-color);
-  color: rgb(90, 130, 200);
+  color: white;
 }
 
 .option div.tab {
@@ -80,75 +82,45 @@ div.accordion .accordion-item {
   font-size: 2em;
   font-weight: 700;
   white-space: normal;
+  color: var(--tertiary-text);
 }
 
-.option h3 {
-  margin: 0;
-  font-size: 1.1em;
-  line-height: 1.1em;
-  font-weight: 700;
-  flex-grow: 1;
+.option div.tab.winner {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
 }
 
-.option h3 span.year {
-  font-size: 0.8em;
-  color: var(--dark-text);
-}
-
-.option .votes {
-  padding: 6px 8px;
-  border-radius: 4px;
-  background-color: rgb(47, 62, 114);
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 12px;
-}
-
-.optinfo {
+.option .accordion-body {
   display: flex;
-  font-size: 0.9em;
-  align-content: flext-start;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+  align-items: flext-start;
   flex-direction: row;
   margin: 6px 0 0;
-  padding: 0 12px;
+  padding: 6px 0 0 20px;
   margin: 0;
   overflow: hidden;
   transition: max-height 1s;
 }
 
-.optinfo.hidden {
-  display: none;
-}
-
-.optinfo .info-links {
+.option .accordion-body .info-links {
   margin-top: 6px;
 }
 
-.optinfo a {
+.option .accordion-body a {
   font-size: 1em;
   font-weight: bold;
   margin-right: 10px;
   text-decoration: none;
-  color: var(--link-hover);
 }
 
-.optinfo strong {
+.option .accordion-body strong {
   margin-right: 12px;
   color: var(--dark-text);
 }
 
-.optinfo a:hover {
-  color: var(--link);
-}
-
-.optinfo img {
+.option .accordion-body img {
   display: none;
-}
-
-.optinfo img,
-.optinfo div {
-  margin-top: 12px;
 }
 
 .option.selected {
@@ -156,26 +128,20 @@ div.accordion .accordion-item {
 }
 
 @media screen and (min-width: 400px) {
-  .optinfo img {
+  .option .accordion-body img {
     display: block;
     width: 75px;
     margin-right: 12px;
+    align-self: flex-start;
   }
 
-  .option button,
+  .option button.picker,
   .option div.tab {
-    padding-right: 18px;
-  }
-}
-
-@media screen and (hover: hover) {
-  .option.selected,
-  .option.selected:hover,
-  .option.selected.nohover:hover {
-    background-color: var(--item-background-hover);
+    border-radius: 0 12px 12px 0;
   }
 
-  .option.nohover:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+  .option .opt-container {
+    /* on larger screens, select button/votes are on right */
+    flex-direction: row;
   }
 }

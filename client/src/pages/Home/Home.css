@@ -9,8 +9,8 @@ h1.homepage-title {
 .lead {
   color: white;
   text-align: center;
-  font-size: 1.2em;
-  line-height: 1.1em;
+  font-size: 1.5rem;
+  line-height: 1.7rem;
   margin-bottom: 16px;
 }
 
@@ -25,12 +25,11 @@ h1.homepage-title {
   }
 
   .lead {
-    font-size: 1.5em;
     margin-top: 6px;
     margin-bottom: 24px;
   }
 
   .lead span.extra {
-    display: inline;
+    display: block;
   }
 }

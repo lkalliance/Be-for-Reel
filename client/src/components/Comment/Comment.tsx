@@ -16,11 +16,17 @@ interface commProps {
 
 export function Comment({ comm }: commProps) {
   return (
-    <div className="comment">
+    <div className="comment list-member-12">
       <h3>
         <UsernameLink username={comm.username} />
       </h3>
-      {comm.movie ? <h4>vote: "{comm.movie}"</h4> : ""}
+      {comm.movie ? (
+        <h4 className="sub-info">
+          voted for <span className="your-vote">{comm.movie}</span>
+        </h4>
+      ) : (
+        ""
+      )}
       <p>{comm.text}</p>
     </div>
   );

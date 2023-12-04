@@ -19,6 +19,10 @@ section#create button {
   margin-top: 10px;
 }
 
+section#create div#about button {
+  margin-top: 0;
+}
+
 section#create input[type="text"],
 section#create textarea {
   width: 100%;
@@ -45,13 +49,6 @@ section#create ul {
   margin: 0;
 }
 
-section#create h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 1.5em;
-}
-
 section#create h2 {
   color: white;
 }
@@ -62,7 +59,7 @@ section#create legend {
 }
 
 section#create fieldset {
-  margin-bottom: 15px;
+  margin-bottom: 0;
 }
 
 section#create li p {

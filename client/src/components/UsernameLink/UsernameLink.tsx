@@ -12,5 +12,9 @@ interface usernameLinkProps {
 }
 
 export function UsernameLink({ username }: usernameLinkProps) {
-  return <Link to={`/${createLookupName(username)}`}>{username}</Link>;
+  return (
+    <Link to={`/${createLookupName(username)}`} className="reverse">
+      {username}
+    </Link>
+  );
 }

@@ -3,11 +3,6 @@
 .double-slider {
   width: 100%;
   min-width: 1vh;
-  padding: 20px;
-  border-radius: 20px;
-  position: relative;
-  margin: 0;
-  background-color: var(--item-background);
 }
 
 .double-slider .inputs {

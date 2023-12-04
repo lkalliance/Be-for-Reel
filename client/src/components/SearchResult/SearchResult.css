@@ -3,10 +3,6 @@ li.search-result {
   text-align: left;
   cursor: pointer;
   color: white;
-  background-color: var(--item-background);
-  padding: 20px;
-  border-radius: 20px;
-  margin-bottom: 6px;
 }
 
 li.search-result:hover {
