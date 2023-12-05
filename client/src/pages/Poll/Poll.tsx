@@ -57,6 +57,8 @@ export function Poll({ currUser }: pollProps) {
     }
   }
 
+  const mostVotes = loading ? 0 : opts[0].votes;
+
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
     refetchQueries: () => [
@@ -166,7 +168,7 @@ export function Poll({ currUser }: pollProps) {
               return (
                 <Option
                   key={index}
-                  winner={index === 0}
+                  winner={option.votes === mostVotes}
                   opt={option}
                   loggedIn={loggedIn}
                   expired={expired}
