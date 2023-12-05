@@ -151,6 +151,7 @@ export interface searchOptions {
   PG13: boolean;
   R: boolean;
   oscar: boolean;
+  genre: string;
 }
 
 export interface dualOptions {

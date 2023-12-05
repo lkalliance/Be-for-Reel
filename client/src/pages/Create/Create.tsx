@@ -47,6 +47,7 @@ export function Create({ updateList, currentList }: createProps) {
     PG13: false,
     R: false,
     oscar: false,
+    genre: "all",
   };
 
   const navigate = useNavigate();
@@ -127,7 +128,7 @@ export function Create({ updateList, currentList }: createProps) {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar, length, gross } = options;
+    const { decade, G, PG, PG13, R, oscar, length, genre } = options;
     const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
@@ -157,6 +158,10 @@ export function Create({ updateList, currentList }: createProps) {
           length.min === 0 ? "" : convertLengthVals(length.min).minutes
         },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}}`
       );
+    }
+    // if a genre has been chosen, add that parameter
+    if (genre !== "all") {
+      paramParts.push(`genres=${genre}`);
     }
 
     // create the search URL from the base plus the parameters
@@ -210,6 +215,13 @@ export function Create({ updateList, currentList }: createProps) {
       const newOptions = { ...options, [pieces[0]]: newOptionPiece };
       setOptions(newOptions);
     }
+  };
+
+  const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // Handler to track select menu changes to search options
+    const { id, value } = e.target;
+    const newOptions = { ...options, [id]: value };
+    setOptions(newOptions);
   };
 
   const handlePollData = (
@@ -277,6 +289,7 @@ export function Create({ updateList, currentList }: createProps) {
               options={options}
               handleOption={handleOption}
               handleDualOption={handleDualOption}
+              handleSelectOption={handleSelectOption}
               handleReturn={handleReturn}
               handleSearchSubmit={handleSearchSubmit}
             />

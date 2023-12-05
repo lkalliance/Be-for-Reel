@@ -17,8 +17,14 @@ section#create fieldset#oscars {
   margin-bottom: 0;
 }
 
+section#create select.form-select {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
 #ratings legend,
-#oscars legend {
+#oscars legend,
+#genres legend {
   color: var(--link-hover);
 }
 

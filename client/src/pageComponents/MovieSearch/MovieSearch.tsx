@@ -5,7 +5,13 @@ import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
 import { convertLengthVals } from "../../utils/typeUtils";
-import { InputText, Checkbox, Slider, DoubleSlider } from "../../components";
+import {
+  InputText,
+  Checkbox,
+  Slider,
+  DoubleSlider,
+  Select,
+} from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -16,6 +22,7 @@ interface movieSearchProps {
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleDualOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectOption: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleSearchSubmit: () => void;
 }
 
@@ -27,6 +34,7 @@ export function MovieSearch({
   handleReturn,
   handleOption,
   handleDualOption,
+  handleSelectOption,
   handleSearchSubmit,
 }: movieSearchProps) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +55,39 @@ export function MovieSearch({
     else return;
   };
 
+  const handleMenuChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setNoResults(false);
+    if (handleSelectOption) handleSelectOption(e);
+  };
+
+  const genreList = [
+    "All",
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "Film-Noir",
+    "History",
+    "Horror",
+    "Musical",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+    "Thriller",
+    "War",
+    "Western",
+  ];
+
+  const genreObjs = genreList.map((genre) => {
+    return { value: genre, title: genre };
+  });
+
   // count all the options configured, to determine if search button is live
   const usedRatings =
     (options.G ? 1 : 0) +
@@ -55,9 +96,13 @@ export function MovieSearch({
     (options.R ? 1 : 0);
   const usedOpts =
     (options.decade === "0" ? 0 : 1) +
-    (options.length.min === 0 && options.length.max === 0 ? 0 : 1) +
+    ((options.length.min === 1 || options.length.min === 0) &&
+    options.length.max === 8
+      ? 0
+      : 1) +
     (options.oscar ? 1 : 0) +
-    (usedRatings === 1 || usedRatings === 2 ? 1 : 0);
+    (usedRatings === 1 || usedRatings === 2 ? 1 : 0) +
+    (options.genre !== "all" ? 1 : 0);
 
   return (
     <>
@@ -162,6 +207,15 @@ export function MovieSearch({
                   />
                 </div>
               </fieldset>
+              <fieldset id="genres" className="list-member-20">
+                <legend>Limit to just this genre</legend>
+                <Select
+                  id="genre"
+                  options={genreObjs}
+                  val={options.genre}
+                  setValue={handleMenuChange}
+                />{" "}
+              </fieldset>
             </form>
           </Accordion.Body>
         </Accordion.Item>
@@ -170,7 +224,7 @@ export function MovieSearch({
       <button
         onClick={handleSearchSubmit}
         className="btn btn-primary"
-        disabled={searchField.length === 0 && usedOpts < 2}
+        disabled={searchField.length < 3 && usedOpts < 3}
       >
         Search for films
       </button>
