@@ -14,8 +14,10 @@ export function PollList({ polls }: pollListProps) {
         <ul>
           {polls.map((poll, index) => {
             return (
-              <li key={index}>
-                <Link to={poll.urlTitle}>{poll.title}</Link>
+              <li className="list-member-12" key={index}>
+                <Link to={poll.urlTitle} className="reverse">
+                  {poll.title}
+                </Link>
                 <em>
                   {`${poll.votes} vote`}
                   {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}

@@ -41,8 +41,10 @@ export function Profile() {
                 {userData.comments.map(
                   (comment: userCommentProps, index: Key) => {
                     return (
-                      <li className="comment" key={index}>
-                        <Link to={comment.urlTitle}>{comment.title}</Link>
+                      <li className="comment list-member-12" key={index}>
+                        <Link to={comment.urlTitle} className="reverse">
+                          {comment.title}
+                        </Link>
                         <p className="sub-info">
                           You voted for{" "}
                           <span className="your-vote">{`${comment.movie}`}</span>
