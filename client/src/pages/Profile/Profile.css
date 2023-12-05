@@ -24,38 +24,21 @@ section#profile ul {
 
 section#profile li {
   list-style-type: none;
-  background-color: var(--item-background);
-  padding: 12px;
-  border-radius: 12px;
-  margin-bottom: 6px;
 }
 
-section#profile li a {
-  color: var(--link-hover);
-}
-
-section#profile li a:hover {
-  color: var(--link);
-}
-
-section#profile div.comment {
+section#profile li.comment {
   font-size: 1em;
 }
 
-section#profile p {
-  padding: 0 0 8px;
-  border: 1px solid var(--primary-border);
-  border-width: 1px 0 1px;
-  margin: 0;
+section#profile li.comment p {
+  text-align: left;
+  width: 100%;
+  color: white;
 }
 
 section#profile span.your-vote {
   font-weight: bold;
 }
-
-/* section#profile p.your-vote {
-  color: var(--dark-text);
-} */
 
 section#profile h3 {
   margin-top: 25px;
@@ -63,6 +46,6 @@ section#profile h3 {
 
 section#profile em {
   font-size: 0.8em;
+  color: white;
   display: block;
-  text-indent: 12px;
 }
