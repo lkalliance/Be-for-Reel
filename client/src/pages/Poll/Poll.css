@@ -8,6 +8,10 @@ div#question {
   text-align: center;
 }
 
+section#poll div.login-prompt {
+  color: white;
+}
+
 p#yourvote {
   color: var(--secondary-color);
   margin-top: 15px;
