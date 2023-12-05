@@ -19,7 +19,6 @@ interface resultProps {
 }
 
 export function SearchResult({ value, type, onClick, dataIndex }: resultProps) {
-  console.log(value);
   return (
     <li
       className="search-result list-member-20"

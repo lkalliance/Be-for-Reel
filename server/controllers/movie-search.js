@@ -4,7 +4,10 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
-    const { from, to, certificates, groups, runtime } = req.query || false;
+    const { from, to, certificates, groups, runtime, genres } =
+      req.query || false;
+
+    console.log(req.query);
 
     const today = new Date();
     const thisYear = today.getFullYear();
@@ -20,6 +23,7 @@ router.get("/api/search/:string", async (req, res) => {
     if (certificates) queryParams.push(`certificates=${certificates}`);
     if (groups) queryParams.push(`groups=${groups}`);
     if (runtime) queryParams.push(`runtime=${runtime}`);
+    if (genres) queryParams.push(`genres=${genres.toLowerCase()}`);
 
     let searchUrl = `https://imdb-api.com/API/AdvancedSearch/${
       process.env.IMDB_API_KEY
