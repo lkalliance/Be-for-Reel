@@ -156,9 +156,11 @@ export function Poll({ currUser }: pollProps) {
               )
             ) : (
               // user is not logged in, prompt them to
-              <div>
-                <Link to={"/login"}>Log in</Link> to vote and to see results and
-                comments
+              <div className="login-prompt">
+                <Link to={"/login"} className="reverse">
+                  Log in
+                </Link>{" "}
+                to vote and to see results and comments
               </div>
             )}
             {expired ? <p className="expired">This poll is closed</p> : ""}
