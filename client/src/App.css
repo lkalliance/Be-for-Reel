@@ -25,12 +25,12 @@ body {
   flex-grow: 1;
   position: relative;
   margin: 0;
-  padding: 20px;
-  padding-bottom: 100px;
-  background-color: #01141e !important;
+  padding: 20px 20px 100px;
+  background-color: var(--page-background) !important;
 }
 
-body section {
+body section,
+body footer {
   margin-top: 20px;
   font-family: "Raleway", sans-serif;
 }
