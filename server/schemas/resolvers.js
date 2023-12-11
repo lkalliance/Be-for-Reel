@@ -17,6 +17,9 @@ const resolvers = {
   Query: {
     getUser: async (parent, { lookupname }) => {
       const user = await User.findOne({ lookupName: lookupname });
+      user.polls.sort((a, b) => {
+        return b.expires_on - a.expires_on;
+      });
       return user ? user : false;
     },
     getMyVotes: async (parent, { username }) => {
