@@ -18,7 +18,7 @@ sliderKey: an object with labels for each end of the slider group:
 setValue: a callback function for slider group onChange */
 
 import "./DoubleSlider.css";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import classnames from "classnames";
 
 interface doubleSliderProps {

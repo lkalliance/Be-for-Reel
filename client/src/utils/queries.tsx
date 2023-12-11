@@ -85,6 +85,22 @@ export const QUERY_ALL_POLLS = gql`
   }
 `;
 
+export const QUERY_ALL_USERS = gql`
+  query GetUsers {
+    getUsers {
+      users {
+        user_id
+        userName
+        lookupName
+        created
+        polls
+        comments
+        votes
+      }
+    }
+  }
+`;
+
 export const QUERY_HOME_POLLS = gql`
   query GetHomePolls {
     getHomePolls {

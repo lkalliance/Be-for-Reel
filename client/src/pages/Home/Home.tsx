@@ -26,7 +26,6 @@ export function Home() {
         ) : (
           data.getHomePolls.polls.map((poll: pollProps, index: number) => {
             if (poll) {
-              console.log(poll);
               const whichPoster = Math.trunc(
                 Math.random() * poll.options.length
               );

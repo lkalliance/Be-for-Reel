@@ -26,6 +26,16 @@ const typeDefs = gql`
     voted: [String]
   }
 
+  type listUser {
+    user_id: ID
+    userName: String!
+    lookupName: String!
+    created: String!
+    polls: Int
+    votes: Int
+    comments: Int
+  }
+
   type movieRatings {
     imDb: String
     metacritic: String
@@ -129,6 +139,10 @@ const typeDefs = gql`
     polls: [userPolls]
   }
 
+  type userList {
+    users: [listUser]
+  }
+
   type Movie {
     imdb_id: String!
     title: String!
@@ -140,6 +154,7 @@ const typeDefs = gql`
     getPoll(lookupname: String!, pollname: String!): Poll
     getMyVotes(username: String!): User
     getUser(lookupname: String!): User
+    getUsers: userList
     getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
     getGenres: GenreList

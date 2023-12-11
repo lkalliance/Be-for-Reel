@@ -1,7 +1,6 @@
 // This component renders a poll directory page
 
 import "./Directory.css";
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";

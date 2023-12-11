@@ -41,6 +41,16 @@ export interface userProps {
   comments: userCommentProps[];
 }
 
+export interface userListProps {
+  user_id: string;
+  userName: string;
+  lookupName: string;
+  created: string;
+  polls: number;
+  votes: number;
+  comments: number;
+}
+
 // These are for polls
 
 interface ratingsProps {

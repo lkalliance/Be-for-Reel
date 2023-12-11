@@ -49,72 +49,15 @@ export function HeaderNav({ uname, lookup }: navProps) {
               </LinkContainer>
             )}
 
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="/polls">
               <Nav.Link>Polls</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/users">
+              <Nav.Link>Users</Nav.Link>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
-    // <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    //   <div className="container-fluid">
-    //     <Link to="/" className="navbar-brand">
-    //       <img src="/b4r-full.png" alt="Be for Reel" />
-    //     </Link>
-    //     <button
-    //       className="navbar-toggler"
-    //       type="button"
-    //       data-bs-toggle="collapse"
-    //       data-bs-target="#navbarTogglerDemo02"
-    //       aria-controls="navbarTogglerDemo02"
-    //       aria-expanded="false"
-    //       aria-label="Toggle navigation"
-    //     >
-    //       <span className="navbar-toggler-icon"></span>
-    //     </button>
-    //     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-    //       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-    //         {Auth.loggedIn() ? (
-    //           <>
-    //             <li className="nav-item">
-    //               <NavLink
-    //                 to={`/${lookup}`}
-    //                 className="user"
-    //               >{`${uname}`}</NavLink>
-    //             </li>
-    //             <li className="nav-item">
-    //               <a
-    //                 href="/"
-    //                 onClick={(e) => {
-    //                   e.preventDefault();
-    //                   Auth.logout();
-    //                 }}
-    //               >
-    //                 Log out
-    //               </a>
-    //             </li>
-    //             <li className="nav-item">
-    //               <NavLink to="/create">Create a Poll</NavLink>
-    //             </li>
-    //           </>
-    //         ) : (
-    //           <li className="nav-item">
-    //             <NavLink to="/login">Log in or sign up</NavLink>
-    //           </li>
-    //         )}
-    //         <li className="nav-item">
-    //           <NavLink to="/">Home</NavLink>
-    //         </li>
-    //         <li className="nav-item">
-    //           <NavLink to="/polls">Polls</NavLink>
-    //         </li>
-    //       </ul>
-    //     </div>
-    //   </div>
-    // </nav>
   );
 }

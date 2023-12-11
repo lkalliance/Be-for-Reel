@@ -190,9 +190,6 @@ export function Create({ updateList, currentList }: createProps) {
   const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Handler to track single-value changes to search options
     const { id, value } = e.target;
-    const today = new Date();
-    const thisYear = Number(today.getFullYear());
-    // let changeYear = id === "from" || id === "to";
 
     // if it's a year field, set the new value as the text in the field
     // if it's a checkbox, set the new value as the opposite of before

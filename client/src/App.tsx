@@ -11,7 +11,15 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import { AuthService } from "./utils/auth";
-import { Home, Profile, Poll, Create, Directory, Login } from "./pages";
+import {
+  Home,
+  Profile,
+  Poll,
+  Create,
+  Directory,
+  Login,
+  UserDir,
+} from "./pages";
 import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
 
@@ -58,6 +66,8 @@ function App() {
               )
             }
           />
+          <Route path="/polls" element={<Directory />} />
+          <Route path="/users" element={<UserDir />} />
           <Route path="/polls/:genre" element={<Directory />} />
 
           <Route
@@ -75,7 +85,6 @@ function App() {
               )
             }
           />
-          <Route path="/polls" element={<Directory />} />
           <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
