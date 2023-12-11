@@ -4,3 +4,4 @@ export { Create } from "./Create";
 export { Directory } from "./Directory";
 export { Poll } from "./Poll";
 export { Profile } from "./Profile";
+export { UserDir } from "./UserDir";

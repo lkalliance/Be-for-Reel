@@ -14,3 +14,4 @@ export { DoubleSlider } from "./DoubleSlider";
 export { Select } from "./Select";
 export { SelectOption } from "./SelectOption";
 export { DirectoryColumn } from "./DirectoryColumn";
+export { UserListing } from "./UserListing";

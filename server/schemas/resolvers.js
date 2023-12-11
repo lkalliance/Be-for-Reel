@@ -22,6 +22,25 @@ const resolvers = {
       });
       return user ? user : false;
     },
+    getUsers: async () => {
+      const users = await User.find().sort({
+        userName: 1,
+      });
+      const list = users
+        ? users.map((user) => {
+            return {
+              user_id: user._id,
+              userName: user.userName,
+              lookupName: user.lookupName,
+              created: user.created,
+              polls: user.polls.length,
+              votes: user.votes.length,
+              comments: user.comments.length,
+            };
+          })
+        : [];
+      return { users: list };
+    },
     getMyVotes: async (parent, { username }) => {
       const empty = { votes: [] };
       if (username === "") return empty;
