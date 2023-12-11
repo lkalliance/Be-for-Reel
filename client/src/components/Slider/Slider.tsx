@@ -71,7 +71,7 @@ export function Slider({
         max={max}
         step={step || ""}
         id={id}
-        value={val || min}
+        value={val || min || localVal}
         onChange={handleChange}
       ></input>
       <div className={sliderKey ? "legend" : "hidden"}>
