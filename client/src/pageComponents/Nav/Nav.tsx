@@ -40,7 +40,7 @@ export function HeaderNav({ uname, lookup }: navProps) {
                   </Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/create">
-                  <Nav.Link>Create a Poll</Nav.Link>
+                  <Nav.Link>Create</Nav.Link>
                 </LinkContainer>
               </>
             ) : (
@@ -54,6 +54,9 @@ export function HeaderNav({ uname, lookup }: navProps) {
             </LinkContainer>
             <LinkContainer to="/users">
               <Nav.Link>Users</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/top-films">
+              <Nav.Link>Films</Nav.Link>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>

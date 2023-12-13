@@ -19,6 +19,7 @@ import {
   Directory,
   Login,
   UserDir,
+  TopMovies,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
@@ -68,6 +69,7 @@ function App() {
           />
           <Route path="/polls" element={<Directory />} />
           <Route path="/users" element={<UserDir />} />
+          <Route path="/top-films" element={<TopMovies />} />
           <Route path="/polls/:genre" element={<Directory />} />
 
           <Route

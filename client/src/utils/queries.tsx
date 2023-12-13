@@ -69,6 +69,20 @@ export const QUERY_SINGLE_POLL = gql`
   }
 `;
 
+export const QUERY_MOVIES = gql`
+  query GetMovies($number: Int) {
+    getMovies(number: $number) {
+      movies {
+        imdb_id
+        title
+        image
+        year
+        votes
+      }
+    }
+  }
+`;
+
 export const QUERY_ALL_POLLS = gql`
   query GetPolls($username: String, $genre: String) {
     getPolls(username: $username, genre: $genre) {
