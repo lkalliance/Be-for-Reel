@@ -131,6 +131,13 @@ const resolvers = {
       }
       return { titles };
     },
+    getMovies: async (parent, { number }) => {
+      const movies = await Movie.find().sort({
+        votes: -1,
+      });
+      const list = number ? movies.slice(0, number) : movies;
+      return { movies: list };
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -235,7 +242,7 @@ const resolvers = {
 
             const isMovie = await Movie.findOne({ imdb_id: movie.id });
             if (!isMovie) {
-              const newMovie = await Movie.create({
+              await Movie.create({
                 imdb_id: movie.id,
                 image: movie.image,
                 year: movie.year,

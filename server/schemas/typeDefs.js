@@ -147,7 +147,12 @@ const typeDefs = gql`
     imdb_id: String!
     title: String!
     image: String
+    year: Int
     votes: Int
+  }
+
+  type movieList {
+    movies: [Movie]
   }
 
   type Query {
@@ -158,6 +163,7 @@ const typeDefs = gql`
     getPolls(username: String, genre: String): pollList
     getHomePolls: homePolls
     getGenres: GenreList
+    getMovies(number: Int): movieList
   }
 
   type Mutation {

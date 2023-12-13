@@ -198,3 +198,11 @@ export interface movieProps {
   stars: string;
   title: string;
 }
+
+export interface movieListProps {
+  imdb_id: string;
+  title: string;
+  image: string;
+  year: number;
+  votes: number;
+}
