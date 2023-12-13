@@ -233,6 +233,7 @@ const resolvers = {
                 rottenTomatoes: movie.ratings.rottenTomatoes,
                 filmAffinity: movie.ratings.filmAffinity,
               },
+              worldwide: movie.boxOffice.cumulativeWorldwideGross,
               directors: movie.directors,
               genres: movie.genres,
               companies: movie.companies,

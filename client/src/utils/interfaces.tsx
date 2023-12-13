@@ -74,6 +74,7 @@ export interface optionProps {
   wikipedia: string;
   contentRating: string;
   ratings: ratingsProps;
+  worldwide: string;
   directors: string;
   genres: string;
   companies: string;

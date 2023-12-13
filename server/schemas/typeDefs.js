@@ -55,6 +55,7 @@ const typeDefs = gql`
     wikipedia: String
     contentRating: String
     ratings: movieRatings
+    worldwide: String
     directors: String
     genres: String
     companies: String

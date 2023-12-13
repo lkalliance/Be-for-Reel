@@ -29,7 +29,7 @@ router.get("/api/search/:string", async (req, res) => {
       process.env.IMDB_API_KEY
     }?${
       req.params.string === "noTitle" ? "" : `title=${req.params.string}&`
-    }title_type=feature&num_votes=5000,has=plot&sort=boxoffice_gross_us,desc`;
+    }title_type=feature&num_votes=1000,has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
 
     console.log(searchUrl);
@@ -47,8 +47,7 @@ router.get("/api/search/:string", async (req, res) => {
       (val) =>
         val.contentRating !== "NC-17" &&
         val.contentRating !== "TV-MA" &&
-        val.contentRating !== "X" &&
-        val.plot
+        val.contentRating !== "X"
     );
 
     res.status(200).json(ratedMovies);

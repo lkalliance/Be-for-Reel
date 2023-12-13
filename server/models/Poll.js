@@ -69,6 +69,10 @@ const pollOption = new Schema({
     type: String,
     required: false,
   },
+  worldwide: {
+    type: String,
+    required: false,
+  },
   trailer: {
     type: String,
     required: false,

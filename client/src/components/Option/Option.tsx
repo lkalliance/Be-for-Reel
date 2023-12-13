@@ -18,6 +18,10 @@ handleVote: a callback for the casting of a vote for this option
   (this will be used only if the UI addes the voting action directly to the options) */
 
 import "./Option.css";
+import fresh from "./rtfresh.png";
+import splat from "./rtsplat.png";
+import imdb from "./imdb-icon-14.png";
+import gross from "./gross.png";
 import Accordion from "react-bootstrap/Accordion";
 import { optionProps } from "../../utils/interfaces";
 
@@ -54,11 +58,12 @@ export function Option({
   select,
   comment,
 }: optProps) {
+  const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
+
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     // const { tagName } = e.target as HTMLElement;
     const { className } = e.currentTarget as HTMLElement;
-    console.log(className);
     const voteObj = {
       ...selected,
       movie: opt.movie,
@@ -85,10 +90,46 @@ export function Option({
                 </div>
               </Accordion.Header>
               <Accordion.Body>
-                <img src={opt.image} alt={opt.movie} />
+                <img src={opt.image} alt={opt.movie} className="poster" />
                 <div>
                   <strong className="stars">{opt.stars}</strong>
                   {opt.plot}
+                  <div className="misc-info">
+                    {opt.ratings.rottenTomatoes ? (
+                      <span className="rt">
+                        <img
+                          src={`${isFresh ? fresh : splat}`}
+                          alt={
+                            isFresh
+                              ? "Rotten Tomatoes: Fresh"
+                              : "Rotten Tomatoes: Not Fresh"
+                          }
+                        />{" "}
+                        {opt.ratings.rottenTomatoes}%
+                      </span>
+                    ) : (
+                      <span></span>
+                    )}
+                    <span className="imdb">
+                      <img
+                        src={imdb}
+                        alt={`imDb rating: ${opt.ratings.imDb}`}
+                      />{" "}
+                      {parseFloat(opt.ratings.imDb).toFixed(1)}
+                    </span>
+                    {opt.worldwide ? (
+                      <span className="gross">
+                        <img
+                          src={gross}
+                          alt={`Worldwide gross: ${opt.worldwide}`}
+                        />{" "}
+                        {opt.worldwide}
+                      </span>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+
                   <div className="info-links">
                     <a
                       className="reverse"
