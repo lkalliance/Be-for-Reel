@@ -119,7 +119,7 @@ div.accordion .accordion-item {
   color: var(--dark-text);
 }
 
-.option .accordion-body img {
+.option .accordion-body img.poster {
   display: none;
 }
 
@@ -127,8 +127,17 @@ div.accordion .accordion-item {
   background-color: var(--item-background-hover);
 }
 
+.option div.misc-info {
+  margin: 6px 0;
+  display: flex;
+}
+
+.option div.misc-info span {
+  margin-right: 10px;
+}
+
 @media screen and (min-width: 400px) {
-  .option .accordion-body img {
+  .option .accordion-body img.poster {
     display: block;
     width: 75px;
     margin-right: 12px;
@@ -143,5 +152,11 @@ div.accordion .accordion-item {
   .option .opt-container {
     /* on larger screens, select button/votes are on right */
     flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .option .accordion-body img.poster {
+    width: 100px;
   }
 }

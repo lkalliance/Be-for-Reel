@@ -51,6 +51,7 @@ export const QUERY_SINGLE_POLL = gql`
           rottenTomatoes
           imDb
         }
+        worldwide
         stars
         trailer
         wikipedia
