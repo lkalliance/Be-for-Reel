@@ -63,3 +63,8 @@ export const convertMonth = (date: Date) => {
 
   return `${months[date.getMonth()]} ${date.getDate()}`;
 };
+
+export const thisYear = () => {
+  const today = new Date();
+  return today.getFullYear();
+};

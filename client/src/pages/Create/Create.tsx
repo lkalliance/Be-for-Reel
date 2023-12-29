@@ -13,7 +13,7 @@ import {
 } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
-import { convertLengthVals } from "../../utils/typeUtils";
+import { convertLengthVals, thisYear } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
@@ -30,10 +30,15 @@ interface createProps {
 
 export function Create({ updateList, currentList }: createProps) {
   const Auth = new AuthService();
+
   // used to reset options values
   const blankOptions = {
     decade: "0",
-    years: false,
+    // years: false,
+    years: {
+      min: 1910,
+      max: thisYear(),
+    },
     length: {
       min: 1,
       max: 8,
@@ -128,17 +133,22 @@ export function Create({ updateList, currentList }: createProps) {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar, length, genre } = options;
+    const { decade, years, G, PG, PG13, R, oscar, length, genre } = options;
     const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
     let paramParts = [];
 
-    if (mathDecade > 0) {
+    // if (mathDecade > 0) {
+    //   // if there are years to search, add the parameters for from and to
+    //   paramParts.push(`from=${1910 + 10 * mathDecade}`);
+    //   paramParts.push(`to=${1919 + 10 * mathDecade}`);
+    // }
+    if (years.min > 1910 || years.max < thisYear()) {
       // if there are years to search, add the parameters for from and to
-      paramParts.push(`from=${1910 + 10 * mathDecade}`);
-      paramParts.push(`to=${1919 + 10 * mathDecade}`);
+      paramParts.push(`from=${years.min}`);
+      paramParts.push(`to=${years.max}`);
     }
     if (G || PG || PG13 || R) {
       // if there are limits on ratings, add those parameters
