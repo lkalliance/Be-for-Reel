@@ -4,7 +4,7 @@ import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
-import { convertLengthVals } from "../../utils/typeUtils";
+import { convertLengthVals, thisYear } from "../../utils/typeUtils";
 import {
   InputText,
   Checkbox,
@@ -95,11 +95,8 @@ export function MovieSearch({
     (options.PG13 ? 1 : 0) +
     (options.R ? 1 : 0);
   const usedOpts =
-    (options.decade === "0" ? 0 : 1) +
-    ((options.length.min === 1 || options.length.min === 0) &&
-    options.length.max === 8
-      ? 0
-      : 1) +
+    (options.years.max - options.years.min > 10 ? 0 : 1) +
+    (options.length.max - options.length.min < 3 ? 1 : 0) +
     (options.oscar ? 1 : 0) +
     (usedRatings === 1 || usedRatings === 2 ? 1 : 0) +
     (options.genre !== "all" ? 1 : 0);
@@ -123,7 +120,7 @@ export function MovieSearch({
           <Accordion.Body>
             <form>
               <fieldset id="released" className="list-member-20">
-                <Slider
+                {/* <Slider
                   id="decade"
                   val={+options.decade}
                   setValue={handleOptChange}
@@ -136,6 +133,29 @@ export function MovieSearch({
                       : `${1910 + 10 * parseInt(options.decade)}'s`
                   }`}
                   sliderKey={{ min: "earlier", max: "later" }}
+                /> */}
+                <DoubleSlider
+                  id="years"
+                  min={1910}
+                  max={thisYear()}
+                  step={1}
+                  startVal={{
+                    min: options.years.min,
+                    max: options.years.max,
+                  }}
+                  label={"Release Year"}
+                  labelVal={`${
+                    options.years.min === 1910 &&
+                    options.years.max === thisYear()
+                      ? "any"
+                      : options.years.min === 1910
+                      ? `${options.years.max} or earlier`
+                      : options.years.max === thisYear()
+                      ? `${options.years.min} or later`
+                      : `${options.years.min} to ${options.years.max}`
+                  }`}
+                  sliderKey={{ min: "earlier", max: "later" }}
+                  setValue={handleDualOptChange}
                 />
               </fieldset>
               <fieldset className="list-member-20">

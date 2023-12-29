@@ -148,7 +148,10 @@ export interface searchOptions {
   // search option form elements
   [key: string]: string | boolean | { min: number; max: number };
   decade: string;
-  years: boolean;
+  years: {
+    min: number;
+    max: number;
+  };
   length: {
     min: number;
     max: number;
