@@ -58,6 +58,7 @@ export function Option({
   select,
   comment,
 }: optProps) {
+  console.log(opt);
   const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
 
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
@@ -93,7 +94,7 @@ export function Option({
                 <img src={opt.image} alt={opt.movie} className="poster" />
                 <div>
                   <strong className="stars">{opt.stars}</strong>
-                  {opt.plot}
+                  {`${opt.plot} Directed by ${opt.directors}.`}
                   <div className="misc-info">
                     {opt.ratings.rottenTomatoes ? (
                       <span className="rt">
