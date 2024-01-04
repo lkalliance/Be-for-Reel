@@ -30,6 +30,10 @@ const userPolls = new Schema({
   votes: Number,
   comments: Number,
   expires_on: Date,
+  deactivated: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const userVotes = new Schema({

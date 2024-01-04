@@ -1,1 +1,6 @@
 /* custom styles for this page component go here */
+
+section#create div#about select {
+  color: white;
+  margin-bottom: 12px;
+}

@@ -24,6 +24,7 @@ export function SearchResult({ value, type, onClick, dataIndex }: resultProps) {
       className="search-result list-member-20"
       data-index={dataIndex}
       data-type={type}
+      data-genres={value.genres}
       onClick={onClick}
     >
       <h4>{`${value.title} (${value.description})`}</h4>

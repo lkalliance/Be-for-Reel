@@ -20,6 +20,7 @@ import {
   Login,
   UserDir,
   TopMovies,
+  FAQ,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
@@ -54,7 +55,6 @@ function App() {
       <div className="App">
         <Header uname={userInfo.userName} lookup={userInfo.lookupName} />
         <Routes>
-          {/* defaulting to the "About" tab */}
           <Route path="/" element={<Home />} />
 
           <Route
@@ -80,13 +80,12 @@ function App() {
           <Route
             path="/create"
             element={
-              !Auth.loggedIn() ? (
-                <Navigate to="/" replace={true} />
-              ) : (
-                <Create updateList={setPollList} currentList={pollList} />
-              )
+              !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/FAQ" element={<FAQ />} />
+          <Route path="/Faq" element={<FAQ />} />
           <Route path="*" element={<Home />} />
         </Routes>
         <Footer />

@@ -20,6 +20,7 @@ export class AuthService {
         lookupName: userInfo.data.lookupName,
         // object that holds user's votes for reference
         votes: userInfo.data.votes,
+        activePolls: userInfo.data.activePolls,
       };
     }
     return {
@@ -28,6 +29,7 @@ export class AuthService {
       email: "",
       lookupName: "",
       votes: {},
+      activePolls: [],
     };
   }
 

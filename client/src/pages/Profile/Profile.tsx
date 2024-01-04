@@ -4,11 +4,14 @@ import "./Profile.css";
 import { Key } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { AuthService } from "../../utils/auth";
 import { userCommentProps } from "../../utils/interfaces";
 import { QUERY_SINGLE_USER } from "../../utils/queries";
 import { PollList } from "../../components";
 
 export function Profile() {
+  const auth = new AuthService();
+  const whoIsThis = auth.getProfile().lookupName;
   const { username } = useParams();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,7 +33,11 @@ export function Profile() {
 
             {userData ? (
               <div className="col col-12 col-sm-6">
-                <PollList polls={userData.polls} />
+                <PollList
+                  polls={userData.polls}
+                  thisUser={whoIsThis === username}
+                  uName={username}
+                />
               </div>
             ) : (
               ""

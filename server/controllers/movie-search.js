@@ -7,8 +7,6 @@ router.get("/api/search/:string", async (req, res) => {
     const { from, to, certificates, groups, runtime, genres } =
       req.query || false;
 
-    console.log(req.query);
-
     const today = new Date();
     const thisYear = today.getFullYear();
     let queryParams = [];
@@ -31,8 +29,6 @@ router.get("/api/search/:string", async (req, res) => {
       req.params.string === "noTitle" ? "" : `title=${req.params.string}&`
     }title_type=feature&num_votes=1000,has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-
-    console.log(searchUrl);
 
     const options = {
       method: "GET",

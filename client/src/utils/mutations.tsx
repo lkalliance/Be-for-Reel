@@ -27,8 +27,14 @@ export const ADD_POLL = gql`
     $title: String!
     $movieIds: [String]!
     $description: String
+    $userGenre: String
   ) {
-    addPoll(title: $title, movieIds: $movieIds, description: $description) {
+    addPoll(
+      title: $title
+      movieIds: $movieIds
+      description: $description
+      userGenre: $userGenre
+    ) {
       title
       redirect
     }
@@ -84,6 +90,15 @@ export const VOTE = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const DEACTIVATE_POLL = gql`
+  mutation DeactivatePoll($poll_id: String!) {
+    deactivatePoll(poll_id: $poll_id) {
+      title
+      deactivated
     }
   }
 `;

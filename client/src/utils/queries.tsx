@@ -10,6 +10,8 @@ export const QUERY_SINGLE_USER = gql`
         urlTitle
         votes
         comments
+        deactivated
+        expires_on
       }
       userName
       lookupName
@@ -66,6 +68,7 @@ export const QUERY_SINGLE_POLL = gql`
       voters
       created_on
       expires_on
+      deactivated
     }
   }
 `;
@@ -95,6 +98,7 @@ export const QUERY_ALL_POLLS = gql`
         votes
         comments
         expires_on
+        deactivated
       }
     }
   }

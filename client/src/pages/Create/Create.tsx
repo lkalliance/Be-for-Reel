@@ -1,34 +1,30 @@
 // This component renders the Create a Poll page
 
 import "./Create.css";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import { cloneDeep } from "@apollo/client/utilities";
 import { AuthService } from "../../utils/auth";
-import {
-  movieProps,
-  pollListProps,
-  userData,
-  searchOptions,
-} from "../../utils/interfaces";
+import { movieProps, userData, searchOptions } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
-import { convertLengthVals, thisYear } from "../../utils/typeUtils";
+import { convertLengthVals, thisYear, pollLimit } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
+
+interface genreObj {
+  [key: string]: number;
+}
 
 interface pollOptions {
   [key: string]: string;
   title: string;
   description: string;
+  userGenre: string;
 }
 
-interface createProps {
-  updateList: Dispatch<SetStateAction<pollListProps>>;
-  currentList: pollListProps;
-}
-
-export function Create({ updateList, currentList }: createProps) {
+export function Create() {
   const Auth = new AuthService();
 
   // used to reset options values
@@ -66,14 +62,15 @@ export function Create({ updateList, currentList }: createProps) {
   const [pollData, setPollData] = useState<pollOptions>({
     title: "",
     description: "",
+    userGenre: "all",
   }); // tracks text in poll title and description fields
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
   const [noResults, setNoResults] = useState<boolean>(false); // tracks error message stating no search results
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
+  const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
   const userInfo: userData = Auth.getProfile();
-
   const [addPoll] = useMutation(ADD_POLL, {
     refetchQueries: () => [
       {
@@ -102,6 +99,7 @@ export function Create({ updateList, currentList }: createProps) {
           title: pollData.title,
           description: pollData.description,
           movieIds: selectedIds,
+          userGenre: pollData.userGenre,
         },
       });
 
@@ -123,6 +121,17 @@ export function Create({ updateList, currentList }: createProps) {
     return result;
   };
 
+  const genreValid = () => {
+    console.log({ genreTracker, pollData, selected });
+    // checks to make sure the current user-selected genre still good
+
+    console.log({ genreTracker, pollData, selected });
+    return !(
+      selected.length === 0 ||
+      genreTracker[pollData.userGenre] / selected.length < 0.5
+    );
+  };
+
   const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
@@ -134,7 +143,7 @@ export function Create({ updateList, currentList }: createProps) {
 
     // set up items to use in constructing the URL
     const { decade, years, G, PG, PG13, R, oscar, length, genre } = options;
-    const mathDecade = parseInt(decade);
+    // const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
@@ -236,11 +245,16 @@ export function Create({ updateList, currentList }: createProps) {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
+    const { id, value } = e.target;
     // clear any error message
     setErrorMessage("");
     // update the poll data
-    setPollData({ ...pollData, [e.target.id]: e.target.value });
+    setPollData({
+      ...pollData,
+      [id]: value,
+    });
   };
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -255,6 +269,10 @@ export function Create({ updateList, currentList }: createProps) {
 
     // determine origin and destination, remove clicked from origin and put in destination
     const type = e.currentTarget.dataset.type;
+    // if this is an attempt to add a 13th film, forget it.
+    if (type === "search" && selected.length >= 12) return;
+
+    const genres = e.currentTarget.dataset.genres;
     const originList = type === "search" ? [...results] : [...selected];
     const clicked = originList.splice(Number(e.currentTarget.dataset.index), 1);
     const destinationList =
@@ -278,52 +296,114 @@ export function Create({ updateList, currentList }: createProps) {
       newList.splice(whichOne, 1);
       setSelectedIds(newList);
     }
+
+    // adjust genreTracker
+    const genreList = genres?.split(", ");
+    let genreTemp = cloneDeep(genreTracker);
+    const incrementer = type === "search" ? 1 : -1;
+    genreList?.forEach((genre) => {
+      if (!genreTemp[genre]) genreTemp[genre] = type === "search" ? 1 : 0;
+      else genreTemp[genre] += incrementer;
+    });
+    setGenreTracker(genreTemp);
+
+    // check if user genre selection needs to be nulled
+    if (!genreValid()) setPollData({ ...pollData, userGenre: "all" });
   };
 
   return (
     <section id="create">
-      <div className="container">
-        <h1>Create a Poll</h1>
-        <div className="row">
-          <div id="titleSearch" className="col-12 col-sm-6">
-            <h3>Search for a title</h3>
+      {userInfo.activePolls.length < pollLimit("standard") ? (
+        <div className="container">
+          <h1>Create a Poll</h1>
+          <div className="row">
+            <div id="titleSearch" className="col-12 col-sm-6">
+              <h3>Search for a title</h3>
 
-            <MovieSearch
-              searchField={searchField}
-              setSearchField={setSearchField}
-              noResults={noResults}
-              setNoResults={setNoResults}
-              options={options}
-              handleOption={handleOption}
-              handleDualOption={handleDualOption}
-              handleSelectOption={handleSelectOption}
-              handleReturn={handleReturn}
-              handleSearchSubmit={handleSearchSubmit}
-            />
+              <MovieSearch
+                searchField={searchField}
+                setSearchField={setSearchField}
+                noResults={noResults}
+                setNoResults={setNoResults}
+                options={options}
+                handleOption={handleOption}
+                handleDualOption={handleDualOption}
+                handleSelectOption={handleSelectOption}
+                handleReturn={handleReturn}
+                handleSearchSubmit={handleSearchSubmit}
+              />
 
-            <div id="results">
-              <h5 className="center">Search Results</h5>
-              {searching ? (
+              <div id="results">
+                <h5 className="center">Search Results</h5>
+                {searching ? (
+                  <div className="alert alert-primary">
+                    Searching for titles...
+                  </div>
+                ) : (
+                  ""
+                )}
+                {noResults ? (
+                  <div className="alert alert-danger">No search results</div>
+                ) : (
+                  ""
+                )}
+                <ul>
+                  {results.map((result, index) => {
+                    if (selectedIds.indexOf(result.id) >= 0) return "";
+                    return (
+                      <SearchResult
+                        value={result}
+                        key={index}
+                        dataIndex={index}
+                        type="search"
+                        onClick={selectResult}
+                      />
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div id="about" className="col-12 col-sm-6">
+              <h3>About your poll</h3>
+              <AboutPoll
+                pollData={pollData}
+                handlePollData={handlePollData}
+                genreObj={genreTracker}
+                totalSelect={selected.length}
+              />
+              <button
+                onClick={handleCreate}
+                className="btn btn-primary"
+                disabled={!(pollData.title.length > 0 && selected.length > 1)}
+              >
+                Create poll
+              </button>
+              {errorMessage.length > 0 ? (
+                <div className="alert alert-danger">{errorMessage}</div>
+              ) : (
+                ""
+              )}
+              {building ? (
+                <div className="alert alert-primary">Building your poll...</div>
+              ) : (
+                ""
+              )}
+              <h5 className="center">Selected Films</h5>
+              {selected.length >= 12 ? (
                 <div className="alert alert-primary">
-                  Searching for titles...
+                  Maximum poll options reached.
                 </div>
               ) : (
                 ""
               )}
-              {noResults ? (
-                <div className="alert alert-danger">No search results</div>
-              ) : (
-                ""
-              )}
-              <ul>
-                {results.map((result, index) => {
-                  if (selectedIds.indexOf(result.id) >= 0) return "";
+              <ul id="selected">
+                {selected.map((selected, index) => {
                   return (
                     <SearchResult
-                      value={result}
+                      value={selected}
                       key={index}
                       dataIndex={index}
-                      type="search"
+                      type="selected"
                       onClick={selectResult}
                     />
                   );
@@ -331,43 +411,17 @@ export function Create({ updateList, currentList }: createProps) {
               </ul>
             </div>
           </div>
-          <div id="about" className="col-12 col-sm-6">
-            <h3>About your poll</h3>
-            <AboutPoll pollData={pollData} handlePollData={handlePollData} />
-            <button
-              onClick={handleCreate}
-              className="btn btn-primary"
-              disabled={!(pollData.title.length > 0 && selected.length > 1)}
-            >
-              Create poll
-            </button>
-            {errorMessage.length > 0 ? (
-              <div className="alert alert-danger">{errorMessage}</div>
-            ) : (
-              ""
-            )}
-            {building ? (
-              <div className="alert alert-primary">Building your poll...</div>
-            ) : (
-              ""
-            )}
-            <h5 className="center">Selected Films</h5>
-            <ul id="selected">
-              {selected.map((selected, index) => {
-                return (
-                  <SearchResult
-                    value={selected}
-                    key={index}
-                    dataIndex={index}
-                    type="selected"
-                    onClick={selectResult}
-                  />
-                );
-              })}
-            </ul>
-          </div>
         </div>
-      </div>
+      ) : (
+        <div className="container">
+          <h1>Create a Poll</h1>
+          <p>
+            You have reached your creation limit for the most recent month. You
+            will need to wait for one of your polls to expire before you can
+            create a new one.
+          </p>
+        </div>
+      )}
     </section>
   );
 }

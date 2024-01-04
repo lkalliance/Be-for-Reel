@@ -93,7 +93,6 @@ export function Poll({ currUser }: pollProps) {
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     // handle vote submission
-    console.log("I'm voting!");
     try {
       const voteVars = { ...selected, comment, poll_id: poll._id };
       const { data } = await castVote({

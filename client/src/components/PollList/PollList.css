@@ -1,3 +1,31 @@
 .list {
   position: relative;
 }
+
+#user-poll-list div.deactivated h6 {
+  color: var(--link-hover) !important;
+  text-decoration: line-through;
+  opacity: 0.5;
+  margin-bottom: 0;
+}
+
+#user-poll-list div.deactivated div {
+  color: var(--warning-color);
+  font-size: 0.8rem;
+}
+
+#user-poll-list .deactivate-link {
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+#user-poll-list .deactivate-link span {
+  cursor: pointer;
+}
+
+#user-poll-list .deactivate-link span:hover {
+  color: var(--link-hover);
+}
