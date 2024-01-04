@@ -58,6 +58,11 @@ export function HeaderNav({ uname, lookup }: navProps) {
             <LinkContainer to="/top-films">
               <Nav.Link>Films</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/faq">
+              <Nav.Link className="faq-round">
+                <div className="round">?</div>
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>

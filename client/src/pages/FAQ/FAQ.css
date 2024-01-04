@@ -1,0 +1,36 @@
+section#FAQ {
+  width: 100%;
+  max-width: 500px;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section#FAQ dl {
+  color: white;
+}
+
+section#FAQ dt {
+  margin: 15px 0 6px;
+}
+
+section#FAQ dd {
+  border-left: 1px solid var(--secondary-color);
+  padding-left: 8px;
+  font-size: 0.9rem;
+}
+
+section#FAQ dd span {
+  font-weight: bold;
+  color: var(--link-hover);
+}
+
+section#FAQ dd a {
+  font-size: 0.9rem;
+}
+
+@media screen and (min-width: 350px) {
+  section#FAQ {
+    width: 75;
+  }
+}
