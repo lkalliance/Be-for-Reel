@@ -133,6 +133,11 @@ export interface loginState {
 
 type pollKey = string;
 
+type activePoll = {
+  poll_id: string;
+  expires: string;
+};
+
 export type userData = {
   // user info stored in token
   userName: string;
@@ -140,6 +145,7 @@ export type userData = {
   _id: string;
   email: string;
   votes: { [key in pollKey]?: string };
+  activePolls: activePoll[];
 };
 
 // These interfaces are used for the return from IMDb's title search

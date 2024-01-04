@@ -22,12 +22,12 @@ interface listProps {
 
 export function PollListing({ poll, vote }: listProps) {
   const expires = new Date(poll.expires_on);
-  const expired = new Date(poll.expires_on) < new Date();
+  const expired = expires < new Date();
   return (
     <div className="col col-12 col-lg-6">
       <div
         className={
-          new Date(poll.expires_on) < new Date()
+          expired
             ? "poll-listing list-member-12 expired"
             : "poll-listing list-member-12"
         }

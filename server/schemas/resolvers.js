@@ -263,7 +263,9 @@ const resolvers = {
           today.getFullYear(),
           today.getMonth(),
           today.getDate() + age,
-          today.getHours()
+          0,
+          0,
+          0
         );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
 

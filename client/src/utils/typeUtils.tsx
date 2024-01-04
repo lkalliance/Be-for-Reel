@@ -68,3 +68,7 @@ export const thisYear = () => {
   const today = new Date();
   return today.getFullYear();
 };
+
+export const pollLimit = (type: string) => {
+  return 30;
+};
