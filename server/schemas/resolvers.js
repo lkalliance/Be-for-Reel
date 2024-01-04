@@ -103,27 +103,31 @@ const resolvers = {
         expires_on: {
           $gt: new Date(),
         },
-        deactivated: undefined || false,
       });
+
+      const activePolls = polls.filter((poll) => {
+        return !poll.deactivated;
+      });
+
       // create a list of random indexes
       const pollList = [];
-      const limit = polls.length >= 6 ? 6 : polls.length;
+      const limit = activePolls.length >= 6 ? 6 : activePolls.length;
       while (pollList.length < limit) {
-        const rand = Math.trunc(Math.random() * polls.length);
+        const rand = Math.trunc(Math.random() * activePolls.length);
         if (pollList.indexOf(rand) === -1) pollList.push(rand);
       }
 
       const list = pollList.map((pollIndex) => {
         // generate list of polls from random indexes
         return {
-          _id: polls[pollIndex]._id,
-          title: polls[pollIndex].title,
-          urlTitle: polls[pollIndex].urlTitle,
-          username: polls[pollIndex].username,
-          options: polls[pollIndex].options,
-          created_on: polls[pollIndex].created_on,
-          expires_on: polls[pollIndex].expires_on,
-          votes: polls[pollIndex].votes,
+          _id: activePolls[pollIndex]._id,
+          title: activePolls[pollIndex].title,
+          urlTitle: activePolls[pollIndex].urlTitle,
+          username: activePolls[pollIndex].username,
+          options: activePolls[pollIndex].options,
+          created_on: activePolls[pollIndex].created_on,
+          expires_on: activePolls[pollIndex].expires_on,
+          votes: activePolls[pollIndex].votes,
         };
       });
 
