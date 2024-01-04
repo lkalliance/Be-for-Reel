@@ -174,6 +174,7 @@ const typeDefs = gql`
       title: String!
       description: String
       movieIds: [String]!
+      userGenre: String
     ): pollReturn
     castVote(
       userName: String!

@@ -35,11 +35,13 @@ module.exports = {
     });
     return voteObj;
   },
-  condenseGenres: function (genreLists) {
+  condenseGenres: function (genreLists, userGenre) {
     // finds genres common to all provided movies
     const genres = genreLists.reduce((prev, curr) =>
       prev.filter((element) => curr.includes(element))
     );
+    // adds the user's chosen genre if not already there
+    if (genres.indexOf(userGenre) === -1) genres.push(userGenre.toLowerCase());
     return genres;
   },
   createGenreList: function (genreList) {

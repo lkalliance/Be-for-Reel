@@ -4,6 +4,7 @@ import "./Create.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import { cloneDeep } from "@apollo/client/utilities";
 import { AuthService } from "../../utils/auth";
 import {
   movieProps,
@@ -17,10 +18,15 @@ import { convertLengthVals, thisYear } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
+interface genreObj {
+  [key: string]: number;
+}
+
 interface pollOptions {
   [key: string]: string;
   title: string;
   description: string;
+  userGenre: string;
 }
 
 interface createProps {
@@ -66,11 +72,13 @@ export function Create({ updateList, currentList }: createProps) {
   const [pollData, setPollData] = useState<pollOptions>({
     title: "",
     description: "",
+    userGenre: "none",
   }); // tracks text in poll title and description fields
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
   const [noResults, setNoResults] = useState<boolean>(false); // tracks error message stating no search results
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
+  const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
   const userInfo: userData = Auth.getProfile();
 
@@ -102,6 +110,7 @@ export function Create({ updateList, currentList }: createProps) {
           title: pollData.title,
           description: pollData.description,
           movieIds: selectedIds,
+          userGenre: pollData.userGenre,
         },
       });
 
@@ -123,6 +132,17 @@ export function Create({ updateList, currentList }: createProps) {
     return result;
   };
 
+  const genreValid = () => {
+    console.log({ genreTracker, pollData, selected });
+    // checks to make sure the current user-selected genre still good
+
+    console.log({ genreTracker, pollData, selected });
+    return !(
+      selected.length === 0 ||
+      genreTracker[pollData.userGenre] / selected.length < 0.5
+    );
+  };
+
   const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
@@ -134,7 +154,7 @@ export function Create({ updateList, currentList }: createProps) {
 
     // set up items to use in constructing the URL
     const { decade, years, G, PG, PG13, R, oscar, length, genre } = options;
-    const mathDecade = parseInt(decade);
+    // const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
@@ -236,11 +256,16 @@ export function Create({ updateList, currentList }: createProps) {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
+    const { id, value } = e.target;
     // clear any error message
     setErrorMessage("");
     // update the poll data
-    setPollData({ ...pollData, [e.target.id]: e.target.value });
+    setPollData({
+      ...pollData,
+      [id]: value,
+    });
   };
 
   const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -255,6 +280,7 @@ export function Create({ updateList, currentList }: createProps) {
 
     // determine origin and destination, remove clicked from origin and put in destination
     const type = e.currentTarget.dataset.type;
+    const genres = e.currentTarget.dataset.genres;
     const originList = type === "search" ? [...results] : [...selected];
     const clicked = originList.splice(Number(e.currentTarget.dataset.index), 1);
     const destinationList =
@@ -278,6 +304,19 @@ export function Create({ updateList, currentList }: createProps) {
       newList.splice(whichOne, 1);
       setSelectedIds(newList);
     }
+
+    // adjust genreTracker
+    const genreList = genres?.split(", ");
+    let genreTemp = cloneDeep(genreTracker);
+    const incrementer = type === "search" ? 1 : -1;
+    genreList?.forEach((genre) => {
+      if (!genreTemp[genre]) genreTemp[genre] = type === "search" ? 1 : 0;
+      else genreTemp[genre] += incrementer;
+    });
+    setGenreTracker(genreTemp);
+
+    // check if user genre selection needs to be nulled
+    if (!genreValid()) setPollData({ ...pollData, userGenre: "none" });
   };
 
   return (
@@ -333,7 +372,12 @@ export function Create({ updateList, currentList }: createProps) {
           </div>
           <div id="about" className="col-12 col-sm-6">
             <h3>About your poll</h3>
-            <AboutPoll pollData={pollData} handlePollData={handlePollData} />
+            <AboutPoll
+              pollData={pollData}
+              handlePollData={handlePollData}
+              genreObj={genreTracker}
+              totalSelect={selected.length}
+            />
             <button
               onClick={handleCreate}
               className="btn btn-primary"

@@ -234,7 +234,7 @@ export function MovieSearch({
                   options={genreObjs}
                   val={options.genre}
                   setValue={handleMenuChange}
-                />{" "}
+                />
               </fieldset>
             </form>
           </Accordion.Body>

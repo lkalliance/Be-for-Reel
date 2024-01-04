@@ -6,7 +6,6 @@ const {
   createLookupName,
   createUrlTitle,
   condenseGenres,
-  createGenreList,
 } = require("../utils/typeUtils");
 const { User, Poll, Movie, Genre } = require("../models");
 const fetch = require("axios");
@@ -195,7 +194,11 @@ const resolvers = {
       return { token, user };
     },
 
-    addPoll: async (parent, { title, description, movieIds }, context) => {
+    addPoll: async (
+      parent,
+      { title, description, movieIds, userGenre },
+      context
+    ) => {
       // how many days before expiration
       const age = 30;
       // make sure the user is actually logged in
@@ -264,7 +267,7 @@ const resolvers = {
         );
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
 
-        const lookupGenre = condenseGenres(optGenres);
+        const lookupGenre = condenseGenres(optGenres, userGenre);
 
         // construct the object to be stored to the Polls collection
         const newPoll = {

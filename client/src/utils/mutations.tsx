@@ -27,8 +27,14 @@ export const ADD_POLL = gql`
     $title: String!
     $movieIds: [String]!
     $description: String
+    $userGenre: String
   ) {
-    addPoll(title: $title, movieIds: $movieIds, description: $description) {
+    addPoll(
+      title: $title
+      movieIds: $movieIds
+      description: $description
+      userGenre: $userGenre
+    ) {
       title
       redirect
     }
