@@ -85,6 +85,7 @@ const typeDefs = gql`
     comments: [pollComment]
     votes: [String]
     voters: [String]
+    deactivated: Boolean
   }
 
   type homePolls {
@@ -99,6 +100,7 @@ const typeDefs = gql`
     votes: Int
     comments: Int
     expires_on: Date
+    deactivated: Boolean
   }
 
   type userComments {
@@ -120,6 +122,7 @@ const typeDefs = gql`
     poll_id: String
     title: String
     redirect: String
+    deactivated: Boolean
   }
 
   type voteReturn {
@@ -184,6 +187,7 @@ const typeDefs = gql`
       imdb_id: String
       comment: String
     ): voteReturn
+    deactivatePoll(poll_id: String!): pollReturn
   }
 `;
 

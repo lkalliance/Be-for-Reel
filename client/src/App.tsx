@@ -80,11 +80,7 @@ function App() {
           <Route
             path="/create"
             element={
-              !Auth.loggedIn() ? (
-                <Navigate to="/" replace={true} />
-              ) : (
-                <Create updateList={setPollList} currentList={pollList} />
-              )
+              !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
           <Route path="/faq" element={<FAQ />} />

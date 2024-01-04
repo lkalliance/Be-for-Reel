@@ -12,6 +12,7 @@ export interface userPollProps {
   comments: number;
   expires_on: Date;
   winner?: string;
+  deactivated: boolean;
 }
 
 export interface userCommentProps {
@@ -116,6 +117,8 @@ export interface pollListProps {
   // data provided for each poll
   polls: userPollProps[];
   genres?: string[];
+  thisUser: Boolean;
+  uName: string | undefined;
 }
 
 export interface loginState {

@@ -4,6 +4,7 @@ export function FAQ() {
   return (
     <section id="FAQ">
       <h1>FAQ</h1>
+      <h2>Voting in a poll</h2>
       <dl>
         <dt>How do I vote in a poll?</dt>
         <dd>
@@ -44,6 +45,9 @@ export function FAQ() {
             and comments.
           </p>
         </dd>
+      </dl>
+      <h2>Creating a poll</h2>
+      <dl>
         <dt>How do I create a poll?</dt>
         <dd>
           <p>
@@ -125,6 +129,20 @@ export function FAQ() {
             (essentially one per day). If you have reached that maximum, you
             will have to wait for one of your polls to expire before you can
             create another one.
+          </p>
+        </dd>
+
+        <dt>How do I delete a poll?</dt>
+        <dd>
+          <p>
+            You can deactivate a poll any time earlier than 15 days until its
+            expiration. Click your username in the main navigation, and in your
+            list of created polls click or tap on the{" "}
+            <span>deactivate poll</span> link.
+          </p>
+          <p>
+            If there is no link, then the poll is beyond its deactivation
+            window. You cannot reactivate a deactivated poll.
           </p>
         </dd>
       </dl>

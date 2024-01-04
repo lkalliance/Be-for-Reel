@@ -70,9 +70,15 @@ const resolvers = {
             })
           : await Genre.find({ title: genre });
 
-      const polls = lookupGenre === "all" ? rawPolls : rawPolls[0].polls;
+      const polls =
+        lookupGenre === "all"
+          ? rawPolls.filter((poll) => {
+              return !poll.deactivated;
+            })
+          : rawPolls[0].polls.filter((poll) => {
+              return !poll.deactivated;
+            });
 
-      // const genres = createGenreList(polls);
       const list = polls
         ? polls.map((poll) => {
             return {
@@ -85,6 +91,7 @@ const resolvers = {
               comments:
                 lookupGenre === "all" ? poll.comments.length : poll.comments,
               expires_on: poll.expires_on,
+              deactivated: poll.deactivated || false,
             };
           })
         : [];
@@ -96,6 +103,7 @@ const resolvers = {
         expires_on: {
           $gt: new Date(),
         },
+        deactivated: undefined || false,
       });
       // create a list of random indexes
       const pollList = [];
@@ -126,7 +134,10 @@ const resolvers = {
       const titles = ["all"];
       // iterate over each genre
       for (let i = 0; i < genres.length; i++) {
-        titles.push(genres[i].title);
+        const polls = genres[i].polls.filter((poll) => {
+          return !poll.deactivated;
+        });
+        if (polls.length > 0) titles.push(genres[i].title);
       }
       return { titles };
     },
@@ -285,6 +296,7 @@ const resolvers = {
           comments: [],
           votes: [],
           voters: [],
+          deactivated: false,
         };
 
         // construct the object to be stored to the User and Genre
@@ -295,6 +307,7 @@ const resolvers = {
           expires_on: expires,
           votes: 0,
           comments: 0,
+          deactivated: false,
         };
 
         // create the poll, and if it fails return
@@ -457,6 +470,44 @@ const resolvers = {
 
         // return the updated Poll and token
         return { poll: whichPoll, token: { token } };
+      }
+    },
+    deactivatePoll: async (parent, { poll_id }, context) => {
+      if (context.user) {
+        // update the given poll to be deactivated
+        try {
+          const pollUpdate = await Poll.findOneAndUpdate(
+            { _id: poll_id },
+            { deactivated: true },
+            { new: true, useFindAndModity: false }
+          );
+
+          // update the user's poll list
+          const userUpdate = await User.findOneAndUpdate(
+            { lookupName: context.user.lookupName, "polls.poll_id": poll_id },
+            { "polls.$.deactivated": true },
+            { new: true, useFindAndModify: false }
+          );
+
+          // update each genre document
+          pollUpdate.genre.forEach(async (genre) => {
+            if (genre !== "all") {
+              const genreUpdate = await Genre.findOneAndUpdate(
+                { title: genre, "polls.poll_id": poll_id },
+                { "polls.$.deactivated": true },
+                { new: true, useFindAndModify: false, upsert: false }
+              );
+            }
+          });
+          return {
+            title: pollUpdate.title,
+            deactivated: pollUpdate.deactivated,
+          };
+        } catch (err) {
+          console.log(err);
+        }
+
+        // return the updated poll
       }
     },
   },

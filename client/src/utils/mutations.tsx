@@ -93,3 +93,12 @@ export const VOTE = gql`
     }
   }
 `;
+
+export const DEACTIVATE_POLL = gql`
+  mutation DeactivatePoll($poll_id: String!) {
+    deactivatePoll(poll_id: $poll_id) {
+      title
+      deactivated
+    }
+  }
+`;

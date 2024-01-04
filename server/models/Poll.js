@@ -153,6 +153,10 @@ const pollSchema = new Schema({
     type: [String],
     required: false,
   },
+  deactivated: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Poll = model("Poll", pollSchema);

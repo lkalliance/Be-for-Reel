@@ -1,17 +1,12 @@
 // This component renders the Create a Poll page
 
 import "./Create.css";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "@apollo/client/utilities";
 import { AuthService } from "../../utils/auth";
-import {
-  movieProps,
-  pollListProps,
-  userData,
-  searchOptions,
-} from "../../utils/interfaces";
+import { movieProps, userData, searchOptions } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 import { convertLengthVals, thisYear, pollLimit } from "../../utils/typeUtils";
@@ -29,12 +24,7 @@ interface pollOptions {
   userGenre: string;
 }
 
-interface createProps {
-  updateList: Dispatch<SetStateAction<pollListProps>>;
-  currentList: pollListProps;
-}
-
-export function Create({ updateList, currentList }: createProps) {
+export function Create() {
   const Auth = new AuthService();
 
   // used to reset options values
@@ -72,7 +62,7 @@ export function Create({ updateList, currentList }: createProps) {
   const [pollData, setPollData] = useState<pollOptions>({
     title: "",
     description: "",
-    userGenre: "none",
+    userGenre: "all",
   }); // tracks text in poll title and description fields
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
@@ -279,6 +269,9 @@ export function Create({ updateList, currentList }: createProps) {
 
     // determine origin and destination, remove clicked from origin and put in destination
     const type = e.currentTarget.dataset.type;
+    // if this is an attempt to add a 13th film, forget it.
+    if (type === "search" && selected.length >= 12) return;
+
     const genres = e.currentTarget.dataset.genres;
     const originList = type === "search" ? [...results] : [...selected];
     const clicked = originList.splice(Number(e.currentTarget.dataset.index), 1);
@@ -315,7 +308,7 @@ export function Create({ updateList, currentList }: createProps) {
     setGenreTracker(genreTemp);
 
     // check if user genre selection needs to be nulled
-    if (!genreValid()) setPollData({ ...pollData, userGenre: "none" });
+    if (!genreValid()) setPollData({ ...pollData, userGenre: "all" });
   };
 
   return (
@@ -396,6 +389,13 @@ export function Create({ updateList, currentList }: createProps) {
                 ""
               )}
               <h5 className="center">Selected Films</h5>
+              {selected.length >= 12 ? (
+                <div className="alert alert-primary">
+                  Maximum poll options reached.
+                </div>
+              ) : (
+                ""
+              )}
               <ul id="selected">
                 {selected.map((selected, index) => {
                   return (

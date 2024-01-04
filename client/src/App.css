@@ -12,6 +12,7 @@
   --item-background: rgba(0, 0, 0, 0.5);
   --item-background-hover: rgba(78, 89, 135, 0.5);
   --item-background-light: rgba(255, 255, 255, 0.1);
+  --warning-color: rgb(179, 42, 42);
   --main-max-width: 800px;
 }
 

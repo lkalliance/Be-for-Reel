@@ -6,6 +6,10 @@ section#FAQ {
   margin-right: auto;
 }
 
+section#FAQ h2 {
+  margin-top: 24px;
+}
+
 section#FAQ dl {
   color: white;
 }
