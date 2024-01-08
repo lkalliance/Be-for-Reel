@@ -15,7 +15,7 @@ import { useMutation } from "@apollo/client";
 import { DEACTIVATE_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
 import { AuthService } from "../../utils/auth";
-
+import { ActionLink } from "../../components";
 import { userPollProps } from "../../utils/interfaces";
 import { convertMonth } from "../../utils/typeUtils";
 import { UsernameLink } from "../../components";
@@ -138,18 +138,18 @@ export function PollListing({ user, directory }: listProps) {
           </em>
 
           {user.poll.deactivatable && user.thisUser && (
-            <div className="deactivate-link">
-              <span data-id={user.poll.poll_id} onClick={cancelPoll}>
-                deactivate poll
-              </span>
-            </div>
+            <ActionLink
+              text="deactivate"
+              handler={cancelPoll}
+              pollId={user.poll.poll_id}
+            />
           )}
           {user.poll.editable && user.thisUser && (
-            <div className="edit-link">
-              <span data-id={user.poll.poll_id} onClick={editPoll}>
-                edit poll
-              </span>
-            </div>
+            <ActionLink
+              text="edit"
+              handler={editPoll}
+              pollId={user.poll.poll_id}
+            />
           )}
         </>
       ) : (

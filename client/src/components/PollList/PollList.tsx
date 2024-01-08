@@ -24,7 +24,6 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
 
   const cancelPoll = async (e: React.MouseEvent<HTMLElement>) => {
     // this handler deactivates a poll
-
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
@@ -40,7 +39,6 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
 
   const editPoll = async (e: React.MouseEvent<HTMLElement>) => {
     // this handler sets to edit a poll
-
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
@@ -63,51 +61,6 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
                 user={{ poll, thisUser, editPoll, cancelPoll }}
                 key={index}
               />
-              // <li
-              //   className={
-              //     // if poll is deactivated and this isn't the poll's creator, hide it
-              //     !thisUser && (poll.deactivated || poll.editable)
-              //       ? "hidden"
-              //       : "list-member-12"
-              //   }
-              //   key={index}
-              // >
-              //   {!poll.deactivated ? (
-              //     // poll is not deactivated
-              //     <>
-              //       <Link to={poll.urlTitle} className="reverse">
-              //         {poll.title}
-              //       </Link>
-              //       <em>
-              //         {`${poll.votes} vote`}
-              //         {poll.votes !== 1 ? "s" : ""} and{" "}
-              //         {`${poll.comments} comment`}
-              //         {poll.comments !== 1 ? "s" : ""}
-              //       </em>
-
-              //       {poll.deactivatable && thisUser && (
-              //         <div className="deactivate-link">
-              //           <span data-id={poll.poll_id} onClick={cancelPoll}>
-              //             deactivate poll
-              //           </span>
-              //         </div>
-              //       )}
-              //       {poll.editable && thisUser && (
-              //         <div className="edit-link">
-              //           <span data-id={poll.poll_id} onClick={editPoll}>
-              //             edit poll
-              //           </span>
-              //         </div>
-              //       )}
-              //     </>
-              //   ) : (
-              //     // poll is deactivated
-              //     <div className="deactivated">
-              //       <h6>{poll.title}</h6>
-              //       <div>You deactivated this poll</div>
-              //     </div>
-              //   )}
-              // </li>
             );
           })}
         </ul>
