@@ -60,6 +60,7 @@ export function PollListing({ user, directory }: listProps) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { data } = await deactivatePoll({
         variables: {
           poll_id: id,

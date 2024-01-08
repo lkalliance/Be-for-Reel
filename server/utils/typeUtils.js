@@ -57,8 +57,8 @@ module.exports = {
     // creates current, expiration, edit and deactivate deadlines
 
     const expDays = 30; // days until expiration
-    const editMin = 30; // minutes until editing locked
-    const deacDays = 1; // days until deactivation locked
+    const editMin = 10; // minutes until editing locked
+    const deacDays = 2; // days until deactivation locked
 
     const today = new Date();
     const exp = new Date(
