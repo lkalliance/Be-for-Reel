@@ -46,6 +46,7 @@ export const convertGrossVals = (index: number) => {
 };
 
 export const convertMonth = (date: Date) => {
+  const dateObj = new Date(date);
   const months = [
     "Jan.",
     "Feb.",
@@ -61,7 +62,7 @@ export const convertMonth = (date: Date) => {
     "Dec",
   ];
 
-  return `${months[date.getMonth()]} ${date.getDate()}`;
+  return `${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
 };
 
 export const thisYear = () => {

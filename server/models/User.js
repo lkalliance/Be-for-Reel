@@ -23,6 +23,14 @@ const userPolls = new Schema({
     type: Date,
     required: true,
   },
+  edit_deadline: {
+    type: Date,
+    required: true,
+  },
+  deactivate_deadline: {
+    type: Date,
+    required: true,
+  },
   winning: {
     type: String,
     required: false,

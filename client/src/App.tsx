@@ -45,9 +45,7 @@ const client = new ApolloClient({
 
 function App() {
   const Auth = new AuthService();
-  const emptyPollList: Array<userPollProps> = [];
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
-  const [pollList, setPollList] = useState({ polls: emptyPollList });
   const userInfo: userData = Auth.getProfile();
 
   return (

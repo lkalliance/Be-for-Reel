@@ -6,20 +6,26 @@ const {
   createLookupName,
   createUrlTitle,
   condenseGenres,
+  createDates,
+  setStatuses,
 } = require("../utils/typeUtils");
 const { User, Poll, Movie, Genre } = require("../models");
 const fetch = require("axios");
-const today = new Date();
 
 const resolvers = {
   Date: DateResolver,
   Query: {
     getUser: async (parent, { lookupname }) => {
+      // first find the user
       const user = await User.findOne({ lookupName: lookupname });
+      // sort their polls by expiration
       user.polls.sort((a, b) => {
         return b.expires_on - a.expires_on;
       });
-      return user ? user : false;
+      // augment the user with flags for editing, deactivating, expired
+      const newUser = { ...user._doc, polls: setStatuses(user._doc.polls) };
+
+      return newUser || false;
     },
     getUsers: async () => {
       const users = await User.find().sort({
@@ -55,13 +61,11 @@ const resolvers = {
       const poll = await Poll.findOne({
         urlTitle: `/${lookupname}/${pollname}`,
       });
-      return poll ? poll : false;
+      const updatedPoll = setStatuses([poll]);
+      return poll ? updatedPoll[0] : false;
     },
     getPolls: async (parent, { genre }) => {
       const lookupGenre = genre || "all";
-      // to be used to identify expiration
-      // const expires = new Date(poll.expires_on);
-      // const expired = new Date(poll.expires_on) < new Date();
 
       const rawPolls =
         lookupGenre === "all"
@@ -79,29 +83,39 @@ const resolvers = {
               return !poll.deactivated;
             });
 
-      const list = polls
-        ? polls.map((poll) => {
-            return {
-              poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
-              title: poll.title,
-              urlTitle: poll.urlTitle,
-              username: poll.username,
-              genre: poll.genre,
-              votes: lookupGenre === "all" ? poll.votes.length : poll.votes,
-              comments:
-                lookupGenre === "all" ? poll.comments.length : poll.comments,
-              expires_on: poll.expires_on,
-              deactivated: poll.deactivated || false,
-            };
-          })
-        : [];
+      const updatedPolls = polls ? setStatuses(polls) : [];
+
+      const list = updatedPolls.map((poll) => {
+        return {
+          poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
+          title: poll.title,
+          urlTitle: poll.urlTitle,
+          username: poll.username,
+          genre: poll.genre,
+          votes: lookupGenre === "all" ? poll.votes.length : poll.votes,
+          comments:
+            lookupGenre === "all" ? poll.comments.length : poll.comments,
+          expires_on: poll.expires_on,
+          expired: poll.expired,
+          editable: poll.editable,
+          deactivatable: poll.deactivatable,
+          deactivated: poll.deactivated || false,
+        };
+      });
+
+      console.log(list);
 
       return list ? { polls: list } : null;
     },
+
     getHomePolls: async (parent) => {
       const polls = await Poll.find({
         expires_on: {
           $gt: new Date(),
+        },
+        deactivated: false,
+        edit_deadline: {
+          $lt: new Date(),
         },
       });
 
@@ -214,8 +228,6 @@ const resolvers = {
       { title, description, movieIds, userGenre },
       context
     ) => {
-      // how many days before expiration
-      const age = 30;
       // make sure the user is actually logged in
       if (context.user) {
         const optGenres = [];
@@ -273,17 +285,8 @@ const resolvers = {
           })
         );
 
-        const today = new Date();
-        const expires = new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() + age,
-          0,
-          0,
-          0
-        );
+        const cutoffs = createDates();
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
-
         const lookupGenre = condenseGenres(optGenres, userGenre);
 
         // construct the object to be stored to the Polls collection
@@ -294,8 +297,10 @@ const resolvers = {
           genre: lookupGenre.length > 0 ? lookupGenre : ["all"],
           user_id: context.user._id,
           username: context.user.userName,
-          created_on: today,
-          expires_on: expires,
+          created_on: cutoffs.today,
+          expires_on: cutoffs.exp,
+          edit_deadline: cutoffs.edit,
+          deactivate_deadline: cutoffs.deac,
           options,
           comments: [],
           votes: [],
@@ -308,7 +313,9 @@ const resolvers = {
           title,
           urlTitle,
           username: context.user.userName,
-          expires_on: expires,
+          expires_on: cutoffs.exp,
+          edit_deadline: cutoffs.edit,
+          deactivate_deadline: cutoffs.deac,
           votes: 0,
           comments: 0,
           deactivated: false,
@@ -346,6 +353,7 @@ const resolvers = {
         return { poll_id: poll._id, title, redirect: urlTitle };
       }
     },
+
     castVote: async (
       parent,
       { userName, poll_id, option_id, movie, imdb_id, comment },
@@ -476,6 +484,7 @@ const resolvers = {
         return { poll: whichPoll, token: { token } };
       }
     },
+
     deactivatePoll: async (parent, { poll_id }, context) => {
       if (context.user) {
         // update the given poll to be deactivated

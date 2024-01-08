@@ -39,12 +39,13 @@ export function Poll({ currUser }: pollProps) {
 
   const poll = data?.getPoll;
   let opts = loading ? [] : [...poll.options];
-  const expires = loading ? null : new Date(poll.expires_on);
-  const expired = loading || !expires ? null : new Date() > expires;
+  const thisUser = loading ? null : userInfo._id === poll.user_id;
+
+  console.log(loading ? "loading" : poll);
 
   if (!loading) {
     // trap for loading
-    if (userInfo.votes[poll._id] || expired) {
+    if (userInfo.votes[poll._id] || poll.expired) {
       // if the user has voted, or the poll is expired, sort by votes
       opts.sort((a: optionProps, b: optionProps) => {
         return b.votes - a.votes;
@@ -107,10 +108,19 @@ export function Poll({ currUser }: pollProps) {
     }
   };
 
+  const editPoll = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(`Editing poll ${poll._id}`);
+  };
+
   return (
     <section id="poll">
       {loading ? (
         <div>Loading...</div>
+      ) : poll.editable && !thisUser ? (
+        // the poll is still editable and it isn't this user
+        <div className="edit-poll">
+          <span>This poll is not yet public.</span>
+        </div>
       ) : (
         <>
           <div id="question" className="list-member-20">
@@ -129,8 +139,8 @@ export function Poll({ currUser }: pollProps) {
                 <p id="yourvote">
                   You voted for <strong>{userInfo.votes[poll._id]}</strong>
                 </p>
-              ) : !expired ? (
-                // user has not voted on this poll, show comment form
+              ) : !poll.expired && !poll.editable ? (
+                // user has not voted on this poll, and it can't be edited, show the form
                 <fieldset>
                   <TextAreaField
                     id="comment"
@@ -150,6 +160,11 @@ export function Poll({ currUser }: pollProps) {
                     Vote!
                   </button>
                 </fieldset>
+              ) : poll.editable && thisUser ? (
+                // the poll is editable, show the link
+                <div className="edit-poll" onClick={editPoll}>
+                  <span>Edit this poll</span>
+                </div>
               ) : (
                 ""
               )
@@ -162,7 +177,7 @@ export function Poll({ currUser }: pollProps) {
                 to vote and to see results and comments
               </div>
             )}
-            {expired ? <p className="expired">This poll is closed</p> : ""}
+            {poll.expired ? <p className="expired">This poll is closed</p> : ""}
           </div>
           <div id="options">
             {opts.map((option: optionProps, index: Key | null | undefined) => {
@@ -172,13 +187,14 @@ export function Poll({ currUser }: pollProps) {
                   winner={option.votes === mostVotes}
                   opt={option}
                   loggedIn={loggedIn}
-                  expired={expired}
+                  expired={poll.expired}
                   selected={selected}
                   select={setSelected}
                   comment={setComment}
                   voted={userInfo.votes[poll._id]}
                   votes={userInfo.votes[poll._id] ? option.votes : undefined}
                   handleVote={handleVote}
+                  editable={poll.editable}
                 />
               );
             })}
@@ -195,7 +211,7 @@ export function Poll({ currUser }: pollProps) {
             </div>
           ) : (
             //user is not logged in, hide comments
-            <div></div>
+            <div className="hidden"></div>
           )}
         </>
       )}

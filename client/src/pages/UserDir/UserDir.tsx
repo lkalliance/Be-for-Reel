@@ -8,7 +8,6 @@ export function UserDir() {
   // get the user list
   const { loading, data } = useQuery(QUERY_ALL_USERS);
   const userList = loading ? [] : data.getUsers.users;
-  console.log(data);
   return (
     <section id="user-directory" className="container">
       <h1>Users</h1>

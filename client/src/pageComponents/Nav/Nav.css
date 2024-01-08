@@ -46,13 +46,15 @@ nav.navbar a.faq-round {
 nav.navbar div.round {
   background-color: var(--secondary-color);
   color: var(--page-background);
-  height: 28px;
-  width: 28px;
-  border-radius: 28px;
-  font-size: 1.2rem;
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+  font-size: 1.1rem;
   font-weight: 800;
-  line-height: 28px;
+  line-height: 24px;
   text-align: center;
+  position: relative;
+  top: 2px;
 }
 
 div.navbar-nav {
@@ -66,4 +68,10 @@ button.navbar-toggler {
 
 button.navbar-toggler span.navbar-toggler-icon {
   width: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  nav.navbar div.round {
+    top: -4px;
+  }
 }

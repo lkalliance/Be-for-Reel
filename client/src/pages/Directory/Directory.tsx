@@ -18,6 +18,9 @@ export function Directory() {
   const getPolls = useQuery(QUERY_ALL_POLLS, {
     variables: { username: "", genre },
   });
+
+  console.log(getPolls);
+
   // get all genres
   const getGenres = useQuery(QUERY_GENRES, {
     variables: { username: "", genre },
@@ -29,8 +32,7 @@ export function Directory() {
   const expiredPolls: userPollProps[] = [];
 
   list.map((poll: userPollProps) => {
-    const expired = new Date(poll.expires_on) < new Date();
-    if (!expired) notExpiredPolls.push(poll);
+    if (!poll.expired) notExpiredPolls.push(poll);
     else expiredPolls.push(poll);
   });
 
@@ -74,8 +76,10 @@ export function Directory() {
               return (
                 <PollListing
                   key={index}
-                  poll={poll}
-                  vote={votes[poll.poll_id] ? votes[poll.poll_id] : undefined}
+                  directory={{
+                    poll: poll,
+                    vote: votes[poll.poll_id] || "",
+                  }}
                 />
               );
             })
@@ -88,8 +92,10 @@ export function Directory() {
               return (
                 <PollListing
                   key={index}
-                  poll={poll}
-                  vote={votes[poll.poll_id] ? votes[poll.poll_id] : undefined}
+                  directory={{
+                    poll: poll,
+                    vote: votes[poll.poll_id] || "",
+                  }}
                 />
               );
             })

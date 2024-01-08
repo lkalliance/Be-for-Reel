@@ -53,4 +53,54 @@ module.exports = {
     }
     return genres;
   },
+  createDates: function () {
+    // creates current, expiration, edit and deactivate deadlines
+
+    const expDays = 30; // days until expiration
+    const editMin = 30; // minutes until editing locked
+    const deacDays = 1; // days until deactivation locked
+
+    const today = new Date();
+    const exp = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + expDays,
+      0,
+      0,
+      0
+    );
+    const edit = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      today.getHours(),
+      today.getMinutes() + editMin,
+      0
+    );
+    const deac = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + deacDays,
+      0,
+      0,
+      0
+    );
+    return { today, exp, edit, deac };
+  },
+  setStatuses: function (polls) {
+    // turns deadline dates into booleans
+    const today = new Date();
+    const newPolls = polls.map((poll) => {
+      return {
+        ...poll._doc,
+        expired: poll._doc.expires_on < today,
+        editable: poll._doc.edit_deadline > today,
+        deactivatable:
+          !poll._doc.deactivated && poll.deactivate_deadline > today,
+      };
+    });
+    // console.log(newPolls);
+
+    return newPolls;
+  },
 };

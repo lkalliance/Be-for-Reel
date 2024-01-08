@@ -18,8 +18,10 @@ export function DirectoryColumn({ polls, votes }: directoryColumnProps) {
               return (
                 <PollListing
                   key={index}
-                  poll={poll}
-                  vote={votes[poll.poll_id] ? votes[poll.poll_id] : undefined}
+                  directory={{
+                    poll: poll,
+                    vote: votes[poll.poll_id] || "",
+                  }}
                 />
               );
             })

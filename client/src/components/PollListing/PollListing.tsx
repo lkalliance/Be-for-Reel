@@ -11,43 +11,156 @@ poll: an object containing all data for the poll's display:
 
 import "./PollListing.css";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { DEACTIVATE_POLL } from "../../utils/mutations";
+import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
+import { AuthService } from "../../utils/auth";
+
 import { userPollProps } from "../../utils/interfaces";
 import { convertMonth } from "../../utils/typeUtils";
 import { UsernameLink } from "../../components";
 
-interface listProps {
+interface directoryPollListingProps {
   poll: userPollProps;
-  vote?: string;
+  vote: string;
 }
 
-export function PollListing({ poll, vote }: listProps) {
-  const expires = new Date(poll.expires_on);
-  const expired = expires < new Date();
-  return (
-    <div className="col col-12 col-lg-6">
-      <div
-        className={
-          expired
-            ? "poll-listing list-member-12 expired"
-            : "poll-listing list-member-12"
-        }
-      >
-        <Link to={poll.urlTitle}>{poll.title}</Link>
-        <span>
-          <UsernameLink username={poll.username} />
-        </span>
-        {vote ? (
-          <p className="sub-info">
-            you voted for <strong>{`${vote}`}</strong>
+interface userPollListingProps {
+  poll: userPollProps;
+  thisUser: Boolean;
+  editPoll: (e: React.MouseEvent<HTMLElement>) => void;
+  cancelPoll: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+interface listProps {
+  user?: userPollListingProps;
+  directory?: directoryPollListingProps;
+}
+
+export function PollListing({ user, directory }: listProps) {
+  const auth = new AuthService();
+  const whoIsThis = auth.getProfile().lookupName;
+
+  const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
+    refetchQueries: () => [
+      {
+        query: QUERY_ALL_POLLS,
+        variables: { username: "" },
+      },
+      {
+        query: QUERY_SINGLE_USER,
+        variables: { lookupname: whoIsThis },
+      },
+    ],
+  });
+
+  const cancelPoll = async (e: React.MouseEvent<HTMLElement>) => {
+    // this handler deactivates a poll
+
+    e.preventDefault();
+    const id = e.currentTarget.dataset.id;
+    try {
+      const { data } = await deactivatePoll({
+        variables: {
+          poll_id: id,
+        },
+      });
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const editPoll = async (e: React.MouseEvent<HTMLElement>) => {
+    // this handler sets to edit a poll
+
+    e.preventDefault();
+    const id = e.currentTarget.dataset.id;
+    try {
+      console.log(`Editing poll ${id}`);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  return directory ? (
+    directory.poll.editable ? (
+      // main directory page, editable poll
+      <div className="hidden"></div>
+    ) : (
+      <div className="col col-12 col-lg-6">
+        <div
+          className={
+            directory.poll.expired
+              ? "poll-listing list-member-12 expired"
+              : "poll-listing list-member-12"
+          }
+        >
+          <Link to={directory.poll.urlTitle}>{directory.poll.title}</Link>
+          <span>
+            <UsernameLink username={directory.poll.username} />
+          </span>
+          {directory.vote.length > 0 ? (
+            <p className="sub-info">
+              you voted for <strong>{`${directory.vote}`}</strong>
+            </p>
+          ) : null}
+          <p>
+            {` ${directory.poll.votes} vote`}
+            {directory.poll.votes !== 1 ? "s" : ""} and{" "}
+            {`${directory.poll.comments} comment`}
+            {directory.poll.comments !== 1 ? "s" : ""}
+            {directory.poll.expired
+              ? ""
+              : ` (expires ${convertMonth(directory.poll.expires_on)})`}
           </p>
-        ) : null}
-        <p>
-          {` ${poll.votes} vote`}
-          {poll.votes !== 1 ? "s" : ""} and {`${poll.comments} comment`}
-          {poll.comments !== 1 ? "s" : ""}
-          {expired ? "" : ` (expires ${convertMonth(expires)})`}
-        </p>
+        </div>
       </div>
-    </div>
+    )
+  ) : user ? (
+    <li
+      className={
+        // if poll is deactivated and this isn't the poll's creator, hide it
+        !user.thisUser && (user.poll.deactivated || user.poll.editable)
+          ? "hidden"
+          : "list-member-12"
+      }
+    >
+      {!user.poll.deactivated ? (
+        // poll is not deactivated
+        <>
+          <Link to={user.poll.urlTitle} className="reverse">
+            {user.poll.title}
+          </Link>
+          <em>
+            {`${user.poll.votes} vote`}
+            {user.poll.votes !== 1 ? "s" : ""} and{" "}
+            {`${user.poll.comments} comment`}
+            {user.poll.comments !== 1 ? "s" : ""}
+          </em>
+
+          {user.poll.deactivatable && user.thisUser && (
+            <div className="deactivate-link">
+              <span data-id={user.poll.poll_id} onClick={cancelPoll}>
+                deactivate poll
+              </span>
+            </div>
+          )}
+          {user.poll.editable && user.thisUser && (
+            <div className="edit-link">
+              <span data-id={user.poll.poll_id} onClick={editPoll}>
+                edit poll
+              </span>
+            </div>
+          )}
+        </>
+      ) : (
+        // poll is deactivated
+        <div className="deactivated">
+          <h6>{user.poll.title}</h6>
+          <div>You deactivated this poll</div>
+        </div>
+      )}
+    </li>
+  ) : (
+    <div className="hidden"></div>
   );
 }

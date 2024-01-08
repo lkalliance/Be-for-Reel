@@ -14,7 +14,8 @@
   font-size: 0.8rem;
 }
 
-#user-poll-list .deactivate-link {
+#user-poll-list .deactivate-link,
+#user-poll-list .edit-link {
   color: white;
   display: flex;
   justify-content: flex-end;
@@ -22,10 +23,12 @@
   font-weight: bold;
 }
 
-#user-poll-list .deactivate-link span {
+#user-poll-list .deactivate-link span,
+#user-poll-list .edit-link span {
   cursor: pointer;
 }
 
-#user-poll-list .deactivate-link span:hover {
+#user-poll-list .deactivate-link span:hover,
+#user-poll-list .edit-link span:hover {
   color: var(--link-hover);
 }

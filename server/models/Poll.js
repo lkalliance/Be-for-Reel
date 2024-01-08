@@ -139,6 +139,14 @@ const pollSchema = new Schema({
     type: Date,
     required: true,
   },
+  edit_deadline: {
+    type: Date,
+    required: true,
+  },
+  deactivate_deadline: {
+    type: Date,
+    required: true,
+  },
   options: [pollOption],
   comments: [pollComment],
   votes: {
