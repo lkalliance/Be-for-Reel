@@ -70,3 +70,8 @@ div.edit-poll span {
 div.edit-poll span:hover {
   color: var(--link-hover);
 }
+
+div.deactivated {
+  text-align: center;
+  color: white;
+}

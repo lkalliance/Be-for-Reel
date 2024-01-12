@@ -76,7 +76,6 @@ const resolvers = {
     },
 
     getPolls: async (parent, { genre }) => {
-      console.log(genre);
       // returns a list of all polls
       const lookupGenre = genre || "all";
 
@@ -186,7 +185,7 @@ const resolvers = {
 
       // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
-      // confert username to lookup name
+      // convert username to lookup name
       // (all lower case, alphanumeric, and hyphens for spaces)
       const lookupName = createLookupName(userName);
 
@@ -350,11 +349,12 @@ const resolvers = {
         );
 
         // add the poll to its genres
-        if (newPoll.genre.length > 0) {
-          for (let i = 0; i < newPoll.genre.length; i++) {
-            if (newPoll.genre[i] !== "all") {
-              const updatedGenre = await Genre.findOneAndUpdate(
-                { title: poll.genre[i] },
+        const genres = [...new Set(newPoll.genre)];
+        if (genres.length > 0) {
+          for (let i = 0; i < genres.length; i++) {
+            if (genres[i] !== "all") {
+              await Genre.findOneAndUpdate(
+                { title: genres[i] },
                 { $addToSet: { polls: newUserPoll } },
                 { upsert: true, new: true, useFindAndModify: false }
               );

@@ -13,6 +13,7 @@ export function Profile() {
   const auth = new AuthService();
   const whoIsThis = auth.getProfile().lookupName;
   const { username } = useParams();
+  const thisUser = whoIsThis === username;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loading, data } = useQuery(QUERY_SINGLE_USER, {
@@ -35,7 +36,7 @@ export function Profile() {
               <div className="col col-12 col-sm-6">
                 <PollList
                   polls={userData.polls}
-                  thisUser={whoIsThis === username}
+                  thisUser={thisUser}
                   uName={username}
                 />
               </div>
@@ -53,7 +54,7 @@ export function Profile() {
                           {comment.title}
                         </Link>
                         <p className="sub-info">
-                          You voted for{" "}
+                          {`${thisUser ? "you " : ""}`}voted for{" "}
                           <span className="your-vote">{`${comment.movie}`}</span>
                         </p>
                         <p className="comment-text">{comment.text}</p>

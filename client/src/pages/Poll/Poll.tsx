@@ -38,10 +38,9 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
+  console.log(loading ? "loading" : poll);
   let opts = loading ? [] : [...poll.options];
   const thisUser = loading ? null : userInfo._id === poll.user_id;
-
-  console.log(loading ? "loading" : poll);
 
   if (!loading) {
     // trap for loading
@@ -116,6 +115,10 @@ export function Poll({ currUser }: pollProps) {
     <section id="poll">
       {loading ? (
         <div>Loading...</div>
+      ) : poll.deactivated ? (
+        <div className="deactivated list-member-20">
+          This poll has been removed.
+        </div>
       ) : poll.editable && !thisUser ? (
         // the poll is still editable and it isn't this user
         <div className="edit-poll">
@@ -137,7 +140,7 @@ export function Poll({ currUser }: pollProps) {
               userInfo.votes[poll._id] ? (
                 // user has voted on this poll, show their vote
                 <p id="yourvote">
-                  You voted for <strong>{userInfo.votes[poll._id]}</strong>
+                  you voted for <strong>{userInfo.votes[poll._id]}</strong>
                 </p>
               ) : !poll.expired && !poll.editable ? (
                 // user has not voted on this poll, and it can't be edited, show the form

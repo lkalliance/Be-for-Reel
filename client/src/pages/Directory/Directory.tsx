@@ -19,8 +19,6 @@ export function Directory() {
     variables: { username: "", genre },
   });
 
-  console.log(getPolls);
-
   // get all genres
   const getGenres = useQuery(QUERY_GENRES, {
     variables: { username: "", genre },
