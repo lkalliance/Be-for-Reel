@@ -182,11 +182,31 @@ const resolvers = {
     },
 
     getMovies: async (parent, { number }) => {
-      // return a list of all movies, sorted by votes received, up to a number
+      // returns a list of all movies, sorted by votes received, up to a number
       const movies = await Movie.find().sort({
         votes: -1,
       });
-      const list = number ? movies.slice(0, number) : movies;
+
+      // iterate until reach number, then continue to iterate until all ties resolved
+      const list = [];
+      let counter = 0;
+      let adding = true;
+      while (adding) {
+        // add this movie to the list
+        list.push(movies[counter]);
+
+        counter++;
+        // does the NEXT movie have the same votes?
+        if (
+          movies[counter].votes !== movies[counter - 1].votes &&
+          counter >= number
+        ) {
+          adding = false;
+        }
+
+        // trap against infinite loop
+        if (counter === 100 || counter === movies.length - 1) adding = false;
+      }
       return { movies: list };
     },
   },
