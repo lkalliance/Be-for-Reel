@@ -114,6 +114,7 @@ const typeDefs = gql`
     urlTitle: String!
     movie: String!
     text: String!
+    deactivated: Boolean
   }
 
   type userVotes {

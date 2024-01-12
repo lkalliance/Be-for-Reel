@@ -84,6 +84,10 @@ const userComments = new Schema({
     type: String,
     required: true,
   },
+  deactivated: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const userSchema = new Schema({

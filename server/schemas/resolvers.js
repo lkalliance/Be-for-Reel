@@ -25,7 +25,13 @@ const resolvers = {
       // sort their comments by most recent first
       user.comments.reverse();
       // augment the user with flags for editing, deactivating, expired
-      const newUser = { ...user._doc, polls: setStatuses(user._doc.polls) };
+      const newUser = {
+        ...user._doc,
+        polls: setStatuses(user._doc.polls),
+        comments: user.comments.filter((comment) => {
+          return !comment.deactivated;
+        }),
+      };
 
       return newUser || false;
     },
@@ -43,7 +49,9 @@ const resolvers = {
               userName: user.userName,
               lookupName: user.lookupName,
               created: user.created,
-              polls: user.polls.length,
+              polls: user.polls.filter((poll) => {
+                return !poll.deactivated && poll.edit_deadline < new Date();
+              }).length,
               votes: user.votes.length,
               comments: user.comments.length,
             };
@@ -88,7 +96,12 @@ const resolvers = {
             })
           : await Genre.find({ title: genre });
 
-      const polls = lookupGenre === "all" ? rawPolls : rawPolls[0].polls;
+      const polls =
+        lookupGenre === "all"
+          ? rawPolls
+          : rawPolls[0].polls.filter((poll) => {
+              return !poll.deactivated;
+            });
 
       // set various flags
       const updatedPolls = polls ? setStatuses(polls) : [];
@@ -394,6 +407,7 @@ const resolvers = {
                   username: userName,
                   movie,
                   text: comment,
+                  deactivated: false,
                 },
               },
               $inc: { "options.$.votes": 1 },
@@ -486,7 +500,7 @@ const resolvers = {
         }
 
         // fifth: update the movie's overall vote count
-        const updatedMovie = await Movie.findOneAndUpdate(
+        await Movie.findOneAndUpdate(
           { imdb_id: imdb_id },
           { $inc: { votes: 1 } },
           { new: true, useFindAndModify: false, upsert: true }
@@ -499,8 +513,8 @@ const resolvers = {
 
     deactivatePoll: async (parent, { poll_id }, context) => {
       if (context.user) {
-        // update the given poll to be deactivated
         try {
+          // update the given poll to be deactivated
           const pollUpdate = await Poll.findOneAndUpdate(
             { _id: poll_id },
             { deactivated: true },
@@ -508,7 +522,7 @@ const resolvers = {
           );
 
           // update the user's poll list
-          const userUpdate = await User.findOneAndUpdate(
+          await User.findOneAndUpdate(
             { lookupName: context.user.lookupName, "polls.poll_id": poll_id },
             { "polls.$.deactivated": true },
             { new: true, useFindAndModify: false }
@@ -524,6 +538,14 @@ const resolvers = {
               );
             }
           });
+
+          // deactivate users' comments on poll
+          await User.updateMany(
+            { "comments.poll_id": poll_id },
+            { "comments.$.deactivated": true },
+            { new: true, useFindAndModify: false }
+          );
+
           return {
             title: pollUpdate.title,
             deactivated: pollUpdate.deactivated,

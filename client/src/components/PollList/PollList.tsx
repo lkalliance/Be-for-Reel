@@ -1,7 +1,6 @@
 // This component renders a list of polls
 
 import "./PollList.css";
-import { Link } from "react-router-dom";
 import { pollListProps } from "../../utils/interfaces";
 import { useMutation } from "@apollo/client";
 import { DEACTIVATE_POLL } from "../../utils/mutations";
@@ -27,7 +26,7 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
-      const { data } = await deactivatePoll({
+      await deactivatePoll({
         variables: {
           poll_id: id,
         },

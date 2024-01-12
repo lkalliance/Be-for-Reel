@@ -121,8 +121,8 @@ export function Poll({ currUser }: pollProps) {
         </div>
       ) : poll.editable && !thisUser ? (
         // the poll is still editable and it isn't this user
-        <div className="edit-poll">
-          <span>This poll is not yet public.</span>
+        <div className="deactivated list-member-20">
+          This poll is not yet public.
         </div>
       ) : (
         <>
