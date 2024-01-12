@@ -8,6 +8,7 @@ module.exports = {
       .replace(/[^A-Za-z0-9\s\'\‘\,]/g, "");
     return cleanedName;
   },
+
   createLookupName: function (userName) {
     // converts a username to a lookupname:
     // lowercase alphanumeric, with hyphens for spaces
@@ -18,6 +19,7 @@ module.exports = {
       .toLowerCase();
     return lookupName;
   },
+
   createUrlTitle: function (title) {
     // converts a poll title to URL-used form:
     // lowercase alphanumeric, with hyphens for spaces
@@ -27,6 +29,7 @@ module.exports = {
       .replace(/[\s]+/g, "-");
     return pollUrlTitle;
   },
+
   createVoteGuide: function (votes) {
     // creates a vote history object to store in token
     const voteObj = {};
@@ -35,6 +38,7 @@ module.exports = {
     });
     return voteObj;
   },
+
   condenseGenres: function (genreLists, userGenre) {
     // finds genres common to all provided movies
     const genres = genreLists.reduce((prev, curr) =>
@@ -44,6 +48,7 @@ module.exports = {
     if (genres.indexOf(userGenre) === -1) genres.push(userGenre.toLowerCase());
     return genres;
   },
+
   createGenreList: function (genreList) {
     // creates a master list of all genres
     const genres = ["all"];
@@ -53,6 +58,7 @@ module.exports = {
     }
     return genres;
   },
+
   createDates: function () {
     // creates current, expiration, edit and deactivate deadlines
 
@@ -87,6 +93,7 @@ module.exports = {
     );
     return { today, exp, edit, deac };
   },
+
   setStatuses: function (polls) {
     // turns deadline dates into booleans
     const today = new Date();
@@ -99,7 +106,6 @@ module.exports = {
           !poll._doc.deactivated && poll.deactivate_deadline > today,
       };
     });
-    // console.log(newPolls);
 
     return newPolls;
   },

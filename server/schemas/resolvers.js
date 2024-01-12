@@ -16,21 +16,26 @@ const resolvers = {
   Date: DateResolver,
   Query: {
     getUser: async (parent, { lookupname }) => {
-      // first find the user
+      // returns a specific user's document
       const user = await User.findOne({ lookupName: lookupname });
       // sort their polls by expiration
       user.polls.sort((a, b) => {
         return b.expires_on - a.expires_on;
       });
+      // sort their comments by most recent first
+      user.comments.reverse();
       // augment the user with flags for editing, deactivating, expired
       const newUser = { ...user._doc, polls: setStatuses(user._doc.polls) };
 
       return newUser || false;
     },
+
     getUsers: async () => {
+      // returns full list of users
       const users = await User.find().sort({
         userName: 1,
       });
+      // convert arrays into lengths for return
       const list = users
         ? users.map((user) => {
             return {
@@ -46,7 +51,10 @@ const resolvers = {
         : [];
       return { users: list };
     },
+
     getMyVotes: async (parent, { username }) => {
+      // returns logged-in user's list of votes
+      // currently not in use
       const empty = { votes: [] };
       if (username === "") return empty;
       const user = await User.findOne({ userName: username }, (err, user) => {
@@ -57,34 +65,36 @@ const resolvers = {
       });
       return user ? { votes: user.votes } : false;
     },
+
     getPoll: async (parent, { lookupname, pollname }) => {
+      // returns one specific poll
       const poll = await Poll.findOne({
         urlTitle: `/${lookupname}/${pollname}`,
       });
       const updatedPoll = setStatuses([poll]);
       return poll ? updatedPoll[0] : false;
     },
+
     getPolls: async (parent, { genre }) => {
+      console.log(genre);
+      // returns a list of all polls
       const lookupGenre = genre || "all";
 
+      // either retrieve a reference to polls documents,
+      // or a genre document
       const rawPolls =
         lookupGenre === "all"
-          ? await Poll.find().sort({
+          ? await Poll.find({ deactivated: false }).sort({
               created_on: -1,
             })
           : await Genre.find({ title: genre });
 
-      const polls =
-        lookupGenre === "all"
-          ? rawPolls.filter((poll) => {
-              return !poll.deactivated;
-            })
-          : rawPolls[0].polls.filter((poll) => {
-              return !poll.deactivated;
-            });
+      const polls = lookupGenre === "all" ? rawPolls : rawPolls[0].polls;
 
+      // set various flags
       const updatedPolls = polls ? setStatuses(polls) : [];
 
+      // normalize return (polls vs. genre)
       const list = updatedPolls.map((poll) => {
         return {
           poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
@@ -103,12 +113,11 @@ const resolvers = {
         };
       });
 
-      console.log(list);
-
       return list ? { polls: list } : null;
     },
 
-    getHomePolls: async (parent) => {
+    getHomePolls: async () => {
+      // returns polls for the home page
       const polls = await Poll.find({
         expires_on: {
           $gt: new Date(),
@@ -119,47 +128,49 @@ const resolvers = {
         },
       });
 
-      const activePolls = polls.filter((poll) => {
-        return !poll.deactivated;
-      });
-
       // create a list of random indexes
       const pollList = [];
-      const limit = activePolls.length >= 6 ? 6 : activePolls.length;
+      const limit = polls.length >= 6 ? 6 : polls.length;
       while (pollList.length < limit) {
-        const rand = Math.trunc(Math.random() * activePolls.length);
+        const rand = Math.trunc(Math.random() * polls.length);
         if (pollList.indexOf(rand) === -1) pollList.push(rand);
       }
 
       const list = pollList.map((pollIndex) => {
         // generate list of polls from random indexes
         return {
-          _id: activePolls[pollIndex]._id,
-          title: activePolls[pollIndex].title,
-          urlTitle: activePolls[pollIndex].urlTitle,
-          username: activePolls[pollIndex].username,
-          options: activePolls[pollIndex].options,
-          created_on: activePolls[pollIndex].created_on,
-          expires_on: activePolls[pollIndex].expires_on,
-          votes: activePolls[pollIndex].votes,
+          _id: polls[pollIndex]._id,
+          title: polls[pollIndex].title,
+          urlTitle: polls[pollIndex].urlTitle,
+          username: polls[pollIndex].username,
+          options: polls[pollIndex].options,
+          created_on: polls[pollIndex].created_on,
+          expires_on: polls[pollIndex].expires_on,
+          votes: polls[pollIndex].votes,
         };
       });
 
       return list ? { polls: list } : { polls: false };
     },
-    getGenres: async (parent) => {
+
+    getGenres: async () => {
+      // returns list of genres
       const genres = await Genre.find();
       const titles = ["all"];
+
       // iterate over each genre
       for (let i = 0; i < genres.length; i++) {
         const polls = genres[i].polls.filter((poll) => {
           return !poll.deactivated;
         });
+        // if this genre has unexpired, active polls add to the list
         if (polls.length > 0) titles.push(genres[i].title);
       }
       return { titles };
     },
+
     getMovies: async (parent, { number }) => {
+      // return a list of all movies, sorted by votes received, up to a number
       const movies = await Movie.find().sort({
         votes: -1,
       });
@@ -167,6 +178,7 @@ const resolvers = {
       return { movies: list };
     },
   },
+
   Mutation: {
     addUser: async (parent, args) => {
       const { userName, email, password } = args;
