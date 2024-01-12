@@ -11,7 +11,9 @@ export const QUERY_SINGLE_USER = gql`
         votes
         comments
         deactivated
-        expires_on
+        expired
+        editable
+        deactivatable
       }
       userName
       lookupName
@@ -26,6 +28,7 @@ export const QUERY_SINGLE_USER = gql`
         text
         title
         urlTitle
+        deactivated
       }
     }
   }
@@ -38,6 +41,7 @@ export const QUERY_SINGLE_POLL = gql`
       title
       description
       username
+      user_id
       options {
         _id
         companies
@@ -67,7 +71,8 @@ export const QUERY_SINGLE_POLL = gql`
       votes
       voters
       created_on
-      expires_on
+      expired
+      editable
       deactivated
     }
   }
@@ -98,6 +103,8 @@ export const QUERY_ALL_POLLS = gql`
         votes
         comments
         expires_on
+        expired
+        editable
         deactivated
       }
     }

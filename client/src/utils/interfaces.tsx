@@ -11,6 +11,9 @@ export interface userPollProps {
   votes: number;
   comments: number;
   expires_on: Date;
+  expired: Boolean;
+  editable: Boolean;
+  deactivatable: Boolean;
   winner?: string;
   deactivated: boolean;
 }
@@ -98,7 +101,11 @@ export interface pollProps {
   _id: string;
   user_id: string;
   username: string;
-  created_on: string;
+  created_on: Date;
+  expired: Boolean;
+  editable: Boolean;
+  deactivatable: Boolean;
+  deactivated: Boolean;
   title: string;
   urlTitle: string;
   description: string;

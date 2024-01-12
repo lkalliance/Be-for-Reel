@@ -36,7 +36,7 @@ module.exports = {
         return { poll_id: poll._id, expires: poll.expires_on };
       })
       .filter((thisPoll) => {
-        return new Date(thisPoll.expires) > today;
+        return new Date(thisPoll.expires) > today && !thisPoll.deactivated;
       });
     const voteGuide = utils.createVoteGuide(votes);
     const payload = {

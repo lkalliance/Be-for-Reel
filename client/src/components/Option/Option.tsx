@@ -45,6 +45,7 @@ interface optProps {
   select: (e: React.SetStateAction<voteProps>) => void;
   comment: (e: React.SetStateAction<string>) => void;
   handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  editable: boolean | null;
 }
 
 export function Option({
@@ -57,13 +58,15 @@ export function Option({
   selected,
   select,
   comment,
+  editable,
 }: optProps) {
-  console.log(opt);
   const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
 
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    // const { tagName } = e.target as HTMLElement;
+    // if the poll is in its editable state, don't select
+    if (editable) return;
+
     const { className } = e.currentTarget as HTMLElement;
     const voteObj = {
       ...selected,
@@ -174,7 +177,7 @@ export function Option({
             <button
               className={`picker btn col${
                 selected.option_id === opt._id ? " sel" : ""
-              }`}
+              }${editable ? " edit" : ""}`}
               onClick={handleSelect}
             >
               {selected.option_id === opt._id ? "de" : ""}select

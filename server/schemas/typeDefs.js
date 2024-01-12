@@ -80,7 +80,8 @@ const typeDefs = gql`
     user_id: String!
     username: String!
     created_on: Date!
-    expires_on: Date!
+    expired: Boolean!
+    editable: Boolean!
     options: [pollOption]
     comments: [pollComment]
     votes: [String]
@@ -100,6 +101,9 @@ const typeDefs = gql`
     votes: Int
     comments: Int
     expires_on: Date
+    expired: Boolean
+    editable: Boolean
+    deactivatable: Boolean
     deactivated: Boolean
   }
 
@@ -110,6 +114,7 @@ const typeDefs = gql`
     urlTitle: String!
     movie: String!
     text: String!
+    deactivated: Boolean
   }
 
   type userVotes {

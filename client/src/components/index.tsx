@@ -13,5 +13,5 @@ export { Slider } from "./Slider";
 export { DoubleSlider } from "./DoubleSlider";
 export { Select } from "./Select";
 export { SelectOption } from "./SelectOption";
-export { DirectoryColumn } from "./DirectoryColumn";
 export { UserListing } from "./UserListing";
+export { ActionLink } from "./ActionLink";

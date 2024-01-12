@@ -23,6 +23,14 @@ const userPolls = new Schema({
     type: Date,
     required: true,
   },
+  edit_deadline: {
+    type: Date,
+    required: true,
+  },
+  deactivate_deadline: {
+    type: Date,
+    required: true,
+  },
   winning: {
     type: String,
     required: false,
@@ -75,6 +83,10 @@ const userComments = new Schema({
   text: {
     type: String,
     required: true,
+  },
+  deactivated: {
+    type: Boolean,
+    default: false,
   },
 });
 

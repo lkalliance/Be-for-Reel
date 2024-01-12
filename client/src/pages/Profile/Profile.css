@@ -49,3 +49,16 @@ section#profile em {
   color: white;
   display: block;
 }
+
+section#profile div.doesnt-exist {
+  text-align: center;
+  color: white;
+}
+
+section#profile div.doesnt-exist span {
+  font-weight: bold;
+}
+
+section#profile .no-content {
+  color: white;
+}

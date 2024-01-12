@@ -7,6 +7,8 @@ comm: an object with three properties:
   -- text (the text of the comment */
 
 import "./Comment.css";
+import { AuthService } from "../../utils/auth";
+
 import { pollCommentProps } from "../../utils/interfaces";
 import { UsernameLink } from "../../components";
 
@@ -15,6 +17,9 @@ interface commProps {
 }
 
 export function Comment({ comm }: commProps) {
+  const auth = new AuthService();
+  const thisUser = auth.getProfile().userName === comm.username;
+
   return (
     <div className="comment list-member-12">
       <h3>
@@ -22,7 +27,8 @@ export function Comment({ comm }: commProps) {
       </h3>
       {comm.movie ? (
         <h4 className="sub-info">
-          voted for <span className="your-vote">{comm.movie}</span>
+          {`${thisUser ? "you " : ""}`}voted for{" "}
+          <span className="your-vote">{comm.movie}</span>
         </h4>
       ) : (
         ""

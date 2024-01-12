@@ -54,3 +54,24 @@ div#comments {
 div#comments h3 {
   text-align: center;
 }
+
+div.edit-poll {
+  display: flex;
+  justify-content: center;
+}
+
+div.edit-poll span {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+div.edit-poll span:hover {
+  color: var(--link-hover);
+}
+
+div.deactivated {
+  text-align: center;
+  color: white;
+}

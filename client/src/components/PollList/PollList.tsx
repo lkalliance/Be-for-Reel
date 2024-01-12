@@ -1,11 +1,11 @@
 // This component renders a list of polls
 
 import "./PollList.css";
-import { Link } from "react-router-dom";
 import { pollListProps } from "../../utils/interfaces";
 import { useMutation } from "@apollo/client";
 import { DEACTIVATE_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
+import { PollListing } from "../../components/PollListing";
 
 export function PollList({ polls, thisUser, uName }: pollListProps) {
   const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
@@ -22,10 +22,11 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
   });
 
   const cancelPoll = async (e: React.MouseEvent<HTMLElement>) => {
+    // this handler deactivates a poll
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
-      const { data } = await deactivatePoll({
+      await deactivatePoll({
         variables: {
           poll_id: id,
         },
@@ -35,52 +36,30 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
     }
   };
 
+  const editPoll = async (e: React.MouseEvent<HTMLElement>) => {
+    // this handler sets to edit a poll
+    e.preventDefault();
+    const id = e.currentTarget.dataset.id;
+    try {
+      console.log(`Editing poll ${id}`);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   return (
     <div id="user-poll-list">
       <h3>Polls</h3>
-      {[polls].length === 0 ? (
-        `No polls created`
+      {polls.length === 0 ? (
+        <div className="no-content list-member-12">no polls created</div>
       ) : (
         <ul>
           {polls.map((poll, index) => {
-            const today = new Date();
-            const expires = new Date(poll.expires_on);
-            const cutoff = new Date(
-              expires.getFullYear(),
-              expires.getMonth(),
-              expires.getDate() - 15
-            );
-            const canDeactivate =
-              thisUser && !poll.deactivated && today < cutoff;
             return (
-              <li className="list-member-12" key={index}>
-                {!poll.deactivated ? (
-                  <>
-                    <Link to={poll.urlTitle} className="reverse">
-                      {poll.title}
-                    </Link>
-                    <em>
-                      {`${poll.votes} vote`}
-                      {poll.votes !== 1 ? "s" : ""} and{" "}
-                      {`${poll.comments} comment`}
-                      {poll.comments !== 1 ? "s" : ""}
-                    </em>
-
-                    {canDeactivate && (
-                      <div className="deactivate-link">
-                        <span data-id={poll.poll_id} onClick={cancelPoll}>
-                          deactivate poll
-                        </span>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="deactivated">
-                    <h6>{poll.title}</h6>
-                    <div>You deactivated this poll</div>
-                  </div>
-                )}
-              </li>
+              <PollListing
+                user={{ poll, thisUser, editPoll, cancelPoll }}
+                key={index}
+              />
             );
           })}
         </ul>

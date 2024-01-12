@@ -122,10 +122,8 @@ export function Create() {
   };
 
   const genreValid = () => {
-    console.log({ genreTracker, pollData, selected });
     // checks to make sure the current user-selected genre still good
 
-    console.log({ genreTracker, pollData, selected });
     return !(
       selected.length === 0 ||
       genreTracker[pollData.userGenre] / selected.length < 0.5
@@ -135,30 +133,24 @@ export function Create() {
   const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
-    // if (searchField === "") return;
-
     // erase existing results and show that we're searching
     setResults([]);
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, years, G, PG, PG13, R, oscar, length, genre } = options;
+    const { years, G, PG, PG13, R, oscar, length, genre } = options;
     // const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
     let paramParts = [];
 
-    // if (mathDecade > 0) {
-    //   // if there are years to search, add the parameters for from and to
-    //   paramParts.push(`from=${1910 + 10 * mathDecade}`);
-    //   paramParts.push(`to=${1919 + 10 * mathDecade}`);
-    // }
     if (years.min > 1910 || years.max < thisYear()) {
       // if there are years to search, add the parameters for from and to
       paramParts.push(`from=${years.min}`);
       paramParts.push(`to=${years.max}`);
     }
+
     if (G || PG || PG13 || R) {
       // if there are limits on ratings, add those parameters
       const ratings = [];
@@ -168,8 +160,10 @@ export function Create() {
       if (R) ratings.push("us:R");
       paramParts.push(`certificates=${ratings.join(",")}`);
     }
+
     // if Best Pic Winner is checked, add that parameter
     if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
+
     if (length.min > 0 || length.max < 8) {
       // if there is a time range, add that parameter
       paramParts.push(
@@ -178,8 +172,8 @@ export function Create() {
         },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}}`
       );
     }
-    // if a genre has been chosen, add that parameter
     if (genre !== "all") {
+      // if a genre has been chosen, add that parameter
       paramParts.push(`genres=${genre}`);
     }
 
