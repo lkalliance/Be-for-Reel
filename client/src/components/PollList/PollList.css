@@ -32,7 +32,3 @@
 #user-poll-list .edit-link span:hover {
   color: var(--link-hover);
 }
-
-#user-poll-list .no-content {
-  color: white;
-}
