@@ -32,7 +32,7 @@ export function Profile() {
             <h1 className="col col-12">{userData.userName}</h1>
             <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
 
-            {userData ? (
+            {userData && (
               <div className="col col-12 col-sm-6">
                 <PollList
                   polls={userData.polls}
@@ -40,34 +40,38 @@ export function Profile() {
                   uName={username}
                 />
               </div>
-            ) : (
-              ""
             )}
             <div className="col col-12 col-sm-6">
               <h3>Comments</h3>
-              <ul>
-                {userData.comments.map(
-                  (comment: userCommentProps, index: Key) => {
-                    return (
-                      <li className="comment list-member-12" key={index}>
-                        <Link to={comment.urlTitle} className="reverse">
-                          {comment.title}
-                        </Link>
-                        <p className="sub-info">
-                          {`${thisUser ? "you " : ""}`}voted for{" "}
-                          <span className="your-vote">{`${comment.movie}`}</span>
-                        </p>
-                        <p className="comment-text">{comment.text}</p>
-                      </li>
-                    );
-                  }
-                )}
-              </ul>
+              {userData.comments.length > 0 ? (
+                <ul>
+                  {userData.comments.map(
+                    (comment: userCommentProps, index: Key) => {
+                      return (
+                        <li className="comment list-member-12" key={index}>
+                          <Link to={comment.urlTitle} className="reverse">
+                            {comment.title}
+                          </Link>
+                          <p className="sub-info">
+                            {`${thisUser ? "you " : ""}`}voted for{" "}
+                            <span className="your-vote">{`${comment.movie}`}</span>
+                          </p>
+                          <p className="comment-text">{comment.text}</p>
+                        </li>
+                      );
+                    }
+                  )}
+                </ul>
+              ) : (
+                <div className="no-content list-member-12">
+                  no comments left
+                </div>
+              )}
             </div>
           </>
         ) : (
           // the user doesn't exist, tell the user so
-          <div>
+          <div className="doesnt-exist list-member-20">
             The user <span>{username}</span> does not exist.
           </div>
         )}
