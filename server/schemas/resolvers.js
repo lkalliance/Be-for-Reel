@@ -53,7 +53,9 @@ const resolvers = {
                 return !poll.deactivated && poll.edit_deadline < new Date();
               }).length,
               votes: user.votes.length,
-              comments: user.comments.length,
+              comments: user.comments.filter((comment) => {
+                return !comment.deactivated;
+              }).length,
             };
           })
         : [];
