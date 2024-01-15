@@ -22,7 +22,7 @@ export function Comment({ comm }: commProps) {
 
   return (
     <div className="comment list-member-12 row">
-      <div className="col col-12 col-sm-4">
+      <div className="col col-12 col-sm-4 border-end border-sm-0">
         <h3>
           <UsernameLink username={comm.username} />
         </h3>
