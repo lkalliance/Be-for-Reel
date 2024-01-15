@@ -21,19 +21,23 @@ export function Comment({ comm }: commProps) {
   const thisUser = auth.getProfile().userName === comm.username;
 
   return (
-    <div className="comment list-member-12">
-      <h3>
-        <UsernameLink username={comm.username} />
-      </h3>
-      {comm.movie ? (
-        <h4 className="sub-info">
-          {`${thisUser ? "you " : ""}`}voted for{" "}
-          <span className="your-vote">{comm.movie}</span>
-        </h4>
-      ) : (
-        ""
-      )}
-      <p>{comm.text}</p>
+    <div className="comment list-member-12 row">
+      <div className="col col-12 col-sm-4">
+        <h3>
+          <UsernameLink username={comm.username} />
+        </h3>
+        {comm.movie ? (
+          <h4 className="sub-info">
+            {`${thisUser ? "you " : ""}`}voted for{" "}
+            <span className="your-vote">{comm.movie}</span>
+          </h4>
+        ) : (
+          ""
+        )}
+      </div>
+      <div className="col col-12 col-sm-8">
+        <p className="m-0 text-center text-sm-start">{comm.text}</p>
+      </div>
     </div>
   );
 }
