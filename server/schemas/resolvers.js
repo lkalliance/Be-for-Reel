@@ -187,6 +187,7 @@ const resolvers = {
       // returns a list of all movies, sorted by votes received, up to a number
       const movies = await Movie.find().sort({
         votes: -1,
+        year: 1,
       });
 
       // iterate until reach number, then continue to iterate until all ties resolved
