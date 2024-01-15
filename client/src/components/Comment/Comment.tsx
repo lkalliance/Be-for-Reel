@@ -21,7 +21,7 @@ export function Comment({ comm }: commProps) {
   const thisUser = auth.getProfile().userName === comm.username;
 
   return (
-    <div className="comment list-member-12 row">
+    <div className={`comment list-member-12 row${thisUser ? " self" : ""}`}>
       <div className="col col-12 col-sm-4 border-end border-sm-0">
         <h3>
           <UsernameLink username={comm.username} />
