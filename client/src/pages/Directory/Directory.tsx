@@ -30,7 +30,7 @@ export function Directory() {
   const genres: string[] = getGenres.loading
     ? ["loading"]
     : getGenres.data.getGenres.titles;
-  const sortedGenres = ["all", ...genres.slice(1).sort()];
+  const sortedGenres = ["all", ...genres.slice(1).sort(), "expired"];
   const genreObjs = sortedGenres.map((genre) => {
     return {
       value: genre,
@@ -57,9 +57,6 @@ export function Directory() {
               setValue={handleSelect}
             />
           )}
-        </div>
-        <div className="poll-type">
-          <h3 className="col col-12 center">Active polls</h3>
         </div>
         {list.length > 0
           ? list.map((poll: userPollProps, index: number) => {

@@ -101,10 +101,19 @@ const resolvers = {
             }).sort({
               created_on: -1,
             })
+          : lookupGenre === "expired"
+          ? await Poll.find({
+              deactivated: false,
+              expires_on: {
+                $lt: new Date(),
+              },
+            }).sort({
+              created_on: -1,
+            })
           : await Genre.find({ title: genre });
 
       const polls =
-        lookupGenre === "all"
+        lookupGenre === "all" || lookupGenre === "expired"
           ? rawPolls
           : rawPolls[0].polls.filter((poll) => {
               return !poll.deactivated;
