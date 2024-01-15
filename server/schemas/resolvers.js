@@ -93,7 +93,12 @@ const resolvers = {
       // or a genre document
       const rawPolls =
         lookupGenre === "all"
-          ? await Poll.find({ deactivated: false }).sort({
+          ? await Poll.find({
+              deactivated: false,
+              expires_on: {
+                $gt: new Date(),
+              },
+            }).sort({
               created_on: -1,
             })
           : await Genre.find({ title: genre });
