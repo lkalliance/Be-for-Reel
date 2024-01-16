@@ -47,7 +47,7 @@ The polls close on each poll two weeks after its creation.
 
 ### Poll Deactivation
 
-A user can choose to deactivate any of their own polls within a window of two days after creation. The deactivation link appears with the poll on the user's profile page.
+A user can choose to deactivate any of their own polls within a window of two days after creation. The deactivation link appears with the poll on the user's profile page. Once a poll is deactivated, there is no reactivation ability. A deactivated poll only appears on the creator's user profile, visible only to the creator.
 
 ### Poll Editing
 
