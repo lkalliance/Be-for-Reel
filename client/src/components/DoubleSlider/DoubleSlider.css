@@ -42,6 +42,10 @@
   height: 8px;
 }
 
+.slider-range {
+  top: 1px;
+}
+
 .slider-track {
   background-color: #ffffff;
   width: 100%;
@@ -51,25 +55,10 @@
   z-index: 1;
 }
 
-/* .slider-range {
-  background-color: rgb(123, 182, 238);
+.slider-range {
+  background-color: var(--secondary-color);
   z-index: 2;
 }
-
-.slider-left-value,
-.slider-right-value {
-  color: #dee2e6;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-.slider-left-value {
-  left: 6px;
-}
-
-.slider-right-value {
-  right: -4px;
-} */
 
 /* Removing the default appearance */
 .double-slider input,
