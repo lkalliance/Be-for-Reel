@@ -4,7 +4,7 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
-    const { from, to, certificates, groups, runtime, genres } =
+    const { from, to, decade, certificates, groups, runtime, genres } =
       req.query || false;
 
     const today = new Date();
@@ -13,8 +13,8 @@ router.get("/api/search/:string", async (req, res) => {
 
     // build the date range parameter
     let dateRange = "release_date=";
-    dateRange += from ? `${from}-01-01,` : ",";
-    dateRange += !to || to > thisYear ? `${thisYear}-12-31` : `${to}-12-31`;
+    dateRange += from ? `${from},` : ",";
+    dateRange += !to || to > thisYear ? `${thisYear}` : `${to}`;
     queryParams.push(dateRange);
 
     // build the movie rating and Best Picture winner parameters

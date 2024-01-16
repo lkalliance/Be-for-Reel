@@ -31,10 +31,10 @@ export function Create() {
   const blankOptions = {
     decade: "0",
     // years: false,
-    years: {
-      min: 1910,
-      max: thisYear(),
-    },
+    // years: {
+    //   min: 1910,
+    //   max: thisYear(),
+    // },
     length: {
       min: 1,
       max: 8,
@@ -138,18 +138,26 @@ export function Create() {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { years, G, PG, PG13, R, oscar, length, genre } = options;
-    // const mathDecade = parseInt(decade);
+    const { decade, G, PG, PG13, R, oscar, length, genre } = options;
+    const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
     let paramParts = [];
 
-    if (years.min > 1910 || years.max < thisYear()) {
-      // if there are years to search, add the parameters for from and to
-      paramParts.push(`from=${years.min}`);
-      paramParts.push(`to=${years.max}`);
+    if (mathDecade > 0) {
+      const from = 1920 + (mathDecade - 1) * 10;
+      const to = from + 9;
+      // a decade has been selected, add those parameters
+      paramParts.push(`from=${from}`);
+      paramParts.push(`to=${to}`);
     }
+
+    // if (years.min > 1910 || years.max < thisYear()) {
+    //   // if there are years to search, add the parameters for from and to
+    //   paramParts.push(`from=${years.min}`);
+    //   paramParts.push(`to=${years.max}`);
+    // }
 
     if (G || PG || PG13 || R) {
       // if there are limits on ratings, add those parameters
@@ -204,7 +212,6 @@ export function Create() {
     // Handler to track single-value changes to search options
     const { id, value } = e.target;
 
-    // if it's a year field, set the new value as the text in the field
     // if it's a checkbox, set the new value as the opposite of before
     const newValue =
       id === "decade" ? value : !options[id as keyof searchOptions];
