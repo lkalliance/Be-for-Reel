@@ -111,7 +111,7 @@ export function Option({
                 <img src={opt.image} alt={opt.movie} className="poster" />
                 <div>
                   <strong className="stars">{`${opt.stars}${
-                    opt.runtime && ` (${opt.runtime})`
+                    opt.runtime ? ` (${opt.runtime})` : ""
                   }`}</strong>
                   {`${opt.plot} Directed by ${opt.directors}`}
                   <div className="misc-info">
