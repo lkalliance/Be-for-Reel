@@ -107,10 +107,16 @@ export function MovieSearch({
     (options.PG13 ? 1 : 0) +
     (options.R ? 1 : 0);
   const usedOpts =
-    (parseInt(options.decade) > 0 ? 2 : 0) +
-    (options.length.max - options.length.min < 3 ? 1 : 0) +
-    (options.oscar ? 1 : 0) +
+    (parseInt(options.decade) > 0 ? 1.5 : 0) +
+    (options.length.max - options.length.min === 1
+      ? 2
+      : options.length.max - options.length.min < 3
+      ? 1
+      : 0) +
+    (options.oscar ? 0.5 : 0) +
+    (options.oscarWin ? 0.5 : 0) +
     (usedRatings === 1 || usedRatings === 2 ? 1 : 0) +
+    (usedRatings === 3 ? 0.5 : 0) +
     (options.genre !== "all" ? 1 : 0);
 
   return (
@@ -236,6 +242,14 @@ export function MovieSearch({
                     label="Nominated for Best Picture"
                     setValue={handleOptChange}
                     val={Boolean(options.oscar)}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    id="oscarWin"
+                    label="Won any Oscar"
+                    setValue={handleOptChange}
+                    val={Boolean(options.oscarWin)}
                   />
                 </div>
               </fieldset>

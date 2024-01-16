@@ -57,6 +57,7 @@ const typeDefs = gql`
     ratings: movieRatings
     worldwide: String
     directors: String
+    runtime: String
     genres: String
     companies: String
     trailer: String

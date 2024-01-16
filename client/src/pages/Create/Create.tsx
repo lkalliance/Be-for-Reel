@@ -48,6 +48,7 @@ export function Create() {
     PG13: false,
     R: false,
     oscar: false,
+    oscarWin: false,
     genre: "all",
   };
 
@@ -138,7 +139,7 @@ export function Create() {
     setSearching(true);
 
     // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar, length, genre } = options;
+    const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
     const mathDecade = parseInt(decade);
     let searchUrl = `/api/search/${
       searchField.length > 0 ? searchField : "noTitle"
@@ -170,14 +171,17 @@ export function Create() {
     }
 
     // if Best Pic Winner is checked, add that parameter
-    if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
+    if (oscar && oscarWin)
+      paramParts.push("groups=oscar_best_picture_nominees,oscar_winners");
+    else if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
+    else if (oscarWin) paramParts.push("groups=oscar_winners");
 
     if (length.min > 0 || length.max < 8) {
       // if there is a time range, add that parameter
       paramParts.push(
         `runtime=${
           length.min === 0 ? "" : convertLengthVals(length.min).minutes
-        },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}}`
+        },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}`
       );
     }
     if (genre !== "all") {

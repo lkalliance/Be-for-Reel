@@ -47,6 +47,7 @@ export const QUERY_SINGLE_POLL = gql`
         companies
         contentRating
         directors
+        runtime
         genres
         image
         imdb_id
