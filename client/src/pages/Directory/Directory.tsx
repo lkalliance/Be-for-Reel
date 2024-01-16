@@ -25,20 +25,12 @@ export function Directory() {
   });
 
   const list = getPolls.data?.getPolls.polls || [];
-  // divide list into expired and not-expired
-  const notExpiredPolls: userPollProps[] = [];
-  const expiredPolls: userPollProps[] = [];
-
-  list.map((poll: userPollProps) => {
-    if (!poll.expired) notExpiredPolls.push(poll);
-    else expiredPolls.push(poll);
-  });
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
     ? ["loading"]
     : getGenres.data.getGenres.titles;
-  const sortedGenres = ["all", ...genres.slice(1).sort()];
+  const sortedGenres = ["all", ...genres.slice(1).sort(), "expired"];
   const genreObjs = sortedGenres.map((genre) => {
     return {
       value: genre,
@@ -56,7 +48,7 @@ export function Directory() {
       <div className="row">
         <div className="col col-12">
           {getGenres.loading ? (
-            ""
+            <div className="doesnt-exist list-member-20">Loading...</div>
           ) : (
             <Select
               id="genreSelect"
@@ -66,27 +58,8 @@ export function Directory() {
             />
           )}
         </div>
-        <div className="poll-type">
-          <h3 className="col col-12 center">Active polls</h3>
-        </div>
-        {notExpiredPolls.length > 0
-          ? notExpiredPolls.map((poll: userPollProps, index: number) => {
-              return (
-                <PollListing
-                  key={index}
-                  directory={{
-                    poll: poll,
-                    vote: votes[poll.poll_id] || "",
-                  }}
-                />
-              );
-            })
-          : ""}
-        <div className="poll-type">
-          <h3 className="col col-12 center">Expired polls</h3>
-        </div>
-        {expiredPolls.length > 0
-          ? expiredPolls.map((poll: userPollProps, index: number) => {
+        {list.length > 0
+          ? list.map((poll: userPollProps, index: number) => {
               return (
                 <PollListing
                   key={index}

@@ -1,5 +1,5 @@
-.poll-listing {
-  list-style-type: none;
+.user-poll {
+  width: 100%;
 }
 
 .poll-listing.expired {
@@ -15,4 +15,10 @@
 .poll-listing span a {
   font-size: 0.9rem;
   margin-left: 10px;
+}
+
+@media screen and (min-width: 600px) {
+  .user-poll {
+    width: 49%;
+  }
 }

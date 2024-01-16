@@ -20,6 +20,8 @@ const resolvers = {
       const user = await User.findOne({ lookupName: lookupname });
       // sort their polls by expiration
       user.polls.sort((a, b) => {
+        if (a.deactivated && !b.deactivated) return 1;
+        else if (b.deactivated && !a.deactivated) return -1;
         return b.expires_on - a.expires_on;
       });
       // sort their comments by most recent first
@@ -93,13 +95,27 @@ const resolvers = {
       // or a genre document
       const rawPolls =
         lookupGenre === "all"
-          ? await Poll.find({ deactivated: false }).sort({
+          ? await Poll.find({
+              deactivated: false,
+              expires_on: {
+                $gt: new Date(),
+              },
+            }).sort({
+              created_on: -1,
+            })
+          : lookupGenre === "expired"
+          ? await Poll.find({
+              deactivated: false,
+              expires_on: {
+                $lt: new Date(),
+              },
+            }).sort({
               created_on: -1,
             })
           : await Genre.find({ title: genre });
 
       const polls =
-        lookupGenre === "all"
+        lookupGenre === "all" || lookupGenre === "expired"
           ? rawPolls
           : rawPolls[0].polls.filter((poll) => {
               return !poll.deactivated;
@@ -187,6 +203,7 @@ const resolvers = {
       // returns a list of all movies, sorted by votes received, up to a number
       const movies = await Movie.find().sort({
         votes: -1,
+        year: 1,
       });
 
       // iterate until reach number, then continue to iterate until all ties resolved

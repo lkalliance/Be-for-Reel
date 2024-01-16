@@ -205,10 +205,10 @@ export function Poll({ currUser }: pollProps) {
           {loggedIn && poll.comments.length > 0 ? (
             // user is logged in, show the comments
             <div id="comments" className="container">
-              <h3 className="center">User comments</h3>
+              {/* <h3 className="center">User comments</h3> */}
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
-                  return <Comment key={index} comm={comment}></Comment>;
+                  return <Comment key={index} pollComm={comment}></Comment>;
                 }
               )}
             </div>

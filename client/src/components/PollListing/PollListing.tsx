@@ -117,12 +117,12 @@ export function PollListing({ user, directory }: listProps) {
       </div>
     )
   ) : user ? (
-    <li
+    <div
       className={
         // if poll is deactivated and this isn't the poll's creator, hide it
         !user.thisUser && (user.poll.deactivated || user.poll.editable)
           ? "hidden"
-          : "list-member-12"
+          : "user-poll list-member-12"
       }
     >
       {!user.poll.deactivated ? (
@@ -160,7 +160,7 @@ export function PollListing({ user, directory }: listProps) {
           <div>You deactivated this poll</div>
         </div>
       )}
-    </li>
+    </div>
   ) : (
     <div className="hidden"></div>
   );
