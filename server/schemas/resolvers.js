@@ -20,6 +20,8 @@ const resolvers = {
       const user = await User.findOne({ lookupName: lookupname });
       // sort their polls by expiration
       user.polls.sort((a, b) => {
+        if (a.deactivated && !b.deactivated) return 1;
+        else if (b.deactivated && !a.deactivated) return -1;
         return b.expires_on - a.expires_on;
       });
       // sort their comments by most recent first

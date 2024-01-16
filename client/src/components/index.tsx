@@ -15,3 +15,5 @@ export { Select } from "./Select";
 export { SelectOption } from "./SelectOption";
 export { UserListing } from "./UserListing";
 export { ActionLink } from "./ActionLink";
+export { Tabs } from "./Tabs";
+export { CommentList } from "./CommentList";

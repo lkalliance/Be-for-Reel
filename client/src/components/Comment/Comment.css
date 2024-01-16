@@ -36,6 +36,34 @@ span.your-vote {
   margin: 8px 0 0;
 }
 
+div.user-comment {
+  font-size: 1em;
+  width: 100%;
+}
+
+div.user-comment p {
+  text-align: left;
+  width: 100%;
+  color: white;
+  margin: 6px 0 0;
+}
+
+div.user-comment p.sub-info {
+  font-size: 0.85rem;
+  line-height: 0.9rem;
+  margin-top: 0;
+}
+
+div.user-comment span.your-vote {
+  font-weight: bold;
+}
+
+@media screen and (min-width: 600px) {
+  div.user-comment {
+    width: 49%;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .comment div {
     border: none !important;

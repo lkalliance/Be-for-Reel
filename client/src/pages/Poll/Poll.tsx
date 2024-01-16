@@ -208,7 +208,7 @@ export function Poll({ currUser }: pollProps) {
               {/* <h3 className="center">User comments</h3> */}
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
-                  return <Comment key={index} comm={comment}></Comment>;
+                  return <Comment key={index} pollComm={comment}></Comment>;
                 }
               )}
             </div>
