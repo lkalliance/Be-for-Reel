@@ -17,7 +17,13 @@ import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
 import { convertLengthVals, thisYear } from "../../utils/typeUtils";
-import { InputText, Checkbox, DoubleSlider, Select } from "../../components";
+import {
+  InputText,
+  Checkbox,
+  Slider,
+  DoubleSlider,
+  Select,
+} from "../../components";
 
 interface movieSearchProps {
   searchField: string;
@@ -101,7 +107,7 @@ export function MovieSearch({
     (options.PG13 ? 1 : 0) +
     (options.R ? 1 : 0);
   const usedOpts =
-    (options.years.max - options.years.min > 10 ? 0 : 1) +
+    (parseInt(options.decade) > 0 ? 2 : 0) +
     (options.length.max - options.length.min < 3 ? 1 : 0) +
     (options.oscar ? 1 : 0) +
     (usedRatings === 1 || usedRatings === 2 ? 1 : 0) +
@@ -126,7 +132,7 @@ export function MovieSearch({
           <Accordion.Body>
             <form>
               <fieldset id="released" className="list-member-20">
-                {/* <Slider
+                <Slider
                   id="decade"
                   val={+options.decade}
                   setValue={handleOptChange}
@@ -139,8 +145,8 @@ export function MovieSearch({
                       : `${1910 + 10 * parseInt(options.decade)}'s`
                   }`}
                   sliderKey={{ min: "earlier", max: "later" }}
-                /> */}
-                <DoubleSlider
+                />
+                {/* <DoubleSlider
                   id="years"
                   min={1910}
                   max={thisYear()}
@@ -162,7 +168,7 @@ export function MovieSearch({
                   }`}
                   sliderKey={{ min: "earlier", max: "later" }}
                   setValue={handleDualOptChange}
-                />
+                /> */}
               </fieldset>
               <fieldset className="list-member-20">
                 <DoubleSlider
