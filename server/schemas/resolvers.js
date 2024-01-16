@@ -303,6 +303,7 @@ const resolvers = {
             };
             const movieData = await fetch.request(getMovies);
             const movie = movieData.data;
+
             const gList = movie.genreList.map((genre) => {
               return genre.value.toLowerCase();
             });
@@ -328,6 +329,7 @@ const resolvers = {
               },
               worldwide: movie.boxOffice.cumulativeWorldwideGross,
               directors: movie.directors,
+              runtime: movie.runtimeStr,
               genres: movie.genres,
               companies: movie.companies,
               trailer: movie.trailer.link,

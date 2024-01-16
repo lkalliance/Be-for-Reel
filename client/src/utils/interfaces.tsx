@@ -80,6 +80,7 @@ export interface optionProps {
   ratings: ratingsProps;
   worldwide: string;
   directors: string;
+  runtime: string;
   genres: string;
   companies: string;
   trailer: string;
@@ -181,6 +182,7 @@ export interface searchOptions {
   PG13: boolean;
   R: boolean;
   oscar: boolean;
+  oscarWin: boolean;
   genre: string;
 }
 

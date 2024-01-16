@@ -61,6 +61,10 @@ const pollOption = new Schema({
     type: String,
     required: false,
   },
+  runtime: {
+    type: String,
+    required: false,
+  },
   genres: {
     type: String,
     required: false,

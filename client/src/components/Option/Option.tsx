@@ -22,6 +22,7 @@ import fresh from "./rtfresh.png";
 import splat from "./rtsplat.png";
 import imdb from "./imdb-icon-14.png";
 import gross from "./gross.png";
+import runtime from "./clock_14.png";
 import Accordion from "react-bootstrap/Accordion";
 import { optionProps } from "../../utils/interfaces";
 
@@ -78,6 +79,19 @@ export function Option({
     comment("");
   };
 
+  const grossPieces = opt.worldwide.split(",");
+  const grossAbbrev = `${grossPieces[0]}${
+    grossPieces.length === 2
+      ? grossPieces[1]
+      : grossPieces.length === 3
+      ? "M+"
+      : grossPieces.length === 4
+      ? "B+"
+      : ""
+  }`;
+
+  console.log(grossAbbrev, opt.worldwide);
+
   return (
     <div
       className={`container list-member-12 option${
@@ -96,8 +110,10 @@ export function Option({
               <Accordion.Body>
                 <img src={opt.image} alt={opt.movie} className="poster" />
                 <div>
-                  <strong className="stars">{opt.stars}</strong>
-                  {`${opt.plot} Directed by ${opt.directors}.`}
+                  <strong className="stars">{`${opt.stars}${
+                    opt.runtime && ` (${opt.runtime})`
+                  }`}</strong>
+                  {`${opt.plot} Directed by ${opt.directors}`}
                   <div className="misc-info">
                     {opt.ratings.rottenTomatoes ? (
                       <span className="rt">
@@ -121,16 +137,14 @@ export function Option({
                       />{" "}
                       {parseFloat(opt.ratings.imDb).toFixed(1)}
                     </span>
-                    {opt.worldwide ? (
+                    {opt.worldwide && (
                       <span className="gross">
                         <img
                           src={gross}
                           alt={`Worldwide gross: ${opt.worldwide}`}
                         />{" "}
-                        {opt.worldwide}
+                        {grossAbbrev}
                       </span>
-                    ) : (
-                      <div></div>
                     )}
                   </div>
 

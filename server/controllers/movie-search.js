@@ -4,7 +4,7 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
-    const { from, to, decade, certificates, groups, runtime, genres } =
+    const { from, to, certificates, groups, runtime, genres } =
       req.query || false;
 
     const today = new Date();
