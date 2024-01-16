@@ -1,4 +1,8 @@
-// This compnent renders the page header
+// This component renders the page header
+
+/* REQUIRED PROPS:
+uname: full username
+lookup: unique lookup string for user */
 
 import "./Header.css";
 import { HeaderNav } from "../../pageComponents";

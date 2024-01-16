@@ -1,10 +1,17 @@
-// This component renders a single comment on a poll page
+// This component renders a single comment on a poll or user page
 
 /* REQUIRED PROPS:
-comm: an object with three properties:
+thisUser: is the user looking at their own profile page
+either pollComm or userComm...
+pollComm:
   -- username (username of the commentor)
-  -- movie (title of the movie selected by the commentor
-  -- text (the text of the comment */
+  -- movie (title of the movie selected by the commentor)
+  -- text (the text of the comment)
+userComm:
+  -- title (title of the poll)
+  -- urlTitle (url for the poll)
+  -- movie (title of themovie selected by the commentor)
+  -- text (the text of the comment) */
 
 import "./Comment.css";
 import { Link } from "react-router-dom";

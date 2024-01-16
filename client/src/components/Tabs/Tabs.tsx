@@ -1,3 +1,10 @@
+// This component renders a set of selectable tabs
+
+/* REQUIRED PROPS:
+list: list of strings for button IDs and text
+current: string representing the currently selected tab
+handler: callback for clicking on a tab */
+
 import "./Tabs.css";
 
 interface customTabsProps {

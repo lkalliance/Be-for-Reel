@@ -24,9 +24,10 @@ Be for Reel is a web app, and all it requires is a web browser to interact with 
 Using Be for Reel is simple. First of all, the user must have an account. Visit the site, and click the "Log in/Sign up" link in the upper right. I the signup form on the right, provide a unique email address and username and a password to create the account.
 
 ### Create a Poll
+
 Upon logging in, you can view and vote in polls; visit the Polls page for a current list of all submitted polls. You may also create their own polls, by accessing the Create a Poll page (link in the upper right). To create a poll, on that page provide a poll name and a brief description. Then in the area to the right (or, on your mobile device, below), perform a title search for a movie or movies to add to your poll. You can search on any title string, select a specific decade, specify specific ratings, or limit results to Oscar nominees.
 
-Once the reults of the search appear, click or tap on whatever titles you'd like to add to the poll, and see them appear in the selections area on the left (or, on your mobile device, above). If you have second thoughts about including the movie, click or tap on it again to remove it from the selections list. Then click "Create Poll". Your poll is active and ready to accept votes!
+Once the reults of the search appear, click or tap on whatever titles you'd like to add to the poll, and see them appear in the selections area on the left (or, on your mobile device, above). If you have second thoughts about including the movie, click or tap on it again to remove it from the selections list. Optionally choose from a list of genres that apply to at least half of the selected movies (according to IMDb). Then click "Create Poll". Your poll is active and ready to accept votes!
 
 ### Vote on a Poll
 
@@ -38,11 +39,23 @@ Each user has their own profile page, listing each of the polls they've created,
 
 ### Genre Assignment
 
-Each poll is assigned one or more genres automatically. It will appear on genre-specific poll lists for any genre that IMDb has assigned to every single movie option in the poll.
+Each poll is assigned one or more genres automatically. It will appear on genre-specific poll lists for any genre that IMDb has assigned to every single movie option in the poll. During the poll creation process, the user can also add their own choice of genre from a list of available genres that IMDb has assigned to at least half of the movies in the poll.
 
 ### Poll Expiration
 
-The polls close on each poll two weeks after its creation. 
+The polls close on each poll two weeks after its creation.
+
+### Poll Deactivation
+
+A user can choose to deactivate any of their own polls within a window of two days after creation. The deactivation link appears with the poll on the user's profile page. Once a poll is deactivated, there is no reactivation ability. A deactivated poll only appears on the creator's user profile, visible only to the creator.
+
+### Poll Editing
+
+This function is not yet completed, but a foundation is present to delay making a newly-created poll visible to other users until a set time period (measured in minutes) has elapsed. The poll will only be visible to the creator on their own profile page, with a link to edit. It will not be visible to anyone else.
+
+### View the list of films
+
+This page shows you the films that have received the most votes on all polls. It currently shows the Top Ten only (extending beyond that for ties), but future plans include a tiled interface for the Top 100.
 
 ## Application Features
 

@@ -1,5 +1,11 @@
 // This page component renders the "About your poll" form
 
+/* REQUIRED PROPS:
+pollData: an object with the current states of fields
+handlePollData: a handler for field changes
+genreObj: a tracking object for genres available for user selection
+totalSelect: number of currently selected films */
+
 import "./AboutPoll.css";
 import { InputText, TextAreaField, Select } from "../../components";
 

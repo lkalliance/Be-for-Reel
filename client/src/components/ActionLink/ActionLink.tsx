@@ -1,3 +1,10 @@
+// This component renders a link to deactivate or edit a poll
+
+/* REQUIRED PROPS:
+text: the text of the link
+handler: the callback for this link
+pollId: the poll being acted on */
+
 import "./ActionLink.css";
 
 interface actionLinkProps {

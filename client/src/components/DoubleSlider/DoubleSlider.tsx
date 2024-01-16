@@ -18,7 +18,7 @@ sliderKey: an object with labels for each end of the slider group:
 setValue: a callback function for slider group onChange */
 
 import "./DoubleSlider.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import classnames from "classnames";
 
 interface doubleSliderProps {
@@ -50,15 +50,46 @@ export function DoubleSlider({
   startVal,
   sliderKey,
 }: doubleSliderProps) {
+  const getPercent = useCallback(
+    (value: number) => Math.round(((value - min) / (max - min)) * 100),
+    [min, max]
+  );
+
+  const [minVal, setMinVal] = useState(startVal ? startVal.min : min);
+  const [maxVal, setMaxVal] = useState(startVal ? startVal.max : max);
+  const minValRef = useRef<HTMLInputElement>(null);
+  const maxValRef = useRef<HTMLInputElement>(null);
+  const range = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (startVal) {
       setMinVal(startVal.min);
       setMaxVal(startVal.max);
     }
-  });
+  }, [startVal]);
 
-  const [minVal, setMinVal] = useState(startVal ? startVal.min : min);
-  const [maxVal, setMaxVal] = useState(startVal ? startVal.max : max);
+  useEffect(() => {
+    if (maxValRef.current) {
+      const minPercent = getPercent(minVal);
+      const maxPercent = getPercent(+maxValRef.current.value);
+
+      if (range.current) {
+        range.current.style.left = `${minPercent}%`;
+        range.current.style.width = `${maxPercent - minPercent}%`;
+      }
+    }
+  }, [minVal, getPercent]);
+
+  useEffect(() => {
+    if (minValRef.current) {
+      const minPercent = getPercent(+minValRef.current.value);
+      const maxPercent = getPercent(maxVal);
+
+      if (range.current) {
+        range.current.style.width = `${maxPercent - minPercent}%`;
+      }
+    }
+  }, [maxVal, getPercent]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -86,6 +117,7 @@ export function DoubleSlider({
         <input
           id={`${id}-max`}
           name={`${id}-max`}
+          ref={maxValRef}
           type="range"
           min={min}
           max={max}
@@ -99,6 +131,7 @@ export function DoubleSlider({
         <input
           id={`${id}-min`}
           name={`${id}-min`}
+          ref={minValRef}
           type="range"
           min={min}
           max={max}
@@ -109,6 +142,7 @@ export function DoubleSlider({
         />
         <div className="slider">
           <div className="slider-track"></div>
+          <div ref={range} className="slider-range"></div>
         </div>
       </div>
       <div className={sliderKey ? "legend" : "hidden"}>

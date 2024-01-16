@@ -1,4 +1,4 @@
-// This components renders a single poll listing on a list of polls
+// This component renders a username with a link to their profile
 
 /* REQUIRED PROPS
 username: string of the user's username */

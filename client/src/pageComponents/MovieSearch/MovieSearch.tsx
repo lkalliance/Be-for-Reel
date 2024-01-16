@@ -1,17 +1,23 @@
 // This component renders the movie search form
 
+/* REQUIRED PROPS:
+searchField: state that tracks search field contents
+setSearchField: handler for changes in the search field
+noResults: error state for no results returned
+setNoResults: handler for results error state
+options: state object that tracks search criteria
+handleReturn: handler to sniff for keyboard return
+handleOption: generic handler for changes to most search criteria
+handleDoublOption: handler for changes to double-slider option
+handleSelectOption: handler for changes to a menu selection
+handleSearchSubmit: handler for submitting the search */
+
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
 import { convertLengthVals, thisYear } from "../../utils/typeUtils";
-import {
-  InputText,
-  Checkbox,
-  Slider,
-  DoubleSlider,
-  Select,
-} from "../../components";
+import { InputText, Checkbox, DoubleSlider, Select } from "../../components";
 
 interface movieSearchProps {
   searchField: string;
