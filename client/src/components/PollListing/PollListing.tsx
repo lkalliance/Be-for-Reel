@@ -1,7 +1,7 @@
-// This components renders a single poll listing on a list of polls
+// This component renders a single poll listing on a list of polls
 
 /* REQUIRED PROPS:
-poll: an object containing all data for the poll's display:
+either a directory object or a user object, based on where it is displayed:
   -- poll_id: the _id of this poll
   -- username: a string of the username of the user that created the poll
   -- title: a string of the poll's title

@@ -1,5 +1,9 @@
 // This component renders the navigation
 
+/* REQUIRED PROPS:
+uname: full username of current user
+lookup: unique lookup name of the user */
+
 import "./Nav.css";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";

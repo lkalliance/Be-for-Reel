@@ -1,3 +1,15 @@
+// This component renders a single user listing on a list of users
+
+/* REQUIRED PROPS:
+user:
+  --user_id
+  --userName
+  --lookupName (unique string for database lookup)
+  --created
+  --polls (number created by user)
+  --votes (number submitted by user)
+  --comments (number left by user) */
+
 import "./UserListing.css";
 import { Link } from "react-router-dom";
 import { userListProps } from "../../utils/interfaces";
