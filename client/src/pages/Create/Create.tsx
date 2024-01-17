@@ -65,6 +65,8 @@ export function Create() {
     description: "",
     userGenre: "all",
   }); // tracks text in poll title and description fields
+  const [noResults, setNoResults] = useState<boolean>(false); // flag for this kind of error message
+  const [sourceDown, setSourceDown] = useState<boolean>(false); // flag for this kind of error message
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
@@ -137,6 +139,8 @@ export function Create() {
     // erase existing results and show that we're searching
     setResults([]);
     setSearching(true);
+    setNoResults(false);
+    setSourceDown(false);
 
     // set up items to use in constructing the URL
     const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
@@ -200,6 +204,8 @@ export function Create() {
         if (searchResults.message) {
           // there was an error instead of a return
           setSearching(false);
+          setSourceDown(true);
+          setNoResults(false);
           setSearchError(searchResults.message);
           break;
         }
@@ -212,9 +218,14 @@ export function Create() {
     }
 
     // if there was no response from API, abandon
-    if (searchError.length > 0) return;
-    // if there were no results, set the error
-    if (result.length === 0) setSearchError("No search results");
+    if (sourceDown) return;
+    if (result.length === 0 && !sourceDown) {
+      // if there were no results, set the error
+      setNoResults(true);
+      setNoResults(true);
+      setSearching(false);
+      return;
+    }
 
     // sort results by number of IMDb rating votes
     result.sort((a: movieProps, b: movieProps) => {
@@ -224,6 +235,8 @@ export function Create() {
     // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
+    setSourceDown(false);
+    setNoResults(false);
 
     // setSearchField("");
     // setOptions(blankOptions);
@@ -347,6 +360,8 @@ export function Create() {
                 setSearchField={setSearchField}
                 options={options}
                 setSearchError={setSearchError}
+                setNoResults={setNoResults}
+                setSourceDown={setSourceDown}
                 handleOption={handleOption}
                 handleDualOption={handleDualOption}
                 handleSelectOption={handleSelectOption}
@@ -363,7 +378,10 @@ export function Create() {
                 ) : (
                   ""
                 )}
-                {searchError.length > 0 && (
+                {noResults && !sourceDown && (
+                  <div className="alert alert-danger">No search results</div>
+                )}
+                {sourceDown && (
                   <div className="alert alert-danger">{searchError}</div>
                 )}
                 <ul>

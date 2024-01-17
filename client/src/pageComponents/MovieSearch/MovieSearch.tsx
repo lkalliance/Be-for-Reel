@@ -28,6 +28,8 @@ interface movieSearchProps {
   searchField: string;
   setSearchField: Dispatch<SetStateAction<string>>;
   setSearchError: Dispatch<SetStateAction<string>>;
+  setNoResults: Dispatch<SetStateAction<boolean>>;
+  setSourceDown: Dispatch<SetStateAction<boolean>>;
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,6 +42,8 @@ export function MovieSearch({
   searchField,
   setSearchField,
   setSearchError,
+  setNoResults,
+  setSourceDown,
   options,
   handleReturn,
   handleOption,
@@ -47,26 +51,31 @@ export function MovieSearch({
   handleSelectOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  const clearErrors = () => {
+    setSearchError("");
+    setNoResults(false);
+    setSourceDown(false);
+  };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setSearchError("");
+    clearErrors();
     setSearchField(e.target.value);
   };
 
   const handleOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setSearchError("");
+    clearErrors();
     handleOption(e);
   };
 
   const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchError("");
+    clearErrors();
     if (handleDualOption) handleDualOption(e);
     else return;
   };
 
   const handleMenuChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchError("");
+    clearErrors();
     if (handleSelectOption) handleSelectOption(e);
   };
 
