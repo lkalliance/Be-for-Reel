@@ -66,8 +66,8 @@ export function Create() {
     userGenre: "all",
   }); // tracks text in poll title and description fields
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
+  const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
-  const [noResults, setNoResults] = useState<boolean>(false); // tracks error message stating no search results
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
@@ -194,10 +194,27 @@ export function Create() {
 
     let result: movieProps[] = [],
       tries = 0;
-    while (tries < maxTries && result.length === 0) {
-      result = await getFilms(searchUrl);
-      tries++;
+    while (tries < maxTries && results.length === 0) {
+      try {
+        const searchResults = await getFilms(searchUrl);
+        if (searchResults.message) {
+          // there was an error instead of a return
+          setSearching(false);
+          setSearchError(searchResults.message);
+          break;
+        }
+        result = searchResults;
+        tries++;
+      } catch (err) {
+        console.log(err);
+        break;
+      }
     }
+
+    // if there was no response from API, abandon
+    if (searchError.length > 0) return;
+    // if there were no results, set the error
+    if (result.length === 0) setSearchError("No search results");
 
     // sort results by number of IMDb rating votes
     result.sort((a: movieProps, b: movieProps) => {
@@ -207,7 +224,7 @@ export function Create() {
     // put the results to the screen and reset everything else
     setResults(result);
     setSearching(false);
-    setNoResults(result.length === 0);
+
     // setSearchField("");
     // setOptions(blankOptions);
   };
@@ -328,9 +345,8 @@ export function Create() {
               <MovieSearch
                 searchField={searchField}
                 setSearchField={setSearchField}
-                noResults={noResults}
-                setNoResults={setNoResults}
                 options={options}
+                setSearchError={setSearchError}
                 handleOption={handleOption}
                 handleDualOption={handleDualOption}
                 handleSelectOption={handleSelectOption}
@@ -347,10 +363,8 @@ export function Create() {
                 ) : (
                   ""
                 )}
-                {noResults ? (
-                  <div className="alert alert-danger">No search results</div>
-                ) : (
-                  ""
+                {searchError.length > 0 && (
+                  <div className="alert alert-danger">{searchError}</div>
                 )}
                 <ul>
                   {results.map((result, index) => {

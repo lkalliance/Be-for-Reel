@@ -38,7 +38,6 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  console.log(loading ? "loading" : poll);
   let opts = loading ? [] : [...poll.options];
   const thisUser = loading ? null : userInfo._id === poll.user_id;
 

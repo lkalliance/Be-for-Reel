@@ -4,6 +4,7 @@ const fetch = require("axios");
 router.get("/api/search/:string", async (req, res) => {
   // Route to get movies by title search
   try {
+    console.log(req.query);
     const { from, to, certificates, groups, runtime, genres } =
       req.query || false;
 
@@ -49,7 +50,11 @@ router.get("/api/search/:string", async (req, res) => {
     res.status(200).json(ratedMovies);
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    if (err.code === "ETIMEDOUT")
+      res.status(500).json({
+        message: "Our data source is not responding. Please try again later.",
+      });
+    else res.status(500).json(err);
   }
 });
 

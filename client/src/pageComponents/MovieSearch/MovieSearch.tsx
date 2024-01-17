@@ -3,8 +3,7 @@
 /* REQUIRED PROPS:
 searchField: state that tracks search field contents
 setSearchField: handler for changes in the search field
-noResults: error state for no results returned
-setNoResults: handler for results error state
+setSearchError: handler for search error state
 options: state object that tracks search criteria
 handleReturn: handler to sniff for keyboard return
 handleOption: generic handler for changes to most search criteria
@@ -16,7 +15,7 @@ import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
-import { convertLengthVals, thisYear } from "../../utils/typeUtils";
+import { convertLengthVals } from "../../utils/typeUtils";
 import {
   InputText,
   Checkbox,
@@ -28,8 +27,7 @@ import {
 interface movieSearchProps {
   searchField: string;
   setSearchField: Dispatch<SetStateAction<string>>;
-  noResults: boolean;
-  setNoResults: Dispatch<SetStateAction<boolean>>;
+  setSearchError: Dispatch<SetStateAction<string>>;
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,7 +39,7 @@ interface movieSearchProps {
 export function MovieSearch({
   searchField,
   setSearchField,
-  setNoResults,
+  setSearchError,
   options,
   handleReturn,
   handleOption,
@@ -51,24 +49,24 @@ export function MovieSearch({
 }: movieSearchProps) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setNoResults(false);
+    setSearchError("");
     setSearchField(e.target.value);
   };
 
   const handleOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setNoResults(false);
+    setSearchError("");
     handleOption(e);
   };
 
   const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNoResults(false);
+    setSearchError("");
     if (handleDualOption) handleDualOption(e);
     else return;
   };
 
   const handleMenuChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setNoResults(false);
+    setSearchError("");
     if (handleSelectOption) handleSelectOption(e);
   };
 

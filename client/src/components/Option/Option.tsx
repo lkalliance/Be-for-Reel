@@ -80,17 +80,23 @@ export function Option({
   };
 
   const grossPieces = opt.worldwide.split(",");
-  const grossAbbrev = `${grossPieces[0]}${
-    grossPieces.length === 2
-      ? grossPieces[1]
-      : grossPieces.length === 3
-      ? "M+"
-      : grossPieces.length === 4
-      ? "B+"
-      : ""
-  }`;
+  let grossAbbrev = "";
+  switch (grossPieces.length) {
+    case 3: {
+      grossAbbrev = `${grossPieces[0]}M`;
+      break;
+    }
+    case 4: {
+      grossAbbrev = `${grossPieces[0]}${
+        grossPieces[1][0] === "0" ? "" : `.${grossPieces[1][0]}`
+      }B`;
+      break;
+    }
+    default:
+      grossAbbrev = opt.worldwide;
+  }
 
-  console.log(grossAbbrev, opt.worldwide);
+  console.log(opt.worldwide, grossAbbrev);
 
   return (
     <div
