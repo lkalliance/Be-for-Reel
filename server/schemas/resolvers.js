@@ -555,17 +555,18 @@ const resolvers = {
     deactivatePoll: async (parent, { poll_id }, context) => {
       if (context.user) {
         try {
+          const deactivation = `deactivated-${poll_id}`;
           // update the given poll to be deactivated
           const pollUpdate = await Poll.findOneAndUpdate(
             { _id: poll_id },
-            { deactivated: true },
+            { deactivated: true, urlTitle: deactivation },
             { new: true, useFindAndModity: false }
           );
 
           // update the user's poll list
           await User.findOneAndUpdate(
             { lookupName: context.user.lookupName, "polls.poll_id": poll_id },
-            { "polls.$.deactivated": true },
+            { "polls.$.deactivated": true, "polls.$.urlTitle": deactivation },
             { new: true, useFindAndModify: false }
           );
 
@@ -574,7 +575,10 @@ const resolvers = {
             if (genre !== "all") {
               const genreUpdate = await Genre.findOneAndUpdate(
                 { title: genre, "polls.poll_id": poll_id },
-                { "polls.$.deactivated": true },
+                {
+                  "polls.$.deactivated": true,
+                  "polls.$.urlTitle": deactivation,
+                },
                 { new: true, useFindAndModify: false, upsert: false }
               );
             }
