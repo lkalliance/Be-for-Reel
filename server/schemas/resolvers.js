@@ -299,7 +299,7 @@ const resolvers = {
             // for each given movie id, get the info from IMDb
             const getMovies = {
               method: "GET",
-              url: `https://imdb-api.com/en/API/Title/${process.env.IMDB_API_KEY}/${id}/Trailer,Ratings,Wikipedia`,
+              url: `https://tv-api.com/en/API/Title/${process.env.IMDB_API_KEY}/${id}/Trailer,Ratings,Wikipedia`,
             };
             const movieData = await fetch.request(getMovies);
             const movie = movieData.data;

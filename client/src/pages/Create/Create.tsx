@@ -198,7 +198,7 @@ export function Create() {
 
     let result: movieProps[] = [],
       tries = 0;
-    while (tries < maxTries && results.length === 0) {
+    while (tries < maxTries && result.length === 0) {
       try {
         const searchResults = await getFilms(searchUrl);
         if (searchResults.message) {
@@ -207,6 +207,7 @@ export function Create() {
           setSourceDown(true);
           setNoResults(false);
           setSearchError(searchResults.message);
+          tries = maxTries;
           break;
         }
         result = searchResults;
