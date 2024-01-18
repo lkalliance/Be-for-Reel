@@ -3,8 +3,7 @@
 /* REQUIRED PROPS:
 searchField: state that tracks search field contents
 setSearchField: handler for changes in the search field
-noResults: error state for no results returned
-setNoResults: handler for results error state
+setSearchError: handler for search error state
 options: state object that tracks search criteria
 handleReturn: handler to sniff for keyboard return
 handleOption: generic handler for changes to most search criteria
@@ -16,7 +15,7 @@ import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { searchOptions } from "../../utils/interfaces";
-import { convertLengthVals, thisYear } from "../../utils/typeUtils";
+import { convertLengthVals } from "../../utils/typeUtils";
 import {
   InputText,
   Checkbox,
@@ -28,8 +27,9 @@ import {
 interface movieSearchProps {
   searchField: string;
   setSearchField: Dispatch<SetStateAction<string>>;
-  noResults: boolean;
+  setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
+  setSourceDown: Dispatch<SetStateAction<boolean>>;
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,7 +41,9 @@ interface movieSearchProps {
 export function MovieSearch({
   searchField,
   setSearchField,
+  setSearchError,
   setNoResults,
+  setSourceDown,
   options,
   handleReturn,
   handleOption,
@@ -49,26 +51,31 @@ export function MovieSearch({
   handleSelectOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  const clearErrors = () => {
+    setSearchError("");
+    setNoResults(false);
+    setSourceDown(false);
+  };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setNoResults(false);
+    clearErrors();
     setSearchField(e.target.value);
   };
 
   const handleOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    setNoResults(false);
+    clearErrors();
     handleOption(e);
   };
 
   const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNoResults(false);
+    clearErrors();
     if (handleDualOption) handleDualOption(e);
     else return;
   };
 
   const handleMenuChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setNoResults(false);
+    clearErrors();
     if (handleSelectOption) handleSelectOption(e);
   };
 
