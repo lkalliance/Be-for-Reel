@@ -7,6 +7,7 @@ id: the string to be used as the id and name of the input */
 /* OPTIONAL PROPS:
 label: the string to appear as a title for the input
 placeholder: the string to appear as the the input placeholder
+classN: optional className to add
 val: a string used as the value of the input (defaults to "")
 min: the minimum required length of the text
 max: the maximum allowed length of the text
@@ -22,6 +23,7 @@ interface inputProps {
   type: "text" | "email" | "password";
   id: string;
   placeholder?: string;
+  classN?: string;
   label?: string;
   min?: number;
   max?: number;
@@ -36,6 +38,7 @@ export function InputText({
   val,
   setValue,
   id,
+  classN,
   type,
   placeholder,
   label,
@@ -76,6 +79,7 @@ export function InputText({
       </label>
       <input
         type={type}
+        className={classN || ""}
         id={id}
         name={id}
         placeholder={placeholder || ""}

@@ -10,7 +10,15 @@ section#directory select {
   color: white;
 }
 
-section#directory h3.center {
-  /* margin-left: 12px;
-  margin-right: 12px; */
+section#directory input {
+  width: 100%;
+}
+
+@media screen and (min-width: 500px) {
+  section#directory input {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 }

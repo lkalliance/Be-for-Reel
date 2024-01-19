@@ -22,7 +22,6 @@ import fresh from "./rtfresh.png";
 import splat from "./rtsplat.png";
 import imdb from "./imdb-icon-14.png";
 import gross from "./gross.png";
-import runtime from "./clock_14.png";
 import Accordion from "react-bootstrap/Accordion";
 import { optionProps } from "../../utils/interfaces";
 
@@ -82,6 +81,10 @@ export function Option({
   const grossPieces = opt.worldwide.split(",");
   let grossAbbrev = "";
   switch (grossPieces.length) {
+    case 1: {
+      grossAbbrev = "none";
+      break;
+    }
     case 3: {
       grossAbbrev = `${grossPieces[0]}M`;
       break;
@@ -95,8 +98,6 @@ export function Option({
     default:
       grossAbbrev = opt.worldwide;
   }
-
-  console.log(opt.worldwide, grossAbbrev);
 
   return (
     <div
@@ -143,7 +144,7 @@ export function Option({
                       />{" "}
                       {parseFloat(opt.ratings.imDb).toFixed(1)}
                     </span>
-                    {opt.worldwide && (
+                    {opt.worldwide && !(grossAbbrev === "none") && (
                       <span className="gross">
                         <img
                           src={gross}
