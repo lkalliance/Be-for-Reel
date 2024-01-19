@@ -53,7 +53,7 @@ export function Directory() {
   return (
     <section id="directory" className="container">
       <div className="row">
-        <div className="col col-12">
+        <div id="filters" className="col col-12">
           {getGenres.loading ? (
             <div className="doesnt-exist list-member-20">Loading...</div>
           ) : (
@@ -64,13 +64,11 @@ export function Directory() {
               setValue={handleSelect}
             />
           )}
-        </div>
-        <div className="col col-12 force-2">
           <InputText
             id="pollSearch"
             type="text"
             classN="darker"
-            placeholder="Search polls"
+            placeholder="Filter polls"
             val={search}
             setValue={handleSearchChange}
           />

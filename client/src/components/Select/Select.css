@@ -2,7 +2,7 @@ select.form-select {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
   color: var(--primary-link-hover);
-  font-size: 1.8em;
+  font-size: 1.5rem;
   font-weight: 500;
   padding: 4px 10px;
   margin-bottom: 12px;

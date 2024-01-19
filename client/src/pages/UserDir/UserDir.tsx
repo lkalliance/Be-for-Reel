@@ -19,25 +19,31 @@ export function UserDir() {
   return (
     <section id="user-directory" className="container">
       <h1>Users</h1>
-      <div className="col col-12 force-2">
-        <InputText
-          id="userSearch"
-          type="text"
-          classN="darker"
-          placeholder="Search users"
-          val={search}
-          setValue={handleSearchChange}
-        />
-      </div>
+
       <div className="row">
-        {loading
-          ? "users go here"
-          : userList.map((user: userListProps, index: number) => {
-              const searchFilter =
-                search === "" ||
-                user.userName.toLowerCase().indexOf(search.toLowerCase()) > -1;
-              return searchFilter && <UserListing key={index} user={user} />;
-            })}
+        <div className="col col-12">
+          <div className="col col-12 col-md-6 col-xl-8">
+            <InputText
+              id="userSearch"
+              type="text"
+              classN="darker"
+              placeholder="Filter users"
+              val={search}
+              setValue={handleSearchChange}
+            />
+          </div>
+        </div>
+        <div className="col col-12">
+          {loading
+            ? "users go here"
+            : userList.map((user: userListProps, index: number) => {
+                const searchFilter =
+                  search === "" ||
+                  user.userName.toLowerCase().indexOf(search.toLowerCase()) >
+                    -1;
+                return searchFilter && <UserListing key={index} user={user} />;
+              })}
+        </div>
       </div>
     </section>
   );
