@@ -33,17 +33,14 @@ export function UserDir() {
             />
           </div>
         </div>
-        <div className="col col-12">
-          {loading
-            ? "users go here"
-            : userList.map((user: userListProps, index: number) => {
-                const searchFilter =
-                  search === "" ||
-                  user.userName.toLowerCase().indexOf(search.toLowerCase()) >
-                    -1;
-                return searchFilter && <UserListing key={index} user={user} />;
-              })}
-        </div>
+        {loading
+          ? "users go here"
+          : userList.map((user: userListProps, index: number) => {
+              const searchFilter =
+                search === "" ||
+                user.userName.toLowerCase().indexOf(search.toLowerCase()) > -1;
+              return searchFilter && <UserListing key={index} user={user} />;
+            })}
       </div>
     </section>
   );
