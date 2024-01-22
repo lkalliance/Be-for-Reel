@@ -1,7 +1,6 @@
 // This component renders a poll directory page
 
 import "./Directory.css";
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
@@ -14,7 +13,6 @@ export function Directory() {
   const Auth = new AuthService();
   const { votes } = Auth.getProfile();
   const { genre } = useParams();
-  const [search, setSearch] = useState("");
 
   // get the relevant polls
   const getPolls = useQuery(QUERY_ALL_POLLS, {
@@ -45,11 +43,6 @@ export function Directory() {
     navigate(`/polls/${value}`);
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearch(value);
-  };
-
   return (
     <section id="directory" className="container">
       <div className="row">
@@ -67,21 +60,14 @@ export function Directory() {
         </div>
         {list.length > 0
           ? list.map((poll: userPollProps, index: number) => {
-              const searchFilter =
-                search === "" ||
-                poll.title.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
-                poll.description.toLowerCase().indexOf(search.toLowerCase()) >
-                  -1;
               return (
-                searchFilter && (
-                  <PollListing
-                    key={index}
-                    directory={{
-                      poll: poll,
-                      vote: votes[poll.poll_id] || "",
-                    }}
-                  />
-                )
+                <PollListing
+                  key={index}
+                  directory={{
+                    poll: poll,
+                    vote: votes[poll.poll_id] || "",
+                  }}
+                />
               );
             })
           : ""}
