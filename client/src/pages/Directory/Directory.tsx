@@ -7,7 +7,7 @@ import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { userPollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
-import { PollListing, Select, InputText } from "../../components";
+import { PollListing, Select } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
@@ -64,14 +64,6 @@ export function Directory() {
               setValue={handleSelect}
             />
           )}
-          <InputText
-            id="pollSearch"
-            type="text"
-            classN="darker"
-            placeholder="Filter polls"
-            val={search}
-            setValue={handleSearchChange}
-          />
         </div>
         {list.length > 0
           ? list.map((poll: userPollProps, index: number) => {

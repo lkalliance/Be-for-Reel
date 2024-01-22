@@ -21,14 +21,3 @@ section#directory #filters {
   align-items: center;
   justify-content: space-between;
 }
-
-@media screen and (min-width: 500px) {
-  section#directory #filters {
-    flex-direction: row;
-  }
-
-  section#directory select,
-  section#directory input {
-    width: 49%;
-  }
-}

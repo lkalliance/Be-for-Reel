@@ -21,18 +21,6 @@ export function UserDir() {
       <h1>Users</h1>
 
       <div className="row">
-        <div className="col col-12">
-          <div className="col col-12 col-md-6 col-xl-8">
-            <InputText
-              id="userSearch"
-              type="text"
-              classN="darker"
-              placeholder="Filter users"
-              val={search}
-              setValue={handleSearchChange}
-            />
-          </div>
-        </div>
         {loading
           ? "users go here"
           : userList.map((user: userListProps, index: number) => {
