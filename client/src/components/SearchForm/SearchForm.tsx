@@ -44,6 +44,12 @@ export function SearchForm({
         focused={show}
       />
       <button
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#basic-navbar-nav"
+        aria-controls="basic-navbar-nav"
+        aria-expanded="false"
+        aria-label="Search the site"
         onClick={handleSearchSubmit}
         className="btn btn-primary"
         disabled={search.length < 3}
