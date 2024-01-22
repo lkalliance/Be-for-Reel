@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SEARCH } from "../../utils/queries";
 import { userProps, userPollProps } from "../../utils";
-import { UsernameLink, Tabs } from "../../components";
+import { UsernameLink } from "../../components";
 
 export function SearchResults() {
   const term = useParams();

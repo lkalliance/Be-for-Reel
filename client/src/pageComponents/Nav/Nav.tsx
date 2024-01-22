@@ -6,7 +6,7 @@ lookup: unique lookup name of the user */
 
 import "./Nav.css";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -24,7 +24,10 @@ interface navProps {
 export function HeaderNav({ uname, lookup }: navProps) {
   const Auth = new AuthService();
   const navigate = useNavigate();
-  const [showSearch, setShowSearch] = useState(false);
+  const location = useLocation();
+  const [showSearch, setShowSearch] = useState(
+    location.pathname.indexOf("/search") > -1
+  );
   const [search, setSearch] = useState("");
 
   const searchPop = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -54,11 +57,15 @@ export function HeaderNav({ uname, lookup }: navProps) {
             {Auth.loggedIn() ? (
               <>
                 <LinkContainer to={`/${lookup}`}>
-                  <Nav.Link className="user">{`${uname}`}</Nav.Link>
+                  <Nav.Link
+                    className="user"
+                    onClick={() => setShowSearch(false)}
+                  >{`${uname}`}</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/">
                   <Nav.Link
                     onClick={(e) => {
+                      setShowSearch(false);
                       e.preventDefault();
                       Auth.logout();
                     }}
@@ -67,39 +74,46 @@ export function HeaderNav({ uname, lookup }: navProps) {
                   </Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/create">
-                  <Nav.Link>Create</Nav.Link>
+                  <Nav.Link onClick={() => setShowSearch(false)}>
+                    Create
+                  </Nav.Link>
                 </LinkContainer>
               </>
             ) : (
               <LinkContainer to="/login">
-                <Nav.Link>Log in or sign up</Nav.Link>
+                <Nav.Link onClick={() => setShowSearch(false)}>
+                  Log in or sign up
+                </Nav.Link>
               </LinkContainer>
             )}
 
             <LinkContainer to="/polls">
-              <Nav.Link>Polls</Nav.Link>
+              <Nav.Link onClick={() => setShowSearch(false)}>Polls</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/users">
-              <Nav.Link>Users</Nav.Link>
+              <Nav.Link onClick={() => setShowSearch(false)}>Users</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/top-films">
-              <Nav.Link>Films</Nav.Link>
+              <Nav.Link onClick={() => setShowSearch(false)}>Films</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/faq">
-              <Nav.Link className="faq-round">
+              <Nav.Link
+                className="faq-round"
+                onClick={() => setShowSearch(false)}
+              >
                 <div className="round">?</div>
               </Nav.Link>
             </LinkContainer>
-            <Navbar.Text>
-              <span id="search-toggle" onClick={searchPop}>
+            <LinkContainer to={location.pathname}>
+              <Nav.Link id="search-toggle" onClick={searchPop}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </span>
-            </Navbar.Text>
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>
       <SearchForm
-        show={showSearch}
+        show={showSearch || location.pathname.indexOf("/search/") >= 0}
         search={search}
         setSearch={setSearch}
         handleSearch={handleSearchSubmit}
