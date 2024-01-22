@@ -236,7 +236,10 @@ const resolvers = {
       });
 
       const polls = await Poll.find({
-        title: { $regex: term, $options: "i" },
+        $or: [
+          { title: { $regex: term, $options: "i" } },
+          { description: { $regex: term, $options: "i" } },
+        ],
         deactivated: false,
         expires_on: {
           $gt: new Date(),
