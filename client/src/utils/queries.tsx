@@ -99,6 +99,7 @@ export const QUERY_ALL_POLLS = gql`
       polls {
         poll_id
         title
+        description
         urlTitle
         username
         votes
@@ -151,6 +152,26 @@ export const QUERY_GENRES = gql`
   query GetGenres {
     getGenres {
       titles
+    }
+  }
+`;
+
+export const QUERY_SEARCH = gql`
+  query GetSearch($term: String!) {
+    getSearch(term: $term) {
+      polls {
+        polls {
+          title
+          urlTitle
+          username
+        }
+      }
+      users {
+        users {
+          userName
+        }
+      }
+      usersDef
     }
   }
 `;

@@ -1,20 +1,18 @@
 // This component renders a poll directory page
 
 import "./Directory.css";
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { userPollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
-import { PollListing, Select, InputText } from "../../components";
+import { PollListing, Select } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
   const Auth = new AuthService();
   const { votes } = Auth.getProfile();
   const { genre } = useParams();
-  const [search, setSearch] = useState("");
 
   // get the relevant polls
   const getPolls = useQuery(QUERY_ALL_POLLS, {
@@ -45,15 +43,10 @@ export function Directory() {
     navigate(`/polls/${value}`);
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearch(value);
-  };
-
   return (
     <section id="directory" className="container">
       <div className="row">
-        <div className="col col-12">
+        <div id="filters" className="col col-12">
           {getGenres.loading ? (
             <div className="doesnt-exist list-member-20">Loading...</div>
           ) : (
@@ -65,31 +58,16 @@ export function Directory() {
             />
           )}
         </div>
-        <div className="col col-12 force-2">
-          <InputText
-            id="pollSearch"
-            type="text"
-            classN="darker"
-            placeholder="Search polls"
-            val={search}
-            setValue={handleSearchChange}
-          />
-        </div>
         {list.length > 0
           ? list.map((poll: userPollProps, index: number) => {
-              const searchFilter =
-                search === "" ||
-                poll.title.toLowerCase().indexOf(search.toLowerCase()) > -1;
               return (
-                searchFilter && (
-                  <PollListing
-                    key={index}
-                    directory={{
-                      poll: poll,
-                      vote: votes[poll.poll_id] || "",
-                    }}
-                  />
-                )
+                <PollListing
+                  key={index}
+                  directory={{
+                    poll: poll,
+                    vote: votes[poll.poll_id] || "",
+                  }}
+                />
               );
             })
           : ""}

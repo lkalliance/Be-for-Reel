@@ -21,6 +21,7 @@ import {
   UserDir,
   TopMovies,
   FAQ,
+  SearchResults,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
@@ -81,6 +82,7 @@ function App() {
               !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
+          <Route path="/search/:term" element={<SearchResults />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Faq" element={<FAQ />} />

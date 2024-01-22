@@ -129,6 +129,7 @@ const resolvers = {
         return {
           poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
           title: poll.title,
+          description: poll.description,
           urlTitle: poll.urlTitle,
           username: poll.username,
           genre: poll.genre,
@@ -227,6 +228,28 @@ const resolvers = {
         if (counter === 100 || counter === movies.length - 1) adding = false;
       }
       return { movies: list };
+    },
+
+    getSearch: async (parent, { term }) => {
+      const users = await User.find({
+        userName: { $regex: term, $options: "i" },
+      });
+
+      const polls = await Poll.find({
+        $or: [
+          { title: { $regex: term, $options: "i" } },
+          { description: { $regex: term, $options: "i" } },
+        ],
+        deactivated: false,
+        expires_on: {
+          $gt: new Date(),
+        },
+      });
+      return {
+        users: { users },
+        polls: { polls },
+        usersDef: polls.length === 0 && users.length > 0,
+      };
     },
   },
 

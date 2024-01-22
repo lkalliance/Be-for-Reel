@@ -1,10 +1,8 @@
-section#user-directory {
+section#search-results {
   position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: var(--main-max-width);
   margin-left: auto;
   margin-right: auto;
-}
-
-section#user-directory input {
-  width: 100%;
 }

@@ -36,6 +36,7 @@ nav a.nav-link.user:hover {
 
 nav.navbar {
   padding: 0;
+  position: relative;
 }
 
 nav.navbar a.faq-round {
@@ -55,6 +56,21 @@ nav.navbar div.round {
   text-align: center;
   position: relative;
   top: 2px;
+}
+
+nav.navbar div.round:hover {
+  background-color: var(--link-hover);
+}
+
+nav.navbar span.navbar-text {
+  text-align: right;
+  cursor: pointer;
+}
+
+nav.navbar svg {
+  position: relative;
+  top: 2px;
+  margin-left: 10px;
 }
 
 div.navbar-nav {

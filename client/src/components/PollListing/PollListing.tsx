@@ -87,7 +87,7 @@ export function PollListing({ user, directory }: listProps) {
       // main directory page, editable poll
       <div className="hidden"></div>
     ) : (
-      <div className="col col-12 col-lg-6">
+      <div className="col col-12 col-md-6">
         <div
           className={
             directory.poll.expired

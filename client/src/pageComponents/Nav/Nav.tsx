@@ -5,12 +5,16 @@ uname: full username of current user
 lookup: unique lookup name of the user */
 
 import "./Nav.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
+import { SearchForm } from "../../components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface navProps {
   uname: string;
@@ -19,6 +23,25 @@ interface navProps {
 
 export function HeaderNav({ uname, lookup }: navProps) {
   const Auth = new AuthService();
+  const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const searchPop = (e: React.MouseEvent<HTMLDivElement>) => {
+    // show or hide the search box
+    e.preventDefault();
+    setShowSearch(!showSearch);
+  };
+
+  const handleSearchSubmit = async () => {
+    // send search request
+    if (search.length < 3) return;
+    setShowSearch(false);
+    const term = String(search);
+    setSearch("");
+    navigate(`/search/${term}`);
+  };
+
   return (
     <Navbar expand="md" collapseOnSelect={true} bg="transparent" variant="dark">
       <Container>
@@ -67,9 +90,20 @@ export function HeaderNav({ uname, lookup }: navProps) {
                 <div className="round">?</div>
               </Nav.Link>
             </LinkContainer>
+            <Navbar.Text>
+              <span id="search-toggle" onClick={searchPop}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </span>
+            </Navbar.Text>
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <SearchForm
+        show={showSearch}
+        search={search}
+        setSearch={setSearch}
+        handleSearch={handleSearchSubmit}
+      />
     </Navbar>
   );
 }
