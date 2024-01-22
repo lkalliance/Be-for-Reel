@@ -171,6 +171,7 @@ export const QUERY_SEARCH = gql`
           userName
         }
       }
+      usersDef
     }
   }
 `;

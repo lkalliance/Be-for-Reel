@@ -245,7 +245,11 @@ const resolvers = {
           $gt: new Date(),
         },
       });
-      return { users: { users }, polls: { polls } };
+      return {
+        users: { users },
+        polls: { polls },
+        usersDef: polls.length === 0 && users.length > 0,
+      };
     },
   },
 
