@@ -155,3 +155,22 @@ export const QUERY_GENRES = gql`
     }
   }
 `;
+
+export const QUERY_SEARCH = gql`
+  query GetSearch($term: String!) {
+    getSearch(term: $term) {
+      polls {
+        polls {
+          title
+          urlTitle
+          username
+        }
+      }
+      users {
+        users {
+          userName
+        }
+      }
+    }
+  }
+`;

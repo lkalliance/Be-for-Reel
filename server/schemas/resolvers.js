@@ -229,6 +229,21 @@ const resolvers = {
       }
       return { movies: list };
     },
+
+    getSearch: async (parent, { term }) => {
+      const users = await User.find({
+        userName: { $regex: term, $options: "i" },
+      });
+
+      const polls = await Poll.find({
+        title: { $regex: term, $options: "i" },
+        deactivated: false,
+        expires_on: {
+          $gt: new Date(),
+        },
+      });
+      return { users: { users }, polls: { polls } };
+    },
   },
 
   Mutation: {

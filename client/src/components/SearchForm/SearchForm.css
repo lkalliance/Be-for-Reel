@@ -1,0 +1,31 @@
+/* custom CSS goes here */
+
+#search-panel {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  display: none;
+  z-index: 100;
+  padding: 10px 12px;
+  background-color: var(--secondary-color);
+  border-radius: 0 0 12px 12px;
+}
+
+#search-panel.show {
+  display: block;
+}
+
+#search-panel input {
+  margin-right: 10px;
+}
+
+#search-panel button.btn.btn-primary {
+  font-size: 0.8rem;
+  border: none;
+  background-color: var(--page-background);
+  padding: 4px 12px;
+}
+
+#search-panel button.btn.btn-primary:hover {
+  background-color: var(--tertiary-text);
+}

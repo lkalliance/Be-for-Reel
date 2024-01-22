@@ -166,6 +166,11 @@ const typeDefs = gql`
     movies: [Movie]
   }
 
+  type searchReturn {
+    users: userList
+    polls: pollList
+  }
+
   type Query {
     getPoll(lookupname: String!, pollname: String!): Poll
     getMyVotes(username: String!): User
@@ -175,6 +180,7 @@ const typeDefs = gql`
     getHomePolls: homePolls
     getGenres: GenreList
     getMovies(number: Int): movieList
+    getSearch(term: String!): searchReturn
   }
 
   type Mutation {

@@ -7,3 +7,4 @@ export { Profile } from "./Profile";
 export { UserDir } from "./UserDir";
 export { TopMovies } from "./TopMovies";
 export { FAQ } from "./FAQ";
+export { SearchResults } from "./SearchResults";
