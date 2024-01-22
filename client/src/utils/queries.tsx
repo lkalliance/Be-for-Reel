@@ -99,6 +99,7 @@ export const QUERY_ALL_POLLS = gql`
       polls {
         poll_id
         title
+        description
         urlTitle
         username
         votes

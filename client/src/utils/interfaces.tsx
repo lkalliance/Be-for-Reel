@@ -7,6 +7,7 @@ export interface userPollProps {
   poll_id: string;
   username: string;
   title: string;
+  description: string;
   urlTitle: string;
   votes: number;
   comments: number;

@@ -77,7 +77,9 @@ export function Directory() {
           ? list.map((poll: userPollProps, index: number) => {
               const searchFilter =
                 search === "" ||
-                poll.title.toLowerCase().indexOf(search.toLowerCase()) > -1;
+                poll.title.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+                poll.description.toLowerCase().indexOf(search.toLowerCase()) >
+                  -1;
               return (
                 searchFilter && (
                   <PollListing

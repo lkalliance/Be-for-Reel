@@ -98,6 +98,7 @@ const typeDefs = gql`
     poll_id: String!
     username: String!
     title: String!
+    description: String
     urlTitle: String!
     votes: Int
     comments: Int

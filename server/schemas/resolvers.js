@@ -129,6 +129,7 @@ const resolvers = {
         return {
           poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
           title: poll.title,
+          description: poll.description,
           urlTitle: poll.urlTitle,
           username: poll.username,
           genre: poll.genre,
