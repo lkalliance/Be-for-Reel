@@ -233,6 +233,8 @@ const resolvers = {
     getSearch: async (parent, { term }) => {
       const users = await User.find({
         userName: { $regex: term, $options: "i" },
+      }).sort({
+        userName: 1,
       });
 
       const polls = await Poll.find({
@@ -244,10 +246,20 @@ const resolvers = {
         expires_on: {
           $gt: new Date(),
         },
+      }).sort({
+        title: 1,
       });
+
+      const movies = await Movie.find({
+        title: { $regex: term, $options: "i" },
+      }).sort({
+        title: 1,
+      });
+
       return {
         users: { users },
         polls: { polls },
+        movies: { movies },
         usersDef: polls.length === 0 && users.length > 0,
       };
     },

@@ -11,6 +11,7 @@ export type {
   userData,
   searchOptions,
   movieProps,
+  movieListProps,
 } from "./interfaces";
 export { LOGIN, ADD_USER, VOTE, ADD_POLL } from "./mutations";
 export {

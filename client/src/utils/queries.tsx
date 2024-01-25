@@ -171,6 +171,13 @@ export const QUERY_SEARCH = gql`
           userName
         }
       }
+      movies {
+        movies {
+          title
+          year
+          votes
+        }
+      }
       usersDef
     }
   }
