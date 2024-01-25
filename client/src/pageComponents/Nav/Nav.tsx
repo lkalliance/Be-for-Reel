@@ -7,15 +7,15 @@ lookup: unique lookup name of the user */
 import "./Nav.css";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faUser,
+  faCircleQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
-import { SearchForm } from "../../components";
+import { SearchForm, UserMenu } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface navProps {
@@ -30,12 +30,14 @@ export function HeaderNav({ uname, lookup }: navProps) {
   const [showSearch, setShowSearch] = useState(
     location.pathname.indexOf("/search") > -1
   );
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [search, setSearch] = useState("");
 
   const searchPop = (e: React.MouseEvent<HTMLDivElement>) => {
     // show or hide the search box
     e.preventDefault();
     setShowSearch(!showSearch);
+    setShowUserMenu(false);
   };
 
   const handleSearchSubmit = async () => {
@@ -47,10 +49,15 @@ export function HeaderNav({ uname, lookup }: navProps) {
     navigate(`/search/${term}`);
   };
 
+  const closeMenus = () => {
+    setShowSearch(false);
+    setShowUserMenu(false);
+  };
+
   return (
     <Navbar expand="md" collapseOnSelect={true} bg="transparent" variant="dark">
       <Container>
-        <Link to="/" className="navbar-brand">
+        <Link to="/" className="navbar-brand" onClick={closeMenus}>
           <img src="/b4r-full.png" alt="Be for Reel" />
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -61,7 +68,7 @@ export function HeaderNav({ uname, lookup }: navProps) {
                 <LinkContainer to={`/${lookup}`}>
                   <Nav.Link
                     className="user"
-                    onClick={() => setShowSearch(false)}
+                    onClick={() => closeMenus()}
                   >{`${uname}`}</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/">
@@ -71,57 +78,68 @@ export function HeaderNav({ uname, lookup }: navProps) {
                       e.preventDefault();
                       Auth.logout();
                     }}
+                    id="logout-link"
                   >
                     Log out
                   </Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/create">
-                  <Nav.Link onClick={() => setShowSearch(false)}>
-                    Create
-                  </Nav.Link>
+                  <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
                 </LinkContainer>
               </>
             ) : (
               <LinkContainer to="/login">
-                <Nav.Link onClick={() => setShowSearch(false)}>
+                <Nav.Link onClick={() => closeMenus()}>
                   Log in or sign up
                 </Nav.Link>
               </LinkContainer>
             )}
 
             <LinkContainer to="/polls">
-              <Nav.Link onClick={() => setShowSearch(false)}>Polls</Nav.Link>
+              <Nav.Link onClick={() => closeMenus()}>Polls</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/users">
-              <Nav.Link onClick={() => setShowSearch(false)}>Users</Nav.Link>
+              <Nav.Link onClick={() => closeMenus()}>Users</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/top-films">
-              <Nav.Link onClick={() => setShowSearch(false)}>Films</Nav.Link>
+              <Nav.Link onClick={() => closeMenus()}>Films</Nav.Link>
             </LinkContainer>
             {Auth.loggedIn() && (
-              <>
-                <LinkContainer to={`/${lookup}`}>
-                  <Nav.Link
-                    className="user-icon"
-                    onClick={() => setShowSearch(false)}
-                  >
-                    <OverlayTrigger
-                      placement="bottom"
-                      delay={{ show: 100, hide: 400 }}
-                      overlay={<Tooltip id="username-tooltip">{uname}</Tooltip>}
-                    >
-                      <FontAwesomeIcon icon={faUser} />
-                    </OverlayTrigger>
-                  </Nav.Link>
-                </LinkContainer>
-              </>
+              // <LinkContainer to={`/${uname}`}>
+              <NavItem
+                className={`user-icon faq-round ${showUserMenu && "open"}`}
+                onClick={(e: React.MouseEvent<HTMLElement>) => {
+                  setShowSearch(false);
+                  setShowUserMenu(!showUserMenu);
+                }}
+                onMouseOver={() => {
+                  setShowUserMenu(true);
+                }}
+                onMouseOut={() => {
+                  setShowUserMenu(false);
+                }}
+              >
+                {/* <OverlayTrigger
+                    placement="bottom"
+                    delay={{ show: 100, hide: 400 }}
+                    overlay={<Tooltip id="username-tooltip">{uname}</Tooltip>}
+                  > */}
+                <FontAwesomeIcon icon={faUser} />
+                {showUserMenu && (
+                  <UserMenu
+                    uname={uname}
+                    lookup={lookup}
+                    menu={showUserMenu}
+                    setMenu={setShowUserMenu}
+                  />
+                )}
+                {/* </OverlayTrigger> */}
+              </NavItem>
+              // </LinkContainer>
             )}
             <LinkContainer to="/faq">
-              <Nav.Link
-                className="faq-round"
-                onClick={() => setShowSearch(false)}
-              >
-                <div className="round">?</div>
+              <Nav.Link className="faq-round" onClick={() => closeMenus()}>
+                <FontAwesomeIcon icon={faCircleQuestion} />
               </Nav.Link>
             </LinkContainer>
 

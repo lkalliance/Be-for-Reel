@@ -3,16 +3,14 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SEARCH } from "../../utils/queries";
+import { AuthService } from "../../utils/auth";
 import { userProps, userPollProps, movieListProps } from "../../utils";
 import { UsernameLink, Tabs } from "../../components";
 
 export function SearchResults() {
+  const Auth = new AuthService();
   const term = useParams();
   const [tab, setTab] = useState("polls");
-
-  // useEffect(() => {
-  //   setTab(defaultTab(users.length, polls.length));
-  // });
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -79,21 +77,27 @@ export function SearchResults() {
 
       {tab === "movies" && (
         <div className="results-row row">
-          {movies.length === 0 ? (
-            <div className="doesnt-exist">
-              {getResults.data ? "no movies for this search" : "loading..."}
-            </div>
+          {Auth.loggedIn() ? (
+            movies.length === 0 ? (
+              <div className="doesnt-exist">
+                {getResults.data ? "no movies for this search" : "loading..."}
+              </div>
+            ) : (
+              movies.map((movie, index) => {
+                return (
+                  <div key={index} className="movie-result col col-12 col-md-6">
+                    {`${movie.title} (${movie.year})`}
+                    <span className="sub-info">{` ${movie.votes} ${
+                      movie.votes === 1 ? "vote" : "votes"
+                    }`}</span>
+                  </div>
+                );
+              })
+            )
           ) : (
-            movies.map((movie, index) => {
-              return (
-                <div key={index} className="movie-result col col-12 col-md-6">
-                  {`${movie.title} (${movie.year})`}
-                  <span className="sub-info">{` ${movie.votes} ${
-                    movie.votes === 1 ? "vote" : "votes"
-                  }`}</span>
-                </div>
-              );
-            })
+            <div className="doesnt-exist">
+              Log in to search for films used in polls
+            </div>
           )}
         </div>
       )}
