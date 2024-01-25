@@ -9,4 +9,19 @@ section#search-results {
 
 div.results-row {
   margin-bottom: 20px;
+  padding-top: 6px;
+}
+
+div.results-row div.doesnt-exist {
+  color: white;
+  width: auto;
+}
+
+div.movie-result {
+  color: white;
+  font-size: 1rem;
+}
+
+div.movie-result .sub-info {
+  font-size: 0.9rem;
 }

@@ -169,6 +169,7 @@ const typeDefs = gql`
   type searchReturn {
     users: userList
     polls: pollList
+    movies: movieList
     usersDef: Boolean
   }
 
