@@ -9,6 +9,7 @@ body footer {
   width: calc(100vw - 40px);
   line-height: 2rem;
   background-color: var(--page-background);
+  z-index: 200;
 }
 
 body footer span {

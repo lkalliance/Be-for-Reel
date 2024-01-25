@@ -67,14 +67,12 @@ nav.navbar span.navbar-text {
   cursor: pointer;
 }
 
-/* nav.navbar svg {
-  position: relative;
-  top: 2px;
-  margin-left: 10px;
-} */
-
 div.navbar-nav {
   justify-content: flex-end;
+}
+
+div.navbar-nav .user {
+  display: none;
 }
 
 button.navbar-toggler {
@@ -87,7 +85,26 @@ button.navbar-toggler span.navbar-toggler-icon {
 }
 
 @media screen and (max-width: 768px) {
+  /* this is for collapsed navbar */
   nav.navbar div.round {
     top: -4px;
+  }
+  div.navbar-nav .user {
+    display: block;
+  }
+
+  div.navbar-nav .user-icon {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  /* this is for wide enough navbar to render entire username */
+  div.navbar-nav .user {
+    display: block;
+  }
+
+  div.navbar-nav .user-icon {
+    display: none;
   }
 }

@@ -48,7 +48,7 @@ export function SearchResults() {
           ) : (
             polls.map((poll, index) => {
               return (
-                <div key={index} className="col col-12 col-md-6">
+                <div key={index} className="col col-12 col-md-6 col-lg-4">
                   <Link to={poll.urlTitle} className="reverse">
                     {poll.title}
                   </Link>
@@ -68,7 +68,7 @@ export function SearchResults() {
           ) : (
             users.map((user, index) => {
               return (
-                <div key={index} className="col col-12 col-md-6">
+                <div key={index} className="col col-12 col-md-6 col-lg-4">
                   <UsernameLink username={user.userName} />
                 </div>
               );

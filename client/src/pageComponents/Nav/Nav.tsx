@@ -10,8 +10,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { LinkContainer } from "react-router-bootstrap";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
 import { SearchForm } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -96,6 +98,24 @@ export function HeaderNav({ uname, lookup }: navProps) {
             <LinkContainer to="/top-films">
               <Nav.Link onClick={() => setShowSearch(false)}>Films</Nav.Link>
             </LinkContainer>
+            {Auth.loggedIn() && (
+              <>
+                <LinkContainer to={`/${lookup}`}>
+                  <Nav.Link
+                    className="user-icon"
+                    onClick={() => setShowSearch(false)}
+                  >
+                    <OverlayTrigger
+                      placement="bottom"
+                      delay={{ show: 100, hide: 400 }}
+                      overlay={<Tooltip id="username-tooltip">{uname}</Tooltip>}
+                    >
+                      <FontAwesomeIcon icon={faUser} />
+                    </OverlayTrigger>
+                  </Nav.Link>
+                </LinkContainer>
+              </>
+            )}
             <LinkContainer to="/faq">
               <Nav.Link
                 className="faq-round"
@@ -104,6 +124,7 @@ export function HeaderNav({ uname, lookup }: navProps) {
                 <div className="round">?</div>
               </Nav.Link>
             </LinkContainer>
+
             <LinkContainer to={location.pathname}>
               <Nav.Link id="search-toggle" onClick={searchPop}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
