@@ -39,9 +39,21 @@ nav.navbar {
   position: relative;
 }
 
-nav.navbar a.faq-round {
+nav.navbar svg {
+  height: 1.2rem;
+  color: white;
+}
+
+nav.navbar svg:hover {
+  color: var(--link-hover);
+}
+
+nav.navbar .faq-round {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
+  margin-left: 10px;
 }
 
 nav.navbar div.round {
@@ -71,7 +83,19 @@ div.navbar-nav {
   justify-content: flex-end;
 }
 
+div.navbar-nav .user-icon {
+  position: relative;
+}
+
+div.navbar-nav .user-icon.open {
+  color: var(--link-hover);
+}
+
 div.navbar-nav .user {
+  display: none;
+}
+
+div.navbar-nav #logout-link {
   display: none;
 }
 
@@ -89,7 +113,8 @@ button.navbar-toggler span.navbar-toggler-icon {
   nav.navbar div.round {
     top: -4px;
   }
-  div.navbar-nav .user {
+  div.navbar-nav .user,
+  div.navbar-nav #logout-link {
     display: block;
   }
 
@@ -100,7 +125,8 @@ button.navbar-toggler span.navbar-toggler-icon {
 
 @media screen and (min-width: 900px) {
   /* this is for wide enough navbar to render entire username */
-  div.navbar-nav .user {
+  div.navbar-nav .user,
+  div.navbar-nav #logout-link {
     display: block;
   }
 
