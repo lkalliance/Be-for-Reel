@@ -52,7 +52,7 @@ const resolvers = {
               lookupName: user.lookupName,
               created: user.created,
               polls: user.polls.filter((poll) => {
-                return !poll.deactivated && poll.edit_deadline < new Date();
+                return !poll.deactivated;
               }).length,
               votes: user.votes.length,
               comments: user.comments.filter((comment) => {
@@ -590,7 +590,7 @@ const resolvers = {
     deactivatePoll: async (parent, { poll_id }, context) => {
       if (context.user) {
         try {
-          const deactivation = `deactivated-${poll_id}`;
+          const deactivation = `/${context.user.lookupName}/deactivated-${poll_id}`;
           // update the given poll to be deactivated
           const pollUpdate = await Poll.findOneAndUpdate(
             { _id: poll_id },
@@ -608,7 +608,7 @@ const resolvers = {
           // update each genre document
           pollUpdate.genre.forEach(async (genre) => {
             if (genre !== "all") {
-              const genreUpdate = await Genre.findOneAndUpdate(
+              await Genre.findOneAndUpdate(
                 { title: genre, "polls.poll_id": poll_id },
                 {
                   "polls.$.deactivated": true,

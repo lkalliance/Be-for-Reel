@@ -58,14 +58,11 @@ export function Option({
   selected,
   select,
   comment,
-  editable,
 }: optProps) {
   const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
 
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    // if the poll is in its editable state, don't select
-    if (editable) return;
 
     const { className } = e.currentTarget as HTMLElement;
     const voteObj = {
@@ -186,9 +183,9 @@ export function Option({
             </Accordion.Item>
           </Accordion>
         </div>
-        {loggedIn ? (
-          // user is logged in: show a vote button or the vote total
-          voted || expired ? (
+        {loggedIn &&
+          // user is logged in: show a select button or the vote total
+          (voted || expired ? (
             // user has voted or the poll is expired: show the vote total for this option
             <div className={`tab col${expired && winner ? " winner" : ""}`}>
               {votes}
@@ -198,16 +195,12 @@ export function Option({
             <button
               className={`picker btn col${
                 selected.option_id === opt._id ? " sel" : ""
-              }${editable ? " edit" : ""}`}
+              }`}
               onClick={handleSelect}
             >
               {selected.option_id === opt._id ? "de" : ""}select
             </button>
-          )
-        ) : (
-          // user is not logged in, show neither vote total nor button
-          <div></div>
-        )}
+          ))}
       </div>
     </div>
   );

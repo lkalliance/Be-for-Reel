@@ -40,7 +40,6 @@ export function Poll({ currUser }: pollProps) {
   const poll = data?.getPoll;
   let opts = loading ? [] : [...poll.options];
   const thisUser = loading ? null : userInfo._id === poll.user_id;
-
   if (!loading) {
     // trap for loading
     if (userInfo.votes[poll._id] || poll.expired) {
@@ -118,11 +117,6 @@ export function Poll({ currUser }: pollProps) {
         <div className="deactivated list-member-20">
           This poll has been removed.
         </div>
-      ) : poll.editable && !thisUser ? (
-        // the poll is still editable and it isn't this user
-        <div className="deactivated list-member-20">
-          This poll is not yet public.
-        </div>
       ) : (
         <>
           <div id="question" className="list-member-20">
@@ -133,7 +127,6 @@ export function Poll({ currUser }: pollProps) {
               }
               username={poll.username}
             />
-
             {loggedIn ? (
               // user is logged in: either show user's vote or comment text area
               userInfo.votes[poll._id] ? (
@@ -141,7 +134,7 @@ export function Poll({ currUser }: pollProps) {
                 <p id="yourvote">
                   you voted for <strong>{userInfo.votes[poll._id]}</strong>
                 </p>
-              ) : !poll.expired && !poll.editable ? (
+              ) : !poll.expired ? (
                 // user has not voted on this poll, and it can't be edited, show the form
                 <fieldset>
                   <TextAreaField
@@ -162,13 +155,8 @@ export function Poll({ currUser }: pollProps) {
                     Vote!
                   </button>
                 </fieldset>
-              ) : poll.editable && thisUser ? (
-                // the poll is editable, show the link
-                <div className="edit-poll" onClick={editPoll}>
-                  <span>Edit this poll</span>
-                </div>
               ) : (
-                ""
+                <div className="hidden"></div>
               )
             ) : (
               // user is not logged in, prompt them to
@@ -177,6 +165,11 @@ export function Poll({ currUser }: pollProps) {
                   Log in
                 </Link>{" "}
                 to vote and to see results and comments
+              </div>
+            )}
+            {poll.editable && thisUser && !poll.expired && (
+              <div className="edit-poll" onClick={editPoll}>
+                <span>Edit this poll</span>
               </div>
             )}
             {poll.expired ? <p className="expired">This poll is closed</p> : ""}
