@@ -96,12 +96,17 @@ module.exports = {
 
   setStatuses: function (polls) {
     // turns deadline dates into booleans
+    const editLimit = 0;
     const today = new Date();
     const newPolls = polls.map((poll) => {
+      const voteTotal =
+        typeof poll._doc.votes === "number"
+          ? poll._doc.votes
+          : poll._doc.votes.length;
       return {
         ...poll._doc,
         expired: poll._doc.expires_on < today,
-        editable: poll._doc.edit_deadline > today,
+        editable: voteTotal < editLimit,
         deactivatable:
           !poll._doc.deactivated && poll.deactivate_deadline > today,
       };

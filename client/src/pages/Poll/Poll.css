@@ -58,6 +58,7 @@ div#comments h3 {
 div.edit-poll {
   display: flex;
   justify-content: center;
+  margin-top: 6px;
 }
 
 div.edit-poll span {
