@@ -29,7 +29,6 @@ router.get("/api/search/:string", async (req, res) => {
       req.params.string === "noTitle" ? "" : `title=${req.params.string}&`
     }title_type=feature&num_votes=1000,has=plot&sort=boxoffice_gross_us,desc`;
     searchUrl += queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
-    console.log(searchUrl);
 
     const options = {
       method: "GET",
