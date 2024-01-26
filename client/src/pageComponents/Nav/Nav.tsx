@@ -105,7 +105,6 @@ export function HeaderNav({ uname, lookup }: navProps) {
               <Nav.Link onClick={() => closeMenus()}>Films</Nav.Link>
             </LinkContainer>
             {Auth.loggedIn() && (
-              // <LinkContainer to={`/${uname}`}>
               <NavItem
                 className={`user-icon faq-round ${showUserMenu && "open"}`}
                 onClick={(e: React.MouseEvent<HTMLElement>) => {
@@ -114,16 +113,12 @@ export function HeaderNav({ uname, lookup }: navProps) {
                 }}
                 onMouseOver={() => {
                   setShowUserMenu(true);
+                  setShowSearch(false);
                 }}
                 onMouseOut={() => {
                   setShowUserMenu(false);
                 }}
               >
-                {/* <OverlayTrigger
-                    placement="bottom"
-                    delay={{ show: 100, hide: 400 }}
-                    overlay={<Tooltip id="username-tooltip">{uname}</Tooltip>}
-                  > */}
                 <FontAwesomeIcon icon={faUser} />
                 {showUserMenu && (
                   <UserMenu
@@ -133,9 +128,7 @@ export function HeaderNav({ uname, lookup }: navProps) {
                     setMenu={setShowUserMenu}
                   />
                 )}
-                {/* </OverlayTrigger> */}
               </NavItem>
-              // </LinkContainer>
             )}
             <LinkContainer to="/faq">
               <Nav.Link className="faq-round" onClick={() => closeMenus()}>
