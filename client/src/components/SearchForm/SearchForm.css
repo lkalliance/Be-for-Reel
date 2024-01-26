@@ -6,9 +6,9 @@
   right: 0;
   display: none;
   z-index: 100;
-  padding: 10px 12px;
+  padding: 10px;
   background-color: var(--secondary-color);
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 5px 5px;
 }
 
 #search-panel.show {
