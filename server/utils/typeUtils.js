@@ -96,7 +96,7 @@ module.exports = {
 
   setStatuses: function (polls) {
     // turns deadline dates into booleans
-    const editLimit = 10;
+    const editLimit = 0;
     const today = new Date();
     const newPolls = polls.map((poll) => {
       const voteTotal =
