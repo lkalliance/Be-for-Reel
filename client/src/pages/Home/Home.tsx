@@ -22,7 +22,7 @@ export function Home() {
       </div>
       <div className="row row-cols-1 row-cols-md-3 g-3 justify-content-center">
         {loading ? (
-          <div>loading...</div>
+          <div className="doesnt-exist">loading...</div>
         ) : (
           data.getHomePolls.polls.map((poll: pollProps, index: number) => {
             if (poll) {

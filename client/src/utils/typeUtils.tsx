@@ -73,3 +73,10 @@ export const thisYear = () => {
 export const pollLimit = (type: string) => {
   return 30;
 };
+
+export const accountLimits = () => {
+  return {
+    password_min: 8,
+    username_max: 30,
+  };
+};

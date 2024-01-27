@@ -166,6 +166,15 @@ body .list-member-12 {
   margin-top: 8px;
 }
 
+body div.doesnt-exist {
+  text-align: center;
+  color: white;
+}
+
+body div.doesnt-exist span {
+  font-weight: bold;
+}
+
 button.btn.btn-primary {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);

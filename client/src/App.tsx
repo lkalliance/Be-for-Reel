@@ -52,14 +52,14 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Header uname={userInfo.userName} lookup={userInfo.lookupName} />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
 
           <Route
             path="/login"
             element={
-              Auth.loggedIn() ? (
+              loggedIn ? (
                 <Navigate to="/" replace={true} />
               ) : (
                 <Login setLogIn={setLoggedIn} />
@@ -79,7 +79,7 @@ function App() {
           <Route
             path="/create"
             element={
-              !Auth.loggedIn() ? <Navigate to="/" replace={true} /> : <Create />
+              !loggedIn ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
           <Route path="/search/:term" element={<SearchResults />} />

@@ -145,7 +145,7 @@ export function Create() {
     // set up items to use in constructing the URL
     const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
     const mathDecade = parseInt(decade);
-    let searchUrl = `/api/search/${
+    let searchUrl = `/api/movies/search/${
       searchField.length > 0 ? searchField : "noTitle"
     }`;
     let paramParts = [];

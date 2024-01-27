@@ -50,7 +50,7 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
   return (
     <div id="user-poll-list">
       {polls.length === 0 ? (
-        <div className="no-content list-member-12">no polls created</div>
+        <div className="doesnt-exist list-member-12">no polls created</div>
       ) : (
         <>
           {polls.map((poll, index) => {

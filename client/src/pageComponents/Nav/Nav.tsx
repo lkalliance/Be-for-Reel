@@ -1,9 +1,5 @@
 // This component renders the navigation
 
-/* REQUIRED PROPS:
-uname: full username of current user
-lookup: unique lookup name of the user */
-
 import "./Nav.css";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -18,13 +14,9 @@ import { AuthService } from "../../utils/auth";
 import { SearchForm, UserMenu } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface navProps {
-  uname: string;
-  lookup: string;
-}
-
-export function HeaderNav({ uname, lookup }: navProps) {
+export function HeaderNav() {
   const Auth = new AuthService();
+  const userInfo = Auth.getProfile();
   const navigate = useNavigate();
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(
@@ -65,11 +57,11 @@ export function HeaderNav({ uname, lookup }: navProps) {
           <Nav className="me-auto">
             {Auth.loggedIn() ? (
               <>
-                <LinkContainer to={`/${lookup}`}>
+                <LinkContainer to={`/${userInfo.lookupName}`}>
                   <Nav.Link
                     className="user"
                     onClick={() => closeMenus()}
-                  >{`${uname}`}</Nav.Link>
+                  >{`${userInfo.userName}`}</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/">
                   <Nav.Link
@@ -122,8 +114,8 @@ export function HeaderNav({ uname, lookup }: navProps) {
                 <FontAwesomeIcon icon={faUser} />
                 {showUserMenu && (
                   <UserMenu
-                    uname={uname}
-                    lookup={lookup}
+                    uname={userInfo.userName}
+                    lookup={userInfo.lookupName}
                     menu={showUserMenu}
                     setMenu={setShowUserMenu}
                   />
