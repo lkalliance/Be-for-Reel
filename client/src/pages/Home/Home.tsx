@@ -2,14 +2,17 @@
 
 import "./Home.css";
 import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 import { pollProps } from "../../utils/interfaces";
 import { QUERY_HOME_POLLS } from "../../utils/queries";
-import { Card } from "../../components";
+import { Card, EmailTokenModal } from "../../components";
 
 export function Home() {
+  const emailToken = useParams().token;
   const { loading, data } = useQuery(QUERY_HOME_POLLS);
   return (
     <section id="home" className="container">
+      {emailToken && <EmailTokenModal token={emailToken} />}
       <h1 className="homepage-title">Be for Reel</h1>
       <div className="lead">
         <p className="lead">

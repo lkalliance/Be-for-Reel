@@ -55,7 +55,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-
+          <Route path="/email/:token" element={<Home />} />
           <Route
             path="/login"
             element={
@@ -66,26 +66,25 @@ function App() {
               )
             }
           />
+          <Route path="/polls/:genre" element={<Directory />} />
           <Route path="/polls" element={<Directory />} />
           <Route path="/users" element={<UserDir />} />
           <Route path="/top-films" element={<TopMovies />} />
-          <Route path="/polls/:genre" element={<Directory />} />
-
+          <Route path="/search/:term" element={<SearchResults />} />
           <Route
             path="/:lookupname/:pollname"
             element={<Poll loggedin={loggedIn} currUser={userInfo.userName} />}
           />
-          <Route path="/:username" element={<Profile />} />
           <Route
             path="/create"
             element={
               !loggedIn ? <Navigate to="/" replace={true} /> : <Create />
             }
           />
-          <Route path="/search/:term" element={<SearchResults />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Faq" element={<FAQ />} />
+          <Route path="/:username" element={<Profile />} />
           <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
