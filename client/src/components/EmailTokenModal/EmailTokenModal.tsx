@@ -1,31 +1,36 @@
 import "./EmailTokenModal.css";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { AuthService } from "../../utils/auth";
 
 interface tokenProps {
-  token: string;
+  eToken: string | undefined;
 }
 
-export function EmailTokenModal({ token }: tokenProps) {
-  console.log("In the email token component");
-  console.log(token);
+export function EmailTokenModal({ eToken }: tokenProps) {
+  const Auth = new AuthService();
+
   const sendToken = async (token: string) => {
-    console.log("In the sendToken function");
     // Handler to send the email verification link
 
     // if there is no token, never mind
     if (!token) return;
-    try {
-      console.log("sending the token to the route");
-      const response = await axios.get("/api/email/validate-code", {
-        params: { token },
+    const response = await axios
+      .get("/api/email/validate-code", {
+        params: { eToken },
+      })
+      .then(() => {
+        // direct to the appopriate location
+        window.location.assign(Auth.loggedIn() ? "/" : "/#/login");
+      })
+      .catch((err: AxiosError) => {
+        const e: any = err.response?.data;
+        for (const prop in e) {
+          if (prop === "message") console.log(e[prop]);
+        }
       });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to send email:", error);
-    }
   };
 
-  sendToken(token);
+  if (eToken) sendToken(eToken);
 
   return null;
 }

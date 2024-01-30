@@ -55,7 +55,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/email/:token" element={<Home />} />
+          <Route path="/email/:eToken" element={<Home />} />
           <Route
             path="/login"
             element={

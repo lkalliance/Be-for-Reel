@@ -208,6 +208,7 @@ export function SignupForm({
         <EmailVerifyModal
           close={closeModal}
           email={stateObj ? stateObj.sEmail : "the provided email address"}
+          token={emailVerify}
         />
       )}
     </div>
