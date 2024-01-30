@@ -19,8 +19,8 @@ export function EmailTokenModal({ eToken }: tokenProps) {
         params: { eToken },
       })
       .then(() => {
-        // direct to the appopriate location
-        window.location.assign(Auth.loggedIn() ? "/" : "/#/login");
+        // log out the user
+        Auth.logout();
       })
       .catch((err: AxiosError) => {
         const e: any = err.response?.data;
