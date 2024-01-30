@@ -155,6 +155,7 @@ export type userData = {
   userName: string;
   lookupName: string;
   _id: string;
+  confirmed: boolean;
   email: string;
   votes: { [key in pollKey]?: string };
   activePolls: activePoll[];

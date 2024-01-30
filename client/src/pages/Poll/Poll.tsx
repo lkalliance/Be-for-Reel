@@ -26,6 +26,7 @@ interface pollProps {
 export function Poll({ currUser }: pollProps) {
   const Auth = new AuthService();
   const loggedIn = Auth.loggedIn();
+  const confirmed = Auth.getProfile().confirmed;
 
   // get username and poll name from parameters
   const { lookupname, pollname } = useParams();
@@ -127,8 +128,8 @@ export function Poll({ currUser }: pollProps) {
               }
               username={poll.username}
             />
-            {loggedIn ? (
-              // user is logged in: either show user's vote or comment text area
+            {loggedIn && confirmed ? (
+              // valid user is logged in: either show user's vote or comment text area
               userInfo.votes[poll._id] ? (
                 // user has voted on this poll, show their vote
                 <p id="yourvote">
@@ -158,13 +159,21 @@ export function Poll({ currUser }: pollProps) {
               ) : (
                 <div className="hidden"></div>
               )
-            ) : (
-              // user is not logged in, prompt them to
+            ) : // user is not logged in, or not confirmed
+            !loggedIn ? (
               <div className="login-prompt">
                 <Link to={"/login"} className="reverse">
                   Log in
                 </Link>{" "}
                 to vote and to see results and comments
+              </div>
+            ) : (
+              <div className="login-prompt">
+                You have not confirmed your email address.
+                <br />
+                Check your email at {Auth.getProfile().email} and
+                <br />
+                look for the email with a confirmation link.
               </div>
             )}
             {poll.editable && thisUser && !poll.expired && (
@@ -182,6 +191,7 @@ export function Poll({ currUser }: pollProps) {
                   winner={option.votes === mostVotes}
                   opt={option}
                   loggedIn={loggedIn}
+                  confirmed={confirmed}
                   expired={poll.expired}
                   selected={selected}
                   select={setSelected}

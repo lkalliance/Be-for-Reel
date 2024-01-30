@@ -9,7 +9,7 @@ import { AuthService } from "../../utils/auth";
 import { movieProps, userData, searchOptions } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
-import { convertLengthVals, thisYear, pollLimit } from "../../utils/typeUtils";
+import { convertLengthVals, pollLimit } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
@@ -349,7 +349,16 @@ export function Create() {
 
   return (
     <section id="create">
-      {userInfo.activePolls.length < pollLimit("standard") ? (
+      {!userInfo.confirmed ? (
+        <div className="container">
+          <h1>Create a Poll</h1>
+          <p>
+            Your account's email address has not been confirmed. Check your
+            email at {userInfo.email}, and look for an email with a confirmation
+            link.
+          </p>
+        </div>
+      ) : userInfo.activePolls.length < pollLimit("standard") ? (
         <div className="container">
           <h1>Create a Poll</h1>
           <div className="row">
