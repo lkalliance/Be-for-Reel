@@ -22,7 +22,7 @@ router.post("/validate-send", async (req, res) => {
     to: req.body.email,
     subject: "Be for Reel: confirm your email account",
     text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: https://www.be-for-reel.com/#/email/${conf.confirmation_token}`,
-    html: `<p>You successfully registered an account on Be for Reel. Click <a href="https://www.be-for-reel/#/email/${conf.confirmation_token}">this link</a> to confirm your email address and activate your account.`,
+    html: `<p>You successfully registered an account on Be for Reel. Click <a href="https://www.be-for-reel.com/#/email/${conf.confirmation_token}">this link</a> to confirm your email address and activate your account.`,
   };
 
   transporter.sendMail(mailOptions, (err, data) => {
