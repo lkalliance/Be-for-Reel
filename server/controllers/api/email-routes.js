@@ -1,11 +1,39 @@
 const router = require("express").Router();
+require("dotenv").config();
+const nodemailer = require("nodemailer");
 const { User, Confirmation } = require("../../models");
 
 router.post("/validate-send", async (req, res) => {
-  console.log("Sending a validation email", req.body.email);
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    user: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "login",
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.APP_PASSWORD,
+    },
+  });
   const conf = await Confirmation.findOne({ email: req.body.email });
+
+  const mailOptions = {
+    from: process.env.MAIL_USERNAME,
+    to: req.body.email,
+    subject: "Be for Reel: confirm your email account",
+    text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: https://www.be-for-reel.com/#/email/${conf.confirmation_token}`,
+    html: `<p>You successfully registered an account on Be for Reel. Click <a href="https://www.be-for-reel/#/email/${conf.confirmation_token}">this link</a> to confirm your email address and activate your account.`,
+  };
+
+  transporter.sendMail(mailOptions, (err, data) => {
+    if (err) {
+      console.log("transporter sendMail error");
+      console.log(err);
+    } else console.log(`email sent to ${req.body.email}`);
+  });
+
   res.status(200).json({
-    message: `Success. Confirmation code is ${conf.confirmation_token}`,
+    message: `Success.`,
   });
 });
 
