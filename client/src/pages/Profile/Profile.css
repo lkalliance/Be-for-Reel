@@ -18,6 +18,7 @@ section#profile h4 {
 
 section#profile h5 {
   margin-bottom: 0;
+  font-size: 0.9rem;
 }
 
 section#profile ul {
@@ -54,4 +55,11 @@ section#profile em {
 
 section#profile .no-content {
   color: white;
+}
+
+section#profile div.alert {
+  padding: 6px 10px;
+  width: auto;
+  font-size: 0.9rem;
+  margin-top: 8px;
 }

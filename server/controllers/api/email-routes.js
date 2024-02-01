@@ -21,8 +21,30 @@ router.post("/validate-send", async (req, res) => {
     from: process.env.MAIL_USERNAME,
     to: req.body.email,
     subject: "Be for Reel: confirm your email account",
-    text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: https://www.be-for-reel.com/#/email/${conf.confirmation_token}`,
-    html: `<p>You successfully registered an account on Be for Reel. Click <a href="https://www.be-for-reel.com/#/email/${conf.confirmation_token}">this link</a> to confirm your email address and activate your account.`,
+    text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: ${process.env.SERVER_HOST}#/email/${conf.confirmation_token}`,
+    html: `<html>
+    <head>
+      <style>
+        html {height: 100%}
+        body {background-color: #01141e; color: white; height: 100%}
+        div {background-color: #01141e; color: white; padding: 18px; height: 100%;}
+        img {width: 100px; display: block; margin: 12px auto;}
+        p {text-align: center;}
+        a {text-decoration: none; background-color: #1ba098; font-weight: bold; padding: 12px; margin: 20px auto; border-radius: 8px; }
+      </style>
+    </head>
+    <body>
+      <div style="height:100%;background-color:#01141e;text-align:center;">
+        <img src="https://be-4-reel-9f2cbf237830.herokuapp.com/b4r-full.png" style="width:100px;display:block;margin:12px auto;" />
+        <p style="color:white;text-align:center;padding:18px;">
+          You successfully registered an account on Be for Reel.<br/>Click the link below to confirm your email address and activate your account.
+        </p>
+        <a href="${process.env.SERVER_HOST}#/email/${conf.confirmation_token}" style="background-color:#1ba098;color:white;padding:20px;margin:12px auto;">
+          Confirm ${req.body.email}
+        </a>
+      </div>
+    </body>
+    </html>`,
   };
 
   transporter.sendMail(mailOptions, (err, data) => {

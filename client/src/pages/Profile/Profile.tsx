@@ -11,6 +11,8 @@ import { PollList, CommentList, Tabs } from "../../components";
 export function Profile() {
   const auth = new AuthService();
   const whoIsThis = auth.getProfile().lookupName;
+  const confirmed = auth.getProfile().confirmed;
+  const email = auth.getProfile().email;
   const { username } = useParams();
   const thisUser = whoIsThis === username;
   const [whichTab, setTab] = useState("polls");
@@ -36,7 +38,11 @@ export function Profile() {
         <>
           <h1 className="col col-12">{userData.userName}</h1>
           <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
-
+          {!confirmed && thisUser && (
+            <div className="alert alert-danger">
+              Account not yet activated. Check {email} for confirmation email.
+            </div>
+          )}
           <Tabs
             list={["polls", "comments"]}
             current={whichTab}
