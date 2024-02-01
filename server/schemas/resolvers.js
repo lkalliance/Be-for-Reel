@@ -600,7 +600,10 @@ const resolvers = {
         return;
       }
       try {
-        const conf = await Confirmation.findOne({ user_id, email });
+        const conf = await Confirmation.findOne({
+          user_id,
+          confirmation_type: "confirm",
+        });
 
         if (conf) {
           // confirmation already exists, re-send it
@@ -610,7 +613,7 @@ const resolvers = {
           };
         } else {
           // generate a new confirmation
-          const eConfirm = await Confirmation.create({
+          await Confirmation.create({
             user_id,
             email,
           });
@@ -620,6 +623,19 @@ const resolvers = {
         console.log(err);
         return { success: false, message: "Error sending confirmation" };
       }
+    },
+
+    forgotPwd: async (parent, { email }) => {
+      if (!email) return { success: false, message: "No email provided" };
+
+      // get the user first
+      const user = await User.findOne({ email });
+      if (!user)
+        return {
+          success: false,
+          message: "There is no registered user with that email address.",
+        };
+      // else return { success: true, message: "So far, so good." };
     },
 
     deactivatePoll: async (parent, { poll_id }, context) => {

@@ -62,6 +62,8 @@ body a.reverse:hover {
 }
 
 body input[type="text"],
+body input[type="password"],
+body input[type="email"],
 body textarea {
   border-radius: 4px;
   border: none;

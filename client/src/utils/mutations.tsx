@@ -112,3 +112,12 @@ export const NEW_CODE = gql`
     }
   }
 `;
+
+export const FORGOT_PWD = gql`
+  mutation ForgotPwd($email: String!) {
+    forgotPwd(email: $email) {
+      success
+      message
+    }
+  }
+`;
