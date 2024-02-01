@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const fetch = require("axios");
 
-router.get("/api/search/:string", async (req, res) => {
+router.get("/search/:string", async (req, res) => {
+  console.log("Got to the right controller");
   // Route to get movies by title search
   try {
     const { from, to, certificates, groups, runtime, genres } =
@@ -57,9 +58,8 @@ router.get("/api/search/:string", async (req, res) => {
   }
 });
 
-// router.get("/api/info/:id", async (req, res) => {
+// router.get("/info/:id", async (req, res) => {
 //   // Route to get specific movie data
-//   console.log("Getting a movie");
 //   try {
 //     const movie = {
 //       method: "GET",

@@ -29,7 +29,15 @@ module.exports = {
 
     return req;
   },
-  signToken: function ({ email, userName, lookupName, _id, votes, polls }) {
+  signToken: function ({
+    email,
+    userName,
+    lookupName,
+    _id,
+    votes,
+    polls,
+    confirmed,
+  }) {
     const today = new Date();
     const activePolls = polls
       .map((poll) => {
@@ -43,6 +51,7 @@ module.exports = {
       email,
       userName,
       lookupName,
+      confirmed,
       _id,
       votes: voteGuide,
       activePolls,

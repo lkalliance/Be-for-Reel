@@ -4,6 +4,7 @@ export const QUERY_SINGLE_USER = gql`
   query GetUser($lookupname: String!) {
     getUser(lookupname: $lookupname) {
       created
+      confirmed
       polls {
         poll_id
         title

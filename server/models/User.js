@@ -114,6 +114,10 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
   polls: [userPolls],
   votes: [userVotes],
   voted: [String],

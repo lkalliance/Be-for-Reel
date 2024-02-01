@@ -19,3 +19,5 @@ export { Tabs } from "./Tabs";
 export { CommentList } from "./CommentList";
 export { SearchForm } from "./SearchForm";
 export { UserMenu } from "./UserMenu";
+export { EmailVerifyModal } from "./EmailVerifyModal";
+export { EmailTokenModal } from "./EmailTokenModal";

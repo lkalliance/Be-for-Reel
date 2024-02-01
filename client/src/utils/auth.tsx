@@ -16,6 +16,7 @@ export class AuthService {
         userName: userInfo.data.userName,
         email: userInfo.data.email,
         _id: userInfo.data._id,
+        confirmed: userInfo.data.confirmed,
         // user name to lookup
         lookupName: userInfo.data.lookupName,
         // object that holds user's votes for reference
@@ -28,6 +29,7 @@ export class AuthService {
       _id: "",
       email: "",
       lookupName: "",
+      confirmed: false,
       votes: {},
       activePolls: [],
     };

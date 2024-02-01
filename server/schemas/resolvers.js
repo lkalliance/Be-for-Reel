@@ -9,7 +9,7 @@ const {
   createDates,
   setStatuses,
 } = require("../utils/typeUtils");
-const { User, Poll, Movie, Genre } = require("../models");
+const { User, Poll, Movie, Genre, Confirmation } = require("../models");
 const fetch = require("axios");
 
 const resolvers = {
@@ -276,6 +276,8 @@ const resolvers = {
       // (all lower case, alphanumeric, and hyphens for spaces)
       const lookupName = createLookupName(userName);
 
+      // create random token for email validation
+
       const newUser = {
         userName: cleanedUserName,
         lookupName,
@@ -290,8 +292,13 @@ const resolvers = {
       const user = await User.create(newUser);
       if (!user) return { message: "Operation failed" };
 
+      const eConfirm = await Confirmation.create({
+        user_id: user._id,
+        email,
+      });
+
       const token = signToken(user);
-      return { token, user };
+      return { token, eToken: eConfirm.confirmation_token, user };
     },
 
     login: async (parent, { userName, password }) => {
@@ -584,6 +591,35 @@ const resolvers = {
 
         // return the updated Poll and token
         return { poll: whichPoll, token: { token } };
+      }
+    },
+
+    confirmEmail: async (parent, { eToken }, context) => {
+      if (eToken === "")
+        return { success: false, message: "No confirmation attempted" };
+      try {
+        // first look for the confirmation token
+        const confirmation = await Confirmation.findOne({
+          confirmation_token: eToken,
+        });
+        // if it doesn't exist, return failure
+        if (!confirmation) {
+          return { success: false, message: "Invalid confirmation code." };
+        }
+        // now look for the user
+        const user = await User.findOneAndUpdate(
+          { _id: confirmation.user_id },
+          { confirmed: true },
+          { new: true }
+        );
+        // if this user doesn't exist, return failure
+        if (!user) {
+          return { success: false, message: "User not found." };
+        }
+        // we seem to have made it, return success
+        return { success: true, message: "Email confirmed." };
+      } catch (err) {
+        console.log(err);
       }
     },
 

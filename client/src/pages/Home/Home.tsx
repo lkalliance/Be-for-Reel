@@ -1,15 +1,21 @@
 // This component renders the home page
 
 import "./Home.css";
+import { Dispatch, SetStateAction } from "react";
 import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 import { pollProps } from "../../utils/interfaces";
 import { QUERY_HOME_POLLS } from "../../utils/queries";
-import { Card } from "../../components";
+import { Card, EmailTokenModal } from "../../components";
 
 export function Home() {
-  const { loading, data } = useQuery(QUERY_HOME_POLLS);
+  const params = useParams();
+  const emailToken = params.eToken || "";
+  const { loading, data: hPolls } = useQuery(QUERY_HOME_POLLS);
+
   return (
     <section id="home" className="container">
+      {emailToken.length > 0 && <EmailTokenModal eToken={emailToken} />}
       <h1 className="homepage-title">Be for Reel</h1>
       <div className="lead">
         <p className="lead">
@@ -22,9 +28,9 @@ export function Home() {
       </div>
       <div className="row row-cols-1 row-cols-md-3 g-3 justify-content-center">
         {loading ? (
-          <div>loading...</div>
+          <div className="doesnt-exist">loading...</div>
         ) : (
-          data.getHomePolls.polls.map((poll: pollProps, index: number) => {
+          hPolls.getHomePolls.polls.map((poll: pollProps, index: number) => {
             if (poll) {
               const whichPoster = Math.trunc(
                 Math.random() * poll.options.length
@@ -39,7 +45,7 @@ export function Home() {
                   votes={poll.votes ? poll.votes.length : 0}
                 />
               );
-            }
+            } else return null;
           })
         )}
       </div>

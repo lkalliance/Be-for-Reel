@@ -7,6 +7,12 @@ const typeDefs = gql`
     token: ID
     user: User
     id: ID
+    eToken: String
+  }
+
+  type Confirm {
+    success: Boolean
+    message: String
   }
 
   type currentAuth {
@@ -20,6 +26,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     created: String
+    confirmed: Boolean
     polls: [userPolls]
     comments: [userComments]
     votes: [userVotes]
@@ -187,7 +194,8 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(userName: String!, email: String!, password: String!): Auth
-    login(userName: String!, password: String!): Auth
+    confirmEmail(eToken: String!): Confirm
+    login(userName: String!, password: String!, eToken: String): Auth
     addPoll(
       title: String!
       description: String

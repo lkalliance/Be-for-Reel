@@ -1,11 +1,14 @@
 // This component renders the signup form
 
 import "./SignupForm.css";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import axios from "axios";
 import { AuthService } from "../../utils/auth";
+import { accountLimits } from "../../utils/typeUtils";
 import { loginState } from "../../utils/interfaces";
 import { ADD_USER } from "../../utils/mutations";
-import { InputText } from "../../components";
+import { InputText, EmailVerifyModal } from "../../components";
 
 interface formData {
   [key: string]: string;
@@ -21,8 +24,8 @@ export function SignupForm({
   setStrErr,
 }: loginState) {
   const Auth = new AuthService();
-
   const [addUser] = useMutation(ADD_USER);
+  const [emailVerify, setEmailVerify] = useState("");
 
   const validateForm = ({ sPassword, sEmail }: formData) => {
     if (!formSetter) return;
@@ -44,6 +47,40 @@ export function SignupForm({
     }
 
     return true;
+  };
+
+  const verifyEmail = async (token: string) => {
+    // Handler to send the email verification link
+
+    // if there is no email, never mind
+    if (!stateObj || !stateObj.sEmail) return;
+    try {
+      const response = await axios.post("/api/email/validate-send", {
+        email: stateObj.sEmail,
+      });
+      console.log("Email sent successfully!", response.data);
+      setEmailVerify(token);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    }
+  };
+
+  const closeModal = () => {
+    try {
+      // clear the form
+      if (formSetter) {
+        formSetter({
+          sUsername: "",
+          sEmail: "",
+          sPassword: "",
+        });
+      }
+      Auth.login(emailVerify);
+      setEmailVerify("");
+      setLogIn(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +105,7 @@ export function SignupForm({
       return;
     }
 
+    // first add the user to the database
     try {
       if (validateForm(stateObj)) {
         // if validated, add the user
@@ -79,18 +117,15 @@ export function SignupForm({
           },
         });
 
-        await Auth.login(data.addUser.token);
         // if the addition successful, show as logged in
-        setLogIn(true);
+        // Auth.login(data.addUser.token);
+        // setLogIn(true);
 
-        // clear the form
-        formSetter({
-          sUsername: "",
-          sEmail: "",
-          sPassword: "",
-        });
+        // then send the email verification link
+        verifyEmail(data.addUser.token);
       }
     } catch (err: any) {
+      console.log(err);
       // evaluate returned error for type of failure
       if (
         err.message.indexOf("userName") > -1 ||
@@ -127,7 +162,7 @@ export function SignupForm({
           type="text"
           label="username"
           val={stateObj ? stateObj.sUsername : ""}
-          max={30}
+          max={accountLimits().username_max}
           setValue={handleInputChange}
           capitalize="off"
           id="sUsername"
@@ -143,7 +178,7 @@ export function SignupForm({
           type="password"
           label="password"
           val={stateObj ? stateObj.sPassword : ""}
-          min={8}
+          min={accountLimits().password_min}
           setValue={handleInputChange}
           id="sPassword"
         />
@@ -151,12 +186,17 @@ export function SignupForm({
           type="submit"
           disabled={
             !stateObj ||
-            !(stateObj.sUsername && stateObj.sPassword && stateObj.sEmail)
+            !(
+              stateObj.sUsername &&
+              stateObj.sPassword &&
+              stateObj.sEmail &&
+              stateObj.sPassword.length >= accountLimits().password_min
+            )
           }
           onClick={handleSignupSubmit}
           className="btn btn-primary"
         >
-          Submit
+          Sign up
         </button>
         {strErr && strErr.length > 0 ? (
           <div className="alert alert-danger">{strErr}</div>
@@ -164,6 +204,13 @@ export function SignupForm({
           ""
         )}
       </form>
+      {emailVerify.length > 0 && (
+        <EmailVerifyModal
+          close={closeModal}
+          email={stateObj ? stateObj.sEmail : "the provided email address"}
+          token={emailVerify}
+        />
+      )}
     </div>
   );
 }

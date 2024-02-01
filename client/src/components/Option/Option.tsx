@@ -41,6 +41,7 @@ interface optProps {
   votes: number | undefined;
   expired: boolean | null;
   loggedIn: boolean;
+  confirmed: boolean;
   selected: voteProps;
   select: (e: React.SetStateAction<voteProps>) => void;
   comment: (e: React.SetStateAction<string>) => void;
@@ -54,6 +55,7 @@ export function Option({
   voted,
   votes,
   loggedIn,
+  confirmed,
   expired,
   selected,
   select,
@@ -184,6 +186,7 @@ export function Option({
           </Accordion>
         </div>
         {loggedIn &&
+          confirmed &&
           // user is logged in: show a select button or the vote total
           (voted || expired ? (
             // user has voted or the poll is expired: show the vote total for this option

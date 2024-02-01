@@ -1,5 +1,4 @@
 section#login {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,7 +8,7 @@ section#login {
 section#login div#loginFormContainer,
 section#login div#signupFormContainer {
   margin-bottom: 40px;
-  min-width: 250px;
+  width: 250px;
   padding: 0 10px;
 }
 

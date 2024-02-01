@@ -21,7 +21,7 @@ export function CommentList({ comments, thisUser }: commentListProps) {
   return (
     <div id="user-comment-list">
       {comments.length === 0 ? (
-        <div className="no-content list-member-12">no comments left</div>
+        <div className="doesnt-exist list-member-12">no comments left</div>
       ) : (
         <>
           {comments.map((comment, index) => {

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
-  mutation Login($userName: String!, $password: String!) {
-    login(userName: $userName, password: $password) {
+  mutation Login($userName: String!, $password: String!, $eToken: String) {
+    login(userName: $userName, password: $password, eToken: $eToken) {
       token
       user {
         userName
@@ -15,6 +15,7 @@ export const ADD_USER = gql`
   mutation AddUser($userName: String!, $email: String!, $password: String!) {
     addUser(userName: $userName, email: $email, password: $password) {
       token
+      eToken
       user {
         userName
       }
@@ -99,6 +100,15 @@ export const DEACTIVATE_POLL = gql`
     deactivatePoll(poll_id: $poll_id) {
       title
       deactivated
+    }
+  }
+`;
+
+export const CONFIRM_EMAIL = gql`
+  mutation ConfirmEmail($eToken: String!) {
+    confirmEmail(eToken: $eToken) {
+      success
+      message
     }
   }
 `;
