@@ -63,3 +63,13 @@ section#profile div.alert {
   font-size: 0.9rem;
   margin-top: 8px;
 }
+
+section#profile button#resend {
+  padding: 0;
+  border: 0;
+  font-weight: bold;
+  color: rgb(88, 21, 28);
+  background-color: transparent;
+  margin-left: 12px;
+  text-transform: uppercase;
+}

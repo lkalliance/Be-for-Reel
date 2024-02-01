@@ -104,9 +104,9 @@ export const DEACTIVATE_POLL = gql`
   }
 `;
 
-export const CONFIRM_EMAIL = gql`
-  mutation ConfirmEmail($eToken: String!) {
-    confirmEmail(eToken: $eToken) {
+export const NEW_CODE = gql`
+  mutation NewEmailCode($user_id: String!, $email: String!) {
+    newEmailCode(user_id: $user_id, email: $email) {
       success
       message
     }
