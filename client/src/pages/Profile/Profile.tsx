@@ -8,7 +8,12 @@ import axios from "axios";
 import { AuthService } from "../../utils/auth";
 import { QUERY_SINGLE_USER } from "../../utils/queries";
 import { NEW_CODE } from "../../utils/mutations";
-import { PollList, CommentList, Tabs } from "../../components";
+import {
+  PollList,
+  CommentList,
+  Tabs,
+  EmailVerifyModal,
+} from "../../components";
 
 export function Profile() {
   const auth = new AuthService();
@@ -18,22 +23,27 @@ export function Profile() {
     email,
     _id: user_id,
   } = auth.getProfile();
-  // const whoIsThis = auth.getProfile().lookupName;
-  // const confirmed = auth.getProfile().confirmed;
-  // const email = auth.getProfile().email;
   const { username } = useParams();
   const thisUser = whoIsThis === username;
   const [whichTab, setTab] = useState("polls");
+  const [newCodeSent, setNewCodeSent] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loading, data } = useQuery(QUERY_SINGLE_USER, {
+  const { data } = useQuery(QUERY_SINGLE_USER, {
     variables: { lookupname: username },
   });
 
-  const [newEmailCode, { error, data: newCodeData }] = useMutation(NEW_CODE);
+  const [newEmailCode, { error }] = useMutation(NEW_CODE);
 
   const userData = data?.getUser || {};
   const createdOn = new Date(userData.created);
+
+  const closeModal = () => {
+    try {
+      setNewCodeSent(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const tabHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { id } = e.currentTarget;
@@ -63,50 +73,58 @@ export function Profile() {
         });
       }
       console.log(newCode.data?.newEmailCode.message);
+      setNewCodeSent(true);
     } catch (err) {
       console.log(error);
     }
   };
 
   return (
-    <section id="profile">
-      {userData.created ? (
-        // the user exists, render their data
-        <>
-          <h1 className="col col-12">{userData.userName}</h1>
-          <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
-          {!confirmed && thisUser && (
-            <div className="alert alert-danger">
-              Account not yet activated. Check <strong>{email}</strong> for
-              confirmation email.{" "}
-              <button id="resend" onClick={resendHandler}>
-                resend
-              </button>
-            </div>
-          )}
-          <Tabs
-            list={["polls", "comments"]}
-            current={whichTab}
-            handler={tabHandler}
-          />
-          {userData && whichTab === "polls" && (
-            <PollList
-              polls={userData.polls}
-              thisUser={thisUser}
-              uName={username}
+    <>
+      <section id="profile">
+        {userData.created ? (
+          // the user exists, render their data
+          <>
+            <h1 className="col col-12">{userData.userName}</h1>
+            <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
+            {!confirmed && thisUser && (
+              <div className="alert alert-danger">
+                Account not yet activated. Check <strong>{email}</strong> for
+                confirmation email.{" "}
+                <button id="resend" onClick={resendHandler}>
+                  resend
+                </button>
+              </div>
+            )}
+            <Tabs
+              list={["polls", "comments"]}
+              current={whichTab}
+              handler={tabHandler}
             />
-          )}
-          {userData && whichTab === "comments" && (
-            <CommentList comments={userData.comments} thisUser={thisUser} />
-          )}
-        </>
-      ) : (
-        // the user doesn't exist, tell the user so
-        <div className="doesnt-exist list-member-20">
-          The user <span>{username}</span> does not exist.
-        </div>
+            {userData && whichTab === "polls" && (
+              <PollList
+                polls={userData.polls}
+                thisUser={thisUser}
+                uName={username}
+              />
+            )}
+            {userData && whichTab === "comments" && (
+              <CommentList comments={userData.comments} thisUser={thisUser} />
+            )}
+          </>
+        ) : (
+          // the user doesn't exist, tell the user so
+          <div className="doesnt-exist list-member-20">
+            The user <span>{username}</span> does not exist.
+          </div>
+        )}
+      </section>
+      {newCodeSent && (
+        <EmailVerifyModal
+          close={closeModal}
+          email={email.length > 0 ? email : "the provided email address"}
+        />
       )}
-      {/* </div> */}
-    </section>
+    </>
   );
 }
