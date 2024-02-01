@@ -66,7 +66,7 @@ router.get("/validate-code", async (req, res) => {
       confirmation_token: req.query.eToken,
     });
     // if the conf code doesn't exist, say so and exit
-    if (!confirmation.user_id) {
+    if (!confirmation) {
       res.status(400).json({ message: "Invalid confirmation token" });
       return;
     }
