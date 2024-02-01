@@ -594,32 +594,31 @@ const resolvers = {
       }
     },
 
-    confirmEmail: async (parent, { eToken }, context) => {
-      if (eToken === "")
-        return { success: false, message: "No confirmation attempted" };
+    newEmailCode: async (parent, { user_id, email }, context) => {
+      if (!user_id || !email || user_id.length === 0 || email.length === 0) {
+        // not enough credentials, never mind
+        return;
+      }
       try {
-        // first look for the confirmation token
-        const confirmation = await Confirmation.findOne({
-          confirmation_token: eToken,
-        });
-        // if it doesn't exist, return failure
-        if (!confirmation) {
-          return { success: false, message: "Invalid confirmation code." };
+        const conf = await Confirmation.findOne({ user_id, email });
+
+        if (conf) {
+          // confirmation already exists, re-send it
+          return {
+            success: true,
+            message: "Re-sending original confirmation token",
+          };
+        } else {
+          // generate a new confirmation
+          const eConfirm = await Confirmation.create({
+            user_id,
+            email,
+          });
+          return { success: true, message: "Sending new confirmation token" };
         }
-        // now look for the user
-        const user = await User.findOneAndUpdate(
-          { _id: confirmation.user_id },
-          { confirmed: true },
-          { new: true }
-        );
-        // if this user doesn't exist, return failure
-        if (!user) {
-          return { success: false, message: "User not found." };
-        }
-        // we seem to have made it, return success
-        return { success: true, message: "Email confirmed." };
       } catch (err) {
         console.log(err);
+        return { success: false, message: "Error sending confirmation" };
       }
     },
 

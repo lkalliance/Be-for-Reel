@@ -33,7 +33,7 @@ router.post("/validate-send", async (req, res) => {
         a {text-decoration: none; background-color: #1ba098; font-weight: bold; padding: 12px; margin: 20px auto; border-radius: 8px; }
       </style>
     </head>
-    <body>
+    <body style="background-color:#011413;">
       <div style="height:100%;background-color:#01141e;text-align:center;">
         <img src="https://be-4-reel-9f2cbf237830.herokuapp.com/b4r-full.png" style="width:100px;display:block;margin:12px auto;" />
         <p style="color:white;text-align:center;padding:18px;">

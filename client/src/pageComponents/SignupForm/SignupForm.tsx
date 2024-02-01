@@ -117,10 +117,6 @@ export function SignupForm({
           },
         });
 
-        // if the addition successful, show as logged in
-        // Auth.login(data.addUser.token);
-        // setLogIn(true);
-
         // then send the email verification link
         verifyEmail(data.addUser.token);
       }
@@ -208,7 +204,6 @@ export function SignupForm({
         <EmailVerifyModal
           close={closeModal}
           email={stateObj ? stateObj.sEmail : "the provided email address"}
-          token={emailVerify}
         />
       )}
     </div>
