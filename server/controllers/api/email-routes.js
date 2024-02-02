@@ -72,13 +72,13 @@ router.post("/forgot-pwd", async (req, res) => {
     },
   });
 
-  const conf = await Confirmation.findOne({ email: req.body.email });
+  const conf = await Confirmation.findOne({ email: req.body.forgotEmail });
 
   const mailOptions = {
     from: process.env.MAIL_USERNAME,
-    to: req.body.email,
-    subject: "Be for Reel: confirm your email account",
-    text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: ${process.env.SERVER_HOST}#/email/${conf.confirmation_token}`,
+    to: req.body.forgotEmail,
+    subject: "Be for Reel: reset your password",
+    text: `You requested a password reset for your Be for Reel account. To reset your password, copy and paste this address into your web browser: ${process.env.SERVER_HOST}#/pwd/${conf.confirmation_token}`,
     html: `<html>
     <head>
       <style>
@@ -94,10 +94,10 @@ router.post("/forgot-pwd", async (req, res) => {
       <div style="height:100%;background-color:#01141e;text-align:center;">
         <img src="https://be-4-reel-9f2cbf237830.herokuapp.com/b4r-full.png" style="width:100px;display:block;margin:12px auto;" />
         <p style="color:white;text-align:center;padding:18px;">
-          You successfully registered an account on Be for Reel.<br/>Click the link below to confirm your email address and activate your account.
+          You requested a password reset for your Be for Reel account.<br/>Click the link below to reset your password.
         </p>
-        <a href="${process.env.SERVER_HOST}#/email/${conf.confirmation_token}" style="background-color:#1ba098;color:white;padding:20px;margin:12px auto;">
-          Confirm ${req.body.email}
+        <a href="${process.env.SERVER_HOST}#/pwd/${conf.confirmation_token}" style="background-color:#1ba098;color:white;padding:20px;margin:12px auto;">
+          Reset password
         </a>
       </div>
     </body>
@@ -108,7 +108,7 @@ router.post("/forgot-pwd", async (req, res) => {
     if (err) {
       console.log("transporter sendMail error");
       console.log(err);
-    } else console.log(`email sent to ${req.body.email}`);
+    } else console.log(`email sent to ${req.body.forgotEmail}`);
   });
 
   res.status(200).json({

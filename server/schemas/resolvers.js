@@ -635,7 +635,23 @@ const resolvers = {
           success: false,
           message: "There is no registered user with that email address.",
         };
-      // else return { success: true, message: "So far, so good." };
+
+      // delete any existing confirmations for this email account
+      await Confirmation.deleteMany({
+        email,
+        confirmation_type: "forgot",
+      });
+
+      // create a new Confirmation
+      const forgot = await Confirmation.create({
+        user_id: user._id,
+        email,
+        confirmation_type: "forgot",
+      });
+
+      return forgot
+        ? { success: true, message: "Sending forgotten email" }
+        : { success: false, message: "Confirmation not created" };
     },
 
     deactivatePoll: async (parent, { poll_id }, context) => {

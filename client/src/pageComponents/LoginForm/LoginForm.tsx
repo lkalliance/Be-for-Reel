@@ -2,6 +2,7 @@
 
 import "./LoginForm.css";
 import { useState } from "react";
+import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { loginState } from "../../utils/interfaces";
 import { LOGIN, FORGOT_PWD } from "../../utils/mutations";
@@ -36,6 +37,7 @@ export function LoginForm({
   const closeModal = () => {
     setForgot(false);
     setForgotEmail("");
+    setErrorMessage("");
   };
 
   const memoryHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,6 +49,13 @@ export function LoginForm({
           email: forgotEmail,
         },
       });
+
+      if (reset.data?.forgotPwd.success) {
+        // if the return says it succeeded, send the email
+        await axios.post("/api/email/forgot-pwd", {
+          forgotEmail,
+        });
+      }
 
       // if the return says it can't find the email, say so
       if (!reset.data?.forgotPwd.success)

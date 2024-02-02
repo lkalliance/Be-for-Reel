@@ -22,6 +22,7 @@ import {
   TopMovies,
   FAQ,
   SearchResults,
+  ResetPassword,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 import { userData, userPollProps } from "./utils";
@@ -56,6 +57,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/email/:eToken" element={<Home />} />
+          <Route path="/pwd/:eToken" element={<ResetPassword />} />
           <Route
             path="/login"
             element={
