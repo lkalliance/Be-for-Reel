@@ -72,7 +72,14 @@ router.post("/forgot-pwd", async (req, res) => {
     },
   });
 
-  const conf = await Confirmation.findOne({ email: req.body.forgotEmail });
+  const conf = await Confirmation.findOne({
+    email: req.body.forgotEmail,
+    confirmation_type: "forgot",
+  });
+
+  if (!conf) {
+    res.status(400).json({ message: "confirmation expired" });
+  }
 
   const mailOptions = {
     from: process.env.MAIL_USERNAME,

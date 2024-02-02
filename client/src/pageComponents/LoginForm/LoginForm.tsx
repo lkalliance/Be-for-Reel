@@ -2,12 +2,13 @@
 
 import "./LoginForm.css";
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { loginState } from "../../utils/interfaces";
-import { LOGIN, FORGOT_PWD } from "../../utils/mutations";
+import { LOGIN, FORGOT_PWD, RESET_PWD } from "../../utils/mutations";
 import { AuthService } from "../../utils/auth";
-import { InputText, ForgotPwdModal } from "../../components";
+import { InputText, ForgotPwdModal, ResetPwdModal } from "../../components";
 
 export function LoginForm({
   setLogIn,
@@ -18,13 +19,21 @@ export function LoginForm({
   setBoolErr,
 }: loginState) {
   const Auth = new AuthService();
+  const params = useParams();
+  const navigate = useNavigate();
+  const eToken = params.eToken;
   const [forgot, setForgot] = useState(false);
+  const [reset, setReset] = useState(eToken && eToken.length > 0);
+  const [resetPassword, setResetPwd] = useState("");
   const [forgotEmail, setForgotEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [login, { error, data }] = useMutation(LOGIN);
   const [forgotPwd, { error: pwdError, data: pwdData }] =
     useMutation(FORGOT_PWD);
+  const [resetPwd, { error: resetError, data: resetData }] =
+    useMutation(RESET_PWD);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Handler for changes to login fields
@@ -34,10 +43,17 @@ export function LoginForm({
     handleChange(e);
   };
 
-  const closeModal = () => {
+  const closeForgotModal = () => {
     setForgot(false);
     setForgotEmail("");
     setErrorMessage("");
+  };
+
+  const closeResetModal = () => {
+    setReset(false);
+    setResetPwd("");
+    setErrorMessage("");
+    navigate("/login");
   };
 
   const memoryHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,7 +76,24 @@ export function LoginForm({
       // if the return says it can't find the email, say so
       if (!reset.data?.forgotPwd.success)
         setErrorMessage(reset.data?.forgotPwd.message);
-      else closeModal();
+      else closeForgotModal();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const resetHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      // do the mutation
+      const reset = await resetPwd({
+        variables: {
+          eToken,
+          newPwd: resetPassword,
+        },
+      });
+
+      console.log(reset);
     } catch (err) {
       console.log(err);
     }
@@ -149,8 +182,18 @@ export function LoginForm({
         <ForgotPwdModal
           val={forgotEmail}
           setter={setForgotEmail}
-          close={closeModal}
+          close={closeForgotModal}
           submitter={memoryHandler}
+          errMess={errorMessage}
+        />
+      )}
+      {reset && (
+        <ResetPwdModal
+          eToken={eToken}
+          val={resetPassword}
+          setter={setResetPwd}
+          close={closeResetModal}
+          submitter={resetHandler}
           errMess={errorMessage}
         />
       )}

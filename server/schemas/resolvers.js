@@ -654,6 +654,36 @@ const resolvers = {
         : { success: false, message: "Confirmation not created" };
     },
 
+    resetPwd: async (parent, { newPwd, eToken }) => {
+      if (!newPwd || !eToken || newPwd.length < 8 || eToken.length === 0) {
+        return {
+          success: false,
+          message: "This link has expired. Request a new reset.",
+        };
+      }
+
+      // find the confirmation first
+      const conf = await Confirmation.findOne({ confirmation_token: eToken });
+      // if it doesn't exist, say so
+      if (!conf)
+        return {
+          success: false,
+          message: "This link has expired. Request a new reset.",
+        };
+
+      // get the user
+      const user = await User.findOneAndUpdate(
+        { _id: conf.user_id },
+        { $set: { password: newPwd } },
+        { new: true, upsert: false, runValidators: true }
+      );
+      // if it doesn't exist, say so
+      if (!user) return { success: false, message: "This user doesn't exist." };
+      else {
+        console.log(user);
+      }
+    },
+
     deactivatePoll: async (parent, { poll_id }, context) => {
       if (context.user) {
         try {

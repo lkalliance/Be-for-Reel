@@ -121,3 +121,12 @@ export const FORGOT_PWD = gql`
     }
   }
 `;
+
+export const RESET_PWD = gql`
+  mutation ResetPwd($newPwd: String!, $eToken: String!) {
+    resetPwd(newPwd: $newPwd, eToken: $eToken) {
+      success
+      message
+    }
+  }
+`;
