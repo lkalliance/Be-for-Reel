@@ -24,7 +24,9 @@ import {
   SearchResults,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
+import { AlertModal } from "./components";
 import { userData, userPollProps } from "./utils";
+import { Alert } from "react-bootstrap";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {
@@ -47,7 +49,13 @@ const client = new ApolloClient({
 function App() {
   const Auth = new AuthService();
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+  const [alertText, setAlertText] = useState("This is a test");
+  const [alertType, setAlertType] = useState<"alert" | "success">("success");
   const userInfo: userData = Auth.getProfile();
+
+  const alertCloser = () => {
+    setAlertText("");
+  };
 
   return (
     <ApolloProvider client={client}>
@@ -92,6 +100,13 @@ function App() {
           <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
+        {alertText.length > 0 && (
+          <AlertModal
+            type={alertType}
+            message={alertText}
+            close={alertCloser}
+          />
+        )}
       </div>
     </ApolloProvider>
   );

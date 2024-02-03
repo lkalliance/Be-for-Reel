@@ -26,7 +26,7 @@ export function ForgotPwdModal({
   };
 
   return (
-    <div id="forgot-password-modal">
+    <div id="forgot-password-modal" className="main-modal">
       <div id="forgot-contents" className="list-member-12">
         Forgot your password? Enter the email address to the account in the
         field below.

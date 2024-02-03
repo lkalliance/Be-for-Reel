@@ -9,7 +9,7 @@ interface emailVerifyProps {
 
 export function EmailVerifyModal({ close, email }: emailVerifyProps) {
   return (
-    <div id="email-verify-modal">
+    <div id="email-verify-modal" className="main-modal">
       <div className="list-member-12">
         A confirmation email has been sent to {email}. Click on the link in the
         email to confirm your account. This message will self-destruct in two

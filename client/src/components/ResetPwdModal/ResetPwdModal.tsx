@@ -30,7 +30,7 @@ export function ResetPwdModal({
   };
 
   return (
-    <div id="reset-password-modal">
+    <div id="reset-password-modal" className="main-modal">
       <div id="reset-contents" className="list-member-12">
         <InputText
           type="password"

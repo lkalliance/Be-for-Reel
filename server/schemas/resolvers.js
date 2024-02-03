@@ -679,9 +679,13 @@ const resolvers = {
       );
       // if it doesn't exist, say so
       if (!user) return { success: false, message: "This user doesn't exist." };
-      else {
-        console.log(user);
-      }
+
+      // delete the confirmation
+      await Confirmation.deleteOne({
+        confirmation_type: "forgot",
+        confirmation_token: eToken,
+      });
+      return { success: true, message: "Password was reset" };
     },
 
     deactivatePoll: async (parent, { poll_id }, context) => {

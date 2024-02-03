@@ -93,7 +93,9 @@ export function LoginForm({
         },
       });
 
-      console.log(reset);
+      if (reset.data?.resetPwd.success) {
+        closeResetModal();
+      }
     } catch (err) {
       console.log(err);
     }
