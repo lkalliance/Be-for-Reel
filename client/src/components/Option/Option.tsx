@@ -13,7 +13,9 @@ selected: an object with all the information needed for a vote on this option:
   -- imdb_id: this option's movie's IMDb id
   -- comment: the value of any added comment by the user
 select: a callback setting the poll's state indicating the selected option
-comment: a callback setting the value of the comment text area
+comment: a string containing the current comment
+setComment: a callback setting the value of the comment text area
+handleComment: a callback for changes to the comment field
 handleVote: a callback for the casting of a vote for this option
   (this will be used only if the UI addes the voting action directly to the options) */
 
@@ -24,6 +26,7 @@ import imdb from "./imdb-icon-14.png";
 import gross from "./gross.png";
 import Accordion from "react-bootstrap/Accordion";
 import { optionProps } from "../../utils/interfaces";
+import { TextAreaField } from "../TextAreaField";
 
 interface voteProps {
   userName: string;
@@ -44,8 +47,10 @@ interface optProps {
   confirmed: boolean;
   selected: voteProps;
   select: (e: React.SetStateAction<voteProps>) => void;
-  comment: (e: React.SetStateAction<string>) => void;
+  comment: string;
+  setComment: (e: React.SetStateAction<string>) => void;
   handleVote: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleComment: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   editable: boolean | null;
 }
 
@@ -60,10 +65,15 @@ export function Option({
   selected,
   select,
   comment,
+  setComment,
+  handleVote,
+  handleComment,
 }: optProps) {
+  const isSelected = selected.option_id === opt._id;
   const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
 
   const handleSelect = (e: React.MouseEvent<HTMLElement>) => {
+    // handler for the selection of this option
     e.stopPropagation();
 
     const { className } = e.currentTarget as HTMLElement;
@@ -74,7 +84,7 @@ export function Option({
       imdb_id: opt.imdb_id,
     };
     select(voteObj);
-    comment("");
+    setComment("");
   };
 
   const grossPieces = opt.worldwide.split(",");
@@ -184,6 +194,27 @@ export function Option({
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          {loggedIn && !voted && (
+            <fieldset>
+              <TextAreaField
+                id="comment"
+                placeholder="Add an optional comment here, and click to vote!"
+                max={400}
+                height={60}
+                width={250}
+                setValue={handleComment}
+                val={comment}
+                disabled={!(isSelected && loggedIn && !voted)}
+              />
+              <button
+                disabled={!(isSelected && loggedIn && !voted)}
+                onClick={handleVote}
+                className="btn btn-primary"
+              >
+                Vote!
+              </button>
+            </fieldset>
+          )}
         </div>
         {loggedIn &&
           confirmed &&
