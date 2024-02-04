@@ -21,3 +21,6 @@ export { SearchForm } from "./SearchForm";
 export { UserMenu } from "./UserMenu";
 export { EmailVerifyModal } from "./EmailVerifyModal";
 export { EmailTokenModal } from "./EmailTokenModal";
+export { ForgotPwdModal } from "./ForgotPwdModal";
+export { ResetPwdModal } from "./ResetPwdModal";
+export { AlertModal } from "./AlertModal";

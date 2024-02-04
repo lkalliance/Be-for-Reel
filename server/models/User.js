@@ -128,12 +128,25 @@ const userSchema = new Schema({
 userSchema.plugin(uniqueValidator);
 
 // set up pre-save middleware to create password
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", function (next) {
   if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
+    this.password = bcrypt.hashSync(this.password, saltRounds);
   }
+  next();
+});
 
+// set up pre-update middleware to hash new password
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate();
+
+  // check if the password was modified
+  if (update.$set && update.$set.password) {
+    // if it was, overwrite the password with the hash
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(update.$set.password, saltRounds);
+    update.$set.password = hashedPassword;
+  }
   next();
 });
 

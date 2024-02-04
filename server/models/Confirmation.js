@@ -6,6 +6,10 @@ const confirmationSchema = new Schema({
     type: String,
     default: uuidv4,
   },
+  confirmation_type: {
+    type: String,
+    default: "confirm",
+  },
   user_id: {
     type: String,
     required: true,

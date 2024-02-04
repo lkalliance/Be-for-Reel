@@ -1,12 +1,14 @@
 import "./EmailTokenModal.css";
+import { Dispatch, SetStateAction } from "react";
 import axios, { AxiosError } from "axios";
 import { AuthService } from "../../utils/auth";
 
 interface tokenProps {
   eToken: string | undefined;
+  setLogIn: Dispatch<SetStateAction<boolean>>;
 }
 
-export function EmailTokenModal({ eToken }: tokenProps) {
+export function EmailTokenModal({ eToken, setLogIn }: tokenProps) {
   const Auth = new AuthService();
 
   const sendToken = async (token: string) => {
@@ -14,13 +16,14 @@ export function EmailTokenModal({ eToken }: tokenProps) {
 
     // if there is no token, never mind
     if (!token) return;
-    const response = await axios
+    await axios
       .get("/api/email/validate-code", {
         params: { eToken },
       })
       .then(() => {
         // log out the user
         Auth.logout();
+        setLogIn(false);
       })
       .catch((err: AxiosError) => {
         const e: any = err.response?.data;

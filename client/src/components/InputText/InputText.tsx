@@ -66,14 +66,17 @@ export function InputText({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
+    // remove spaces from passwords
+    const updatedValue = type === "password" ? value.replace(" ", "") : value;
+
     // check against a maxiumum value and stop if it's already reached
-    if (max && value.length > max) return;
+    if (max && updatedValue.length > max) return;
     // if a change handler has been passed down, use it...
     if (setValue) setValue(e);
     // ...otherwise just update the local state
-    else setLocalVal(value);
+    else setLocalVal(updatedValue);
     // update the character count
-    setCharCount(value.length);
+    setCharCount(updatedValue.length);
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {

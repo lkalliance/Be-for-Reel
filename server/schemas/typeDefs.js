@@ -195,6 +195,8 @@ const typeDefs = gql`
   type Mutation {
     addUser(userName: String!, email: String!, password: String!): Auth
     newEmailCode(user_id: String!, email: String!): Confirm
+    forgotPwd(email: String!): Confirm
+    resetPwd(newPwd: String!, eToken: String!): Confirm
     login(userName: String!, password: String!, eToken: String): Auth
     addPoll(
       title: String!

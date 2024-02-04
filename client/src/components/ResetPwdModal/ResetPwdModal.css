@@ -1,8 +1,8 @@
-div#email-verify-modal {
+div#reset-password-modal {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-div#email-verify-modal div {
+div#reset-password-modal div#reset-contents {
   position: absolute;
   width: 250px;
   margin-left: -125px;
@@ -15,7 +15,15 @@ div#email-verify-modal div {
   border-radius: 12px 6px 12px 12px;
 }
 
-div#email-verify-modal div svg {
+div#reset-password-modal div.alert {
+  padding: 8px;
+}
+
+div#reset-password-modal input {
+  margin-top: 12px;
+}
+
+div#reset-password-modal div svg {
   position: absolute;
   right: 3px;
   top: 3px;

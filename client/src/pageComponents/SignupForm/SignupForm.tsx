@@ -2,13 +2,14 @@
 
 import "./SignupForm.css";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import axios from "axios";
 import { AuthService } from "../../utils/auth";
 import { accountLimits } from "../../utils/typeUtils";
 import { loginState } from "../../utils/interfaces";
 import { ADD_USER } from "../../utils/mutations";
-import { InputText, EmailVerifyModal } from "../../components";
+import { InputText, EmailVerifyModal, EmailTokenModal } from "../../components";
 
 interface formData {
   [key: string]: string;
@@ -24,6 +25,9 @@ export function SignupForm({
   setStrErr,
 }: loginState) {
   const Auth = new AuthService();
+  const params = useParams();
+  const isValidation = window.location.hash.indexOf("email") >= 0;
+  const eToken = params.eToken;
   const [addUser] = useMutation(ADD_USER);
   const [emailVerify, setEmailVerify] = useState("");
 
@@ -65,7 +69,8 @@ export function SignupForm({
     }
   };
 
-  const closeModal = () => {
+  const closeVerifyModal = () => {
+    // handles the closure of "confirmation sent", and logs user in
     try {
       // clear the form
       if (formSetter) {
@@ -151,6 +156,7 @@ export function SignupForm({
 
   return (
     <div id="signupFormContainer">
+      {isValidation && <EmailTokenModal eToken={eToken} setLogIn={setLogIn} />}
       <h1>Sign Up</h1>
 
       <form>
@@ -202,7 +208,7 @@ export function SignupForm({
       </form>
       {emailVerify.length > 0 && (
         <EmailVerifyModal
-          close={closeModal}
+          close={closeVerifyModal}
           email={stateObj ? stateObj.sEmail : "the provided email address"}
         />
       )}

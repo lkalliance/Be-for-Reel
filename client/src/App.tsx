@@ -24,7 +24,7 @@ import {
   SearchResults,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
-import { userData, userPollProps } from "./utils";
+import { userData } from "./utils";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {
@@ -46,16 +46,23 @@ const client = new ApolloClient({
 
 function App() {
   const Auth = new AuthService();
-  const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+  const [loggedIn, setLoggedIn] = useState<boolean>(Auth.loggedIn());
   const userInfo: userData = Auth.getProfile();
 
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Header />
+        <Header loggedIn={loggedIn} setLogIn={setLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/email/:eToken" element={<Home />} />
+          <Route
+            path="/email/:eToken"
+            element={<Login setLogIn={setLoggedIn} />}
+          />
+          <Route
+            path="/pwd/:eToken"
+            element={<Login setLogIn={setLoggedIn} />}
+          />
           <Route
             path="/login"
             element={

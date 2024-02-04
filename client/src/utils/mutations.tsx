@@ -112,3 +112,21 @@ export const NEW_CODE = gql`
     }
   }
 `;
+
+export const FORGOT_PWD = gql`
+  mutation ForgotPwd($email: String!) {
+    forgotPwd(email: $email) {
+      success
+      message
+    }
+  }
+`;
+
+export const RESET_PWD = gql`
+  mutation ResetPwd($newPwd: String!, $eToken: String!) {
+    resetPwd(newPwd: $newPwd, eToken: $eToken) {
+      success
+      message
+    }
+  }
+`;

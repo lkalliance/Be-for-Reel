@@ -600,7 +600,10 @@ const resolvers = {
         return;
       }
       try {
-        const conf = await Confirmation.findOne({ user_id, email });
+        const conf = await Confirmation.findOne({
+          user_id,
+          confirmation_type: "confirm",
+        });
 
         if (conf) {
           // confirmation already exists, re-send it
@@ -610,7 +613,7 @@ const resolvers = {
           };
         } else {
           // generate a new confirmation
-          const eConfirm = await Confirmation.create({
+          await Confirmation.create({
             user_id,
             email,
           });
@@ -620,6 +623,69 @@ const resolvers = {
         console.log(err);
         return { success: false, message: "Error sending confirmation" };
       }
+    },
+
+    forgotPwd: async (parent, { email }) => {
+      if (!email) return { success: false, message: "No email provided" };
+
+      // get the user first
+      const user = await User.findOne({ email });
+      if (!user)
+        return {
+          success: false,
+          message: "There is no registered user with that email address.",
+        };
+
+      // delete any existing confirmations for this email account
+      await Confirmation.deleteMany({
+        email,
+        confirmation_type: "forgot",
+      });
+
+      // create a new Confirmation
+      const forgot = await Confirmation.create({
+        user_id: user._id,
+        email,
+        confirmation_type: "forgot",
+      });
+
+      return forgot
+        ? { success: true, message: "Sending forgotten email" }
+        : { success: false, message: "Confirmation not created" };
+    },
+
+    resetPwd: async (parent, { newPwd, eToken }) => {
+      if (!newPwd || !eToken || newPwd.length < 8 || eToken.length === 0) {
+        return {
+          success: false,
+          message: "This link has expired. Request a new reset.",
+        };
+      }
+
+      // find the confirmation first
+      const conf = await Confirmation.findOne({ confirmation_token: eToken });
+      // if it doesn't exist, say so
+      if (!conf)
+        return {
+          success: false,
+          message: "This link has expired. Request a new reset.",
+        };
+
+      // get the user
+      const user = await User.findOneAndUpdate(
+        { _id: conf.user_id },
+        { $set: { password: newPwd } },
+        { new: true, upsert: false, runValidators: true }
+      );
+      // if it doesn't exist, say so
+      if (!user) return { success: false, message: "This user doesn't exist." };
+
+      // delete the confirmation
+      await Confirmation.deleteOne({
+        confirmation_type: "forgot",
+        confirmation_token: eToken,
+      });
+      return { success: true, message: "Password was reset" };
     },
 
     deactivatePoll: async (parent, { poll_id }, context) => {

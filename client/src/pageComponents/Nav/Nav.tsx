@@ -1,7 +1,7 @@
 // This component renders the navigation
 
 import "./Nav.css";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -14,7 +14,12 @@ import { AuthService } from "../../utils/auth";
 import { SearchForm, UserMenu } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function HeaderNav() {
+interface headerNavProps {
+  loggedIn: boolean;
+  setLogIn: Dispatch<SetStateAction<boolean>>;
+}
+
+export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
   const Auth = new AuthService();
   const userInfo = Auth.getProfile();
   const navigate = useNavigate();
@@ -55,7 +60,7 @@ export function HeaderNav() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {Auth.loggedIn() ? (
+            {loggedIn ? (
               <>
                 <LinkContainer to={`/${userInfo.lookupName}`}>
                   <Nav.Link
@@ -69,6 +74,7 @@ export function HeaderNav() {
                       setShowSearch(false);
                       e.preventDefault();
                       Auth.logout();
+                      setLogIn(false);
                     }}
                     id="logout-link"
                   >
@@ -96,7 +102,7 @@ export function HeaderNav() {
             <LinkContainer to="/top-films">
               <Nav.Link onClick={() => closeMenus()}>Films</Nav.Link>
             </LinkContainer>
-            {Auth.loggedIn() && (
+            {loggedIn && (
               <NavItem
                 className={`user-icon faq-round ${showUserMenu && "open"}`}
                 onClick={(e: React.MouseEvent<HTMLElement>) => {

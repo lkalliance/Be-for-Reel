@@ -5,3 +5,12 @@ form {
 section#login .alert {
   margin-left: 0;
 }
+
+section#login div#forgot-pwd {
+  text-align: right;
+}
+
+section#login div#forgot-pwd a {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
