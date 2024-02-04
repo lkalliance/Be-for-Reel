@@ -1,3 +1,14 @@
 .poll-listing {
   list-style-type: none;
 }
+
+body span.username {
+  padding: 6px 12px;
+  background-color: var(--tertiary-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+body span.username a {
+  font-size: 0.85rem;
+}

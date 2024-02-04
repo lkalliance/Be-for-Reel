@@ -5,3 +5,7 @@
 section#poll p.desc {
   color: white;
 }
+
+section#poll p.uName {
+  font-size: 0.9rem;
+}

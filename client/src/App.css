@@ -8,7 +8,7 @@
   --tertiary-text: rgb(70, 118, 168);
   --highlight: rgb(126, 126, 31);
   --highlight-text: rgb(217, 217, 71);
-  --dark-text: #888888;
+  --dark-text: #9b9b9b;
   --item-background: rgba(0, 0, 0, 0.5);
   --item-background-hover: rgba(78, 89, 135, 0.5);
   --item-background-light: rgba(255, 255, 255, 0.1);
@@ -55,6 +55,11 @@ body a:hover {
 
 body a.reverse {
   color: var(--link-hover);
+}
+
+body a.username,
+body .username a {
+  font-weight: normal;
 }
 
 body a.reverse:hover {
