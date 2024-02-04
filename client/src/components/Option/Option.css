@@ -58,6 +58,44 @@ div.accordion .accordion-item {
   padding: 0 0 0 20px;
 }
 
+/* for voting form */
+
+.option fieldset {
+  height: 0;
+  overflow: hidden;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: height 0.5s;
+}
+
+div.option.selected fieldset {
+  height: 182px;
+}
+
+.option fieldset button {
+  margin-top: 6px;
+  width: 80px;
+}
+
+.option div.limit {
+  margin-top: -6px;
+  padding-left: 90px;
+}
+
+.option div.textarea {
+  width: 100%;
+  height: 125px;
+  margin-top: 12px;
+}
+
+.option div.textarea textarea {
+  font-size: 0.9rem;
+  width: 100%;
+  height: 125px;
+}
+
 /* for the selector or vote display */
 
 .option button.picker,
@@ -123,9 +161,9 @@ div.accordion .accordion-item {
   display: none;
 }
 
-.option.selected {
+/* .option.selected {
   background-color: var(--item-background-hover);
-}
+} */
 
 .option div.misc-info {
   margin: 6px 0;

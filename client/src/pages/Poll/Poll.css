@@ -29,17 +29,6 @@ div#question p.desc {
   margin: 0;
 }
 
-div#question textarea {
-  width: 250px;
-  height: 125px;
-  margin-top: 6px;
-}
-
-div#question .textarea {
-  width: 250px;
-  margin: 0 auto;
-}
-
 div#question button {
   width: 250px;
   height: auto;

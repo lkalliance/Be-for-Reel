@@ -135,30 +135,7 @@ export function Poll({ currUser }: pollProps) {
                 <p id="yourvote">
                   you voted for <strong>{userInfo.votes[poll._id]}</strong>
                 </p>
-              ) : !poll.expired ? (
-                // user has not voted on this poll, and it can't be edited, show the form
-                <fieldset>
-                  <TextAreaField
-                    id="comment"
-                    placeholder="Make a selection, add an optional comment, and click to vote!"
-                    max={400}
-                    height={60}
-                    width={250}
-                    setValue={handleComment}
-                    val={comment}
-                    disabled={selected.option_id === ""}
-                  />
-                  <button
-                    disabled={selected.option_id === ""}
-                    onClick={handleVote}
-                    className="btn btn-primary"
-                  >
-                    Vote!
-                  </button>
-                </fieldset>
-              ) : (
-                <div className="hidden"></div>
-              )
+              ) : null
             ) : // user is not logged in, or not confirmed
             !loggedIn ? (
               <div className="login-prompt">
@@ -195,10 +172,12 @@ export function Poll({ currUser }: pollProps) {
                   expired={poll.expired}
                   selected={selected}
                   select={setSelected}
-                  comment={setComment}
+                  comment={comment}
+                  setComment={setComment}
                   voted={userInfo.votes[poll._id]}
                   votes={userInfo.votes[poll._id] ? option.votes : undefined}
                   handleVote={handleVote}
+                  handleComment={handleComment}
                   editable={poll.editable}
                 />
               );
