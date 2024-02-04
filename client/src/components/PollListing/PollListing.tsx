@@ -11,14 +11,10 @@ either a directory object or a user object, based on where it is displayed:
 
 import "./PollListing.css";
 import { Link } from "react-router-dom";
-// import { useMutation } from "@apollo/client";
-// import { DEACTIVATE_POLL } from "../../utils/mutations";
-// import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
-// import { AuthService } from "../../utils/auth";
-import { ActionLink } from "../../components";
+import { ActionLink, UsernameLink } from "../../components";
 import { userPollProps } from "../../utils/interfaces";
 import { convertMonth } from "../../utils/typeUtils";
-import { UsernameLink } from "../../components";
+import { AuthService } from "../../utils/auth";
 
 interface directoryPollListingProps {
   poll: userPollProps;
@@ -38,6 +34,8 @@ interface listProps {
 }
 
 export function PollListing({ user, directory }: listProps) {
+  const auth = new AuthService();
+  const currentUser = auth.getProfile().userName === directory?.poll.username;
   // const auth = new AuthService();
   // const whoIsThis = auth.getProfile().lookupName;
 
@@ -92,15 +90,20 @@ export function PollListing({ user, directory }: listProps) {
             : "poll-listing list-member-12"
         }
       >
-        <Link to={directory.poll.urlTitle}>{directory.poll.title}</Link>
-        <span>
-          <UsernameLink username={directory.poll.username} />
-        </span>
-        {directory.vote.length > 0 ? (
+        <div className="title-and-user">
+          <Link to={directory.poll.urlTitle} className="reverse">
+            {directory.poll.title}
+          </Link>
+          <UsernameLink
+            username={directory.poll.username}
+            current={currentUser}
+          />
+        </div>
+        {directory.vote.length > 0 && (
           <p className="sub-info">
             you voted for <strong>{`${directory.vote}`}</strong>
           </p>
-        ) : null}
+        )}
         <p>
           {` ${directory.poll.votes} vote`}
           {directory.poll.votes !== 1 ? "s" : ""} and{" "}

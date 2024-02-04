@@ -18,10 +18,10 @@ export function Question({ question, description, username }: questionProps) {
   return (
     <div>
       <h2>{question}</h2>
-      {description ? <p className="desc">{description}</p> : ""}
-      <h4>
+      {description ? <p className="desc m-1">{description}</p> : ""}
+      <p className="m-3">
         <UsernameLink username={username} />
-      </h4>
+      </p>
     </div>
   );
 }

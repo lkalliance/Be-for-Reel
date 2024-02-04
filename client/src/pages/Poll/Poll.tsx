@@ -16,7 +16,7 @@ import {
   QUERY_SINGLE_USER,
 } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { Question, Option, Comment, TextAreaField } from "../../components";
+import { Question, Option, Comment } from "../../components";
 
 interface pollProps {
   loggedin: boolean;

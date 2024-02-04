@@ -9,12 +9,16 @@ import { createLookupName } from "../../utils";
 
 interface usernameLinkProps {
   username: string;
+  current?: boolean;
 }
 
-export function UsernameLink({ username }: usernameLinkProps) {
+export function UsernameLink({ username, current }: usernameLinkProps) {
   return (
-    <Link to={`/${createLookupName(username)}`} className="reverse">
-      {username}
-    </Link>
+    <span className="username">
+      by{" "}
+      <Link to={`/${createLookupName(username)}`}>
+        {current ? "you" : username}
+      </Link>
+    </span>
   );
 }
