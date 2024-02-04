@@ -19,21 +19,21 @@ export function LoginForm({
   setBoolErr,
 }: loginState) {
   const Auth = new AuthService();
-  const params = useParams();
   const navigate = useNavigate();
+  const params = useParams();
+  const isForgotten = window.location.hash.indexOf("pwd") >= 0;
   const eToken = params.eToken;
   const [forgot, setForgot] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [reset, setReset] = useState(eToken && eToken.length > 0);
   const [resetPassword, setResetPwd] = useState("");
   const [forgotEmail, setForgotEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login, { error, data }] = useMutation(LOGIN);
-  const [forgotPwd, { error: pwdError, data: pwdData }] =
-    useMutation(FORGOT_PWD);
-  const [resetPwd, { error: resetError, data: resetData }] =
-    useMutation(RESET_PWD);
+  const [login] = useMutation(LOGIN);
+  const [forgotPwd] = useMutation(FORGOT_PWD);
+  const [resetPwd] = useMutation(RESET_PWD);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Handler for changes to login fields
@@ -93,9 +93,8 @@ export function LoginForm({
         },
       });
 
-      if (reset.data?.resetPwd.success) {
-        closeResetModal();
-      }
+      closeResetModal();
+      console.log(reset.data?.forgotPwd.message);
     } catch (err) {
       console.log(err);
     }
@@ -189,7 +188,7 @@ export function LoginForm({
           errMess={errorMessage}
         />
       )}
-      {reset && (
+      {isForgotten && (
         <ResetPwdModal
           eToken={eToken}
           val={resetPassword}

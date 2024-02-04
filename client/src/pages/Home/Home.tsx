@@ -1,21 +1,16 @@
 // This component renders the home page
 
 import "./Home.css";
-import { Dispatch, SetStateAction } from "react";
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
 import { pollProps } from "../../utils/interfaces";
 import { QUERY_HOME_POLLS } from "../../utils/queries";
-import { Card, EmailTokenModal } from "../../components";
+import { Card } from "../../components";
 
 export function Home() {
-  const params = useParams();
-  const emailToken = params.eToken || "";
   const { loading, data: hPolls } = useQuery(QUERY_HOME_POLLS);
 
   return (
     <section id="home" className="container">
-      {emailToken.length > 0 && <EmailTokenModal eToken={emailToken} />}
       <h1 className="homepage-title">Be for Reel</h1>
       <div className="lead">
         <p className="lead">

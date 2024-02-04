@@ -60,6 +60,5 @@ export class AuthService {
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("b4r_username");
-    window.location.assign("/");
   }
 }
