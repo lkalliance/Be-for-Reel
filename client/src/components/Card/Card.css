@@ -1,62 +1,105 @@
 /* Card css here */
 
 .card {
-  min-height: 300px;
   background-color: rgba(0, 0, 0, 0.75) !important;
+  background-position: 50% 30%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: none;
 }
 
-.card .title-container h5 {
-  font-weight: 700;
-  font-size: 1.4em;
-  line-height: 1.1em;
+.card a.main-link {
+  flex-grow: 1;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 6px;
 }
 
-.card-img-top {
-  object-fit: cover;
-  max-height: 200px;
-  object-position: top;
-}
-
-.card-img {
-  margin-top: -20px;
-}
-
-.img-link {
-  padding-right: 0;
-}
-
-.card-title {
-  text-align: center !important;
-  margin-top: 6px;
-}
-
-.title-container {
-  overflow: hidden;
-}
-
-.card-body.custom-body {
-  padding: 0.5em 0.5em 25px;
-}
-
-body p.card-text.votes,
-body p.card-text.user {
+.card a.main-link h5 {
+  background-color: black;
+  padding: 10px 6px 6px;
+  text-align: center;
   margin: 0;
-  padding: 12px;
-  position: absolute;
-  bottom: 0;
-  font-size: 0.75em;
-  color: #8d8d8d;
+  border: none;
+  font-size: 1.1rem;
 }
 
-body p.card-text.user a {
-  font-size: 1.1em;
-  color: var(--link-hover);
+.card a.main-link:hover h5 {
+  color: var(--link-hover) !important;
 }
 
-body p.card-text.user a:hover {
-  color: var(--link);
+.card .title-container {
+  background-color: black;
 }
 
-p.card-text.user {
-  right: 0;
+.card .poll-info {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border-radius: 0 0 6px 6px;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  color: white;
+}
+
+.card .poll-info div {
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.card .poll-info div.username {
+  padding: 4px 0;
+  margin-bottom: 4px;
+  color: var(--dark-text);
+}
+
+/* media queries for height of cards */
+
+@media screen and (min-width: 400px) {
+  .card {
+    min-height: 200px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    min-height: 300px;
+  }
+
+  .card .poll-info div {
+    font-size: 0.9rem;
+  }
+
+  .card a.main-link h5 {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-height: 800px) and (min-width: 600px) {
+  .card {
+    min-height: 400px;
+  }
+}
+
+/* media queries for arrangement of data */
+
+@media screen and (min-width: 400px) and (max-width: 767px) {
+  .card .poll-info {
+    flex-direction: row;
+  }
+
+  .card .poll-info div {
+    width: 40%;
+  }
+
+  .card .poll-info div.username {
+    width: 60%;
+    margin-right: 10px;
+  }
 }

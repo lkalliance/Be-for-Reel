@@ -21,19 +21,17 @@ interface cardProps {
 export function Card({ title, poster, urlTitle, user, votes }: cardProps) {
   return (
     <div className="col">
-      <div className="card custom-card">
-        <Link to={urlTitle} className="img-link">
-          <img src={poster} className="card-img-top" alt={title} />
-          <div className="card-body custom-body">
-            <div className="title-container">
-              <h5 className="card-title">{title}</h5>
-            </div>
-          </div>
+      <div
+        className="card custom-card"
+        style={{ backgroundImage: `url(${poster})` }}
+      >
+        <Link to={urlTitle} className="main-link">
+          <h5 className="card-title">{title}</h5>
         </Link>
-        <p className="card-text votes">votes: {votes}</p>
-        <p className="card-text user">
+        <div className="poll-info">
           <UsernameLink username={user} />
-        </p>
+          <div>votes: {votes}</div>
+        </div>
       </div>
     </div>
   );

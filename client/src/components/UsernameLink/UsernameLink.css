@@ -2,13 +2,14 @@
   list-style-type: none;
 }
 
-body span.username {
+body div.username {
   padding: 6px 12px;
   background-color: var(--tertiary-color);
   border-radius: 4px;
   font-size: 0.85rem;
+  text-align: center;
 }
 
-body span.username a {
+body div.username a {
   font-size: 0.85rem;
 }
