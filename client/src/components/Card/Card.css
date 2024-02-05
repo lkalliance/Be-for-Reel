@@ -68,29 +68,25 @@
 /* media queries for height of cards */
 
 @media screen and (min-width: 400px) {
-  .card {
-    min-height: 200px;
-  }
-
   .card .poll-info {
     padding-top: 6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .card .poll-info div.username {
+    text-align: left;
+  }
+
+  /* .card .poll-info div.username {
     background-color: var(--tertiary-color);
-    padding: 3px;
-    text-align: center;
-  }
-}
+    padding: 3px 8px;
+  } */
 
-@media screen and (min-width: 600px) {
-  .card {
-    min-height: 275px;
-    background-position: 50% 20%;
-  }
-
-  .card .poll-info div {
-    font-size: 0.9rem;
+  .card .poll-info .vote-count {
+    display: block;
+    text-align: right;
   }
 }
 
@@ -101,8 +97,22 @@
 }
 
 @media screen and (min-width: 768px) {
-  .card .vote-count {
-    display: block;
+  .card {
+    min-height: 250px;
+  }
+  .card a.main-link h5 {
+    font-size: 1.2rem;
+  }
+  .card .poll-info {
+    flex-direction: column;
+  }
+  .card .poll-info .vote-count,
+  .card .poll-info div.username {
+    text-align: center;
+  }
+  .card .poll-info div.username {
+    background-color: var(--tertiary-color);
+    padding: 4px 8px;
   }
 }
 
