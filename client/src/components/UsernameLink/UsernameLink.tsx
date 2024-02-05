@@ -14,11 +14,11 @@ interface usernameLinkProps {
 
 export function UsernameLink({ username, current }: usernameLinkProps) {
   return (
-    <span className="username">
+    <div className="username">
       by{" "}
       <Link to={`/${createLookupName(username)}`}>
         {current ? "you" : username}
       </Link>
-    </span>
+    </div>
   );
 }

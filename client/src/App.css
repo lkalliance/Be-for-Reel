@@ -26,7 +26,7 @@ body {
   flex-grow: 1;
   position: relative;
   margin: 0;
-  padding: 20px 20px 100px;
+  padding: 20px;
   background-color: var(--page-background) !important;
 }
 
