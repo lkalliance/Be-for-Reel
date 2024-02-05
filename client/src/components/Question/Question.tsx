@@ -16,12 +16,12 @@ interface questionProps {
 
 export function Question({ question, description, username }: questionProps) {
   return (
-    <div>
+    <div id="question">
       <h2>{question}</h2>
       {description ? <p className="desc m-1">{description}</p> : ""}
-      <p className="m-3">
+      <div className="m-3">
         <UsernameLink username={username} />
-      </p>
+      </div>
     </div>
   );
 }
