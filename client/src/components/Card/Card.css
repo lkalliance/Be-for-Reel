@@ -2,7 +2,7 @@
 
 .card {
   background-color: rgba(0, 0, 0, 0.75) !important;
-  background-position: 50% 30%;
+  background-position: 50% 15%;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -51,6 +51,7 @@
 .card .poll-info div {
   width: 100%;
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .card .poll-info div.username {
@@ -69,13 +70,16 @@
 
 @media screen and (min-width: 600px) {
   .card {
-    min-height: 300px;
+    min-height: 275px;
+    background-position: 50% 20%;
   }
 
   .card .poll-info div {
     font-size: 0.9rem;
   }
+}
 
+@media screen and (min-width: 992px) {
   .card a.main-link h5 {
     font-size: 1.2rem;
   }
@@ -84,6 +88,7 @@
 @media screen and (min-height: 800px) and (min-width: 600px) {
   .card {
     min-height: 400px;
+    background-position: 50% 0;
   }
 }
 
