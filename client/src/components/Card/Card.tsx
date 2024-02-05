@@ -30,7 +30,7 @@ export function Card({ title, poster, urlTitle, user, votes }: cardProps) {
         </Link>
         <div className="poll-info">
           <UsernameLink username={user} />
-          <div>votes: {votes}</div>
+          <div className="vote-count">votes: {votes}</div>
         </div>
       </div>
     </div>

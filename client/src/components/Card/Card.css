@@ -22,7 +22,7 @@
 
 .card a.main-link h5 {
   background-color: black;
-  padding: 10px 6px 6px;
+  padding: 10px 6px 0;
   text-align: center;
   margin: 0;
   border: none;
@@ -44,7 +44,7 @@
   background-color: black;
   border-radius: 0 0 6px 6px;
   font-size: 0.9rem;
-  padding: 8px 12px;
+  padding: 2px 12px 8px;
   color: white;
 }
 
@@ -55,9 +55,14 @@
 }
 
 .card .poll-info div.username {
-  padding: 4px 0;
+  padding: 0;
   margin-bottom: 4px;
   color: var(--dark-text);
+  background-color: transparent;
+}
+
+.card .vote-count {
+  display: none;
 }
 
 /* media queries for height of cards */
@@ -65,6 +70,16 @@
 @media screen and (min-width: 400px) {
   .card {
     min-height: 200px;
+  }
+
+  .card .poll-info {
+    padding-top: 6px;
+  }
+
+  .card .poll-info div.username {
+    background-color: var(--tertiary-color);
+    padding: 3px;
+    text-align: center;
   }
 }
 
@@ -85,26 +100,15 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .card .vote-count {
+    display: block;
+  }
+}
+
 @media screen and (min-height: 800px) and (min-width: 600px) {
   .card {
     min-height: 400px;
     background-position: 50% 0;
-  }
-}
-
-/* media queries for arrangement of data */
-
-@media screen and (min-width: 400px) and (max-width: 767px) {
-  .card .poll-info {
-    flex-direction: row;
-  }
-
-  .card .poll-info div {
-    width: 40%;
-  }
-
-  .card .poll-info div.username {
-    width: 60%;
-    margin-right: 10px;
   }
 }
