@@ -10,16 +10,14 @@ export function UserDir() {
   const userList = loading ? [] : data.getUsers.users;
 
   return (
-    <section id="user-directory" className="container">
+    <section id="user-directory">
       <h1>Users</h1>
 
-      <div className="row">
-        {loading
-          ? "users go here"
-          : userList.map((user: userListProps, index: number) => {
-              return <UserListing key={index} user={user} />;
-            })}
-      </div>
+      {loading
+        ? "users go here"
+        : userList.map((user: userListProps, index: number) => {
+            return <UserListing key={index} user={user} />;
+          })}
     </section>
   );
 }
