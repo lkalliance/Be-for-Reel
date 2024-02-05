@@ -33,29 +33,15 @@ section#directory span.username {
   padding: 4px 12px;
 }
 
-section#directory p.title-and-user {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
 section#directory p.title-and-user span.username a {
   font-size: 0.8rem;
   margin-top: 4px;
 }
 
-section#directory p.poll-info {
+section#directory p.poll-info,
+section#directory p.sub-info {
   display: none;
 }
-
-/* section#directory p.title-and-user {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
-} */
 
 @media screen and (min-width: 350px) {
   section#directory span.username {
@@ -63,7 +49,13 @@ section#directory p.poll-info {
   }
 }
 
-@media screen and (min-height: 70px) {
+@media screen and (min-height: 500px) {
+  section#directory p.sub-info {
+    display: block;
+  }
+}
+
+@media screen and (min-height: 800px) {
   section#directory p.poll-info {
     display: block;
   }
