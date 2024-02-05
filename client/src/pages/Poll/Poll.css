@@ -15,6 +15,7 @@ section#poll div.login-prompt {
 p#yourvote {
   color: var(--secondary-color);
   margin-top: 15px;
+  margin-bottom: 0;
 }
 
 p.expired {
