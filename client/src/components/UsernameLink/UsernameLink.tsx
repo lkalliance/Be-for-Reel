@@ -10,10 +10,22 @@ import { createLookupName } from "../../utils";
 interface usernameLinkProps {
   username: string;
   current?: boolean;
+  blockContainer?: boolean;
 }
 
-export function UsernameLink({ username, current }: usernameLinkProps) {
-  return (
+export function UsernameLink({
+  username,
+  current,
+  blockContainer,
+}: usernameLinkProps) {
+  return blockContainer ? (
+    <span className="username">
+      by{" "}
+      <Link to={`/${createLookupName(username)}`}>
+        {current ? "you" : username}
+      </Link>
+    </span>
+  ) : (
     <div className="username">
       by{" "}
       <Link to={`/${createLookupName(username)}`}>

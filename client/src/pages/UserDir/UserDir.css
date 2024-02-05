@@ -8,3 +8,29 @@ section#user-directory {
 section#user-directory input {
   width: 100%;
 }
+
+section#user-directory span {
+  display: none;
+}
+
+section#user-directory a {
+  width: 100%;
+  display: block;
+}
+
+@media screen and (min-width: 400px) {
+  section#user-directory span.user-info {
+    display: inline;
+  }
+
+  section#user-directory a {
+    width: auto;
+    display: inline;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  section#user-directory span.sub-info {
+    display: inline;
+  }
+}

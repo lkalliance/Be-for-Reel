@@ -44,34 +44,32 @@ export function Directory() {
   };
 
   return (
-    <section id="directory" className="container">
-      <div className="row">
-        <div id="filters" className="col col-12">
-          {getGenres.loading ? (
-            <div className="doesnt-exist list-member-20">Loading...</div>
-          ) : (
-            <Select
-              id="genreSelect"
-              options={genreObjs}
-              val={genre}
-              setValue={handleSelect}
-            />
-          )}
-        </div>
-        {list.length > 0
-          ? list.map((poll: userPollProps, index: number) => {
-              return (
-                <PollListing
-                  key={index}
-                  directory={{
-                    poll: poll,
-                    vote: votes[poll.poll_id] || "",
-                  }}
-                />
-              );
-            })
-          : ""}
+    <section id="directory">
+      <div id="filters" className="col col-12">
+        {getGenres.loading ? (
+          <div className="doesnt-exist list-member-20">Loading...</div>
+        ) : (
+          <Select
+            id="genreSelect"
+            options={genreObjs}
+            val={genre}
+            setValue={handleSelect}
+          />
+        )}
       </div>
+      {list.length > 0
+        ? list.map((poll: userPollProps, index: number) => {
+            return (
+              <PollListing
+                key={index}
+                directory={{
+                  poll: poll,
+                  vote: votes[poll.poll_id] || "",
+                }}
+              />
+            );
+          })
+        : ""}
     </section>
   );
 }

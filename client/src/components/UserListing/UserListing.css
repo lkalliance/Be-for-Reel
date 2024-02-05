@@ -3,3 +3,7 @@
   margin: 0;
   font-size: 0.8rem;
 }
+
+.user-listing span {
+  margin-left: 6px;
+}

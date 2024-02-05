@@ -36,84 +36,40 @@ interface listProps {
 export function PollListing({ user, directory }: listProps) {
   const auth = new AuthService();
   const currentUser = auth.getProfile().userName === directory?.poll.username;
-  // const auth = new AuthService();
-  // const whoIsThis = auth.getProfile().lookupName;
-
-  // const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
-  //   refetchQueries: () => [
-  //     {
-  //       query: QUERY_ALL_POLLS,
-  //       variables: { username: "" },
-  //     },
-  //     {
-  //       query: QUERY_SINGLE_USER,
-  //       variables: { lookupname: whoIsThis },
-  //     },
-  //   ],
-  // });
-
-  // const cancelPoll = async (e: React.MouseEvent<HTMLElement>) => {
-  //   // this handler deactivates a poll
-
-  //   e.preventDefault();
-  //   const id = e.currentTarget.dataset.id;
-  //   try {
-  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //     const { data } = await deactivatePoll({
-  //       variables: {
-  //         poll_id: id,
-  //       },
-  //     });
-  //   } catch (err: any) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const editPoll = async (e: React.MouseEvent<HTMLElement>) => {
-  //   // this handler sets to edit a poll
-
-  //   e.preventDefault();
-  //   const id = e.currentTarget.dataset.id;
-  //   try {
-  //     console.log(`Editing poll ${id}`);
-  //   } catch (err: any) {
-  //     console.log(err);
-  //   }
-  // };
 
   return directory ? (
-    <div className="col col-12 col-md-6">
-      <div
-        className={
-          directory.poll.expired
-            ? "poll-listing list-member-12 expired"
-            : "poll-listing list-member-12"
-        }
-      >
-        <div className="title-and-user">
-          <Link to={directory.poll.urlTitle} className="reverse">
-            {directory.poll.title}
-          </Link>
-          <UsernameLink
-            username={directory.poll.username}
-            current={currentUser}
-          />
-        </div>
-        {directory.vote.length > 0 && (
-          <p className="sub-info">
-            you voted for <strong>{`${directory.vote}`}</strong>
-          </p>
-        )}
-        <p>
-          {` ${directory.poll.votes} vote`}
-          {directory.poll.votes !== 1 ? "s" : ""} and{" "}
-          {`${directory.poll.comments} comment`}
-          {directory.poll.comments !== 1 ? "s" : ""}
-          {directory.poll.expired
-            ? ""
-            : ` (expires ${convertMonth(directory.poll.expires_on)})`}
+    <div
+      className={
+        directory.poll.expired
+          ? "poll-listing list-member-12 expired"
+          : "poll-listing list-member-12"
+      }
+    >
+      <p className="title-and-user">
+        <Link to={directory.poll.urlTitle} className="reverse">
+          {directory.poll.title}
+        </Link>
+        <UsernameLink
+          username={directory.poll.username}
+          current={currentUser}
+          blockContainer={true}
+        />
+      </p>
+      <p className="poll-info">
+        {` ${directory.poll.votes} vote`}
+        {directory.poll.votes !== 1 ? "s" : ""} and{" "}
+        {`${directory.poll.comments} comment`}
+        {directory.poll.comments !== 1 ? "s" : ""}
+        {directory.poll.expired
+          ? ""
+          : ` (expires ${convertMonth(directory.poll.expires_on)})`}
+      </p>
+
+      {directory.vote.length > 0 && (
+        <p className="sub-info">
+          you voted for <strong>{`${directory.vote}`}</strong>
         </p>
-      </div>
+      )}
     </div>
   ) : user ? (
     <div

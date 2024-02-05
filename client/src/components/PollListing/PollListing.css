@@ -15,13 +15,16 @@
 .poll-listing span.username {
   font-size: 0.8rem;
   padding: 0;
-  background-color: transparent;
   color: var(--dark-text);
   margin-left: 6px;
 }
 
-.poll0-listing span.username a {
+.poll-listing span.username a {
   font-size: 0.8rem;
+}
+
+.poll-listing a {
+  font-size: 1.2rem;
 }
 
 @media screen and (min-width: 600px) {

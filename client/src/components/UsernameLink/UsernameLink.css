@@ -2,7 +2,8 @@
   list-style-type: none;
 }
 
-body div.username {
+body div.username,
+body span.username {
   padding: 6px 12px;
   background-color: var(--tertiary-color);
   border-radius: 4px;
@@ -10,6 +11,7 @@ body div.username {
   text-align: center;
 }
 
-body div.username a {
+body div.username a,
+body span.username a {
   font-size: 0.85rem;
 }
