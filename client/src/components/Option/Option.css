@@ -12,8 +12,7 @@
   flex-grow: 1;
   align-items: center;
   justify-content: flex-start;
-  font-size: 1.2rem;
-  padding: 20px;
+  padding: 20px 0 20px 10px;
 }
 
 .option.list-member-12 {
@@ -22,6 +21,7 @@
 
 .option .title h2 button {
   text-transform: uppercase;
+  font-size: 1rem;
 }
 
 .option .opt-container {
@@ -32,7 +32,7 @@
 }
 
 .option .title span.year {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--dark-text);
 }
 
@@ -41,6 +41,7 @@
 div.accordion.accordion-flush {
   width: 100%;
   background-color: transparent;
+  padding-right: 0;
 }
 
 div.accordion .accordion-header button {
@@ -161,6 +162,11 @@ div.option.selected fieldset {
   display: none;
 }
 
+.option .accordion-button::after,
+.option .accordion-button:not(.collapsed)::after {
+  background-size: 15px;
+}
+
 /* .option.selected {
   background-color: var(--item-background-hover);
 } */
@@ -175,6 +181,22 @@ div.option.selected fieldset {
 }
 
 @media screen and (min-width: 400px) {
+  .option button.picker,
+  .option div.tab {
+    border-radius: 0 12px 12px 0;
+  }
+
+  .option .title {
+    padding-right: 10px;
+  }
+
+  .option .opt-container {
+    /* on larger screens, select button/votes are on right */
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 472px) {
   .option .accordion-body img.poster {
     display: block;
     width: 75px;
@@ -182,14 +204,8 @@ div.option.selected fieldset {
     align-self: flex-start;
   }
 
-  .option button.picker,
-  .option div.tab {
-    border-radius: 0 12px 12px 0;
-  }
-
-  .option .opt-container {
-    /* on larger screens, select button/votes are on right */
-    flex-direction: row;
+  .option .title h2 button {
+    font-size: 1.1rem;
   }
 }
 
