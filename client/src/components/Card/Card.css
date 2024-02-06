@@ -96,12 +96,16 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 576px) {
+  .card.first-card {
+    min-height: 200px;
+  }
+}
+
+@media screen and (min-width: 576px) {
   .card {
     min-height: 250px;
-  }
-  .card a.main-link h5 {
-    font-size: 1.2rem;
+    background-position: 50% 25%;
   }
   .card .poll-info {
     flex-direction: column;

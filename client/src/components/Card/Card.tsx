@@ -16,13 +16,14 @@ interface cardProps {
   poster: string;
   user: string;
   votes: number;
+  num: number;
 }
 
-export function Card({ title, poster, urlTitle, user, votes }: cardProps) {
+export function Card({ title, poster, urlTitle, user, votes, num }: cardProps) {
   return (
     <div className="col">
       <div
-        className="card custom-card"
+        className={`card custom-card${num === 0 && " first-card"}`}
         style={{ backgroundImage: `url(${poster})` }}
       >
         <Link to={urlTitle} className="main-link">

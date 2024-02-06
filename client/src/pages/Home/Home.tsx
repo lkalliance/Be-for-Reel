@@ -19,7 +19,7 @@ export function Home() {
           comment!
         </span>
       </p>
-      <div className="row row-cols-1 row-cols-md-3 g-3 justify-content-center">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
         {loading ? (
           <div className="doesnt-exist">loading...</div>
         ) : (
@@ -31,6 +31,7 @@ export function Home() {
               return (
                 <Card
                   key={index}
+                  num={index}
                   title={poll.title}
                   urlTitle={poll.urlTitle}
                   poster={poll.options[whichPoster].image}
