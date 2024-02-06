@@ -12,12 +12,13 @@ export function UserDir() {
   return (
     <section id="user-directory">
       <h1>Users</h1>
-
-      {loading
-        ? "users go here"
-        : userList.map((user: userListProps, index: number) => {
-            return <UserListing key={index} user={user} />;
-          })}
+      <ul>
+        {loading
+          ? "users go here"
+          : userList.map((user: userListProps, index: number) => {
+              return <UserListing key={index} user={user} />;
+            })}
+      </ul>
     </section>
   );
 }

@@ -22,11 +22,9 @@ export function UserListing({ user }: userListingProps) {
   const created_on = new Date(user.created);
 
   return (
-    <div className="user-listing list-member-12">
-      <p>
-        <Link className="reverse" to={`/${user.lookupName}`}>
-          {user.userName}
-        </Link>
+    <li className="user-listing list-member-12">
+      <Link className="reverse" to={`/${user.lookupName}`}>
+        {user.userName}
         <span className="sub-info">
           member since {created_on.getFullYear()}
         </span>
@@ -36,7 +34,7 @@ export function UserListing({ user }: userListingProps) {
           {user.comments !== 1 ? "s" : ""}, and {`${user.votes} vote`}
           {user.votes !== 1 ? "s" : ""}
         </span>
-      </p>
-    </div>
+      </Link>
+    </li>
   );
 }
