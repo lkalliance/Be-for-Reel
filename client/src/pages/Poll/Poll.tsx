@@ -160,7 +160,7 @@ export function Poll({ currUser }: pollProps) {
             )}
             {poll.expired ? <p className="expired">This poll is closed</p> : ""}
           </div>
-          <div id="options">
+          <ul id="options">
             {opts.map((option: optionProps, index: Key | null | undefined) => {
               return (
                 <Option
@@ -182,7 +182,7 @@ export function Poll({ currUser }: pollProps) {
                 />
               );
             })}
-          </div>
+          </ul>
           {loggedIn && poll.comments.length > 0 ? (
             // user is logged in, show the comments
             <div id="comments" className="container">

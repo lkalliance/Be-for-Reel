@@ -18,6 +18,11 @@ p#yourvote {
   margin-bottom: 0;
 }
 
+section#poll ul {
+  margin: 0;
+  padding: 0;
+}
+
 p.expired {
   margin: 0;
 }
@@ -39,6 +44,10 @@ div#comments {
   margin-top: 20px;
   padding: 0;
   max-width: 800px;
+}
+
+div#comments .username {
+  margin-bottom: 6px;
 }
 
 div#comments h3 {
