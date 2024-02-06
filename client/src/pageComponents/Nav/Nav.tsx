@@ -124,6 +124,8 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                     lookup={userInfo.lookupName}
                     menu={showUserMenu}
                     setMenu={setShowUserMenu}
+                    setLogIn={setLogIn}
+                    setShowSearch={setShowSearch}
                   />
                 )}
               </NavItem>

@@ -1,7 +1,11 @@
 .user-listing p {
   color: white;
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.user-listing a {
+  font-size: 1.2rem;
 }
 
 .user-listing span {
