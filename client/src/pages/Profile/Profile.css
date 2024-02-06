@@ -12,8 +12,7 @@ section#profile h1 {
 }
 
 section#profile h4 {
-  font-style: italic;
-  margin: 0;
+  margin: 0 0 8px;
 }
 
 section#profile h5 {
@@ -72,4 +71,27 @@ section#profile button#resend {
   background-color: transparent;
   margin-left: 12px;
   text-transform: uppercase;
+}
+
+section#profile span.poll-info,
+section#profile span.sub-info {
+  font-size: 0.9rem;
+  margin-left: 10px;
+  display: none;
+}
+
+section#profile span.poll-info {
+  color: white;
+}
+
+@media screen and (min-width: 450px) {
+  section#profile span.poll-info {
+    display: inline;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  section#profile span.sub-info {
+    display: inline;
+  }
 }

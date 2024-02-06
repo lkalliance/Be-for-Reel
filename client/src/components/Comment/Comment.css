@@ -58,11 +58,11 @@ div.user-comment span.your-vote {
   font-weight: bold;
 }
 
-@media screen and (min-width: 600px) {
+/* @media screen and (min-width: 600px) {
   div.user-comment {
     width: 49%;
   }
-}
+} */
 
 @media screen and (max-width: 576px) {
   .comment div {

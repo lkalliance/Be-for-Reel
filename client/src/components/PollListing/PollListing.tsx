@@ -36,6 +36,8 @@ interface listProps {
 export function PollListing({ user, directory }: listProps) {
   const auth = new AuthService();
   const currentUser = auth.getProfile().userName === directory?.poll.username;
+  const votes = auth.getProfile().votes;
+  const userVote = user ? votes[user.poll.poll_id] : undefined;
 
   return directory ? (
     <div
@@ -83,15 +85,24 @@ export function PollListing({ user, directory }: listProps) {
       {!user.poll.deactivated ? (
         // poll is not deactivated
         <>
-          <Link to={user.poll.urlTitle} className="reverse">
-            {user.poll.title}
-          </Link>
-          <em>
-            {`${user.poll.votes} vote`}
-            {user.poll.votes !== 1 ? "s" : ""} and{" "}
-            {`${user.poll.comments} comment`}
-            {user.poll.comments !== 1 ? "s" : ""}
-          </em>
+          <div>
+            <Link to={user.poll.urlTitle} className="reverse">
+              {user.poll.title}
+            </Link>
+            <span className="poll-info">
+              {`${user.poll.votes} ${
+                user.poll.votes !== 1 ? "votes" : "vote"
+              }, `}
+              {`${user.poll.comments} ${
+                user.poll.comments !== 1 ? "comments" : "comment"
+              }`}
+            </span>
+            {userVote && (
+              <span className="sub-info">
+                you voted for <strong>{`${userVote}`}</strong>
+              </span>
+            )}
+          </div>
 
           {user.poll.deactivatable && user.thisUser && (
             <ActionLink
