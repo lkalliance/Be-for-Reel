@@ -8,6 +8,8 @@ user: the user that created the poll */
 
 import "./Card.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { UsernameLink } from "../../components";
 
 interface cardProps {
@@ -16,17 +18,35 @@ interface cardProps {
   poster: string;
   user: string;
   votes: number;
+  num: number;
+  voted: string | undefined;
 }
 
-export function Card({ title, poster, urlTitle, user, votes }: cardProps) {
+export function Card({
+  title,
+  poster,
+  urlTitle,
+  user,
+  votes,
+  num,
+  voted,
+}: cardProps) {
   return (
     <div className="col">
       <div
-        className="card custom-card"
+        className={`card custom-card${num === 0 && " first-card"}`}
         style={{ backgroundImage: `url(${poster})` }}
       >
+        {voted && (
+          <FontAwesomeIcon icon={faCheckCircle} className="card-check" />
+        )}
         <Link to={urlTitle} className="main-link">
-          <h5 className="card-title">{title}</h5>
+          <h5 className="card-title">
+            {voted && (
+              <FontAwesomeIcon icon={faCheckCircle} className="title-check" />
+            )}
+            {title}
+          </h5>
         </Link>
         <div className="poll-info">
           <UsernameLink username={user} />

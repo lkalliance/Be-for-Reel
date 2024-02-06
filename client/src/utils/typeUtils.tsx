@@ -45,6 +45,12 @@ export const convertGrossVals = (index: number) => {
   return { gross: conversions[index], label: text[index] };
 };
 
+export const convertDate = (date: Date) => {
+  const dateObj = new Date(date);
+  const formatted = `${dateObj.getMonth()} ${dateObj.getDate()}`;
+  return formatted;
+};
+
 export const convertMonth = (date: Date) => {
   const dateObj = new Date(date);
   const months = [

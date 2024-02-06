@@ -19,6 +19,61 @@ h1.homepage-title {
   display: none;
 }
 
+div#sub-lists {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div#popular-polls,
+div#recent-polls {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+div#popular-polls h3,
+div#recent-polls h3 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 6px;
+  font-size: 1.3rem;
+}
+
+div#popular-polls ul,
+div#recent-polls ul {
+  margin: 0;
+  padding: 0;
+}
+
+div#popular-polls li,
+div#recent-polls li {
+  list-style-type: none;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+div#popular-polls a,
+div#recent-polls a {
+  font-size: 1.2rem;
+  width: 100%;
+  display: block;
+}
+
+div#sub-lists svg {
+  color: var(--secondary-color);
+  margin-right: 6px;
+}
+
+div#sub-lists .list-member-12 span,
+div#sub-lists .list-member-12:hover span {
+  font-weight: normal;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  color: white;
+}
+
 @media screen and (min-width: 600px) {
   .lead {
     display: block;
@@ -42,5 +97,10 @@ h1.homepage-title {
 
   .lead span.extra {
     display: block;
+  }
+
+  div#popular-polls,
+  div#recent-polls {
+    width: 49%;
   }
 }

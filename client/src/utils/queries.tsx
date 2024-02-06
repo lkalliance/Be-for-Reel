@@ -133,7 +133,7 @@ export const QUERY_ALL_USERS = gql`
 export const QUERY_HOME_POLLS = gql`
   query GetHomePolls {
     getHomePolls {
-      polls {
+      featuredPolls {
         _id
         title
         urlTitle
@@ -144,6 +144,20 @@ export const QUERY_HOME_POLLS = gql`
         }
         votes
         created_on
+      }
+      recentPolls {
+        _id
+        title
+        urlTitle
+        username
+        created_on
+      }
+      popularPolls {
+        _id
+        title
+        urlTitle
+        username
+        votes
       }
     }
   }
