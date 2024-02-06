@@ -15,6 +15,11 @@ section#directory input {
   width: 100%;
 }
 
+section#directory ul {
+  margin: 0;
+  padding: 0;
+}
+
 section#directory #filters {
   display: flex;
   flex-direction: column;
@@ -57,10 +62,10 @@ section#directory svg {
   color: var(--secondary-color);
   margin-right: 6px;
   position: relative;
-  top: -2px;
+  top: -3px;
 }
 
-@media screen and (min-width: 350px) {
+@media screen and (min-width: 450px) {
   section#directory span.username {
     display: inline;
   }

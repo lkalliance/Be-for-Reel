@@ -42,7 +42,7 @@ export function PollListing({ user, directory }: listProps) {
   const userVote = user ? votes[user.poll.poll_id] : undefined;
 
   return directory ? (
-    <div
+    <li
       className={
         directory.poll.expired
           ? "poll-listing list-member-12 expired"
@@ -74,7 +74,7 @@ export function PollListing({ user, directory }: listProps) {
           ? ""
           : ` (expires ${convertMonth(directory.poll.expires_on)})`}
       </p>
-    </div>
+    </li>
   ) : user ? (
     <li
       className={
