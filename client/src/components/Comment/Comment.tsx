@@ -38,7 +38,7 @@ export function Comment({ pollComm, userComm, thisUser }: commProps) {
         <div className={`comment list-member-12 row${thisUser ? " self" : ""}`}>
           <div className="col col-12 col-sm-4 border-end border-sm-0">
             <h3>
-              <UsernameLink username={pollComm.username} />
+              <UsernameLink username={pollComm.username} noBy={true} />
             </h3>
             {pollComm.movie ? (
               <h4 className="sub-info">
@@ -55,16 +55,16 @@ export function Comment({ pollComm, userComm, thisUser }: commProps) {
         </div>
       )}
       {userComm && (
-        <div className="user-comment list-member-12">
+        <li className="user-comment list-member-12">
           <Link to={userComm.urlTitle} className="reverse">
             {userComm.title}
+            <p className="sub-info">
+              {`${thisUser ? "you " : ""}`}voted for{" "}
+              <span className="your-vote">{`${userComm.movie}`}</span>
+            </p>
+            <p className="comment-text">{userComm.text}</p>
           </Link>
-          <p className="sub-info">
-            {`${thisUser ? "you " : ""}`}voted for{" "}
-            <span className="your-vote">{`${userComm.movie}`}</span>
-          </p>
-          <p className="comment-text">{userComm.text}</p>
-        </div>
+        </li>
       )}
     </>
   );

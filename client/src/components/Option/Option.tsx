@@ -109,7 +109,7 @@ export function Option({
   }
 
   return (
-    <div
+    <li
       className={`container list-member-12 option${
         selected.option_id === opt._id ? " selected" : ""
       }${!loggedIn || voted ? " nohover" : ""}`}
@@ -236,6 +236,6 @@ export function Option({
             </button>
           ))}
       </div>
-    </div>
+    </li>
   );
 }

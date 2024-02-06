@@ -19,9 +19,9 @@ interface commentListProps {
 
 export function CommentList({ comments, thisUser }: commentListProps) {
   return (
-    <div id="user-comment-list">
+    <ul id="user-comment-list">
       {comments.length === 0 ? (
-        <div className="doesnt-exist list-member-12">no comments left</div>
+        <li className="doesnt-exist list-member-12">no comments left</li>
       ) : (
         <>
           {comments.map((comment, index) => {
@@ -31,6 +31,6 @@ export function CommentList({ comments, thisUser }: commentListProps) {
           })}
         </>
       )}
-    </div>
+    </ul>
   );
 }

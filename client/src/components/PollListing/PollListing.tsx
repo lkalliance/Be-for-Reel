@@ -42,7 +42,7 @@ export function PollListing({ user, directory }: listProps) {
   const userVote = user ? votes[user.poll.poll_id] : undefined;
 
   return directory ? (
-    <div
+    <li
       className={
         directory.poll.expired
           ? "poll-listing list-member-12 expired"
@@ -74,9 +74,9 @@ export function PollListing({ user, directory }: listProps) {
           ? ""
           : ` (expires ${convertMonth(directory.poll.expires_on)})`}
       </p>
-    </div>
+    </li>
   ) : user ? (
-    <div
+    <li
       className={
         // if poll is deactivated and this isn't the poll's creator, hide it
         !user.thisUser && user.poll.deactivated
@@ -87,23 +87,23 @@ export function PollListing({ user, directory }: listProps) {
       {!user.poll.deactivated ? (
         // poll is not deactivated
         <>
-          <div>
+          <div className="user-poll">
             <Link to={user.poll.urlTitle} className="reverse">
               {user.poll.title}
-            </Link>
-            <span className="poll-info">
-              {`${user.poll.votes} ${
-                user.poll.votes !== 1 ? "votes" : "vote"
-              }, `}
-              {`${user.poll.comments} ${
-                user.poll.comments !== 1 ? "comments" : "comment"
-              }`}
-            </span>
-            {userVote && (
-              <span className="sub-info">
-                you voted for <strong>{`${userVote}`}</strong>
+              <span className="poll-info">
+                {`${user.poll.votes} ${
+                  user.poll.votes !== 1 ? "votes" : "vote"
+                }, `}
+                {`${user.poll.comments} ${
+                  user.poll.comments !== 1 ? "comments" : "comment"
+                }`}
               </span>
-            )}
+              {userVote && (
+                <span className="sub-info">
+                  you voted for <strong>{`${userVote}`}</strong>
+                </span>
+              )}
+            </Link>
           </div>
 
           {user.poll.deactivatable && user.thisUser && (
@@ -128,8 +128,8 @@ export function PollListing({ user, directory }: listProps) {
           <div>You deactivated this poll</div>
         </div>
       )}
-    </div>
+    </li>
   ) : (
-    <div className="hidden"></div>
+    <li className="hidden"></li>
   );
 }

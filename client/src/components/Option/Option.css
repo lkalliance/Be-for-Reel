@@ -4,6 +4,7 @@
   margin-top: 15px;
   color: white;
   padding: 0;
+  border: 1px solid var(--tertiary-text);
 }
 
 .option .title {
@@ -17,6 +18,7 @@
 
 .option.list-member-12 {
   padding: 0;
+  margin-top: 15px;
 }
 
 .option .title h2 button {
@@ -71,7 +73,7 @@ div.accordion .accordion-item {
   transition: height 0.5s;
 }
 
-div.option.selected fieldset {
+.option.selected fieldset {
   height: 182px;
 }
 
@@ -188,6 +190,10 @@ div.option.selected fieldset {
 
   .option .title {
     padding-right: 10px;
+  }
+
+  .option {
+    border: none;
   }
 
   .option .opt-container {

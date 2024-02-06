@@ -36,25 +36,30 @@ span.your-vote {
   margin: 8px 0 0;
 }
 
-div.user-comment {
-  font-size: 1em;
+li.user-comment {
   width: 100%;
 }
 
-div.user-comment p {
+li.user-comment a {
+  font-size: 1.1rem;
+}
+
+li.user-comment p {
   text-align: left;
   width: 100%;
   color: white;
   margin: 6px 0 0;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
-div.user-comment p.sub-info {
-  font-size: 0.85rem;
+li.user-comment p.sub-info {
+  font-size: 0.9rem;
   line-height: 1rem;
   margin-top: 0;
 }
 
-div.user-comment span.your-vote {
+li.user-comment span.your-vote {
   font-weight: bold;
 }
 

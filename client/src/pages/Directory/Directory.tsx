@@ -57,8 +57,9 @@ export function Directory() {
           />
         )}
       </div>
-      {list.length > 0
-        ? list.map((poll: userPollProps, index: number) => {
+      <ul id="polls">
+        {list.length > 0 &&
+          list.map((poll: userPollProps, index: number) => {
             return (
               <PollListing
                 key={index}
@@ -68,8 +69,8 @@ export function Directory() {
                 }}
               />
             );
-          })
-        : ""}
+          })}
+      </ul>
     </section>
   );
 }
