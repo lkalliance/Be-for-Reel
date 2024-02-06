@@ -8,9 +8,18 @@ interface userMenuProps {
   lookup: string;
   menu: boolean;
   setMenu: Dispatch<SetStateAction<boolean>>;
+  setLogIn: Dispatch<SetStateAction<boolean>>;
+  setShowSearch: Dispatch<SetStateAction<boolean>>;
 }
 
-export function UserMenu({ uname, lookup, menu, setMenu }: userMenuProps) {
+export function UserMenu({
+  uname,
+  lookup,
+  menu,
+  setMenu,
+  setLogIn,
+  setShowSearch,
+}: userMenuProps) {
   const Auth = new AuthService();
   return (
     <div id="user-menu">
@@ -28,9 +37,11 @@ export function UserMenu({ uname, lookup, menu, setMenu }: userMenuProps) {
         <li>
           <Link
             to="/"
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              setMenu(false);
+            onClick={(e) => {
+              setShowSearch(false);
+              e.preventDefault();
               Auth.logout();
+              setLogIn(false);
             }}
           >
             Log out

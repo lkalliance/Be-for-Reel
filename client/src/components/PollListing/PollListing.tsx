@@ -11,6 +11,8 @@ either a directory object or a user object, based on where it is displayed:
 
 import "./PollListing.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { ActionLink, UsernameLink } from "../../components";
 import { userPollProps } from "../../utils/interfaces";
 import { convertMonth } from "../../utils/typeUtils";
@@ -48,6 +50,7 @@ export function PollListing({ user, directory }: listProps) {
       }
     >
       <p className="title-and-user">
+        {directory.vote.length > 0 && <FontAwesomeIcon icon={faCheckCircle} />}
         <Link to={directory.poll.urlTitle} className="reverse">
           {directory.poll.title}
         </Link>
@@ -56,6 +59,11 @@ export function PollListing({ user, directory }: listProps) {
           current={currentUser}
           blockContainer={true}
         />
+        {directory.vote.length > 0 && (
+          <span className="sub-info">
+            you voted for <strong>{`${directory.vote}`}</strong>
+          </span>
+        )}
       </p>
       <p className="poll-info">
         {` ${directory.poll.votes} vote`}
@@ -66,12 +74,6 @@ export function PollListing({ user, directory }: listProps) {
           ? ""
           : ` (expires ${convertMonth(directory.poll.expires_on)})`}
       </p>
-
-      {directory.vote.length > 0 && (
-        <p className="sub-info">
-          you voted for <strong>{`${directory.vote}`}</strong>
-        </p>
-      )}
     </div>
   ) : user ? (
     <div

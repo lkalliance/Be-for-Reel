@@ -22,6 +22,16 @@ section#directory #filters {
   justify-content: space-between;
 }
 
+section#directory span,
+section#directory p {
+  font-size: 0.9rem;
+}
+
+section#directory span.sub-info {
+  margin-left: 8px;
+  display: none;
+}
+
 section#directory span.username {
   white-space: nowrap;
   display: none;
@@ -43,13 +53,29 @@ section#directory p.sub-info {
   display: none;
 }
 
+section#directory svg {
+  color: var(--secondary-color);
+  margin-right: 6px;
+  position: relative;
+  top: -2px;
+}
+
 @media screen and (min-width: 350px) {
   section#directory span.username {
     display: inline;
   }
 }
 
-@media screen and (min-height: 500px) {
+@media screen and (min-width: 550px) {
+  section#directory span.sub-info {
+    display: inline;
+  }
+  section#directory svg {
+    display: none;
+  }
+}
+
+@media screen and (min-height: 600px) {
   section#directory p.sub-info {
     display: block;
   }

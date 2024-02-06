@@ -18,7 +18,7 @@ section#user-directory a {
   display: block;
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
   section#user-directory span.user-info {
     display: inline;
   }
@@ -29,7 +29,7 @@ section#user-directory a {
   }
 }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 650px) {
   section#user-directory span.sub-info {
     display: inline;
   }
