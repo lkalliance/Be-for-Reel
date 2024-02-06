@@ -154,9 +154,6 @@ const resolvers = {
           $gt: new Date(),
         },
         deactivated: false,
-        edit_deadline: {
-          $lt: new Date(),
-        },
       });
 
       // create a list of random indexes
@@ -181,7 +178,19 @@ const resolvers = {
         };
       });
 
-      return list ? { polls: list } : { polls: false };
+      const recentPolls = [...polls];
+      const popularPolls = [...polls];
+
+      recentPolls.sort((a, b) => {
+        return b.created_on - a.created_on;
+      });
+      popularPolls.sort((a, b) => {
+        return b.votes.length - a.votes.length;
+      });
+
+      return polls
+        ? { featuredPolls: list, recentPolls, popularPolls }
+        : { featuredPolls: [], recentPolls: [], popularPolls: [] };
     },
 
     getGenres: async () => {

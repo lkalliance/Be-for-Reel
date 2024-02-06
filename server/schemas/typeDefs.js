@@ -98,7 +98,9 @@ const typeDefs = gql`
   }
 
   type homePolls {
-    polls: [Poll]
+    featuredPolls: [Poll]
+    recentPolls: [Poll]
+    popularPolls: [Poll]
   }
 
   type userPolls {

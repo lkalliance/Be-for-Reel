@@ -10,6 +10,30 @@
   border: none;
 }
 
+.card .card-check {
+  display: none;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 2rem;
+}
+
+.card.first-card .card-check {
+  display: block;
+}
+
+.card.first-card .title-check {
+  display: none;
+}
+
+.card .title-check {
+  margin-right: 6px;
+}
+
+.card svg {
+  color: var(--secondary-color);
+}
+
 .card a.main-link {
   flex-grow: 1;
   padding: 0;
@@ -79,11 +103,6 @@
     text-align: left;
   }
 
-  /* .card .poll-info div.username {
-    background-color: var(--tertiary-color);
-    padding: 3px 8px;
-  } */
-
   .card .poll-info .vote-count {
     display: block;
     text-align: right;
@@ -117,6 +136,14 @@
   .card .poll-info div.username {
     background-color: var(--tertiary-color);
     padding: 4px 8px;
+  }
+
+  .card .card-check {
+    display: block;
+  }
+
+  .card .title-check {
+    display: none;
   }
 }
 
