@@ -144,9 +144,9 @@ const resolvers = {
       });
 
       // filter the polls to remove the ones the user has voted in
-      const filteredPolls = polls.filter(
-        (poll) => !context.user.votes[poll._id]
-      );
+      const filteredPolls = context.user
+        ? polls.filter((poll) => !context.user.votes[poll._id])
+        : [...polls];
 
       // create a list of random indexes
       const pollList = [];
