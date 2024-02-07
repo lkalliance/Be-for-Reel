@@ -87,7 +87,8 @@ export function PollListing({ user, directory }: listProps) {
       {!user.poll.deactivated ? (
         // poll is not deactivated
         <>
-          <div className="user-poll">
+          <p className="user-poll">
+            {userVote && <FontAwesomeIcon icon={faCheckCircle} />}
             <Link to={user.poll.urlTitle} className="reverse">
               {user.poll.title}
               <span className="poll-info">
@@ -104,7 +105,7 @@ export function PollListing({ user, directory }: listProps) {
                 </span>
               )}
             </Link>
-          </div>
+          </p>
 
           {user.poll.deactivatable && user.thisUser && (
             <ActionLink
