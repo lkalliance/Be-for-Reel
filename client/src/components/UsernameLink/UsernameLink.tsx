@@ -12,6 +12,7 @@ interface usernameLinkProps {
   current?: boolean;
   noBy?: boolean;
   blockContainer?: boolean;
+  original?: boolean;
 }
 
 export function UsernameLink({
@@ -19,18 +20,25 @@ export function UsernameLink({
   current,
   blockContainer,
   noBy,
+  original,
 }: usernameLinkProps) {
   return blockContainer ? (
-    <span className="username">
+    <span className={original ? "username-orig" : "username"}>
       {!noBy && "by "}
-      <Link to={`/${createLookupName(username)}`}>
+      <Link
+        to={`/${createLookupName(username)}`}
+        className={original ? "reverse" : ""}
+      >
         {current ? "you" : username}
       </Link>
     </span>
   ) : (
-    <div className="username">
+    <div className={original ? "username-orig" : "username"}>
       {!noBy && "by "}
-      <Link to={`/${createLookupName(username)}`}>
+      <Link
+        to={`/${createLookupName(username)}`}
+        className={original ? "reverse" : ""}
+      >
         {current ? "you" : username}
       </Link>
     </div>

@@ -67,7 +67,11 @@ export function SearchResults() {
             users.map((user, index) => {
               return (
                 <div key={index} className="col col-12 col-md-6 col-lg-4">
-                  <UsernameLink username={user.userName} />
+                  <UsernameLink
+                    username={user.userName}
+                    original={true}
+                    noBy={true}
+                  />
                 </div>
               );
             })
