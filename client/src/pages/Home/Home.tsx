@@ -72,7 +72,7 @@ export function Home() {
       <div id="sub-lists">
         {!loading ? (
           <div id="recent-polls">
-            <h3>Most recent polls</h3>
+            <h2>Most recent polls</h2>
             <ul>
               {hPolls.getHomePolls.recentPolls.map(
                 (poll: pollProps, index: number) => {
@@ -100,7 +100,7 @@ export function Home() {
 
         {!loading ? (
           <div id="popular-polls">
-            <h3>Most popular polls</h3>
+            <h2>Most popular polls</h2>
             <ul>
               {hPolls.getHomePolls.popularPolls.map(
                 (poll: pollProps, index: number) => {

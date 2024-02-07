@@ -28,17 +28,16 @@ div#sub-lists {
 
 div#popular-polls,
 div#recent-polls {
-  margin-top: 30px;
+  margin-top: 40px;
   width: 100%;
   max-width: 500px;
 }
 
-div#popular-polls h3,
-div#recent-polls h3 {
+div#popular-polls h2,
+div#recent-polls h2 {
   text-align: center;
-  text-transform: uppercase;
   padding-bottom: 6px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 div#popular-polls ul,
@@ -56,7 +55,7 @@ div#recent-polls li {
 
 div#popular-polls a,
 div#recent-polls a {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   width: 100%;
   display: block;
 }
