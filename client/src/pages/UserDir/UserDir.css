@@ -14,6 +14,10 @@ section#user-directory ul {
   padding: 0;
 }
 
+section#user-directory li {
+  list-style-type: none;
+}
+
 section#user-directory span {
   display: none;
 }

@@ -21,8 +21,9 @@ export function Home() {
   if (!loading) {
     while (addToList && hPolls.getHomePolls.popularPolls.length > popCutoff) {
       if (
+        hPolls.getHomePolls.popularPolls[popCutoff + 1] &&
         hPolls.getHomePolls.popularPolls[popCutoff].votes.length ===
-        hPolls.getHomePolls.popularPolls[popCutoff + 1].votes.length
+          hPolls.getHomePolls.popularPolls[popCutoff + 1].votes.length
       ) {
         popCutoff++;
       } else {

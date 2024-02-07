@@ -147,8 +147,11 @@ const resolvers = {
       return list ? { polls: list } : null;
     },
 
-    getHomePolls: async () => {
+    getHomePolls: async (parent, {}, context) => {
       // returns polls for the home page
+
+      // get the user's vote list for filtering
+
       const polls = await Poll.find({
         expires_on: {
           $gt: new Date(),
@@ -156,30 +159,34 @@ const resolvers = {
         deactivated: false,
       });
 
+      const filteredPolls = polls.filter(
+        (poll) => !context.user.votes[poll._id]
+      );
+
       // create a list of random indexes
       const pollList = [];
-      const limit = polls.length >= 6 ? 6 : polls.length;
+      const limit = filteredPolls.length >= 6 ? 6 : filteredPolls.length;
       while (pollList.length < limit) {
-        const rand = Math.trunc(Math.random() * polls.length);
+        const rand = Math.trunc(Math.random() * filteredPolls.length);
         if (pollList.indexOf(rand) === -1) pollList.push(rand);
       }
 
       const list = pollList.map((pollIndex) => {
         // generate list of polls from random indexes
         return {
-          _id: polls[pollIndex]._id,
-          title: polls[pollIndex].title,
-          urlTitle: polls[pollIndex].urlTitle,
-          username: polls[pollIndex].username,
-          options: polls[pollIndex].options,
-          created_on: polls[pollIndex].created_on,
-          expires_on: polls[pollIndex].expires_on,
-          votes: polls[pollIndex].votes,
+          _id: filteredPolls[pollIndex]._id,
+          title: filteredPolls[pollIndex].title,
+          urlTitle: filteredPolls[pollIndex].urlTitle,
+          username: filteredPolls[pollIndex].username,
+          options: filteredPolls[pollIndex].options,
+          created_on: filteredPolls[pollIndex].created_on,
+          expires_on: filteredPolls[pollIndex].expires_on,
+          votes: filteredPolls[pollIndex].votes,
         };
       });
 
-      const recentPolls = [...polls];
-      const popularPolls = [...polls];
+      const recentPolls = [...filteredPolls];
+      const popularPolls = [...filteredPolls];
 
       recentPolls.sort((a, b) => {
         return b.created_on - a.created_on;
