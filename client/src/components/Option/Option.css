@@ -89,14 +89,14 @@ div.accordion .accordion-item {
 
 .option div.textarea {
   width: 100%;
-  height: 125px;
+  height: 100px;
   margin-top: 12px;
 }
 
 .option div.textarea textarea {
   font-size: 0.9rem;
   width: 100%;
-  height: 125px;
+  height: 100px;
 }
 
 /* for the selector or vote display */

@@ -22,7 +22,7 @@ const resolvers = {
       user.polls.sort((a, b) => {
         if (a.deactivated && !b.deactivated) return 1;
         else if (b.deactivated && !a.deactivated) return -1;
-        return b.expires_on - a.expires_on;
+        return a.expires_on - b.expires_on;
       });
       // sort their comments by most recent first
       user.comments.reverse();
@@ -62,20 +62,6 @@ const resolvers = {
           })
         : [];
       return { users: list };
-    },
-
-    getMyVotes: async (parent, { username }) => {
-      // returns logged-in user's list of votes
-      // currently not in use
-      const empty = { votes: [] };
-      if (username === "") return empty;
-      const user = await User.findOne({ userName: username }, (err, user) => {
-        if (err) {
-          return empty;
-        }
-        return user.votes;
-      });
-      return user ? { votes: user.votes } : false;
     },
 
     getPoll: async (parent, { lookupname, pollname }) => {
@@ -147,8 +133,9 @@ const resolvers = {
       return list ? { polls: list } : null;
     },
 
-    getHomePolls: async () => {
+    getHomePolls: async (parent, {}, context) => {
       // returns polls for the home page
+
       const polls = await Poll.find({
         expires_on: {
           $gt: new Date(),
@@ -156,31 +143,38 @@ const resolvers = {
         deactivated: false,
       });
 
+      // filter the polls to remove the ones the user has voted in
+      const filteredPolls = context.user
+        ? polls.filter((poll) => !context.user.votes[poll._id])
+        : [...polls];
+
       // create a list of random indexes
       const pollList = [];
-      const limit = polls.length >= 6 ? 6 : polls.length;
+      const limit = filteredPolls.length >= 6 ? 6 : filteredPolls.length;
       while (pollList.length < limit) {
-        const rand = Math.trunc(Math.random() * polls.length);
+        const rand = Math.trunc(Math.random() * filteredPolls.length);
         if (pollList.indexOf(rand) === -1) pollList.push(rand);
       }
 
       const list = pollList.map((pollIndex) => {
         // generate list of polls from random indexes
         return {
-          _id: polls[pollIndex]._id,
-          title: polls[pollIndex].title,
-          urlTitle: polls[pollIndex].urlTitle,
-          username: polls[pollIndex].username,
-          options: polls[pollIndex].options,
-          created_on: polls[pollIndex].created_on,
-          expires_on: polls[pollIndex].expires_on,
-          votes: polls[pollIndex].votes,
+          _id: filteredPolls[pollIndex]._id,
+          title: filteredPolls[pollIndex].title,
+          urlTitle: filteredPolls[pollIndex].urlTitle,
+          username: filteredPolls[pollIndex].username,
+          options: filteredPolls[pollIndex].options,
+          created_on: filteredPolls[pollIndex].created_on,
+          expires_on: filteredPolls[pollIndex].expires_on,
+          votes: filteredPolls[pollIndex].votes,
         };
       });
 
-      const recentPolls = [...polls];
-      const popularPolls = [...polls];
+      // clone the full filtered list for popular and recent lists
+      const recentPolls = [...filteredPolls];
+      const popularPolls = [...filteredPolls];
 
+      // sort popular and recent appropriately
       recentPolls.sort((a, b) => {
         return b.created_on - a.created_on;
       });
@@ -250,6 +244,10 @@ const resolvers = {
         $or: [
           { title: { $regex: term, $options: "i" } },
           { description: { $regex: term, $options: "i" } },
+          { "options.movie": { $regex: term, $options: "i" } },
+          { "options.plot": { $regex: term, $options: "i" } },
+          { "options.stars": { $regex: term, $options: "i" } },
+          { "options.directors": { $regex: term, $options: "i" } },
         ],
         deactivated: false,
         expires_on: {
