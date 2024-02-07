@@ -22,7 +22,7 @@ const resolvers = {
       user.polls.sort((a, b) => {
         if (a.deactivated && !b.deactivated) return 1;
         else if (b.deactivated && !a.deactivated) return -1;
-        return b.expires_on - a.expires_on;
+        return a.expires_on - b.expires_on;
       });
       // sort their comments by most recent first
       user.comments.reverse();
@@ -62,20 +62,6 @@ const resolvers = {
           })
         : [];
       return { users: list };
-    },
-
-    getMyVotes: async (parent, { username }) => {
-      // returns logged-in user's list of votes
-      // currently not in use
-      const empty = { votes: [] };
-      if (username === "") return empty;
-      const user = await User.findOne({ userName: username }, (err, user) => {
-        if (err) {
-          return empty;
-        }
-        return user.votes;
-      });
-      return user ? { votes: user.votes } : false;
     },
 
     getPoll: async (parent, { lookupname, pollname }) => {
@@ -150,8 +136,6 @@ const resolvers = {
     getHomePolls: async (parent, {}, context) => {
       // returns polls for the home page
 
-      // get the user's vote list for filtering
-
       const polls = await Poll.find({
         expires_on: {
           $gt: new Date(),
@@ -159,6 +143,7 @@ const resolvers = {
         deactivated: false,
       });
 
+      // filter the polls to remove the ones the user has voted in
       const filteredPolls = polls.filter(
         (poll) => !context.user.votes[poll._id]
       );
@@ -185,9 +170,11 @@ const resolvers = {
         };
       });
 
+      // clone the full filtered list for popular and recent lists
       const recentPolls = [...filteredPolls];
       const popularPolls = [...filteredPolls];
 
+      // sort popular and recent appropriately
       recentPolls.sort((a, b) => {
         return b.created_on - a.created_on;
       });
@@ -257,6 +244,10 @@ const resolvers = {
         $or: [
           { title: { $regex: term, $options: "i" } },
           { description: { $regex: term, $options: "i" } },
+          { "options.movie": { $regex: term, $options: "i" } },
+          { "options.plot": { $regex: term, $options: "i" } },
+          { "options.stars": { $regex: term, $options: "i" } },
+          { "options.directors": { $regex: term, $options: "i" } },
         ],
         deactivated: false,
         expires_on: {
