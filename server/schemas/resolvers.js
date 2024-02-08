@@ -159,17 +159,30 @@ const resolvers = {
 
     getGenres: async () => {
       // returns list of genres
-      const genres = await Genre.find();
-      const titles = ["all"];
+      const polls = await Poll.find({
+        deactivated: false,
+        expires_on: {
+          $gt: new Date(),
+        },
+      });
+      const titles = [];
 
-      // iterate over each genre
-      for (let i = 0; i < genres.length; i++) {
-        const polls = genres[i].polls.filter((poll) => {
-          return !poll.deactivated;
-        });
-        // if this genre has unexpired, active polls add to the list
-        if (polls.length > 0) titles.push(genres[i].title);
+      // iterate over each poll
+      for (let i = 0; i < polls.length; i++) {
+        const genres = polls[i].genre;
+        console.log(genres);
+        // iterate over the poll's genres
+        for (let ii = 0; ii < genres.length; ii++) {
+          console.log(genres[ii]);
+          if (titles.indexOf(genres[ii]) === -1) {
+            titles.push(genres[ii]);
+          }
+        }
       }
+      titles.sort();
+      titles.unshift("all");
+      titles.push("expired");
+
       return { titles };
     },
 
@@ -413,27 +426,13 @@ const resolvers = {
         newUserPoll.poll_id = poll._id;
 
         // add the poll to the currently logged-in user's document
-        const updatedUser = await User.findOneAndUpdate(
+        await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { polls: newUserPoll },
           },
           { new: true, useFindAndModify: false }
         );
-
-        // add the poll to its genres
-        const genres = [...new Set(newPoll.genre)];
-        if (genres.length > 0) {
-          for (let i = 0; i < genres.length; i++) {
-            if (genres[i] !== "all") {
-              await Genre.findOneAndUpdate(
-                { title: genres[i] },
-                { $addToSet: { polls: newUserPoll } },
-                { upsert: true, new: true, useFindAndModify: false }
-              );
-            }
-          }
-        }
 
         return { poll_id: poll._id, title, redirect: urlTitle };
       }

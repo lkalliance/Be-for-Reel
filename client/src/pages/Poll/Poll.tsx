@@ -14,6 +14,7 @@ import {
   QUERY_SINGLE_POLL,
   QUERY_ALL_POLLS,
   QUERY_SINGLE_USER,
+  QUERY_MOVIES,
 } from "../../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { Question, Option, Comment } from "../../components";
@@ -63,7 +64,7 @@ export function Poll({ currUser }: pollProps) {
     refetchQueries: () => [
       {
         query: QUERY_ALL_POLLS,
-        variables: { genre: poll.genre },
+        variables: { genre: "all" },
       },
       {
         query: QUERY_SINGLE_USER,
@@ -72,6 +73,10 @@ export function Poll({ currUser }: pollProps) {
       {
         query: QUERY_SINGLE_POLL,
         variables: { lookupname, pollname },
+      },
+      {
+        query: QUERY_MOVIES,
+        variables: { number: 10 },
       },
     ],
   });

@@ -16,22 +16,22 @@ export function Directory() {
 
   const lookupGenre = genre || "all";
 
-  // get the relevant polls
+  // get the relevant polls and genre list
   const getPolls = useQuery(QUERY_ALL_POLLS, {
     variables: { genre: lookupGenre },
   });
-
-  // get all genres
   const getGenres = useQuery(QUERY_GENRES);
 
+  // get all genres
   const list = getPolls.data?.getPolls.polls || [];
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
     ? ["loading"]
     : getGenres.data.getGenres.titles;
-  const sortedGenres = ["all", ...genres.slice(1).sort(), "expired"];
-  const genreObjs = sortedGenres.map((genre) => {
+  console.log(genres);
+  const genreObjs = genres.map((genre) => {
+    console.log(genre);
     return {
       value: genre,
       title: genre.charAt(0).toUpperCase() + genre.slice(1),
