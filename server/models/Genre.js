@@ -1,12 +1,12 @@
 const { Schema, model } = require("mongoose");
-const { userPolls } = require("./User");
+const { pollSchema } = require("./Poll");
 
 const genreSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  polls: [userPolls],
+  polls: [pollSchema],
 });
 
 const Genre = model("Genre", genreSchema);

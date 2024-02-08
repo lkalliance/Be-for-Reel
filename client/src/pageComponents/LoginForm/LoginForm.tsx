@@ -124,6 +124,7 @@ export function LoginForm({
       // store the login token
       Auth.login(data.login.token);
       setLogIn(true);
+      navigate("/");
     } catch (err) {
       if (clear) clear("login");
       if (setBoolErr) setBoolErr(true);

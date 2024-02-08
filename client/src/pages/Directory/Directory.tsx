@@ -4,7 +4,7 @@ import "./Directory.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
-import { userPollProps } from "../../utils/interfaces";
+import { pollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
 import { PollListing, Select } from "../../components";
 
@@ -14,24 +14,24 @@ export function Directory() {
   const { votes } = Auth.getProfile();
   const { genre } = useParams();
 
-  // get the relevant polls
+  const lookupGenre = genre || "all";
+
+  // get the relevant polls and genre list
   const getPolls = useQuery(QUERY_ALL_POLLS, {
-    variables: { username: "", genre },
+    variables: { genre: lookupGenre },
   });
+  const getGenres = useQuery(QUERY_GENRES);
 
   // get all genres
-  const getGenres = useQuery(QUERY_GENRES, {
-    variables: { username: "", genre },
-  });
-
   const list = getPolls.data?.getPolls.polls || [];
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
     ? ["loading"]
     : getGenres.data.getGenres.titles;
-  const sortedGenres = ["all", ...genres.slice(1).sort(), "expired"];
-  const genreObjs = sortedGenres.map((genre) => {
+  console.log(genres);
+  const genreObjs = genres.map((genre) => {
+    console.log(genre);
     return {
       value: genre,
       title: genre.charAt(0).toUpperCase() + genre.slice(1),
@@ -59,13 +59,13 @@ export function Directory() {
       </div>
       <ul id="polls">
         {list.length > 0 &&
-          list.map((poll: userPollProps, index: number) => {
+          list.map((poll: pollProps, index: number) => {
             return (
               <PollListing
                 key={index}
                 directory={{
                   poll: poll,
-                  vote: votes[poll.poll_id] || "",
+                  vote: votes[poll._id] || "",
                 }}
               />
             );
