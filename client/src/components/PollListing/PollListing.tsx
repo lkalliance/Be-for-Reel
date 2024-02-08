@@ -14,12 +14,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { ActionLink, UsernameLink } from "../../components";
-import { userPollProps } from "../../utils/interfaces";
+import { pollProps, userPollProps } from "../../utils/interfaces";
 import { convertMonth } from "../../utils/typeUtils";
 import { AuthService } from "../../utils/auth";
 
 interface directoryPollListingProps {
-  poll: userPollProps;
+  poll: pollProps;
   vote: string;
 }
 
@@ -40,6 +40,8 @@ export function PollListing({ user, directory }: listProps) {
   const currentUser = auth.getProfile().userName === directory?.poll.username;
   const votes = auth.getProfile().votes;
   const userVote = user ? votes[user.poll.poll_id] : undefined;
+  const numVotes = directory?.poll.votes.length || 0;
+  const numComments = directory?.poll.comments.length || 0;
 
   return directory ? (
     <li
@@ -66,10 +68,9 @@ export function PollListing({ user, directory }: listProps) {
         )}
       </p>
       <p className="poll-info">
-        {` ${directory.poll.votes} vote`}
-        {directory.poll.votes !== 1 ? "s" : ""} and{" "}
-        {`${directory.poll.comments} comment`}
-        {directory.poll.comments !== 1 ? "s" : ""}
+        {` ${numVotes} vote${
+          numVotes !== 1 ? "s" : ""
+        } and ${numComments} comment${numComments !== 1 ? "s" : ""}`}
         {directory.poll.expired
           ? ""
           : ` (expires ${convertMonth(directory.poll.expires_on)})`}

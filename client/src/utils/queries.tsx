@@ -98,13 +98,15 @@ export const QUERY_ALL_POLLS = gql`
   query GetPolls($username: String, $genre: String) {
     getPolls(username: $username, genre: $genre) {
       polls {
-        poll_id
+        _id
         title
         description
         urlTitle
         username
         votes
-        comments
+        comments {
+          poll_id
+        }
         expires_on
         expired
         editable
@@ -176,6 +178,7 @@ export const QUERY_SEARCH = gql`
     getSearch(term: $term) {
       polls {
         polls {
+          _id
           title
           urlTitle
           username

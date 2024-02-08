@@ -75,62 +75,32 @@ const resolvers = {
 
     getPolls: async (parent, { genre }) => {
       // returns a list of all polls
-      const lookupGenre = genre || "all";
 
-      // either retrieve a reference to polls documents,
-      // or a genre document
-      const rawPolls =
-        lookupGenre === "all"
+      const polls =
+        genre === "expired"
           ? await Poll.find({
               deactivated: false,
-              expires_on: {
-                $gt: new Date(),
-              },
-            }).sort({
-              created_on: -1,
-            })
-          : lookupGenre === "expired"
-          ? await Poll.find({
-              deactivated: false,
+              genre,
               expires_on: {
                 $lt: new Date(),
               },
             }).sort({
               created_on: -1,
             })
-          : await Genre.find({ title: genre });
-
-      const polls =
-        lookupGenre === "all" || lookupGenre === "expired"
-          ? rawPolls
-          : rawPolls[0].polls.filter((poll) => {
-              return !poll.deactivated;
+          : await Poll.find({
+              deactivated: false,
+              genre,
+              expires_on: {
+                $gt: new Date(),
+              },
+            }).sort({
+              created_on: -1,
             });
 
       // set various flags
       const updatedPolls = polls ? setStatuses(polls) : [];
 
-      // normalize return (polls vs. genre)
-      const list = updatedPolls.map((poll) => {
-        return {
-          poll_id: lookupGenre === "all" ? poll._id : poll.poll_id,
-          title: poll.title,
-          description: poll.description,
-          urlTitle: poll.urlTitle,
-          username: poll.username,
-          genre: poll.genre,
-          votes: lookupGenre === "all" ? poll.votes.length : poll.votes,
-          comments:
-            lookupGenre === "all" ? poll.comments.length : poll.comments,
-          expires_on: poll.expires_on,
-          expired: poll.expired,
-          editable: poll.editable,
-          deactivatable: poll.deactivatable,
-          deactivated: poll.deactivated || false,
-        };
-      });
-
-      return list ? { polls: list } : null;
+      return polls ? { polls: updatedPolls } : null;
     },
 
     getHomePolls: async (parent, {}, context) => {
@@ -548,6 +518,7 @@ const resolvers = {
             { new: true, useFindAndModify: false }
           );
         }
+
         // update his token with added vote
         const token = signToken(updatedUser);
 
@@ -568,28 +539,7 @@ const resolvers = {
           );
         }
 
-        // fourth: update the poll on each of its genres
-        for (let i = 0; i < whichPoll.genre.length; i++) {
-          if (whichPoll.genre[i] !== "all") {
-            // don't update "all"
-            if (comment.length > 0) {
-              pollGenre = await Genre.findOneAndUpdate(
-                { title: whichPoll.genre[i], "polls.poll_id": whichPoll._id },
-                { $inc: { "polls.$.votes": 1, "polls.$.comments": 1 } },
-                { new: true, useFindAndModify: false }
-              );
-            } else {
-              // if there's no comment, just add the vote
-              pollGenre = await Genre.findOneAndUpdate(
-                { title: whichPoll.genre[i], "polls.poll_id": whichPoll._id },
-                { $inc: { "polls.$.votes": 1 } },
-                { new: true, useFindAndModify: false }
-              );
-            }
-          }
-        }
-
-        // fifth: update the movie's overall vote count
+        // fourth: update the movie's overall vote count
         await Movie.findOneAndUpdate(
           { imdb_id: imdb_id },
           { $inc: { votes: 1 } },

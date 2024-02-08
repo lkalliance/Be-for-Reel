@@ -24,9 +24,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
   const userInfo = Auth.getProfile();
   const navigate = useNavigate();
   const location = useLocation();
-  const [showSearch, setShowSearch] = useState(
-    location.pathname.indexOf("/search") > -1
-  );
+  const [showSearch, setShowSearch] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -145,7 +143,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
         </Navbar.Collapse>
       </Container>
       <SearchForm
-        show={showSearch || location.pathname.indexOf("/search/") >= 0}
+        show={showSearch}
         search={search}
         setSearch={setSearch}
         handleSearch={handleSearchSubmit}

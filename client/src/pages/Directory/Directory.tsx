@@ -4,7 +4,7 @@ import "./Directory.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
-import { userPollProps } from "../../utils/interfaces";
+import { pollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
 import { PollListing, Select } from "../../components";
 
@@ -14,15 +14,15 @@ export function Directory() {
   const { votes } = Auth.getProfile();
   const { genre } = useParams();
 
+  const lookupGenre = genre || "all";
+
   // get the relevant polls
   const getPolls = useQuery(QUERY_ALL_POLLS, {
-    variables: { username: "", genre },
+    variables: { genre: lookupGenre },
   });
 
   // get all genres
-  const getGenres = useQuery(QUERY_GENRES, {
-    variables: { username: "", genre },
-  });
+  const getGenres = useQuery(QUERY_GENRES);
 
   const list = getPolls.data?.getPolls.polls || [];
 
@@ -59,13 +59,13 @@ export function Directory() {
       </div>
       <ul id="polls">
         {list.length > 0 &&
-          list.map((poll: userPollProps, index: number) => {
+          list.map((poll: pollProps, index: number) => {
             return (
               <PollListing
                 key={index}
                 directory={{
                   poll: poll,
-                  vote: votes[poll.poll_id] || "",
+                  vote: votes[poll._id] || "",
                 }}
               />
             );

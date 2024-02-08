@@ -4,19 +4,22 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SEARCH } from "../../utils/queries";
 import { AuthService } from "../../utils/auth";
-import { userProps, userPollProps, movieListProps } from "../../utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { userProps, pollProps, movieListProps } from "../../utils";
 import { UsernameLink, Tabs } from "../../components";
 
 export function SearchResults() {
   const Auth = new AuthService();
   const term = useParams();
+  const votes = Auth.getProfile().votes;
+  console.log(votes);
   const [tab, setTab] = useState("polls");
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { id } = e.currentTarget;
     setTab(id);
-    console.log(tab);
   };
 
   // get the relevant polls
@@ -25,7 +28,7 @@ export function SearchResults() {
   });
 
   const users: userProps[] = getResults.data?.getSearch.users.users || [];
-  const polls: userPollProps[] = getResults.data?.getSearch.polls.polls || [];
+  const polls: pollProps[] = getResults.data?.getSearch.polls.polls || [];
   const movies: movieListProps[] =
     getResults.data?.getSearch.movies.movies || [];
 
@@ -45,8 +48,10 @@ export function SearchResults() {
             </div>
           ) : (
             polls.map((poll, index) => {
+              console.log(poll);
               return (
                 <div key={index} className="col col-12 col-md-6 col-lg-4">
+                  {votes[poll._id] && <FontAwesomeIcon icon={faCheckCircle} />}
                   <Link to={poll.urlTitle} className="reverse">
                     {poll.title}
                   </Link>

@@ -94,10 +94,13 @@ export function Poll({ currUser }: pollProps) {
     // handle vote submission
     try {
       const voteVars = { ...selected, comment, poll_id: poll._id };
+      console.log({ voteVars });
       const { data } = await castVote({
         variables: voteVars,
       });
       setComment("");
+
+      console.log(data);
 
       // after voting, update user token with newly cast vote
       Auth.login(data.castVote.token.token);

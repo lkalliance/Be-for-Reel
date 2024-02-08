@@ -88,6 +88,7 @@ const typeDefs = gql`
     user_id: String!
     username: String!
     created_on: Date!
+    expires_on: Date
     expired: Boolean!
     editable: Boolean!
     options: [pollOption]
@@ -148,7 +149,7 @@ const typeDefs = gql`
 
   type Genre {
     title: String
-    polls: [userPolls]
+    polls: [Poll]
   }
 
   type GenreList {
@@ -156,7 +157,7 @@ const typeDefs = gql`
   }
 
   type pollList {
-    polls: [userPolls]
+    polls: [Poll]
   }
 
   type userList {
@@ -184,7 +185,6 @@ const typeDefs = gql`
 
   type Query {
     getPoll(lookupname: String!, pollname: String!): Poll
-    getMyVotes(username: String!): User
     getUser(lookupname: String!): User
     getUsers: userList
     getPolls(username: String, genre: String): pollList

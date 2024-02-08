@@ -105,6 +105,7 @@ export interface pollProps {
   username: string;
   created_on: Date;
   expired: Boolean;
+  expires_on: Date;
   editable: Boolean;
   deactivatable: Boolean;
   deactivated: Boolean;
