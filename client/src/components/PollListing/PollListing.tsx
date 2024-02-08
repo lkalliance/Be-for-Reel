@@ -1,13 +1,15 @@
 // This component renders a single poll listing on a list of polls
 
 /* REQUIRED PROPS:
-either a directory object or a user object, based on where it is displayed:
-  -- poll_id: the _id of this poll
-  -- username: a string of the username of the user that created the poll
-  -- title: a string of the poll's title
-  -- urlTitle: a string of the poll's url
-  -- votes: a number indicating the total number of votes on this poll
-  -- comments: a number indicated the total number of comments on this poll */
+either a directory object or a user object, based on where it is displayed.
+with directory:
+  -- poll object with all poll data
+  -- vote string: what the current user voted on this poll
+with user:
+  -- poll object with abbreviated poll data
+  -- thisUser: boolean flag, are we looking at the profile of current user?
+  -- editPoll: handler if the user clicks the "edit" link
+  -- cancelPoll: handler if the user clicks the "deactivate" link */
 
 import "./PollListing.css";
 import { Link } from "react-router-dom";
@@ -52,7 +54,10 @@ export function PollListing({ user, directory }: listProps) {
       }
     >
       <p className="title-and-user">
-        {directory.vote.length > 0 && <FontAwesomeIcon icon={faCheckCircle} />}
+        {
+          // if the user has voted on this poll, include the checkmark
+          directory.vote.length > 0 && <FontAwesomeIcon icon={faCheckCircle} />
+        }
         <Link to={directory.poll.urlTitle} className="reverse">
           {directory.poll.title}
         </Link>
@@ -61,11 +66,14 @@ export function PollListing({ user, directory }: listProps) {
           current={currentUser}
           blockContainer={true}
         />
-        {directory.vote.length > 0 && (
-          <span className="sub-info">
-            you voted for <strong>{`${directory.vote}`}</strong>
-          </span>
-        )}
+        {
+          // if the user has voted on this poll, include the text of their vote
+          directory.vote.length > 0 && (
+            <span className="sub-info">
+              you voted for <strong>{`${directory.vote}`}</strong>
+            </span>
+          )
+        }
       </p>
       <p className="poll-info">
         {` ${numVotes} vote${
@@ -89,7 +97,10 @@ export function PollListing({ user, directory }: listProps) {
         // poll is not deactivated
         <>
           <p className="user-poll">
-            {userVote && <FontAwesomeIcon icon={faCheckCircle} />}
+            {
+              // if the user voted on the poll, show the checkmark
+              userVote && <FontAwesomeIcon icon={faCheckCircle} />
+            }
             <Link to={user.poll.urlTitle} className="reverse">
               {user.poll.title}
               <span className="poll-info">
@@ -100,28 +111,37 @@ export function PollListing({ user, directory }: listProps) {
                   user.poll.comments !== 1 ? "comments" : "comment"
                 }`}
               </span>
-              {userVote && (
-                <span className="sub-info">
-                  you voted for <strong>{`${userVote}`}</strong>
-                </span>
-              )}
+              {
+                // if the user voted on the poll, show the text
+                userVote && (
+                  <span className="sub-info">
+                    you voted for <strong>{`${userVote}`}</strong>
+                  </span>
+                )
+              }
             </Link>
           </p>
 
-          {user.poll.deactivatable && user.thisUser && (
-            <ActionLink
-              text="deactivate"
-              handler={user.cancelPoll}
-              pollId={user.poll.poll_id}
-            />
-          )}
-          {user.poll.editable && user.thisUser && (
-            <ActionLink
-              text="edit"
-              handler={user.editPoll}
-              pollId={user.poll.poll_id}
-            />
-          )}
+          {
+            // if the poll can be deactiated, provide the link
+            user.poll.deactivatable && user.thisUser && (
+              <ActionLink
+                text="deactivate"
+                handler={user.cancelPoll}
+                pollId={user.poll.poll_id}
+              />
+            )
+          }
+          {
+            // if the poll can be edited, provide the link
+            user.poll.editable && user.thisUser && (
+              <ActionLink
+                text="edit"
+                handler={user.editPoll}
+                pollId={user.poll.poll_id}
+              />
+            )
+          }
         </>
       ) : (
         // poll is deactivated

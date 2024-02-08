@@ -1,3 +1,9 @@
+// This component handles the acceptance of the email confirmation token
+
+/* REQUIRED PROPS:
+eToken: the token to be checked
+setLogIn: setter for the flag that a user is logged in */
+
 import "./EmailTokenModal.css";
 import { Dispatch, SetStateAction } from "react";
 import axios, { AxiosError } from "axios";

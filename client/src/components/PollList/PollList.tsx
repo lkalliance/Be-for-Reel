@@ -1,5 +1,10 @@
 // This component renders a list of polls
 
+/* REQUIRED PROPS:
+polls: the array of poll objects to list
+thisUser: boolean flag, are we looking at the current user's profile?
+uName: username of the current user (for refetch query after deactivation) */
+
 import "./PollList.css";
 import { pollListProps } from "../../utils/interfaces";
 import { useMutation } from "@apollo/client";

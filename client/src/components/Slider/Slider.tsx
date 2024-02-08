@@ -9,6 +9,7 @@ max: the high value of the range covered by the slider */
 label: the string to appear as a title for the slider
 labelVal: the string to describe the current selected value
 step: the amount of change in value of slider positions (defaults to 1)
+width: value for the pixel size of the control
 val: a number of the current value of the slider
 disabled: a boolean used for the disabled state of the slider (defaults to false)
 sliderKey: an object with labels for each end of the slider:

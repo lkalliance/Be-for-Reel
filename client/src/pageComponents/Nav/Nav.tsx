@@ -1,5 +1,9 @@
 // This component renders the navigation
 
+/* REQUIRED PROPS:
+loggedIn: flag for whether a user is logged in
+setLogIn: setter for the flag */
+
 import "./Nav.css";
 import { useState, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -120,7 +124,6 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                   <UserMenu
                     uname={userInfo.userName}
                     lookup={userInfo.lookupName}
-                    menu={showUserMenu}
                     setMenu={setShowUserMenu}
                     setLogIn={setLogIn}
                     setShowSearch={setShowSearch}

@@ -3,6 +3,12 @@
 /* REQUIRED PROPS
 username: string of the user's username */
 
+/* OPTIONAL PROPS
+current: boolean flag, is this the current user?
+noBy: boolean flag, hide the "by" word
+blockContainer: boolean flag, should this be a span instead of a div
+original: boolean flag, should this be rendered in component's original style */
+
 import "./UsernameLink.css";
 import { Link } from "react-router-dom";
 import { createLookupName } from "../../utils";

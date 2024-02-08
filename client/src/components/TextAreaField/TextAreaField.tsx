@@ -9,6 +9,8 @@ placeholder: the string to appear as the the textarea placeholder
 val: a string used as the value of the textarea (defaults to "")
 min: the minimum required length of the text
 max: the maximum allowed length of the text
+height: pixel height
+width: pixel width
 disabled: a boolean to set the disabled property (defaults to false)
 setValue: a callback function for textarea onChange
 keyUp: a callback function for textarea keyUp */

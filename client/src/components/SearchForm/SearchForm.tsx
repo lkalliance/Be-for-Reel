@@ -1,3 +1,11 @@
+// This component renders the user's search input and submit button
+
+/* REQUIRED PROPS:
+show: boolean flag, do we show the search box?
+search: string to be searched
+setSearch: handler for user's changing of the search string
+handleSearch: handler for when the user clicks Submit */
+
 import "./SearchForm.css";
 import { Dispatch, SetStateAction } from "react";
 import { InputText } from "../../components";

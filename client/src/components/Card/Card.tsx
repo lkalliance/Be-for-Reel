@@ -1,10 +1,13 @@
 // This component renders a home page featured poll card
 
 /* REQUIRED PROPS:
-Title: the title of the poll
+title: the title of the poll
 urlTitle: the url of the poll
 poster: the url of the movie poster
-user: the user that created the poll */
+user: the user that created the poll
+votes: the integer number of votes cast on the poll
+num: index of which card this is on the page
+voted: what the current user voted on this poll */
 
 import "./Card.css";
 import { Link } from "react-router-dom";
