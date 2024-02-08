@@ -57,21 +57,4 @@ router.get("/api/search/:string", async (req, res) => {
   }
 });
 
-// router.get("/api/info/:id", async (req, res) => {
-//   // Route to get specific movie data
-//   console.log("Getting a movie");
-//   try {
-//     const movie = {
-//       method: "GET",
-//       url: `https://tv-api.com/en/API/Title/${process.env.IMDB_API_KEY}/${req.params.id}/Trailer,Ratings,Wikipedia`,
-//     };
-
-//     const movieData = await fetch.request(movie);
-//     res.status(200).json(movieData.data);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
-
 module.exports = router;

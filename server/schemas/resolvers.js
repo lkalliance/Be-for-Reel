@@ -170,10 +170,8 @@ const resolvers = {
       // iterate over each poll
       for (let i = 0; i < polls.length; i++) {
         const genres = polls[i].genre;
-        console.log(genres);
         // iterate over the poll's genres
         for (let ii = 0; ii < genres.length; ii++) {
-          console.log(genres[ii]);
           if (titles.indexOf(genres[ii]) === -1) {
             titles.push(genres[ii]);
           }
