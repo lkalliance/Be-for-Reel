@@ -89,6 +89,14 @@ export function Option({
     setComment("");
   };
 
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    handleVote(e);
+    select({
+      ...selected,
+      option_id: "",
+    });
+  };
+
   const grossPieces = opt.worldwide.split(",");
   let grossAbbrev = "";
   switch (grossPieces.length) {
@@ -210,7 +218,7 @@ export function Option({
               />
               <button
                 disabled={!(isSelected && loggedIn && !voted)}
-                onClick={handleVote}
+                onClick={handleSubmit}
                 className="btn btn-primary"
               >
                 Vote!
