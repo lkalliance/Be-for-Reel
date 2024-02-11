@@ -8,6 +8,7 @@ const typeDefs = gql`
     user: User
     id: ID
     eToken: String
+    message: String
   }
 
   type Confirm {

@@ -131,6 +131,11 @@ export function SignupForm({
           },
         });
 
+        if (data.addUser.message && setStrErr) {
+          setStrErr(data.addUser.message);
+          return;
+        }
+
         // then send the email verification link
         verifyEmail(data.addUser.token);
       }

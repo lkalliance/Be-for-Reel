@@ -257,7 +257,17 @@ const resolvers = {
     addUser: async (parent, args) => {
       const { userName, email, password } = args;
       const today = Date();
-      console.log(userName);
+      const reservedNames = {
+        admin: true,
+        email: true,
+        search: true,
+        pwd: true,
+        login: true,
+        polls: true,
+        users: true,
+        topfilms: true,
+        faq: true,
+      };
 
       // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
@@ -265,7 +275,9 @@ const resolvers = {
       // (all lower case, alphanumeric, and hyphens for spaces)
       const lookupName = createLookupName(cleanedUserName);
 
-      // create random token for email validation
+      const referenceLookup = lookupName.replace(/-/g, "");
+      if (reservedNames[referenceLookup])
+        return { message: `"${lookupName}" is a reserved name.` };
 
       const newUser = {
         userName: cleanedUserName,
@@ -281,6 +293,7 @@ const resolvers = {
       const user = await User.create(newUser);
       if (!user) return { message: "Operation failed" };
 
+      // create random token for email validation
       const eConfirm = await Confirmation.create({
         user_id: user._id,
         email,
