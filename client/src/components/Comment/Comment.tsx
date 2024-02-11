@@ -1,6 +1,6 @@
 // This component renders a single comment on a poll or user page
 
-/* REQUIRED PROPS:
+/* OPTIONAL PROPS:
 thisUser: is the user looking at their own profile page
 either pollComm or userComm...
 pollComm:

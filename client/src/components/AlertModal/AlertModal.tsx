@@ -1,3 +1,10 @@
+// This component renders the global alert modal
+
+/* REQUIRED PROPS:
+message: string for the modal
+type: string "alert" or "success" for rendering alert coloring
+close: function for closing the alert */
+
 import "./AlertModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";

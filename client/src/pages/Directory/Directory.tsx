@@ -29,9 +29,7 @@ export function Directory() {
   const genres: string[] = getGenres.loading
     ? ["loading"]
     : getGenres.data.getGenres.titles;
-  console.log(genres);
   const genreObjs = genres.map((genre) => {
-    console.log(genre);
     return {
       value: genre,
       title: genre.charAt(0).toUpperCase() + genre.slice(1),

@@ -7,7 +7,6 @@ const { typeDefs, resolvers } = require("./schemas");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-// const routes = require("./controllers/movie-search.js");
 const routes = require("./controllers");
 
 const server = new ApolloServer({

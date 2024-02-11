@@ -1,3 +1,9 @@
+// This component notifies the user to look for email confirmation
+
+/* REQUIRED PROPS:
+close: function to close the modal
+email: the email address that was provided by the user */
+
 import "./EmailVerifyModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";

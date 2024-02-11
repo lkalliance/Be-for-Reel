@@ -1,5 +1,14 @@
 // This component renders the signup form
 
+/* REQUIRED PROPS:
+setLogIn: sets flag for user logged in
+stateObj: contains login data
+handleChange: handles user input into login fields
+clear: utility function to clear all login fields
+formSetter: handler to manipulate the state holding form inputs
+strErr: state holding the text string for the error alert
+setStrErr: sets the text for the error alert */
+
 import "./SignupForm.css";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -121,6 +130,11 @@ export function SignupForm({
             password: stateObj.sPassword,
           },
         });
+
+        if (data.addUser.message && setStrErr) {
+          setStrErr(data.addUser.message);
+          return;
+        }
 
         // then send the email verification link
         verifyEmail(data.addUser.token);

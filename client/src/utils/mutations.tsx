@@ -19,6 +19,7 @@ export const ADD_USER = gql`
       user {
         userName
       }
+      message
     }
   }
 `;

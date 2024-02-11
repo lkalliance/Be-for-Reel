@@ -1,12 +1,19 @@
+// This component handles the modal to accept the user's new password
+
+/* REQUIRED PROPS:
+val: the current string entered into the password field
+setter: handler to record changes to the user's input
+close: function to close the modal
+submitter: handler for when user clicks Submit
+errMess: string of the error message to show if needed */
+
 import "./ResetPwdModal.css";
 import { Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
 import { InputText } from "../InputText";
 
 interface resetProps {
-  eToken: string | undefined;
   val: string;
   setter: Dispatch<SetStateAction<string>>;
   close: () => void;
@@ -15,14 +22,12 @@ interface resetProps {
 }
 
 export function ResetPwdModal({
-  eToken,
   val,
   setter,
   close,
   submitter,
   errMess,
 }: resetProps) {
-  const navigate = useNavigate();
   const pwdChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     const removeSpaces = value.replaceAll(" ", "");

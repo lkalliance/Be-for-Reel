@@ -4,6 +4,8 @@ module.exports = {
     // condense duplicated spaces,
     // remove all special characters but single quotes
     const cleanedName = userName
+      .trim()
+      .replace(/^[^a-zA-Z]+/, "")
       .replace(/\s+/g, " ")
       .replace(/[^A-Za-z0-9\s\'\‘\,]/g, "");
     return cleanedName;

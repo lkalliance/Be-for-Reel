@@ -1,5 +1,13 @@
 // This component renders the login form
 
+/* REQUIRED PROPS:
+setLogIn: sets flag for user logged in
+stateObj: contains login data
+handleChange: handles user input into login fields
+clear: utility function to clear all login fields
+boolErr: flag for showing the error alert
+setBoolErr: sets flag for showing the error alert */
+
 import "./LoginForm.css";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -191,7 +199,6 @@ export function LoginForm({
       )}
       {isForgotten && (
         <ResetPwdModal
-          eToken={eToken}
           val={resetPassword}
           setter={setResetPwd}
           close={closeResetModal}

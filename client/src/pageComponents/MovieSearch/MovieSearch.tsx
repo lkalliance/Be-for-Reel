@@ -4,6 +4,8 @@
 searchField: state that tracks search field contents
 setSearchField: handler for changes in the search field
 setSearchError: handler for search error state
+setNoResults: setter for flag that search returned no results
+setSourceDown: setter for flag that there was no response from API
 options: state object that tracks search criteria
 handleReturn: handler to sniff for keyboard return
 handleOption: generic handler for changes to most search criteria

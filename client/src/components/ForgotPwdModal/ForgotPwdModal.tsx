@@ -1,3 +1,12 @@
+// This component renders the "forgot my password" modal
+
+/* REQUIRED PROPS:
+val: holds the user's input into the email field
+setter: handles the user's changes to the email field
+close: function to close the modal
+submitter: handler to access when user clicks Submit
+errMess: holds the text of any error message */
+
 import "./ForgotPwdModal.css";
 import { Dispatch, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -170,10 +170,8 @@ const resolvers = {
       // iterate over each poll
       for (let i = 0; i < polls.length; i++) {
         const genres = polls[i].genre;
-        console.log(genres);
         // iterate over the poll's genres
         for (let ii = 0; ii < genres.length; ii++) {
-          console.log(genres[ii]);
           if (titles.indexOf(genres[ii]) === -1) {
             titles.push(genres[ii]);
           }
@@ -259,14 +257,27 @@ const resolvers = {
     addUser: async (parent, args) => {
       const { userName, email, password } = args;
       const today = Date();
+      const reservedNames = {
+        admin: true,
+        email: true,
+        search: true,
+        pwd: true,
+        login: true,
+        polls: true,
+        users: true,
+        topfilms: true,
+        faq: true,
+      };
 
       // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
       // convert username to lookup name
       // (all lower case, alphanumeric, and hyphens for spaces)
-      const lookupName = createLookupName(userName);
+      const lookupName = createLookupName(cleanedUserName);
 
-      // create random token for email validation
+      const referenceLookup = lookupName.replace(/-/g, "");
+      if (reservedNames[referenceLookup])
+        return { message: `"${lookupName}" is a reserved name.` };
 
       const newUser = {
         userName: cleanedUserName,
@@ -282,6 +293,7 @@ const resolvers = {
       const user = await User.create(newUser);
       if (!user) return { message: "Operation failed" };
 
+      // create random token for email validation
       const eConfirm = await Confirmation.create({
         user_id: user._id,
         email,
