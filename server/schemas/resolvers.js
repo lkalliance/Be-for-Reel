@@ -257,12 +257,13 @@ const resolvers = {
     addUser: async (parent, args) => {
       const { userName, email, password } = args;
       const today = Date();
+      console.log(userName);
 
       // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
       // convert username to lookup name
       // (all lower case, alphanumeric, and hyphens for spaces)
-      const lookupName = createLookupName(userName);
+      const lookupName = createLookupName(cleanedUserName);
 
       // create random token for email validation
 
