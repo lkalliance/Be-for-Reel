@@ -464,8 +464,15 @@ const resolvers = {
         if (pollCheck.voters.includes(context.user._id))
           return new Error("You have already voted in this poll");
 
+        // cleanse the comment
+        const checkComment = await fetch.get(
+          `https://www.purgomalum.com/service/json?text=${comment}`
+        );
+
+        const cleansedComment = checkComment.data.result;
+
         // first: update the poll
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add the vote and the comment
           whichPoll = await Poll.findOneAndUpdate(
             { _id: poll_id, "options._id": option_id },
@@ -477,7 +484,7 @@ const resolvers = {
                   user_id: context.user._id,
                   username: userName,
                   movie,
-                  text: comment,
+                  text: cleansedComment,
                   deactivated: false,
                 },
               },
@@ -498,7 +505,7 @@ const resolvers = {
         }
 
         // second: update the user that voted
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add it and the vote
           updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
@@ -511,7 +518,7 @@ const resolvers = {
                   title: whichPoll.title,
                   urlTitle: whichPoll.urlTitle,
                   movie,
-                  text: comment,
+                  text: cleansedComment,
                 },
               },
               $push: { voted: poll_id },
@@ -534,7 +541,7 @@ const resolvers = {
         const token = signToken(updatedUser);
 
         // third: update the poll stored on the user record
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add it and the vote
           pollUser = await User.findOneAndUpdate(
             { _id: whichPoll.user_id, "polls.poll_id": whichPoll._id },

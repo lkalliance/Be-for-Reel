@@ -119,6 +119,16 @@ export function SignupForm({
       return;
     }
 
+    // check username for profanity
+    const profane = await axios.get(
+      `https://www.purgomalum.com/service/containsprofanity?text=${stateObj.sUsername}`
+    );
+
+    if (profane.data) {
+      if (setStrErr) setStrErr("No profanity allowed in usernames.");
+      return;
+    }
+
     // first add the user to the database
     try {
       if (validateForm(stateObj)) {
