@@ -1,6 +1,7 @@
 // This component renders the Create a Poll page
 
 import "./Create.css";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
@@ -26,6 +27,7 @@ interface pollOptions {
 
 export function Create() {
   const Auth = new AuthService();
+  console.log(Auth.getProfile());
 
   // used to reset options values
   const blankOptions = {
@@ -70,6 +72,7 @@ export function Create() {
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
+  const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
@@ -93,6 +96,19 @@ export function Create() {
     // poll title must exist and at least two films selected
     if (!(pollData.title.length > 0 && selected.length > 1)) return;
 
+    const profaneTitle = await axios.get(
+      `https://www.purgomalum.com/service/containsprofanity?text=${pollData.title}`
+    );
+    const profaneDesc = await axios.get(
+      `https://www.purgomalum.com/service/containsprofanity?text=${pollData.description}`
+    );
+
+    if (profaneTitle.data || profaneDesc.data) {
+      setProfError(true);
+      setPollData({ ...pollData, title: "", description: "" });
+      return;
+    }
+
     // display the alert that poll is being built
     setBuilding(true);
 
@@ -106,6 +122,8 @@ export function Create() {
         },
       });
 
+      // after creating, update user with newly created poll
+      Auth.login(data.addPoll.token.token);
       // once poll is created, navigate the browser to it
       navigate(data.addPoll.redirect);
     } catch (err: any) {
@@ -286,6 +304,7 @@ export function Create() {
     const { id, value } = e.target;
     // clear any error message
     setErrorMessage("");
+    setProfError(false);
     // update the poll data
     setPollData({
       ...pollData,
@@ -427,6 +446,10 @@ export function Create() {
               </button>
               {errorMessage.length > 0 ? (
                 <div className="alert alert-danger">{errorMessage}</div>
+              ) : profError ? (
+                <div className="alert alert-danger">
+                  Please no profanity in poll titles or descriptions.
+                </div>
               ) : (
                 ""
               )}

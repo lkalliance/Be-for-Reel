@@ -40,9 +40,9 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  let opts = loading ? [] : [...poll.options];
-  const thisUser = loading ? null : userInfo._id === poll.user_id;
-  if (!loading) {
+  let opts = loading || !poll ? [] : [...poll.options];
+  const thisUser = loading || !poll ? null : userInfo._id === poll.user_id;
+  if (!loading && poll) {
     // trap for loading
     if (userInfo.votes[poll._id] || poll.expired) {
       // if the user has voted, or the poll is expired, sort by votes
@@ -57,7 +57,7 @@ export function Poll({ currUser }: pollProps) {
     }
   }
 
-  const mostVotes = loading ? 0 : opts[0].votes;
+  const mostVotes = loading || !poll ? 0 : opts[0].votes;
 
   const [castVote] = useMutation(VOTE, {
     // when casting a vote, refetch poll directory, user and this poll
@@ -119,6 +119,10 @@ export function Poll({ currUser }: pollProps) {
     <section id="poll">
       {loading ? (
         <div>Loading...</div>
+      ) : !poll ? (
+        <div className="deactivated list-member-20">
+          This poll does not exist
+        </div>
       ) : poll.deactivated ? (
         <div className="deactivated list-member-20">
           This poll has been removed.

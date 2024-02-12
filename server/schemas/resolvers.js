@@ -269,6 +269,12 @@ const resolvers = {
         faq: true,
       };
 
+      // check username for profanity
+      const profane = await fetch.get(
+        `https://www.purgomalum.com/service/containsprofanity?text=${userName}`
+      );
+      if (profane.data) return { message: "Please no profanity in usernames." };
+
       // remove double-spaces and most non-alphanumeric characters
       const cleanedUserName = cleanUsername(userName);
       // convert username to lookup name
@@ -337,6 +343,19 @@ const resolvers = {
     ) => {
       // make sure the user is actually logged in
       if (context.user) {
+        // check first for profanity
+        const profaneTitle = await fetch.get(
+          `https://www.purgomalum.com/service/containsprofanity?text=${title}`
+        );
+        const profaneDesc = await fetch.get(
+          `https://www.purgomalum.com/service/containsprofanity?text=${description}`
+        );
+        if (profaneTitle.data || profaneDesc.data) {
+          return {
+            message: "Please no profanity in poll titles or descriptions.",
+          };
+        }
+
         const optGenres = [];
         const options = await Promise.all(
           movieIds.map(async (id) => {
@@ -438,7 +457,7 @@ const resolvers = {
         newUserPoll.poll_id = poll._id;
 
         // add the poll to the currently logged-in user's document
-        await User.findOneAndUpdate(
+        const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { polls: newUserPoll },
@@ -446,7 +465,20 @@ const resolvers = {
           { new: true, useFindAndModify: false }
         );
 
-        return { poll_id: poll._id, title, redirect: urlTitle };
+        // update his token with added vote
+        const token = signToken(updatedUser);
+
+        return {
+          poll_id: poll._id,
+          title,
+          redirect: urlTitle,
+          deactivated: false,
+          message: "",
+          token: {
+            token,
+            user: updatedUser,
+          },
+        };
       }
     },
 
@@ -464,8 +496,15 @@ const resolvers = {
         if (pollCheck.voters.includes(context.user._id))
           return new Error("You have already voted in this poll");
 
+        // cleanse the comment
+        const checkComment = await fetch.get(
+          `https://www.purgomalum.com/service/json?text=${comment}`
+        );
+
+        const cleansedComment = checkComment.data.result;
+
         // first: update the poll
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add the vote and the comment
           whichPoll = await Poll.findOneAndUpdate(
             { _id: poll_id, "options._id": option_id },
@@ -477,7 +516,7 @@ const resolvers = {
                   user_id: context.user._id,
                   username: userName,
                   movie,
-                  text: comment,
+                  text: cleansedComment,
                   deactivated: false,
                 },
               },
@@ -498,7 +537,7 @@ const resolvers = {
         }
 
         // second: update the user that voted
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add it and the vote
           updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
@@ -511,7 +550,7 @@ const resolvers = {
                   title: whichPoll.title,
                   urlTitle: whichPoll.urlTitle,
                   movie,
-                  text: comment,
+                  text: cleansedComment,
                 },
               },
               $push: { voted: poll_id },
@@ -534,7 +573,7 @@ const resolvers = {
         const token = signToken(updatedUser);
 
         // third: update the poll stored on the user record
-        if (comment.length > 0) {
+        if (cleansedComment.length > 0) {
           // if there's a comment, add it and the vote
           pollUser = await User.findOneAndUpdate(
             { _id: whichPoll.user_id, "polls.poll_id": whichPoll._id },
@@ -668,7 +707,7 @@ const resolvers = {
           );
 
           // update the user's poll list
-          await User.findOneAndUpdate(
+          const updatedUser = await User.findOneAndUpdate(
             { lookupName: context.user.lookupName, "polls.poll_id": poll_id },
             { "polls.$.deactivated": true, "polls.$.urlTitle": deactivation },
             { new: true, useFindAndModify: false }
@@ -695,9 +734,16 @@ const resolvers = {
             { new: true, useFindAndModify: false }
           );
 
+          // update his token with added vote
+          const token = signToken(updatedUser);
+
           return {
             title: pollUpdate.title,
             deactivated: pollUpdate.deactivated,
+            token: {
+              token,
+              user: updatedUser,
+            },
           };
         } catch (err) {
           console.log(err);
