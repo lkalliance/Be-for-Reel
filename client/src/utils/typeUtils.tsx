@@ -81,7 +81,7 @@ export const thisYear = () => {
 };
 
 export const pollLimit = (type: string) => {
-  return 6;
+  return 30;
 };
 
 export const accountLimits = () => {
