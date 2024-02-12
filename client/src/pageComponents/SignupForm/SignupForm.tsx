@@ -125,7 +125,7 @@ export function SignupForm({
     );
 
     if (profane.data) {
-      if (setStrErr) setStrErr("No profanity allowed in usernames.");
+      if (setStrErr) setStrErr("Please no profanity in usernames.");
       return;
     }
 

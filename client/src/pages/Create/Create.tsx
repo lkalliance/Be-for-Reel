@@ -27,6 +27,7 @@ interface pollOptions {
 
 export function Create() {
   const Auth = new AuthService();
+  console.log(Auth.getProfile());
 
   // used to reset options values
   const blankOptions = {
@@ -121,6 +122,8 @@ export function Create() {
         },
       });
 
+      // after creating, update user with newly created poll
+      Auth.login(data.addPoll.token.token);
       // once poll is created, navigate the browser to it
       navigate(data.addPoll.redirect);
     } catch (err: any) {

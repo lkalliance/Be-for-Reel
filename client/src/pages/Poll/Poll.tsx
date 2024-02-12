@@ -40,7 +40,6 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
-  console.log(!poll);
   let opts = loading || !poll ? [] : [...poll.options];
   const thisUser = loading || !poll ? null : userInfo._id === poll.user_id;
   if (!loading && poll) {

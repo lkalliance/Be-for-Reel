@@ -39,6 +39,23 @@ export const ADD_POLL = gql`
     ) {
       title
       redirect
+      message
+      token {
+        token
+        user {
+          userName
+          votes {
+            poll_id
+            option_id
+            movie
+          }
+          polls {
+            poll_id
+            expires_on
+            deactivated
+          }
+        }
+      }
     }
   }
 `;
@@ -101,6 +118,22 @@ export const DEACTIVATE_POLL = gql`
     deactivatePoll(poll_id: $poll_id) {
       title
       deactivated
+      token {
+        token
+        user {
+          userName
+          votes {
+            poll_id
+            option_id
+            movie
+          }
+          polls {
+            poll_id
+            expires_on
+            deactivated
+          }
+        }
+      }
     }
   }
 `;

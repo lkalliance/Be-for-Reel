@@ -41,7 +41,11 @@ module.exports = {
     const today = new Date();
     const activePolls = polls
       .map((poll) => {
-        return { poll_id: poll._id, expires: poll.expires_on };
+        return {
+          poll_id: poll._id,
+          expires: poll.expires_on,
+          deactivated: poll.deactivated,
+        };
       })
       .filter((thisPoll) => {
         return new Date(thisPoll.expires) > today && !thisPoll.deactivated;

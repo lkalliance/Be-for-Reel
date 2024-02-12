@@ -141,6 +141,8 @@ const typeDefs = gql`
     title: String
     redirect: String
     deactivated: Boolean
+    message: String
+    token: Auth
   }
 
   type voteReturn {

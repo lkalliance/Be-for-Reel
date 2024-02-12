@@ -6,6 +6,7 @@ thisUser: boolean flag, are we looking at the current user's profile?
 uName: username of the current user (for refetch query after deactivation) */
 
 import "./PollList.css";
+import { AuthService } from "../../utils/auth";
 import { pollListProps } from "../../utils/interfaces";
 import { useMutation } from "@apollo/client";
 import { DEACTIVATE_POLL } from "../../utils/mutations";
@@ -13,6 +14,7 @@ import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
 import { PollListing } from "../../components/PollListing";
 
 export function PollList({ polls, thisUser, uName }: pollListProps) {
+  const auth = new AuthService();
   const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
     refetchQueries: () => [
       {
@@ -31,11 +33,14 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
     try {
-      await deactivatePoll({
+      const updatedPoll = await deactivatePoll({
         variables: {
           poll_id: id,
         },
       });
+      console.log(updatedPoll);
+      // after creating, update user with newly created poll
+      auth.login(updatedPoll.data?.deactivatePoll.token.token);
     } catch (err: any) {
       console.log(err);
     }
