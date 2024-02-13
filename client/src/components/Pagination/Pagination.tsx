@@ -36,7 +36,7 @@ export function Pagination({
   return currentPage === 0 ||
     !paginationRange ||
     paginationRange.length < 2 ? null : (
-    <div id="pagination">
+    <div className="pagination">
       <ul>
         <li
           className={currentPage === 1 ? "pointer disabled" : "pointer"}

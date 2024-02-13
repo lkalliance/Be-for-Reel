@@ -10,11 +10,20 @@ import { AuthService } from "../../utils/auth";
 import { pollListProps } from "../../utils/interfaces";
 import { useMutation } from "@apollo/client";
 import { DEACTIVATE_POLL } from "../../utils/mutations";
-import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils";
-import { PollListing } from "../../components/PollListing";
+import { QUERY_ALL_POLLS, QUERY_SINGLE_USER, listSection } from "../../utils";
+import { PollListing, Pagination } from "../../components/";
 
-export function PollList({ polls, thisUser, uName }: pollListProps) {
+export function PollList({
+  polls,
+  thisUser,
+  uName,
+  currentPage,
+  setCurrentPage,
+  perPage,
+}: pollListProps) {
   const auth = new AuthService();
+  const showThis = listSection(polls, currentPage, perPage);
+
   const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
     refetchQueries: () => [
       {
@@ -57,22 +66,37 @@ export function PollList({ polls, thisUser, uName }: pollListProps) {
     }
   };
 
+  const handlePageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentPage(parseInt(id.split("-")[1]));
+  };
+
   return (
-    <ul id="user-poll-list">
-      {polls.length === 0 ? (
-        <li className="doesnt-exist list-member-12">no polls created</li>
-      ) : (
-        <>
-          {polls.map((poll, index) => {
-            return (
-              <PollListing
-                user={{ poll, thisUser, editPoll, cancelPoll }}
-                key={index}
-              />
-            );
-          })}
-        </>
-      )}
-    </ul>
+    <>
+      <ul id="user-poll-list">
+        {polls.length === 0 ? (
+          <li className="doesnt-exist list-member-12">no polls created</li>
+        ) : (
+          <>
+            {showThis.map((poll, index) => {
+              return (
+                <PollListing
+                  user={{ poll, thisUser, editPoll, cancelPoll }}
+                  key={index}
+                />
+              );
+            })}
+          </>
+        )}
+      </ul>
+      <Pagination
+        navHandler={handlePageSelect}
+        currentPage={currentPage}
+        totalCount={polls.length}
+        pageSize={perPage}
+        siblingCount={1}
+      />
+    </>
   );
 }

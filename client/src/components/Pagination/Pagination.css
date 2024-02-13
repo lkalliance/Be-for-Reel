@@ -1,6 +1,6 @@
 /* Custom css goes here */
 
-section #pagination ul {
+section .pagination ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -12,17 +12,17 @@ section #pagination ul {
   max-width: 300px;
 }
 
-#pagination {
+.pagination {
   display: flex;
   justify-content: flex-end;
 }
 
-#pagination li {
+.pagination li {
   list-style-type: none;
   cursor: pointer;
 }
 
-#pagination li div {
+.pagination li div {
   width: 35px;
   padding: 10px 0;
   font-size: 0.85rem;
@@ -33,33 +33,35 @@ section #pagination ul {
   line-height: 0.8rem;
 }
 
-#pagination li.selected div {
+.pagination li.selected div {
   background-color: var(--item-background-light);
   font-weight: bold;
 }
 
-#pagination li.ellipsis div,
-#pagination li.pointer div {
+.pagination li.ellipsis div,
+.pagination li.pointer div {
   background-color: transparent;
   width: auto;
   text-align: center;
 }
 
-#pagination li.pointer {
+.pagination li.pointer {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-#pagination li.ellipsis div {
+.pagination li.ellipsis div {
   font-size: 1.5rem;
 }
 
-#pagination li.pointer.disabled svg {
-  color: var(--item-background-light);
+section .pagination li.pointer.disabled svg {
+  color: var(--item-background-light) !important;
 }
 
-section #pagination li svg {
-  display: block;
+section .pagination li.pointer svg,
+section#directory .pagination li.pointer svg,
+section#profile .pagination li.pointer svg {
+  display: block !important;
   color: white;
   font-size: 0.75rem;
   position: relative;
