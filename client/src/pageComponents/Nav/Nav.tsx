@@ -24,8 +24,8 @@ interface headerNavProps {
 }
 
 export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
-  const Auth = new AuthService();
-  const { userName, lookupName } = Auth.getProfile();
+  const auth = new AuthService();
+  const { userName, lookupName } = auth.getProfile();
   const navigate = useNavigate();
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
@@ -75,7 +75,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                     onClick={(e) => {
                       setShowSearch(false);
                       e.preventDefault();
-                      Auth.logout();
+                      auth.logout();
                       setLogIn(false);
                     }}
                     id="logout-link"

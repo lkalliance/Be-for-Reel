@@ -24,7 +24,6 @@ import {
   SearchResults,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
-import { userData } from "./utils";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {
@@ -45,9 +44,9 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const Auth = new AuthService();
-  const [loggedIn, setLoggedIn] = useState<boolean>(Auth.loggedIn());
-  const userInfo: userData = Auth.getProfile();
+  const auth = new AuthService();
+  const [loggedIn, setLoggedIn] = useState<boolean>(auth.loggedIn());
+  const { userName } = auth.getProfile();
 
   return (
     <ApolloProvider client={client}>
@@ -80,7 +79,7 @@ function App() {
           <Route path="/search/:term" element={<SearchResults />} />
           <Route
             path="/:lookupname/:pollname"
-            element={<Poll loggedin={loggedIn} currUser={userInfo.userName} />}
+            element={<Poll loggedin={loggedIn} currUser={userName} />}
           />
           <Route
             path="/create"

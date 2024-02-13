@@ -26,7 +26,7 @@ interface pollOptions {
 }
 
 export function Create() {
-  const Auth = new AuthService();
+  const auth = new AuthService();
 
   // used to reset options values
   const blankOptions = {
@@ -75,7 +75,7 @@ export function Create() {
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
-  const { lookupName, activePolls, email, confirmed } = Auth.getProfile();
+  const { lookupName, activePolls, email, confirmed } = auth.getProfile();
   const [addPoll] = useMutation(ADD_POLL, {
     refetchQueries: () => [
       {
@@ -122,7 +122,7 @@ export function Create() {
       });
 
       // after creating, update user with newly created poll
-      Auth.login(data.addPoll.token.token);
+      auth.login(data.addPoll.token.token);
       // once poll is created, navigate the browser to it
       navigate(data.addPoll.redirect);
     } catch (err: any) {

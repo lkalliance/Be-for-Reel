@@ -21,9 +21,9 @@ interface pollProps {
 }
 
 export function Poll({ currUser }: pollProps) {
-  const Auth = new AuthService();
-  const loggedIn = Auth.loggedIn();
-  const { confirmed, votes, _id, lookupName, email } = Auth.getProfile();
+  const auth = new AuthService();
+  const loggedIn = auth.loggedIn();
+  const { confirmed, votes, _id, lookupName, email } = auth.getProfile();
 
   // get username and poll name from parameters
   const { lookupname, pollname } = useParams();
@@ -99,7 +99,7 @@ export function Poll({ currUser }: pollProps) {
       setComment("");
 
       // after voting, update user token with newly cast vote
-      Auth.login(data.castVote.token.token);
+      auth.login(data.castVote.token.token);
     } catch (err: any) {
       console.log(err);
     }

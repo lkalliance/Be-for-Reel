@@ -11,8 +11,8 @@ import { PollListing, Select } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
-  const Auth = new AuthService();
-  const { votes } = Auth.getProfile();
+  const auth = new AuthService();
+  const { votes } = auth.getProfile();
   const { genre } = useParams();
 
   const lookupGenre = genre || "all";

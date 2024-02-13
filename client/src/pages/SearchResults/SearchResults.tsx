@@ -10,9 +10,9 @@ import { userProps, pollProps, movieListProps } from "../../utils";
 import { UsernameLink, Tabs } from "../../components";
 
 export function SearchResults() {
-  const Auth = new AuthService();
+  const auth = new AuthService();
   const term = useParams();
-  const { votes } = Auth.getProfile();
+  const { votes } = auth.getProfile();
   const [tab, setTab] = useState("polls");
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,7 +85,7 @@ export function SearchResults() {
 
       {tab === "movies" && (
         <div className="results-row row">
-          {Auth.loggedIn() ? (
+          {auth.loggedIn() ? (
             movies.length === 0 ? (
               <div className="doesnt-exist">
                 {getResults.data ? "no movies for this search" : "loading..."}
