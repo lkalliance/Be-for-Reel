@@ -1,3 +1,15 @@
+export const listSection = (fullList: [], page: number, perPage: number) => {
+  // for pagination, returns a given segment of a full list
+
+  // given current page, generates what to show currently
+  const firstRecord = page === 1 ? 0 : (page - 1) * perPage;
+  const last = firstRecord + perPage - 1;
+  const lastRecord = last > fullList.length ? fullList.length : last + 1;
+  const section = fullList.slice(firstRecord, lastRecord);
+
+  return section;
+};
+
 export const cleanUsername = (userName: string) => {
   // converts a username to something displayable:
   // condense duplicated spaces,

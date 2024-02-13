@@ -4,6 +4,7 @@ import "./Directory.css";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { listSection } from "../../utils";
 import { AuthService } from "../../utils/auth";
 import { pollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
@@ -18,15 +19,6 @@ export function Directory() {
 
   const lookupGenre = genre || "all";
   const perPage = 10;
-  const listSection = (fullList: pollProps[], page: number) => {
-    // given current page, generates what to show currently
-    const firstRecord = page === 1 ? 0 : (page - 1) * perPage;
-    const last = firstRecord + perPage - 1;
-    const lastRecord = last > fullList.length ? fullList.length : last + 1;
-    const section = fullList.slice(firstRecord, lastRecord);
-
-    return section;
-  };
 
   // get the relevant polls and genre list
   const getPolls = useQuery(QUERY_ALL_POLLS, {
@@ -36,7 +28,7 @@ export function Directory() {
 
   // get all polls
   const list = getPolls.data?.getPolls.polls || [];
-  const showThis = listSection(list, currentPage);
+  const showThis = listSection(list, currentPage, perPage);
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading

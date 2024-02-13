@@ -1,13 +1,25 @@
 import "./UserDir.css";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
+import { listSection } from "../../utils";
 import { userListProps } from "../../utils/interfaces";
 import { QUERY_ALL_USERS } from "../../utils/queries";
-import { UserListing } from "../../components";
+import { UserListing, Pagination } from "../../components";
 
 export function UserDir() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 10;
+
   // get the user list
   const { loading, data } = useQuery(QUERY_ALL_USERS);
   const userList = loading ? [] : data.getUsers.users;
+  const showThis = listSection(userList, currentPage, perPage);
+
+  const handlePageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentPage(parseInt(id.split("-")[1]));
+  };
 
   return (
     <section id="user-directory">
@@ -15,10 +27,17 @@ export function UserDir() {
       <ul>
         {loading
           ? "users go here"
-          : userList.map((user: userListProps, index: number) => {
+          : showThis.map((user: userListProps, index: number) => {
               return <UserListing key={index} user={user} />;
             })}
       </ul>
+      <Pagination
+        navHandler={handlePageSelect}
+        currentPage={currentPage}
+        totalCount={userList.length}
+        pageSize={perPage}
+        siblingCount={1}
+      />
     </section>
   );
 }
