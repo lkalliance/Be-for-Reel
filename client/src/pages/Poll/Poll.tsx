@@ -4,11 +4,7 @@ import "./Poll.css";
 import { useState, Key } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthService } from "../../utils/auth";
-import {
-  optionProps,
-  userData,
-  pollCommentProps,
-} from "../../utils/interfaces";
+import { optionProps, pollCommentProps } from "../../utils/interfaces";
 import { VOTE } from "../../utils/mutations";
 import {
   QUERY_SINGLE_POLL,
@@ -27,12 +23,10 @@ interface pollProps {
 export function Poll({ currUser }: pollProps) {
   const Auth = new AuthService();
   const loggedIn = Auth.loggedIn();
-  const confirmed = Auth.getProfile().confirmed;
+  const { confirmed, votes, _id, lookupName, email } = Auth.getProfile();
 
   // get username and poll name from parameters
   const { lookupname, pollname } = useParams();
-  // get all user info
-  const userInfo: userData = Auth.getProfile();
 
   // get the poll
   const { loading, data } = useQuery(QUERY_SINGLE_POLL, {
@@ -41,10 +35,10 @@ export function Poll({ currUser }: pollProps) {
 
   const poll = data?.getPoll;
   let opts = loading || !poll ? [] : [...poll.options];
-  const thisUser = loading || !poll ? null : userInfo._id === poll.user_id;
+  const thisUser = loading || !poll ? null : _id === poll.user_id;
   if (!loading && poll) {
     // trap for loading
-    if (userInfo.votes[poll._id] || poll.expired) {
+    if (votes[poll._id] || poll.expired) {
       // if the user has voted, or the poll is expired, sort by votes
       opts.sort((a: optionProps, b: optionProps) => {
         return b.votes - a.votes;
@@ -68,7 +62,7 @@ export function Poll({ currUser }: pollProps) {
       },
       {
         query: QUERY_SINGLE_USER,
-        variables: { lookupname: userInfo.lookupName },
+        variables: { lookupname: lookupName },
       },
       {
         query: QUERY_SINGLE_POLL,
@@ -139,10 +133,10 @@ export function Poll({ currUser }: pollProps) {
             />
             {loggedIn && confirmed ? (
               // valid user is logged in: either show user's vote or comment text area
-              userInfo.votes[poll._id] ? (
+              votes[poll._id] ? (
                 // user has voted on this poll, show their vote
                 <p id="yourvote">
-                  you voted for <strong>{userInfo.votes[poll._id]}</strong>
+                  you voted for <strong>{votes[poll._id]}</strong>
                 </p>
               ) : null
             ) : // user is not logged in, or not confirmed
@@ -157,7 +151,7 @@ export function Poll({ currUser }: pollProps) {
               <div className="login-prompt">
                 You have not confirmed your email address.
                 <br />
-                Check your email at {Auth.getProfile().email} and
+                Check your email at {email} and
                 <br />
                 look for the email with a confirmation link.
               </div>
@@ -183,8 +177,8 @@ export function Poll({ currUser }: pollProps) {
                   select={setSelected}
                   comment={comment}
                   setComment={setComment}
-                  voted={userInfo.votes[poll._id]}
-                  votes={userInfo.votes[poll._id] ? option.votes : undefined}
+                  voted={votes[poll._id]}
+                  votes={votes[poll._id] ? option.votes : undefined}
                   handleVote={handleVote}
                   handleComment={handleComment}
                   editable={poll.editable}

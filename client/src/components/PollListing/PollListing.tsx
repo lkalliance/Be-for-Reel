@@ -39,8 +39,8 @@ interface listProps {
 
 export function PollListing({ user, directory }: listProps) {
   const auth = new AuthService();
-  const currentUser = auth.getProfile().userName === directory?.poll.username;
-  const votes = auth.getProfile().votes;
+  const { userName, votes } = auth.getProfile();
+  const currentUser = userName === directory?.poll.username;
   const userVote = user ? votes[user.poll.poll_id] : undefined;
   const numVotes = directory?.poll.votes.length || 0;
   const numComments = directory?.poll.comments.length || 0;

@@ -12,7 +12,7 @@ import { UsernameLink, Tabs } from "../../components";
 export function SearchResults() {
   const Auth = new AuthService();
   const term = useParams();
-  const votes = Auth.getProfile().votes;
+  const { votes } = Auth.getProfile();
   const [tab, setTab] = useState("polls");
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {

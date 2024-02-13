@@ -28,9 +28,8 @@ interface commProps {
 
 export function Comment({ pollComm, userComm, thisUser }: commProps) {
   const auth = new AuthService();
-  const thisUserPoll = pollComm
-    ? auth.getProfile().userName === pollComm.username
-    : false;
+  const { userName } = auth.getProfile();
+  const thisUserPoll = pollComm ? userName === pollComm.username : false;
 
   return (
     <>

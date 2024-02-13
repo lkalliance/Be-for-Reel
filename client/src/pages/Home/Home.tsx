@@ -13,7 +13,7 @@ import { convertMonth } from "../../utils/typeUtils";
 
 export function Home() {
   const auth = new AuthService();
-  const votes = auth.getProfile().votes;
+  const { votes } = auth.getProfile();
   const { loading, data: hPolls } = useQuery(QUERY_HOME_POLLS);
   let popCutoff = 4;
   let addToList = true;
