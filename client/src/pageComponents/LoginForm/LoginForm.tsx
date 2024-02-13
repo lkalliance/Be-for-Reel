@@ -28,9 +28,8 @@ export function LoginForm({
 }: loginState) {
   const Auth = new AuthService();
   const navigate = useNavigate();
-  const params = useParams();
+  const { eToken } = useParams();
   const isForgotten = window.location.hash.indexOf("pwd") >= 0;
-  const eToken = params.eToken;
   const [forgot, setForgot] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [reset, setReset] = useState(eToken && eToken.length > 0);

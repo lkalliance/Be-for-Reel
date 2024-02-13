@@ -1,3 +1,5 @@
+import { usePagination } from "./usePagination";
+
 export type {
   userPollProps,
   userCommentProps,
@@ -21,3 +23,4 @@ export {
   QUERY_HOME_POLLS,
 } from "./queries";
 export { cleanUsername, createLookupName } from "./typeUtils";
+export { usePagination } from "./usePagination";

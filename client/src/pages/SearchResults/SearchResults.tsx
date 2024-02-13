@@ -11,7 +11,7 @@ import { UsernameLink, Tabs } from "../../components";
 
 export function SearchResults() {
   const auth = new AuthService();
-  const term = useParams();
+  const { term } = useParams();
   const { votes } = auth.getProfile();
   const [tab, setTab] = useState("polls");
 
@@ -23,7 +23,7 @@ export function SearchResults() {
 
   // get the relevant polls
   const getResults = useQuery(QUERY_SEARCH, {
-    variables: { term: term.term },
+    variables: { term },
   });
 
   const users: userProps[] = getResults.data?.getSearch.users.users || [];
@@ -33,7 +33,7 @@ export function SearchResults() {
 
   return (
     <section id="search-results" className="container">
-      <p className="sub-info">search for: {`"${term.term}"`}</p>
+      <p className="sub-info">search for: {`"${term}"`}</p>
       <Tabs
         list={["polls", "users", "movies"]}
         current={tab}

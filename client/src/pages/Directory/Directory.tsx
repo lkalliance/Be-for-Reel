@@ -7,15 +7,26 @@ import { useQuery } from "@apollo/client";
 import { AuthService } from "../../utils/auth";
 import { pollProps } from "../../utils/interfaces";
 import { QUERY_ALL_POLLS, QUERY_GENRES } from "../../utils/queries";
-import { PollListing, Select } from "../../components";
+import { PollListing, Select, Pagination } from "../../components";
 
 export function Directory() {
   const navigate = useNavigate();
   const auth = new AuthService();
+  const [currentPage, setCurrentPage] = useState(1);
   const { votes } = auth.getProfile();
   const { genre } = useParams();
 
   const lookupGenre = genre || "all";
+  const perPage = 10;
+  const listSection = (fullList: pollProps[], page: number) => {
+    // given current page, generates what to show currently
+    const firstRecord = page === 1 ? 0 : (page - 1) * perPage;
+    const last = firstRecord + perPage - 1;
+    const lastRecord = last > fullList.length ? fullList.length : last + 1;
+    const section = fullList.slice(firstRecord, lastRecord);
+
+    return section;
+  };
 
   // get the relevant polls and genre list
   const getPolls = useQuery(QUERY_ALL_POLLS, {
@@ -23,8 +34,9 @@ export function Directory() {
   });
   const getGenres = useQuery(QUERY_GENRES);
 
-  // get all genres
+  // get all polls
   const list = getPolls.data?.getPolls.polls || [];
+  const showThis = listSection(list, currentPage);
 
   // generate list of sorted genre objects
   const genres: string[] = getGenres.loading
@@ -42,6 +54,12 @@ export function Directory() {
     navigate(`/polls/${value}`);
   };
 
+  const handlePageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentPage(parseInt(id.split("-")[1]));
+  };
+
   return (
     <section id="directory">
       <div id="filters" className="col col-12">
@@ -57,8 +75,8 @@ export function Directory() {
         )}
       </div>
       <ul id="polls">
-        {list.length > 0 &&
-          list.map((poll: pollProps, index: number) => {
+        {showThis.length > 0 &&
+          showThis.map((poll: pollProps, index: number) => {
             return (
               <PollListing
                 key={index}
@@ -70,6 +88,13 @@ export function Directory() {
             );
           })}
       </ul>
+      <Pagination
+        navHandler={handlePageSelect}
+        currentPage={currentPage}
+        totalCount={list.length}
+        pageSize={perPage}
+        siblingCount={1}
+      />
     </section>
   );
 }
