@@ -60,7 +60,8 @@ section .pagination li.pointer.disabled svg {
 
 section .pagination li.pointer svg,
 section#directory .pagination li.pointer svg,
-section#profile .pagination li.pointer svg {
+section#profile .pagination li.pointer svg,
+section#search-results .pagination li.pointer svg {
   display: block !important;
   color: white;
   font-size: 0.75rem;

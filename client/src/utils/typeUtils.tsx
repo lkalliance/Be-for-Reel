@@ -1,5 +1,3 @@
-import { userPollProps, pollProps } from "./interfaces";
-
 export const listSection = (fullList: any[], page: number, perPage: number) => {
   // for pagination, returns a given segment of a full list
 

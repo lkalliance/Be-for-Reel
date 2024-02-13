@@ -9,7 +9,7 @@ comments: the list of comments; each has...
 thisUser: is this a user looking at their own profile */
 
 import "./CommentList.css";
-import { useState, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { userCommentProps, listSection } from "../../utils";
 import { Comment, Pagination } from "../../components";
 
