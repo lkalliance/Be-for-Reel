@@ -18,7 +18,7 @@ export function SearchResults() {
   const [currentUserPage, setCurrentUserPage] = useState(1);
   const [currentFilmPage, setCurrentFilmPage] = useState(1);
 
-  const perPage = 10;
+  const perPage = 20;
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
