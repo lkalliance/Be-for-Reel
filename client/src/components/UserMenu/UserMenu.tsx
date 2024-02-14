@@ -18,6 +18,7 @@ interface userMenuProps {
   setMenu: Dispatch<SetStateAction<boolean>>;
   setLogIn: Dispatch<SetStateAction<boolean>>;
   setShowSearch: Dispatch<SetStateAction<boolean>>;
+  showUserName: boolean;
 }
 
 export function UserMenu({
@@ -26,21 +27,24 @@ export function UserMenu({
   setMenu,
   setLogIn,
   setShowSearch,
+  showUserName,
 }: userMenuProps) {
   const Auth = new AuthService();
   return (
     <div id="user-menu">
       <ul>
-        <li>
-          <Link
-            to={`/${lookup}`}
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              setMenu(false);
-            }}
-          >
-            {uname}
-          </Link>
-        </li>
+        {showUserName && (
+          <li>
+            <Link
+              to={`/${lookup}`}
+              onClick={(e: React.MouseEvent<HTMLElement>) => {
+                setMenu(false);
+              }}
+            >
+              {uname}
+            </Link>
+          </li>
+        )}
         <li>
           <Link
             to="/"
