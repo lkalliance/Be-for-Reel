@@ -9,7 +9,7 @@ import { Pagination } from "../../components";
 
 export function TopMovies() {
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 20;
+  const perPage = 15;
   const { loading, data } = useQuery(QUERY_MOVIES);
   const movieData = loading ? [] : data.getMovies.movies;
 
