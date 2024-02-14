@@ -62,32 +62,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {loggedIn ? (
-              <>
-                <LinkContainer to={`/${lookupName}`}>
-                  <Nav.Link
-                    className="user"
-                    onClick={() => closeMenus()}
-                  >{`${userName}`}</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/">
-                  <Nav.Link
-                    onClick={(e) => {
-                      setShowSearch(false);
-                      e.preventDefault();
-                      auth.logout();
-                      setLogIn(false);
-                    }}
-                    id="logout-link"
-                  >
-                    Log out
-                  </Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/create">
-                  <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
-                </LinkContainer>
-              </>
-            ) : (
+            {!loggedIn && (
               <LinkContainer to="/login">
                 <Nav.Link onClick={() => closeMenus()}>
                   Log in or sign up
@@ -104,33 +79,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
             <LinkContainer to="/top-films">
               <Nav.Link onClick={() => closeMenus()}>Films</Nav.Link>
             </LinkContainer>
-            {loggedIn && (
-              <NavItem
-                className={`user-icon faq-round ${showUserMenu && "open"}`}
-                onClick={(e: React.MouseEvent<HTMLElement>) => {
-                  setShowSearch(false);
-                  setShowUserMenu(!showUserMenu);
-                }}
-                onMouseOver={() => {
-                  setShowUserMenu(true);
-                  setShowSearch(false);
-                }}
-                onMouseOut={() => {
-                  setShowUserMenu(false);
-                }}
-              >
-                <FontAwesomeIcon icon={faUser} />
-                {showUserMenu && (
-                  <UserMenu
-                    uname={userName}
-                    lookup={lookupName}
-                    setMenu={setShowUserMenu}
-                    setLogIn={setLogIn}
-                    setShowSearch={setShowSearch}
-                  />
-                )}
-              </NavItem>
-            )}
+
             <LinkContainer to="/faq">
               <Nav.Link className="faq-round" onClick={() => closeMenus()}>
                 <FontAwesomeIcon icon={faCircleQuestion} />
@@ -142,6 +91,67 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </Nav.Link>
             </LinkContainer>
+
+            {loggedIn && (
+              <>
+                <LinkContainer to={`/${lookupName}`}>
+                  <Nav.Link
+                    className="user"
+                    onClick={(e: React.MouseEvent<HTMLElement>) => {
+                      setShowSearch(false);
+                      setShowUserMenu(!showUserMenu);
+                    }}
+                    onMouseOver={() => {
+                      setShowUserMenu(true);
+                      setShowSearch(false);
+                    }}
+                    onMouseOut={() => {
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    {`${userName}`}
+                    {showUserMenu && (
+                      <UserMenu
+                        uname={userName}
+                        lookup={lookupName}
+                        setMenu={setShowUserMenu}
+                        setLogIn={setLogIn}
+                        setShowSearch={setShowSearch}
+                        showUserName={false}
+                      />
+                    )}
+                  </Nav.Link>
+                </LinkContainer>
+                <LinkContainer to={`/${lookupName}`}>
+                  <NavItem
+                    className={`user-icon faq-round ${showUserMenu && "open"}`}
+                    onClick={(e: React.MouseEvent<HTMLElement>) => {
+                      setShowSearch(false);
+                      setShowUserMenu(!showUserMenu);
+                    }}
+                    onMouseOver={() => {
+                      setShowUserMenu(true);
+                      setShowSearch(false);
+                    }}
+                    onMouseOut={() => {
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                    {showUserMenu && (
+                      <UserMenu
+                        uname={userName}
+                        lookup={lookupName}
+                        setMenu={setShowUserMenu}
+                        setLogIn={setLogIn}
+                        setShowSearch={setShowSearch}
+                        showUserName={true}
+                      />
+                    )}
+                  </NavItem>
+                </LinkContainer>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

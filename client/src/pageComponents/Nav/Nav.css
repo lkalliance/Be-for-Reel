@@ -1,9 +1,11 @@
-div.navbar-nav a.nav-link {
+div.navbar-nav a.nav-link,
+div.navbar-nav span.navbar-text {
   color: var(--link);
   margin-left: 10px;
   text-align: right;
   font-size: 1.2em;
   line-height: 1.5em;
+  font-family: "Raleway", sans-serif;
 }
 
 nav.navbar div.container {
@@ -44,8 +46,16 @@ nav.navbar svg {
   color: white;
 }
 
+nav.navbar div.user-icon svg {
+  color: var(--link-hover);
+}
+
 nav.navbar svg:hover {
   color: var(--link-hover);
+}
+
+nav.navbar div.user-icon svg:hover {
+  color: white;
 }
 
 nav.navbar .faq-round {
