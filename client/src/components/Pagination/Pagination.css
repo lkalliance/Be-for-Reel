@@ -1,0 +1,75 @@
+/* Custom css goes here */
+
+section .pagination ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+  padding: 0;
+  background-color: var(--item-background);
+  border-radius: 6px;
+  margin-top: 12px !important;
+  max-width: 300px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pagination li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.pagination li div {
+  width: 35px;
+  padding: 10px 0;
+  font-size: 0.85rem;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--page-background);
+  margin: 6px 2px;
+  line-height: 0.8rem;
+}
+
+.pagination li.selected div {
+  background-color: var(--item-background-light);
+  font-weight: bold;
+}
+
+.pagination li.ellipsis div,
+.pagination li.pointer div {
+  background-color: transparent;
+  width: auto;
+  text-align: center;
+}
+
+.pagination li.pointer {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pagination li.ellipsis div {
+  font-size: 1.5rem;
+}
+
+section .pagination li.pointer.disabled svg {
+  color: var(--item-background-light) !important;
+}
+
+section .pagination li.pointer svg,
+section#directory .pagination li.pointer svg,
+section#profile .pagination li.pointer svg,
+section#search-results .pagination li.pointer svg {
+  display: block !important;
+  color: white;
+  font-size: 0.75rem;
+  position: relative;
+  top: 1px;
+  left: 4px;
+}
+
+section#top-movies .pagination li.pointer svg {
+  left: 0;
+}

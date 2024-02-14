@@ -34,9 +34,8 @@ export function SignupForm({
   setStrErr,
 }: loginState) {
   const Auth = new AuthService();
-  const params = useParams();
+  const { eToken } = useParams();
   const isValidation = window.location.hash.indexOf("email") >= 0;
-  const eToken = params.eToken;
   const [addUser] = useMutation(ADD_USER);
   const [emailVerify, setEmailVerify] = useState("");
 

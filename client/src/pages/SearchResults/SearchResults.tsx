@@ -6,14 +6,19 @@ import { QUERY_SEARCH } from "../../utils/queries";
 import { AuthService } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { userProps, pollProps, movieListProps } from "../../utils";
-import { UsernameLink, Tabs } from "../../components";
+import { userProps, pollProps, movieListProps, listSection } from "../../utils";
+import { UsernameLink, Tabs, Pagination } from "../../components";
 
 export function SearchResults() {
-  const Auth = new AuthService();
-  const term = useParams();
-  const votes = Auth.getProfile().votes;
+  const auth = new AuthService();
+  const { term } = useParams();
+  const { votes } = auth.getProfile();
   const [tab, setTab] = useState("polls");
+  const [currentPollPage, setCurrentPollPage] = useState(1);
+  const [currentUserPage, setCurrentUserPage] = useState(1);
+  const [currentFilmPage, setCurrentFilmPage] = useState(1);
+
+  const perPage = 20;
 
   const switchTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -23,7 +28,7 @@ export function SearchResults() {
 
   // get the relevant polls
   const getResults = useQuery(QUERY_SEARCH, {
-    variables: { term: term.term },
+    variables: { term },
   });
 
   const users: userProps[] = getResults.data?.getSearch.users.users || [];
@@ -31,9 +36,31 @@ export function SearchResults() {
   const movies: movieListProps[] =
     getResults.data?.getSearch.movies.movies || [];
 
+  const showTheseUsers = listSection(users, currentUserPage, perPage);
+  const showThesePolls = listSection(polls, currentPollPage, perPage);
+  const showTheseFilms = listSection(movies, currentFilmPage, perPage);
+
+  const handlePollPageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentPollPage(parseInt(id.split("-")[1]));
+  };
+
+  const handleUserPageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentUserPage(parseInt(id.split("-")[1]));
+  };
+
+  const handleFilmPageSelect = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    setCurrentFilmPage(parseInt(id.split("-")[1]));
+  };
+
   return (
     <section id="search-results" className="container">
-      <p className="sub-info">search for: {`"${term.term}"`}</p>
+      <p className="sub-info">search for: {`"${term}"`}</p>
       <Tabs
         list={["polls", "users", "movies"]}
         current={tab}
@@ -46,7 +73,7 @@ export function SearchResults() {
               {getResults.data ? "no polls for this search" : "loading..."}
             </div>
           ) : (
-            polls.map((poll, index) => {
+            showThesePolls.map((poll, index) => {
               console.log(poll);
               return (
                 <div key={index} className="col col-12 col-md-6 col-lg-4">
@@ -58,6 +85,13 @@ export function SearchResults() {
               );
             })
           )}
+          <Pagination
+            navHandler={handlePollPageSelect}
+            currentPage={currentPollPage}
+            totalCount={polls.length}
+            pageSize={perPage}
+            siblingCount={1}
+          />
         </div>
       )}
 
@@ -68,7 +102,7 @@ export function SearchResults() {
               {getResults.data ? "no users for this search" : "loading..."}
             </div>
           ) : (
-            users.map((user, index) => {
+            showTheseUsers.map((user, index) => {
               return (
                 <div key={index} className="col col-12 col-md-6 col-lg-4">
                   <UsernameLink
@@ -80,18 +114,25 @@ export function SearchResults() {
               );
             })
           )}
+          <Pagination
+            navHandler={handleUserPageSelect}
+            currentPage={currentUserPage}
+            totalCount={users.length}
+            pageSize={perPage}
+            siblingCount={1}
+          />
         </div>
       )}
 
       {tab === "movies" && (
         <div className="results-row row">
-          {Auth.loggedIn() ? (
+          {auth.loggedIn() ? (
             movies.length === 0 ? (
               <div className="doesnt-exist">
                 {getResults.data ? "no movies for this search" : "loading..."}
               </div>
             ) : (
-              movies.map((movie, index) => {
+              showTheseFilms.map((movie, index) => {
                 return (
                   <div key={index} className="movie-result col col-12 col-md-6">
                     {`${movie.title} (${movie.year})`}
@@ -107,6 +148,13 @@ export function SearchResults() {
               Log in to search for films used in polls
             </div>
           )}
+          <Pagination
+            navHandler={handleFilmPageSelect}
+            currentPage={currentFilmPage}
+            totalCount={movies.length}
+            pageSize={perPage}
+            siblingCount={1}
+          />
         </div>
       )}
     </section>

@@ -27,6 +27,9 @@ export function Profile() {
   const thisUser = whoIsThis === username;
   const [whichTab, setTab] = useState("polls");
   const [newCodeSent, setNewCodeSent] = useState(false);
+  const [currentPollPage, setCurrentPollPage] = useState(1);
+  const [currentCommentPage, setCurrentCommentPage] = useState(1);
+  const perPage = 10;
 
   const { data } = useQuery(QUERY_SINGLE_USER, {
     variables: { lookupname: username },
@@ -106,10 +109,19 @@ export function Profile() {
                 polls={userData.polls}
                 thisUser={thisUser}
                 uName={username}
+                currentPage={currentPollPage}
+                setCurrentPage={setCurrentPollPage}
+                perPage={perPage}
               />
             )}
             {userData && whichTab === "comments" && (
-              <CommentList comments={userData.comments} thisUser={thisUser} />
+              <CommentList
+                comments={userData.comments}
+                thisUser={thisUser}
+                currentPage={currentCommentPage}
+                setCurrentPage={setCurrentCommentPage}
+                perPage={perPage}
+              />
             )}
           </>
         ) : (

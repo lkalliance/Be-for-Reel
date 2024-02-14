@@ -129,6 +129,9 @@ export interface pollListProps {
   genres?: string[];
   thisUser: Boolean;
   uName: string | undefined;
+  currentPage: number;
+  perPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
 export interface loginState {
@@ -230,4 +233,5 @@ export interface movieListProps {
   image: string;
   year: number;
   votes: number;
+  rank?: number;
 }

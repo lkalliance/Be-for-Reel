@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "@apollo/client/utilities";
 import { AuthService } from "../../utils/auth";
-import { movieProps, userData, searchOptions } from "../../utils/interfaces";
+import { movieProps, searchOptions } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
 import { convertLengthVals, pollLimit } from "../../utils/typeUtils";
@@ -26,8 +26,7 @@ interface pollOptions {
 }
 
 export function Create() {
-  const Auth = new AuthService();
-  console.log(Auth.getProfile());
+  const auth = new AuthService();
 
   // used to reset options values
   const blankOptions = {
@@ -76,7 +75,7 @@ export function Create() {
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
 
-  const userInfo: userData = Auth.getProfile();
+  const { lookupName, activePolls, email, confirmed } = auth.getProfile();
   const [addPoll] = useMutation(ADD_POLL, {
     refetchQueries: () => [
       {
@@ -85,7 +84,7 @@ export function Create() {
       },
       {
         query: QUERY_SINGLE_USER,
-        variables: { lookupname: userInfo.lookupName },
+        variables: { lookupname: lookupName },
       },
     ],
   });
@@ -123,7 +122,7 @@ export function Create() {
       });
 
       // after creating, update user with newly created poll
-      Auth.login(data.addPoll.token.token);
+      auth.login(data.addPoll.token.token);
       // once poll is created, navigate the browser to it
       navigate(data.addPoll.redirect);
     } catch (err: any) {
@@ -368,16 +367,15 @@ export function Create() {
 
   return (
     <section id="create">
-      {!userInfo.confirmed ? (
+      {!confirmed ? (
         <div className="container">
           <h1>Create a Poll</h1>
           <p>
             Your account's email address has not been confirmed. Check your
-            email at {userInfo.email}, and look for an email with a confirmation
-            link.
+            email at {email}, and look for an email with a confirmation link.
           </p>
         </div>
-      ) : userInfo.activePolls.length < pollLimit("standard") ? (
+      ) : activePolls.length < pollLimit("standard") ? (
         <div className="container">
           <h1>Create a Poll</h1>
           <div className="row">

@@ -24,8 +24,8 @@ interface headerNavProps {
 }
 
 export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
-  const Auth = new AuthService();
-  const userInfo = Auth.getProfile();
+  const auth = new AuthService();
+  const { userName, lookupName } = auth.getProfile();
   const navigate = useNavigate();
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
@@ -64,18 +64,18 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
           <Nav className="me-auto">
             {loggedIn ? (
               <>
-                <LinkContainer to={`/${userInfo.lookupName}`}>
+                <LinkContainer to={`/${lookupName}`}>
                   <Nav.Link
                     className="user"
                     onClick={() => closeMenus()}
-                  >{`${userInfo.userName}`}</Nav.Link>
+                  >{`${userName}`}</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/">
                   <Nav.Link
                     onClick={(e) => {
                       setShowSearch(false);
                       e.preventDefault();
-                      Auth.logout();
+                      auth.logout();
                       setLogIn(false);
                     }}
                     id="logout-link"
@@ -122,8 +122,8 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                 <FontAwesomeIcon icon={faUser} />
                 {showUserMenu && (
                   <UserMenu
-                    uname={userInfo.userName}
-                    lookup={userInfo.lookupName}
+                    uname={userName}
+                    lookup={lookupName}
                     setMenu={setShowUserMenu}
                     setLogIn={setLogIn}
                     setShowSearch={setShowSearch}
