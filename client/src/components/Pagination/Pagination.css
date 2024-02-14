@@ -69,3 +69,7 @@ section#search-results .pagination li.pointer svg {
   top: 1px;
   left: 4px;
 }
+
+section#top-movies .pagination li.pointer svg {
+  left: 0;
+}

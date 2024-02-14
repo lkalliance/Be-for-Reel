@@ -233,4 +233,5 @@ export interface movieListProps {
   image: string;
   year: number;
   votes: number;
+  rank?: number;
 }
