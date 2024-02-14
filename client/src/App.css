@@ -4,8 +4,12 @@
   --link: rgb(250, 246, 246);
   --link-hover: #deb992;
   --secondary-color: #1ba098;
+  --secondary-on-background: #8acbc6;
+  --secondary-background: #12403d;
   --tertiary-color: rgb(16, 36, 58);
-  --tertiary-text: rgb(70, 118, 168);
+  --tertiary-mid: rgb(47, 96, 148);
+  --tertiary-on-background: rgb(137, 177, 219);
+  --tertiary-text: rgb(119, 159, 202);
   --highlight: rgb(126, 126, 31);
   --highlight-text: rgb(217, 217, 71);
   --dark-text: #9b9b9b;
@@ -55,11 +59,6 @@ body a:hover {
 
 body a.reverse {
   color: var(--link-hover);
-}
-
-body a.username,
-body .username a {
-  font-weight: normal;
 }
 
 body a.reverse:hover {
@@ -153,6 +152,42 @@ body .sub-info {
   /* accompanies headline, but not link */
   color: var(--secondary-color) !important;
   margin-top: 0;
+}
+
+body .user-data {
+  color: var(--tertiary-text) !important;
+}
+
+body .you-data {
+  color: var(--secondary-color) !important;
+}
+
+body div.user-data,
+body span.user-data.as-div {
+  background-color: var(--tertiary-color);
+  color: var(--tertiary-on-background);
+}
+
+body div.you-data,
+body span.you-data.as-div {
+  color: var(--secondary-on-background) !important;
+  background-color: var(--secondary-background);
+  /* color: white; */
+}
+
+body div.you-data,
+body div.user-data,
+body span.user-data.as-div,
+body span.you-data.as-div {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+body span.as-div {
+  position: relative;
+  top: -2px;
 }
 
 body .list-member-20 {

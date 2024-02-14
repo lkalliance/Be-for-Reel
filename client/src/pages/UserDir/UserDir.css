@@ -34,7 +34,9 @@ section#user-directory a {
 }
 
 @media screen and (min-width: 650px) {
-  section#user-directory span.sub-info {
+  section#user-directory span.sub-info,
+  section#user-directory span.user-data,
+  section#user-directory span.you-data {
     display: inline;
   }
 }

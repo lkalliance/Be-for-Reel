@@ -23,7 +23,8 @@ interface pollProps {
 export function Poll({ currUser }: pollProps) {
   const auth = new AuthService();
   const loggedIn = auth.loggedIn();
-  const { confirmed, votes, _id, lookupName, email } = auth.getProfile();
+  const { confirmed, votes, _id, lookupName, email, userName } =
+    auth.getProfile();
 
   // get username and poll name from parameters
   const { lookupname, pollname } = useParams();
@@ -50,6 +51,8 @@ export function Poll({ currUser }: pollProps) {
       });
     }
   }
+  // is the poll author also the current user?
+  const current = loading ? false : userName === poll.username;
 
   const mostVotes = loading || !poll ? 0 : opts[0].votes;
 
@@ -130,12 +133,13 @@ export function Poll({ currUser }: pollProps) {
                 poll.description.length > 0 ? poll.description : undefined
               }
               username={poll.username}
+              current={current}
             />
             {loggedIn && confirmed ? (
               // valid user is logged in: either show user's vote or comment text area
               votes[poll._id] ? (
                 // user has voted on this poll, show their vote
-                <p id="yourvote">
+                <p id="yourvote" className="you-data">
                   you voted for <strong>{votes[poll._id]}</strong>
                 </p>
               ) : null

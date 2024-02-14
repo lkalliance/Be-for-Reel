@@ -9,7 +9,3 @@ section#poll p.desc {
 section#poll p.uName {
   font-size: 0.9rem;
 }
-
-section#poll #question .username {
-  color: var(--dark-text);
-}

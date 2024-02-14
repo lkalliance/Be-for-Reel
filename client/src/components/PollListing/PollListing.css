@@ -15,7 +15,6 @@
 .poll-listing span.username {
   font-size: 0.8rem;
   padding: 0;
-  color: var(--dark-text);
   margin-left: 6px;
 }
 

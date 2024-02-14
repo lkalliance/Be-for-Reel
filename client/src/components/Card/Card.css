@@ -69,6 +69,10 @@
   border-radius: 0 0 6px 6px;
   font-size: 0.9rem;
   padding: 2px 12px 8px;
+  /* color: white; */
+}
+
+.card .vote-count {
   color: white;
 }
 
@@ -81,8 +85,8 @@
 .card .poll-info div.username {
   padding: 0;
   margin-bottom: 4px;
-  color: var(--dark-text);
-  background-color: transparent;
+  /* color: var(--dark-text);
+  background-color: transparent; */
 }
 
 .card .vote-count {
@@ -134,7 +138,7 @@
     text-align: center;
   }
   .card .poll-info div.username {
-    background-color: var(--tertiary-color);
+    /* background-color: var(--tertiary-color); */
     padding: 4px 8px;
   }
 

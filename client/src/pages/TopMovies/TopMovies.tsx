@@ -53,7 +53,7 @@ export function TopMovies() {
                   </td>
                   <td className="title">
                     {`${movie.title} (${movie.year})`}{" "}
-                    <span className="sub-info">{`${movie.votes} ${
+                    <span className="user-data">{`${movie.votes} ${
                       movie.votes === 1 ? "vote" : "votes"
                     }`}</span>
                   </td>

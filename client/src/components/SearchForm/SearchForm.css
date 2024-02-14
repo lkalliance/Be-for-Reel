@@ -2,12 +2,12 @@
 
 #search-panel {
   position: absolute;
-  top: calc(100% + 2px);
+  top: 100%;
   right: 0;
   display: none;
   z-index: 100;
   padding: 10px;
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-mid);
   border-radius: 0 0 5px 5px;
 }
 

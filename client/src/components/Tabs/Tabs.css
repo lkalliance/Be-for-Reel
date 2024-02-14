@@ -4,12 +4,12 @@
   margin: 6px 0;
   display: flex;
   justify-content: flex-start;
-  border-bottom: 1px solid var(--secondary-color);
+  border-bottom: 1px solid var(--tertiary-mid);
 }
 
 .tab-container button.btn,
 .tab-container button.btn.active {
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-mid);
   color: white;
   opacity: 0.4;
   margin-right: 8px;

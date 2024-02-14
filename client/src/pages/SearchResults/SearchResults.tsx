@@ -136,7 +136,7 @@ export function SearchResults() {
                 return (
                   <div key={index} className="movie-result col col-12 col-md-6">
                     {`${movie.title} (${movie.year})`}
-                    <span className="sub-info">{` ${movie.votes} ${
+                    <span className="user-data">{` ${movie.votes} ${
                       movie.votes === 1 ? "vote" : "votes"
                     }`}</span>
                   </div>

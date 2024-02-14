@@ -27,13 +27,29 @@ div.navbar-collapse {
   justify-content: flex-end;
 }
 
-nav a.nav-link.user {
-  color: var(--link-hover) !important;
+nav a.nav-link.user svg,
+nav span.navbar-text.user svg {
+  color: var(--secondary-color);
+  height: 1rem;
+  font-size: 0.5rem;
+  position: relative;
+  margin-left: 2px;
+}
+
+nav a.nav-link.user,
+nav span.navbar-text.user {
+  color: var(--secondary-color) !important;
   font-weight: 700;
 }
 
-nav a.nav-link.user:hover {
+nav a.nav-link.user:hover,
+nav span.navbar-text.user:hover {
   color: var(--link) !important;
+}
+
+nav a.nav-link.user:hover svg,
+nav span.navbar-text.user:hover svg {
+  color: white;
 }
 
 nav.navbar {
@@ -47,7 +63,7 @@ nav.navbar svg {
 }
 
 nav.navbar div.user-icon svg {
-  color: var(--link-hover);
+  color: var(--secondary-color);
 }
 
 nav.navbar svg:hover {
@@ -55,7 +71,7 @@ nav.navbar svg:hover {
 }
 
 nav.navbar div.user-icon svg:hover {
-  color: white;
+  color: var(--link-hover);
 }
 
 nav.navbar .faq-round {

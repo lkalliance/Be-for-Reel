@@ -1,5 +1,5 @@
 header {
-  border-bottom: solid var(--secondary-color);
+  border-bottom: 1px solid var(--tertiary-mid);
 }
 
 header img {

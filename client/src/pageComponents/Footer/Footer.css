@@ -2,7 +2,7 @@ body footer {
   text-align: center;
   color: white;
   padding: 8px 0;
-  border-top: 3px solid var(--secondary-color);
+  border-top: 1px solid var(--tertiary-mid);
   /* position: fixed; */
   bottom: 0;
   margin-top: 90px;

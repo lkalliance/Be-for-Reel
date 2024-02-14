@@ -2,7 +2,7 @@ div#user-menu {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-mid);
   z-index: 100;
   border-radius: 0 0 5px 5px;
   padding: 2px 2px 1px;
@@ -19,7 +19,7 @@ div#user-menu ul {
 div#user-menu li {
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid var(--secondary-color);
+  border-bottom: 1px solid var(--tertiary-mid);
 }
 
 div#user-menu ul:last-child {
@@ -35,6 +35,6 @@ nav div#user-menu li a {
 }
 
 nav div#user-menu li a:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-mid);
   color: var(--tertiary-color);
 }

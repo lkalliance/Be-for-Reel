@@ -43,7 +43,6 @@ section#directory span.username {
   position: relative;
   top: -4px;
   right: -2px;
-  color: var(--dark-text);
   font-size: 0.7rem;
   padding: 4px 12px;
 }

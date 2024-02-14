@@ -29,7 +29,11 @@ export function UsernameLink({
   original,
 }: usernameLinkProps) {
   return blockContainer ? (
-    <span className={original ? "username-orig" : "username"}>
+    <span
+      className={`${current ? "you-data as-div " : "user-data as-div "}${
+        original ? "username-orig" : "username"
+      }`}
+    >
       {!noBy && "by "}
       <Link
         to={`/${createLookupName(username)}`}
@@ -39,7 +43,11 @@ export function UsernameLink({
       </Link>
     </span>
   ) : (
-    <div className={original ? "username-orig" : "username"}>
+    <div
+      className={`${current ? "you-data " : "user-data "}${
+        original ? "username-orig" : "username"
+      }`}
+    >
       {!noBy && "by "}
       <Link
         to={`/${createLookupName(username)}`}
