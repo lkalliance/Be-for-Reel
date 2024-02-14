@@ -497,11 +497,14 @@ const resolvers = {
           return new Error("You have already voted in this poll");
 
         // cleanse the comment
-        const checkComment = await fetch.get(
-          `https://www.purgomalum.com/service/json?text=${comment}`
-        );
+        const checkComment = comment
+          ? await fetch.get(
+              `https://www.purgomalum.com/service/json?text=${comment}`
+            )
+          : "";
 
-        const cleansedComment = checkComment.data.result;
+        const cleansedComment =
+          checkComment !== "" ? checkComment.data.result : "";
 
         // first: update the poll
         if (cleansedComment.length > 0) {
