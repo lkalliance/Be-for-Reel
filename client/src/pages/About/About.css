@@ -1,0 +1,11 @@
+/* custom css */
+
+section#about-us {
+  max-width: 500px;
+  margin: 20px auto 0;
+}
+
+section#about-us p {
+  color: white;
+  font-size: 0.9rem;
+}

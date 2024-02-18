@@ -1,0 +1,11 @@
+/* custom css */
+
+section#terms {
+  width: 500px;
+  margin: 20px auto 0;
+}
+
+section#terms p {
+  color: white;
+  font-size: 0.9rem;
+}

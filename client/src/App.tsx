@@ -11,6 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import { AuthService } from "./utils/auth";
+import { afi100 } from "./utils/AFI100";
 import {
   Home,
   Profile,
@@ -22,6 +23,9 @@ import {
   TopMovies,
   FAQ,
   SearchResults,
+  About,
+  Terms,
+  Contact,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 
@@ -48,6 +52,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(auth.loggedIn());
   const [aORb, setaORb] = useState<string>("a");
   const { userName } = auth.getProfile();
+  const randomQuote = Math.floor(Math.random() * afi100.length);
 
   return (
     <ApolloProvider client={client}>
@@ -100,10 +105,13 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Faq" element={<FAQ />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/:username" element={<Profile />} />
           <Route path="*" element={<Home />} />
         </Routes>
-        <Footer />
+        <Footer quote={afi100[randomQuote]} />
       </div>
     </ApolloProvider>
   );

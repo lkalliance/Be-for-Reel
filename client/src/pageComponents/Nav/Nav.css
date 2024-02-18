@@ -68,11 +68,6 @@ div.navbar-nav div.user-icon.show-menu svg {
   color: var(--link);
 }
 
-.style-b div.navbar-nav span.navbar-text.user,
-.style-b div.navbar-nav div.user-icon {
-  color: var(--b-secondary-color);
-}
-
 nav a.nav-link.user svg,
 nav span.navbar-text.user svg,
 div.navbar-nav div.user-icon svg.caret-right {
@@ -82,11 +77,6 @@ div.navbar-nav div.user-icon svg.caret-right {
   top: 2px;
   margin-left: 3px;
   transition: all 0.2s;
-}
-
-.style-b nav a.nav-link.user svg,
-.style-b nav span.navbar-text.user svg {
-  color: var(--b-secondary-color);
 }
 
 nav a.nav-link.user.show-menu svg,

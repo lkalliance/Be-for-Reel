@@ -1,0 +1,26 @@
+/* custom css */
+
+section#contact {
+  max-width: 500px;
+  margin: 20px auto 0;
+}
+
+section#contact p {
+  color: white;
+  font-size: 0.9rem;
+}
+
+section#contact input,
+section#contact textarea,
+section#contact div.alert {
+  width: 75%;
+  min-width: 250px;
+}
+
+section#contact textarea {
+  height: 100px;
+}
+
+section#contact div.alert {
+  margin-top: 6px;
+}
