@@ -28,20 +28,20 @@ router.post("/validate-send", async (req, res) => {
     <head>
       <style>
         html {height: 100%}
-        body {background-color: #01141e; color: white; height: 100%}
-        div {background-color: #01141e; color: white; padding: 18px; height: 100%;}
+        body {color: #01141e; height: 100%}
+        div {color: #01141e; padding: 18px; height: 100%;}
         img {width: 100px; display: block; margin: 12px auto;}
         p {text-align: center;}
-        a {text-decoration: none; background-color: #1ba098; font-weight: bold; padding: 12px; margin: 20px auto; border-radius: 8px; }
+        a {text-decoration: none; font-weight: bold; padding: 12px; margin: 20px auto; border-radius: 8px; }
       </style>
     </head>
-    <body style="background-color:#011413;" bgcolor="#011413">
-      <div style="height:100%;background-color:#01141e;text-align:center;" bgcolor="#011413">
+    <body>
+      <div style="height:100%;text-align:center;">
         <img src="https://be-4-reel-9f2cbf237830.herokuapp.com/b4r-full.png" style="width:100px;display:block;margin:12px auto;" />
-        <p style="color:white;text-align:center;padding:18px;">
+        <p style="color:#01141e;text-align:center;padding:18px;">
           You successfully registered an account on Be for Reel.<br/>Click the link below to confirm your email address and activate your account.
         </p>
-        <a href="${process.env.SERVER_HOST}#/email/${conf.confirmation_token}" style="background-color:#1ba098;color:white;padding:20px;margin:12px auto;">
+        <a href="${process.env.SERVER_HOST}#/email/${conf.confirmation_token}" style="color:#01141e;padding:20px;margin:12px auto;">
           Confirm ${req.body.email}
         </a>
       </div>

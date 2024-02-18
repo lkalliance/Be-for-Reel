@@ -53,10 +53,6 @@ body footer {
   font-family: "Raleway", sans-serif;
 }
 
-body p {
-  /* color: var(--dark-text); */
-}
-
 body a {
   color: var(--link);
   font-family: "Raleway", sans-serif;
@@ -150,7 +146,7 @@ body input[type="text"].darker {
 
 textarea:disabled,
 input:disabled,
-button:disabled {
+button.btn:disabled {
   opacity: 0.5;
 }
 

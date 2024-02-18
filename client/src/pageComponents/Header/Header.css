@@ -1,7 +1,11 @@
 /* basic header styles */
 
 header {
-  border-bottom: 3px solid var(--secondary-color);
+  border-bottom: 3px solid var(--tertiary-color);
+}
+
+.style-b header {
+  border-bottom: 3px solid var(--b-tertiary-color);
 }
 
 header img {

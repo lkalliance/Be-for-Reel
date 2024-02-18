@@ -11,6 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import { AuthService } from "./utils/auth";
+import { afi100 } from "./utils/AFI100";
 import {
   Home,
   Profile,
@@ -48,6 +49,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(auth.loggedIn());
   const [aORb, setaORb] = useState<string>("a");
   const { userName } = auth.getProfile();
+  const randomQuote = Math.floor(Math.random() * afi100.length);
 
   return (
     <ApolloProvider client={client}>
@@ -103,7 +105,7 @@ function App() {
           <Route path="/:username" element={<Profile />} />
           <Route path="*" element={<Home />} />
         </Routes>
-        <Footer />
+        <Footer quote={afi100[randomQuote]} />
       </div>
     </ApolloProvider>
   );
