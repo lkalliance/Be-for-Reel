@@ -15,11 +15,6 @@ section#profile h4 {
   margin: 0 0 8px;
 }
 
-section#profile h5 {
-  margin-bottom: 0;
-  font-size: 0.9rem;
-}
-
 section#profile ul {
   padding: 0;
 }
@@ -36,28 +31,10 @@ section#profile li a {
   font-size: 1.1rem;
 }
 
-section#profile li.comment {
-  font-size: 1em;
-}
-
-section#profile li.comment p {
+section#profile li.comment a p {
   text-align: left;
   width: 100%;
   color: white;
-}
-
-section#profile span.your-vote {
-  font-weight: bold;
-}
-
-section#profile h3 {
-  margin-top: 25px;
-}
-
-section#profile em {
-  font-size: 0.8em;
-  color: white;
-  display: block;
 }
 
 section#profile .no-content {
@@ -71,11 +48,7 @@ section#profile div.alert {
   margin-top: 8px;
 }
 
-section#profile div.user-poll a {
-  display: block;
-}
-
-section#profile button#resend {
+/* section#profile button#resend {
   padding: 0;
   border: 0;
   font-weight: bold;
@@ -83,24 +56,21 @@ section#profile button#resend {
   background-color: transparent;
   margin-left: 12px;
   text-transform: uppercase;
-}
+} */
 
 section#profile span.poll-info,
-section#profile span.sub-info {
-  font-size: 0.9rem;
-  margin-left: 10px;
-  font-weight: normal;
+section#profile span.you-data,
+section#profile span.user-data,
+section#profile .user-poll svg {
   display: none;
 }
 
-section#profile span.poll-info {
-  color: white;
-}
-
-section#profile svg {
-  color: var(--secondary-color);
-  margin-right: 6px;
-  display: none;
+@media screen and (max-width: 600px) {
+  section#profile .user-comment span.you-data,
+  section#profile .user-comment span.user-data {
+    display: block;
+    margin-left: 0;
+  }
 }
 
 @media screen and (min-width: 450px) {
@@ -110,13 +80,14 @@ section#profile svg {
 }
 
 @media screen and (min-width: 600px) {
-  section#profile span.sub-info {
+  section#profile span.user-data,
+  section#profile span.you-data {
     display: inline;
   }
 }
 
 @media screen and (max-width: 599px) {
-  section#profile svg {
+  section#profile .user-poll svg {
     display: inline;
   }
 }

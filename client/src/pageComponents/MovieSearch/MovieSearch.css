@@ -1,3 +1,17 @@
+/* for accordion */
+
+section#create div.accordion .accordion-header button,
+section#create div.accordion .accordion-item {
+  background-color: transparent;
+  color: white;
+}
+
+section#create div.accordion .accordion-body {
+  padding-top: 0;
+}
+
+/* for search options */
+
 fieldset.double {
   position: relative;
 }

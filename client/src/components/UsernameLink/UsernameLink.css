@@ -1,16 +1,32 @@
-.poll-listing {
-  list-style-type: none;
+body a.username {
+  color: var(--link-hover);
+  font-size: 1rem;
+}
+
+body a.username:hover {
+  color: var(--link);
 }
 
 body div.username,
-body span.username {
-  padding: 6px 12px;
+body span.username.tag {
   border-radius: 4px;
-  font-size: 0.85rem;
   text-align: center;
 }
 
-body div.username a,
-body span.username a {
-  font-size: 0.85rem;
+body div.username,
+body div.username a {
+  font-size: 0.8rem;
+}
+
+body div.username.tag,
+body div.username.tag a {
+  font-size: 0.7rem;
+}
+
+body div.username {
+  padding: 6px 12px;
+}
+
+body span.username.tag {
+  padding: 4px 10px;
 }

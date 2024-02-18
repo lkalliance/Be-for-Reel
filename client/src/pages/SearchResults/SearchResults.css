@@ -7,8 +7,18 @@ section#search-results {
   margin-right: auto;
 }
 
-section#search-results svg {
-  color: var(--secondary-color);
+#search-results a.result,
+#search-results div.result a {
+  font-size: 1.1rem;
+}
+
+#search-results div.result div.username {
+  text-align: left;
+  padding: 0;
+}
+
+#search-results svg {
+  font-size: 1rem;
   margin-right: 6px;
 }
 
@@ -24,9 +34,10 @@ div.results-row div.doesnt-exist {
 
 div.movie-result {
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-div.movie-result .sub-info {
-  font-size: 0.9rem;
+div.movie-result .user-data {
+  font-size: 1rem;
+  margin-left: 10px;
 }

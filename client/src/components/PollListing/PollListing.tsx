@@ -45,6 +45,8 @@ export function PollListing({ user, directory }: listProps) {
   const numVotes = directory?.poll.votes.length || 0;
   const numComments = directory?.poll.comments.length || 0;
 
+  console.log(user);
+
   return directory ? (
     <li
       className={
@@ -56,7 +58,9 @@ export function PollListing({ user, directory }: listProps) {
       <p className="title-and-user">
         {
           // if the user has voted on this poll, include the checkmark
-          directory.vote.length > 0 && <FontAwesomeIcon icon={faCheckCircle} />
+          directory.vote.length > 0 && (
+            <FontAwesomeIcon icon={faCheckCircle} className="you-data" />
+          )
         }
         <Link to={directory.poll.urlTitle} className="reverse">
           {directory.poll.title}
@@ -64,12 +68,12 @@ export function PollListing({ user, directory }: listProps) {
         <UsernameLink
           username={directory.poll.username}
           current={currentUser}
-          blockContainer={true}
+          type="span-tag"
         />
         {
           // if the user has voted on this poll, include the text of their vote
           directory.vote.length > 0 && (
-            <span className="sub-info">
+            <span className="you-data your-vote">
               you voted for <strong>{`${directory.vote}`}</strong>
             </span>
           )
@@ -96,31 +100,33 @@ export function PollListing({ user, directory }: listProps) {
       {!user.poll.deactivated ? (
         // poll is not deactivated
         <>
-          <p className="user-poll">
+          <div className="user-poll">
             {
               // if the user voted on the poll, show the checkmark
-              userVote && <FontAwesomeIcon icon={faCheckCircle} />
+              userVote && (
+                <FontAwesomeIcon icon={faCheckCircle} className="you-data" />
+              )
             }
             <Link to={user.poll.urlTitle} className="reverse">
               {user.poll.title}
-              <span className="poll-info">
-                {`${user.poll.votes} ${
-                  user.poll.votes !== 1 ? "votes" : "vote"
-                }, `}
-                {`${user.poll.comments} ${
-                  user.poll.comments !== 1 ? "comments" : "comment"
-                }`}
-              </span>
-              {
-                // if the user voted on the poll, show the text
-                userVote && (
-                  <span className="sub-info">
-                    you voted for <strong>{`${userVote}`}</strong>
-                  </span>
-                )
-              }
             </Link>
-          </p>
+            <span className="poll-info">
+              {`${user.poll.votes} ${
+                user.poll.votes !== 1 ? "votes" : "vote"
+              }, `}
+              {`${user.poll.comments} ${
+                user.poll.comments !== 1 ? "comments" : "comment"
+              }`}
+            </span>
+            {
+              // if the user voted on the poll, show the text
+              userVote && (
+                <span className="you-data">
+                  you voted for <strong>{`${userVote}`}</strong>
+                </span>
+              )
+            }
+          </div>
 
           {
             // if the poll can be deactiated, provide the link

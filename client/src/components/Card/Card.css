@@ -1,7 +1,5 @@
-/* Card css here */
-
 .card {
-  background-color: rgba(0, 0, 0, 0.75) !important;
+  background-color: rgba(0, 0, 0, 0.75);
   background-position: 50% 15%;
   background-size: cover;
   display: flex;
@@ -30,10 +28,6 @@
   margin-right: 6px;
 }
 
-.card svg {
-  color: var(--secondary-color);
-}
-
 .card a.main-link {
   flex-grow: 1;
   padding: 0;
@@ -54,7 +48,7 @@
 }
 
 .card a.main-link:hover h5 {
-  color: var(--link-hover) !important;
+  color: var(--link-hover);
 }
 
 .card .title-container {
@@ -69,7 +63,6 @@
   border-radius: 0 0 6px 6px;
   font-size: 0.9rem;
   padding: 2px 12px 8px;
-  /* color: white; */
 }
 
 .card .vote-count {
@@ -83,10 +76,8 @@
 }
 
 .card .poll-info div.username {
-  padding: 0;
-  margin-bottom: 4px;
-  /* color: var(--dark-text);
-  background-color: transparent; */
+  padding: 4px;
+  margin-top: 4px;
 }
 
 .card .vote-count {
@@ -138,7 +129,6 @@
     text-align: center;
   }
   .card .poll-info div.username {
-    /* background-color: var(--tertiary-color); */
     padding: 4px 8px;
   }
 
@@ -148,6 +138,23 @@
 
   .card .title-check {
     display: none;
+  }
+}
+
+@media screen and (max-width: 576px) and (min-width: 400px) {
+  .card .poll-info {
+    align-items: flex-end;
+  }
+
+  .card .poll-info .you-data.username,
+  .card .poll-info .user-data.username {
+    width: auto;
+    white-space: nowrap;
+    padding: 4px 10px;
+  }
+
+  .card .vote-count {
+    width: auto;
   }
 }
 

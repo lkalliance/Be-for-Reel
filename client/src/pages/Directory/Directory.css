@@ -11,10 +11,6 @@ section#directory select {
   width: 100%;
 }
 
-section#directory input {
-  width: 100%;
-}
-
 section#directory ul {
   margin: 0;
   padding: 0;
@@ -27,51 +23,29 @@ section#directory #filters {
   justify-content: space-between;
 }
 
-section#directory span,
-section#directory p {
-  font-size: 0.9rem;
-}
-
-section#directory span.sub-info {
-  margin-left: 8px;
-  display: none;
-}
-
 section#directory span.username {
   white-space: nowrap;
   display: none;
   position: relative;
-  top: -4px;
+  top: -3px;
   right: -2px;
   font-size: 0.7rem;
-  padding: 4px 12px;
 }
 
-section#directory p.title-and-user span.username a {
-  font-size: 0.8rem;
-  margin-top: 4px;
-}
-
-section#directory p.poll-info,
-section#directory p.sub-info {
+section#directory span.your-vote {
   display: none;
-}
-
-section#directory svg {
-  color: var(--secondary-color);
-  margin-right: 6px;
-  position: relative;
-  top: -3px;
+  font-size: 0.9rem;
+  margin-left: 12px;
 }
 
 @media screen and (min-width: 450px) {
-  section#directory span.username {
+  section#directory .title-and-user span.username {
     display: inline;
   }
 }
 
 @media screen and (min-width: 550px) {
-  section#directory span.sub-info {
+  section#directory .title-and-user span.your-vote {
     display: inline;
   }
   section#directory svg {

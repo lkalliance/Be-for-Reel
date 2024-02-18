@@ -4,16 +4,7 @@ section#poll {
   margin-right: auto;
 }
 
-div#question {
-  text-align: center;
-}
-
-section#poll div.login-prompt {
-  color: white;
-}
-
 p#yourvote {
-  color: var(--secondary-color);
   margin-top: 15px;
   margin-bottom: 0;
 }
@@ -23,35 +14,10 @@ section#poll ul {
   padding: 0;
 }
 
-p.expired {
-  margin: 0;
-}
-
-div#question h4 {
-  text-align: center;
-}
-
-div#question p.desc {
-  margin: 0;
-}
-
-div#question button {
-  width: 250px;
-  height: auto;
-}
-
 div#comments {
-  margin-top: 20px;
+  margin: 20px auto 0;
   padding: 0;
-  max-width: 800px;
-}
-
-div#comments .username {
-  margin-bottom: 6px;
-}
-
-div#comments h3 {
-  text-align: center;
+  max-width: 540px;
 }
 
 div.edit-poll {
@@ -74,4 +40,16 @@ div.edit-poll span:hover {
 div.deactivated {
   text-align: center;
   color: white;
+}
+
+@media screen and (min-width: 768px) {
+  div#comments {
+    max-width: 720px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  div#comments {
+    max-width: 800px;
+  }
 }

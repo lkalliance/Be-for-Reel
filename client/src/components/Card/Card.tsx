@@ -46,18 +46,24 @@ export function Card({
         style={{ backgroundImage: `url(${poster})` }}
       >
         {voted && (
-          <FontAwesomeIcon icon={faCheckCircle} className="card-check" />
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            className="card-check you-data"
+          />
         )}
         <Link to={urlTitle} className="main-link">
           <h5 className="card-title">
             {voted && (
-              <FontAwesomeIcon icon={faCheckCircle} className="title-check" />
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                className="title-check you-data"
+              />
             )}
             {title}
           </h5>
         </Link>
         <div className="poll-info">
-          <UsernameLink username={user} current={current} />
+          <UsernameLink username={user} current={current} type="div" />
           <div className="vote-count">votes: {votes}</div>
         </div>
       </div>

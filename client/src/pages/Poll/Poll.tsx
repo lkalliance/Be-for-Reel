@@ -137,19 +137,17 @@ export function Poll({ currUser }: pollProps) {
             />
             {loggedIn && confirmed ? (
               // valid user is logged in: either show user's vote or comment text area
-              votes[poll._id] ? (
+              votes[poll._id] && (
                 // user has voted on this poll, show their vote
                 <p id="yourvote" className="you-data">
                   you voted for <strong>{votes[poll._id]}</strong>
                 </p>
-              ) : null
+              )
             ) : // user is not logged in, or not confirmed
             !loggedIn ? (
               <div className="login-prompt">
-                <Link to={"/login"} className="reverse">
-                  Log in
-                </Link>{" "}
-                to vote and to see results and comments
+                <Link to={"/login"}>Log in</Link> to vote and to see results and
+                comments
               </div>
             ) : (
               <div className="login-prompt">
@@ -165,7 +163,9 @@ export function Poll({ currUser }: pollProps) {
                 <span>Edit this poll</span>
               </div>
             )}
-            {poll.expired ? <p className="expired">This poll is closed</p> : ""}
+            {poll.expired && (
+              <p className="doesnt-exist">This poll is closed</p>
+            )}
           </div>
           <ul id="options">
             {opts.map((option: optionProps, index: Key | null | undefined) => {
@@ -190,19 +190,15 @@ export function Poll({ currUser }: pollProps) {
               );
             })}
           </ul>
-          {loggedIn && poll.comments.length > 0 ? (
+          {loggedIn && poll.comments.length > 0 && (
             // user is logged in, show the comments
-            <div id="comments" className="container">
-              {/* <h3 className="center">User comments</h3> */}
+            <div id="comments">
               {poll.comments.map(
                 (comment: pollCommentProps, index: Key | null | undefined) => {
                   return <Comment key={index} pollComm={comment}></Comment>;
                 }
               )}
             </div>
-          ) : (
-            //user is not logged in, hide comments
-            <div className="hidden"></div>
           )}
         </>
       )}

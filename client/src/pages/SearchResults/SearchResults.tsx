@@ -60,7 +60,7 @@ export function SearchResults() {
 
   return (
     <section id="search-results" className="container">
-      <p className="sub-info">search for: {`"${term}"`}</p>
+      <p className="secondary">search for: {`"${term}"`}</p>
       <Tabs
         list={["polls", "users", "movies"]}
         current={tab}
@@ -74,11 +74,18 @@ export function SearchResults() {
             </div>
           ) : (
             showThesePolls.map((poll, index) => {
-              console.log(poll);
               return (
-                <div key={index} className="col col-12 col-md-6 col-lg-4">
-                  {votes[poll._id] && <FontAwesomeIcon icon={faCheckCircle} />}
-                  <Link to={poll.urlTitle} className="reverse">
+                <div
+                  key={index}
+                  className="result col col-12 col-md-6 col-lg-4"
+                >
+                  {votes[poll._id] && (
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      className="you-data"
+                    />
+                  )}
+                  <Link to={poll.urlTitle} className="reverse result">
                     {poll.title}
                   </Link>
                 </div>
@@ -104,10 +111,13 @@ export function SearchResults() {
           ) : (
             showTheseUsers.map((user, index) => {
               return (
-                <div key={index} className="col col-12 col-md-6 col-lg-4">
+                <div
+                  key={index}
+                  className="result col col-12 col-md-6 col-lg-4"
+                >
                   <UsernameLink
                     username={user.userName}
-                    original={true}
+                    type="original"
                     noBy={true}
                   />
                 </div>
@@ -134,7 +144,10 @@ export function SearchResults() {
             ) : (
               showTheseFilms.map((movie, index) => {
                 return (
-                  <div key={index} className="movie-result col col-12 col-md-6">
+                  <div
+                    key={index}
+                    className="result movie-result col col-12 col-md-6"
+                  >
                     {`${movie.title} (${movie.year})`}
                     <span className="user-data">{` ${movie.votes} ${
                       movie.votes === 1 ? "vote" : "votes"

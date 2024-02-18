@@ -22,12 +22,12 @@ export function Question({
   current,
 }: questionProps) {
   return (
-    <div id="question">
+    <>
       <h2>{question}</h2>
       {description ? <p className="desc m-1">{description}</p> : ""}
       <div className="m-3">
-        <UsernameLink username={username} current={current} />
+        <UsernameLink username={username} current={current} type="div" />
       </div>
-    </div>
+    </>
   );
 }

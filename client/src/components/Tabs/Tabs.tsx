@@ -21,7 +21,7 @@ export function Tabs({ list, handler, current }: customTabsProps) {
           <button
             key={index}
             id={tab}
-            className={`btn ${current === tab ? "active" : ""}`}
+            className={`btn user-data ${current === tab ? "active" : ""}`}
             onClick={handler}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}

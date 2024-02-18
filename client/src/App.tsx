@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
   ApolloClient,
@@ -46,12 +46,22 @@ const client = new ApolloClient({
 function App() {
   const auth = new AuthService();
   const [loggedIn, setLoggedIn] = useState<boolean>(auth.loggedIn());
+  const [aORb, setaORb] = useState<string>("a");
   const { userName } = auth.getProfile();
 
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <Header loggedIn={loggedIn} setLogIn={setLoggedIn} />
+      <div
+        className={
+          aORb === "a" ? "App style-a" : aORb === "b" ? "App style-b" : "App"
+        }
+      >
+        <Header
+          loggedIn={loggedIn}
+          setLogIn={setLoggedIn}
+          abSwitch={setaORb}
+          currentSwitch={aORb}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

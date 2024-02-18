@@ -2,29 +2,31 @@ div#user-menu {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: var(--tertiary-mid);
   z-index: 100;
-  border-radius: 0 0 5px 5px;
-  padding: 2px 2px 1px;
+  padding: 3px 2px 1px;
+  background-color: var(--secondary-color);
 }
 
 div#user-menu ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: var(--tertiary-color);
-  border-radius: 0 0 5px 5px;
 }
 
 div#user-menu li {
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid var(--tertiary-mid);
+  border-bottom: 1px solid var(--secondary-color);
+  background-color: var(--secondary-background);
+  color: white;
 }
 
 div#user-menu ul:last-child {
   border-bottom: 0;
+  border-radius: 0 0 5px 5px;
 }
+
+/* more specificity to overcome bootstrap nav styling */
 
 nav div#user-menu li a {
   display: block;
@@ -35,6 +37,6 @@ nav div#user-menu li a {
 }
 
 nav div#user-menu li a:hover {
-  background-color: var(--tertiary-mid);
-  color: var(--tertiary-color);
+  background-color: var(--secondary-color);
+  color: var(--secondary-background);
 }

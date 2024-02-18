@@ -27,7 +27,7 @@ export function UserListing({ user, current }: userListingProps) {
     <li className="user-listing list-member-12">
       <Link className="reverse" to={`/${user.lookupName}`}>
         {user.userName}
-        <span className={current ? "you-data as-div" : "user-data as-div"}>
+        <span className={current ? "you-data tag" : "user-data tag"}>
           member since {created_on.getFullYear()}
         </span>
         <span className="user-info">

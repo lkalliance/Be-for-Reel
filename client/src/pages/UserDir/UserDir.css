@@ -5,26 +5,26 @@ section#user-directory {
   margin-right: auto;
 }
 
-section#user-directory input {
-  width: 100%;
-}
-
 section#user-directory ul {
   margin: 0;
   padding: 0;
 }
 
-section#user-directory li {
-  list-style-type: none;
-}
-
-section#user-directory span {
+section#user-directory a span {
   display: none;
+  margin-left: 10px;
 }
 
 section#user-directory a {
   width: 100%;
   display: block;
+  font-size: 1.2rem;
+}
+
+section#user-directory a span.user-info {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 @media screen and (min-width: 500px) {
@@ -34,9 +34,7 @@ section#user-directory a {
 }
 
 @media screen and (min-width: 650px) {
-  section#user-directory span.sub-info,
-  section#user-directory span.user-data,
-  section#user-directory span.you-data {
+  section#user-directory span.tag {
     display: inline;
   }
 }

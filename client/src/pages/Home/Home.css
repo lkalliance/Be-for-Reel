@@ -61,7 +61,6 @@ div#recent-polls a {
 }
 
 div#sub-lists svg {
-  color: var(--secondary-color);
   margin-right: 6px;
 }
 
@@ -72,6 +71,8 @@ div#sub-lists .list-member-12:hover span {
   margin-left: 10px;
   color: white;
 }
+
+/* media queries to size headline and show/hide extra texg */
 
 @media screen and (min-width: 600px) {
   .lead {

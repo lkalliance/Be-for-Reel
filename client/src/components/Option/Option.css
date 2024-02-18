@@ -4,7 +4,7 @@
   margin-top: 15px;
   color: white;
   padding: 0;
-  border: 1px solid var(--tertiary-text);
+  border: 1px solid;
 }
 
 .option .title {
@@ -40,19 +40,14 @@
 
 /* for accordions */
 
-div.accordion.accordion-flush {
+.option div.accordion.accordion-flush {
   width: 100%;
   background-color: transparent;
   padding-right: 0;
 }
 
-div.accordion .accordion-header button {
-  padding: 10px;
-  display: flex;
-}
-
-div.accordion .accordion-header button,
-div.accordion .accordion-item {
+.option div.accordion .accordion-header button,
+.option div.accordion .accordion-item {
   background-color: transparent;
   color: white;
 }
@@ -74,7 +69,7 @@ div.accordion .accordion-item {
 }
 
 .option.selected fieldset {
-  height: 182px;
+  height: 172px;
 }
 
 .option fieldset button {
@@ -111,8 +106,10 @@ div.accordion .accordion-item {
   position: relative;
   left: 12px;
   font-size: 0.9em;
-  background-color: var(--tertiary-color);
-  color: white;
+}
+
+.option button.picker {
+  color: white !important;
 }
 
 .option div.tab {
@@ -123,13 +120,12 @@ div.accordion .accordion-item {
   font-size: 2em;
   font-weight: 700;
   white-space: normal;
-  color: var(--tertiary-text);
 }
 
-.option div.tab.winner {
+/* .option div.tab.winner {
   background-color: var(--highlight);
   color: var(--highlight-text);
-}
+} */
 
 .option .accordion-body {
   display: flex;
@@ -164,11 +160,6 @@ div.accordion .accordion-item {
   display: none;
 }
 
-.option .accordion-button::after,
-.option .accordion-button:not(.collapsed)::after {
-  background-size: 15px;
-}
-
 /* .option.selected {
   background-color: var(--item-background-hover);
 } */
@@ -183,6 +174,7 @@ div.accordion .accordion-item {
 }
 
 @media screen and (min-width: 400px) {
+  /* on larger screens, put select button/tab on right and alter styling */
   .option button.picker,
   .option div.tab {
     border-radius: 0 12px 12px 0;
@@ -197,7 +189,6 @@ div.accordion .accordion-item {
   }
 
   .option .opt-container {
-    /* on larger screens, select button/votes are on right */
     flex-direction: row;
   }
 }

@@ -83,7 +83,10 @@ export function Home() {
                         className="list-member-12 reverse"
                       >
                         {votes[poll._id] && (
-                          <FontAwesomeIcon icon={faCheckCircle} />
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="you-data"
+                          />
                         )}
                         {poll.title}{" "}
                         <span className="sub-poll-info">
@@ -111,7 +114,10 @@ export function Home() {
                         className="list-member-12 reverse"
                       >
                         {votes[poll._id] && (
-                          <FontAwesomeIcon icon={faCheckCircle} />
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="you-data"
+                          />
                         )}
                         {poll.title}{" "}
                         <span className="sub-poll-info">{`${poll.votes.length}${

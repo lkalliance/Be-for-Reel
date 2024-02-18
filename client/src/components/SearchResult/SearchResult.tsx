@@ -1,4 +1,4 @@
-// This component renders a single search result or selected film
+// This component renders a single movie search result or selected film
 
 /* REQUIRED PROPS:
 value: an object containing all information about the movie
@@ -21,13 +21,16 @@ interface resultProps {
 export function SearchResult({ value, type, onClick, dataIndex }: resultProps) {
   return (
     <li
-      className="search-result list-member-20"
+      className="search-result list-member-20 item-hover"
       data-index={dataIndex}
       data-type={type}
       data-genres={value.genres}
       onClick={onClick}
     >
-      <h4>{`${value.title} (${value.description})`}</h4>
+      <h4>
+        {`${value.title}`}
+        <span>{`(${value.description})`}</span>
+      </h4>
       {type === "search" ? (
         <p>
           <span>{value.stars} </span>
