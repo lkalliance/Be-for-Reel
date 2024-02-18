@@ -2,6 +2,7 @@
 
 import "./Footer.css";
 import logo from "./imdb-icon-20.png";
+import { Link } from "react-router-dom";
 
 interface footerProps {
   quote: string;
@@ -20,6 +21,17 @@ export function Footer({ quote }: footerProps) {
           <img src={logo} alt="IMDb" />
         </a>
       </div>
+      {/* <ul>
+        <li>
+          <Link to="/about">About us</Link>
+        </li>
+        <li>
+          <Link to="/terms">Terms of Use</Link>
+        </li>
+        <li>
+          <Link to="/contact">Contact Be for Reel</Link>
+        </li>
+      </ul> */}
     </footer>
   );
 }
