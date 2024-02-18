@@ -163,7 +163,7 @@ router.post("/contact-us", async (req, res) => {
       req.body.email
     } send the following message:
     
-    ${req.body.message},
+    ${req.body.message}
       </div>
     </body>
     </html>`,
