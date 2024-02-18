@@ -89,7 +89,9 @@ export function Profile() {
           // the user exists, render their data
           <>
             <h1 className="col col-12">{userData.userName}</h1>
-            <h4 className="col col-12 sub-info">{`member since ${createdOn.getFullYear()}`}</h4>
+            <h4
+              className={`col col-12${thisUser ? " you-data" : " user-data"}`}
+            >{`member since ${createdOn.getFullYear()}`}</h4>
             {!confirmed && thisUser && (
               <div className="alert alert-danger">
                 Account not yet activated. Check <strong>{email}</strong> for

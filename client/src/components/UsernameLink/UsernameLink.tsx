@@ -17,34 +17,48 @@ interface usernameLinkProps {
   username: string;
   current?: boolean;
   noBy?: boolean;
-  blockContainer?: boolean;
-  original?: boolean;
+  type?: string;
 }
 
 export function UsernameLink({
   username,
   current,
-  blockContainer,
+  type,
   noBy,
-  original,
 }: usernameLinkProps) {
-  return blockContainer ? (
-    <span className={original ? "username-orig" : "username"}>
+  return type === "div" ? (
+    <div
+      className={`${current ? "username you-data " : "username user-data "}`}
+    >
       {!noBy && "by "}
-      <Link
-        to={`/${createLookupName(username)}`}
-        className={original ? "reverse" : ""}
-      >
+      <Link to={`/${createLookupName(username)}`}>
+        {current ? "you" : username}
+      </Link>
+    </div>
+  ) : type === "span-tag" ? (
+    <span
+      className={`${
+        current ? "username tag you-data " : "username tag user-data "
+      }`}
+    >
+      {!noBy && "by "}
+      <Link to={`/${createLookupName(username)}`}>
+        {current ? "you" : username}
+      </Link>
+    </span>
+  ) : type === "span" ? (
+    <span
+      className={`${current ? "username you-data " : "username user-data "}`}
+    >
+      {!noBy && "by "}
+      <Link to={`/${createLookupName(username)}`}>
         {current ? "you" : username}
       </Link>
     </span>
   ) : (
-    <div className={original ? "username-orig" : "username"}>
+    <div className="username original">
       {!noBy && "by "}
-      <Link
-        to={`/${createLookupName(username)}`}
-        className={original ? "reverse" : ""}
-      >
+      <Link to={`/${createLookupName(username)}`} className="reverse">
         {current ? "you" : username}
       </Link>
     </div>

@@ -122,7 +122,7 @@ export function Option({
     <li
       className={`container list-member-12 option${
         selected.option_id === opt._id ? " selected" : ""
-      }${!loggedIn || voted ? " nohover" : ""}`}
+      }${!loggedIn || voted ? " nohover" : ""} border-user`}
     >
       <div className="row container opt-container">
         <div className="title row col">
@@ -231,13 +231,17 @@ export function Option({
           // user is logged in: show a select button or the vote total
           (voted || expired ? (
             // user has voted or the poll is expired: show the vote total for this option
-            <div className={`tab col${expired && winner ? " winner" : ""}`}>
+            <div
+              className={`tab user-data col${
+                expired && winner ? " winner" : ""
+              } bg-user-data`}
+            >
               {votes}
             </div>
           ) : (
             // user has not voted: indicate to select
             <button
-              className={`picker btn col${
+              className={`picker btn user-data hoverable col${
                 selected.option_id === opt._id ? " sel" : ""
               }`}
               onClick={handleSelect}

@@ -1,6 +1,5 @@
-/* custom styles for this page component go here */
-
 section#create div#about select {
+  background-color: var(--item-background-light);
   color: white;
   margin-bottom: 12px;
 }

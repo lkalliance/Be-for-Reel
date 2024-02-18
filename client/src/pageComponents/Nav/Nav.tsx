@@ -13,6 +13,7 @@ import {
   faMagnifyingGlass,
   faUser,
   faCircleQuestion,
+  faCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
 import { SearchForm, UserMenu } from "../../components";
@@ -70,6 +71,12 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
               </LinkContainer>
             )}
 
+            {loggedIn && (
+              <LinkContainer to="/create">
+                <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
+              </LinkContainer>
+            )}
+
             <LinkContainer to="/polls">
               <Nav.Link onClick={() => closeMenus()}>Polls</Nav.Link>
             </LinkContainer>
@@ -94,62 +101,132 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
 
             {loggedIn && (
               <>
-                <LinkContainer to={`/${lookupName}`}>
-                  <Nav.Link
-                    className="user"
-                    onClick={(e: React.MouseEvent<HTMLElement>) => {
-                      setShowSearch(false);
-                      setShowUserMenu(!showUserMenu);
-                    }}
-                    onMouseOver={() => {
-                      setShowUserMenu(true);
-                      setShowSearch(false);
-                    }}
-                    onMouseOut={() => {
-                      setShowUserMenu(false);
-                    }}
-                  >
-                    {`${userName}`}
-                    {showUserMenu && (
-                      <UserMenu
-                        uname={userName}
-                        lookup={lookupName}
-                        setMenu={setShowUserMenu}
-                        setLogIn={setLogIn}
-                        setShowSearch={setShowSearch}
-                        showUserName={false}
-                      />
-                    )}
-                  </Nav.Link>
-                </LinkContainer>
-                <LinkContainer to={`/${lookupName}`}>
-                  <NavItem
-                    className={`user-icon faq-round ${showUserMenu && "open"}`}
-                    onClick={(e: React.MouseEvent<HTMLElement>) => {
-                      setShowSearch(false);
-                      setShowUserMenu(!showUserMenu);
-                    }}
-                    onMouseOver={() => {
-                      setShowUserMenu(true);
-                      setShowSearch(false);
-                    }}
-                    onMouseOut={() => {
-                      setShowUserMenu(false);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faUser} />
-                    {showUserMenu && (
-                      <UserMenu
-                        uname={userName}
-                        lookup={lookupName}
-                        setMenu={setShowUserMenu}
-                        setLogIn={setLogIn}
-                        setShowSearch={setShowSearch}
-                        showUserName={true}
-                      />
-                    )}
-                  </NavItem>
-                </LinkContainer>
+                <Navbar.Text
+                  className={`click-to-navigate user${
+                    showUserMenu ? " show-menu" : ""
+                  }`}
+                  onClick={(e: React.MouseEvent<HTMLElement>) => {
+                    setShowSearch(false);
+                    navigate(`/${lookupName}`);
+                  }}
+                  onMouseOver={() => {
+                    setShowUserMenu(true);
+                    setShowSearch(false);
+                  }}
+                  onMouseOut={() => {
+                    setShowUserMenu(false);
+                  }}
+                >
+                  {`${userName}`}
+                  <FontAwesomeIcon
+                    icon={faCaretRight}
+                    className="caret-right reverse"
+                  />
+                  {showUserMenu && (
+                    <UserMenu
+                      uname={userName}
+                      lookup={lookupName}
+                      setMenu={setShowUserMenu}
+                      setLogIn={setLogIn}
+                      setShowSearch={setShowSearch}
+                      showUserName={false}
+                    />
+                  )}
+                </Navbar.Text>
+                <Navbar.Text
+                  className={`click-to-show user${
+                    showUserMenu ? " show-menu" : ""
+                  }`}
+                  onClick={(e: React.MouseEvent<HTMLElement>) => {
+                    setShowSearch(false);
+                    setShowUserMenu(!showUserMenu);
+                  }}
+                  onMouseOver={() => {
+                    setShowSearch(false);
+                  }}
+                >
+                  {`${userName}`}
+                  <FontAwesomeIcon
+                    icon={faCaretRight}
+                    className="caret-right reverse"
+                  />
+                  {showUserMenu && (
+                    <UserMenu
+                      uname={userName}
+                      lookup={lookupName}
+                      setMenu={setShowUserMenu}
+                      setLogIn={setLogIn}
+                      setShowSearch={setShowSearch}
+                      showUserName={false}
+                    />
+                  )}
+                </Navbar.Text>
+                <NavItem
+                  className={`click-to-navigate user-icon faq-round ${
+                    showUserMenu && "show-menu"
+                  }`}
+                  onClick={(e: React.MouseEvent<HTMLElement>) => {
+                    setShowSearch(false);
+                    navigate(`/${lookupName}`);
+                  }}
+                  onMouseOver={() => {
+                    setShowUserMenu(true);
+                    setShowSearch(false);
+                  }}
+                  onMouseOut={() => {
+                    setShowUserMenu(false);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={showUserMenu ? "show-menu" : ""}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCaretRight}
+                    className="caret-right reverse"
+                  />
+                  {showUserMenu && (
+                    <UserMenu
+                      uname={userName}
+                      lookup={lookupName}
+                      setMenu={setShowUserMenu}
+                      setLogIn={setLogIn}
+                      setShowSearch={setShowSearch}
+                      showUserName={true}
+                    />
+                  )}
+                </NavItem>
+                <NavItem
+                  className={`click-to-show user-icon faq-round ${
+                    showUserMenu && "show-menu"
+                  }`}
+                  onClick={(e: React.MouseEvent<HTMLElement>) => {
+                    setShowSearch(false);
+                    setShowUserMenu(!showUserMenu);
+                  }}
+                  onMouseOver={() => {
+                    setShowSearch(false);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={showUserMenu ? "show-menu" : ""}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCaretRight}
+                    className="caret-right reverse"
+                  />
+                  {showUserMenu && (
+                    <UserMenu
+                      uname={userName}
+                      lookup={lookupName}
+                      setMenu={setShowUserMenu}
+                      setLogIn={setLogIn}
+                      setShowSearch={setShowSearch}
+                      showUserName={true}
+                    />
+                  )}
+                </NavItem>
               </>
             )}
           </Nav>

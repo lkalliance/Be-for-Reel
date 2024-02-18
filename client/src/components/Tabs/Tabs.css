@@ -1,15 +1,13 @@
-/* custom css goes here */
-
 .tab-container {
   margin: 6px 0;
   display: flex;
   justify-content: flex-start;
-  border-bottom: 1px solid var(--secondary-color);
+  border-bottom: 2px solid var(--tertiary-mid);
 }
 
-.tab-container button.btn,
+.tab-container button.btn.you-data,
+.tab-container button.btn.user-data,
 .tab-container button.btn.active {
-  background-color: var(--secondary-color);
   color: white;
   opacity: 0.4;
   margin-right: 8px;
@@ -19,4 +17,18 @@
 
 .tab-container button.btn.active {
   opacity: 1;
+}
+
+.style-b .tab-container {
+  border-bottom-color: var(--b-tertiary-mid);
+}
+
+/* button colors */
+
+.tab-container button.btn.user-data {
+  background-color: var(--tertiary-mid);
+}
+
+.style-b .tab-container button.btn.user-data {
+  background-color: var(--b-tertiary-mid);
 }

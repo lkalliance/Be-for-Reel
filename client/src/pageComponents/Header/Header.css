@@ -1,7 +1,42 @@
+/* basic header styles */
+
 header {
-  border-bottom: solid var(--secondary-color);
+  border-bottom: 3px solid var(--secondary-color);
 }
 
 header img {
   height: 80px;
+}
+
+/* style switcher styles */
+
+header div#switch {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  top: 0;
+  right: 0;
+  color: white;
+  padding: 10px;
+  font-size: 0.9rem;
+  z-index: 999;
+}
+
+header div#switch span {
+  display: block;
+  opacity: 0.5;
+  border-radius: 8px;
+  padding: 4px;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 6px;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+header div#switch span.selected {
+  opacity: 1;
+  font-size: 1.2rem;
 }

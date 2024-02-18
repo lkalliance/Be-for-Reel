@@ -10,6 +10,7 @@ num: index of which card this is on the page
 voted: what the current user voted on this poll */
 
 import "./Card.css";
+import { AuthService } from "../../utils/auth";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +35,10 @@ export function Card({
   num,
   voted,
 }: cardProps) {
+  const auth = new AuthService();
+  const { userName } = auth.getProfile();
+  const current = userName === user;
+
   return (
     <div className="col">
       <div
@@ -41,18 +46,24 @@ export function Card({
         style={{ backgroundImage: `url(${poster})` }}
       >
         {voted && (
-          <FontAwesomeIcon icon={faCheckCircle} className="card-check" />
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            className="card-check you-data"
+          />
         )}
         <Link to={urlTitle} className="main-link">
           <h5 className="card-title">
             {voted && (
-              <FontAwesomeIcon icon={faCheckCircle} className="title-check" />
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                className="title-check you-data"
+              />
             )}
             {title}
           </h5>
         </Link>
         <div className="poll-info">
-          <UsernameLink username={user} />
+          <UsernameLink username={user} current={current} type="div" />
           <div className="vote-count">votes: {votes}</div>
         </div>
       </div>

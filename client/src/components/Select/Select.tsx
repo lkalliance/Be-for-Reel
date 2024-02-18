@@ -38,9 +38,11 @@ export function Select({ options, label, id, val, setValue }: selectProps) {
 
   return (
     <>
-      <label htmlFor={id} className={label ? "" : "hidden"}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={id} className={label ? "" : "hidden"}>
+          {label}
+        </label>
+      )}
       <select
         id={id}
         className="form-select"

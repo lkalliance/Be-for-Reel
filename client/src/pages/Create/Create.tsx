@@ -370,7 +370,7 @@ export function Create() {
       {!confirmed ? (
         <div className="container">
           <h1>Create a Poll</h1>
-          <p>
+          <p className="list-member-12">
             Your account's email address has not been confirmed. Check your
             email at {email}, and look for an email with a confirmation link.
           </p>
@@ -483,7 +483,7 @@ export function Create() {
       ) : (
         <div className="container">
           <h1>Create a Poll</h1>
-          <p>
+          <p className="list-member-12">
             You have reached your creation limit for the most recent month. You
             will need to wait for one of your polls to expire before you can
             create a new one.

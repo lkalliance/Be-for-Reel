@@ -34,21 +34,25 @@ export function Comment({ pollComm, userComm, thisUser }: commProps) {
   return (
     <>
       {pollComm && (
-        <div className={`comment list-member-12 row${thisUser ? " self" : ""}`}>
-          <div className="col col-12 col-sm-4 border-end border-sm-0">
-            <h3>
-              <UsernameLink username={pollComm.username} noBy={true} />
-            </h3>
-            {pollComm.movie ? (
-              <h4 className="sub-info">
-                {`${thisUserPoll ? "you " : ""}`}voted for{" "}
-                <span className="your-vote">{pollComm.movie}</span>
-              </h4>
-            ) : (
-              ""
+        <div className="comment list-member-12">
+          <div className="user-info">
+            <UsernameLink
+              username={pollComm.username}
+              noBy={true}
+              current={thisUserPoll}
+              type="div"
+            />
+            {pollComm.movie && (
+              <span
+                className={`${
+                  thisUserPoll ? "your-vote you-data" : "your-vote user-data"
+                }`}
+              >
+                voted for <strong>{pollComm.movie}</strong>
+              </span>
             )}
           </div>
-          <div className="col col-12 col-sm-8">
+          <div className="comment-text">
             <p className="m-0 text-center text-sm-start">{pollComm.text}</p>
           </div>
         </div>
@@ -57,12 +61,12 @@ export function Comment({ pollComm, userComm, thisUser }: commProps) {
         <li className="user-comment list-member-12">
           <Link to={userComm.urlTitle} className="reverse">
             {userComm.title}
-            <p className="sub-info">
-              {`${thisUser ? "you " : ""}`}voted for{" "}
-              <span className="your-vote">{`${userComm.movie}`}</span>
-            </p>
-            <p className="comment-text">{userComm.text}</p>
           </Link>
+          <span className={`${thisUser ? "you-data" : "user-data"}`}>
+            {`${thisUser ? "you " : ""}`}voted for{" "}
+            <span className="your-vote">{`${userComm.movie}`}</span>
+          </span>
+          <p className="comment-text">{userComm.text}</p>
         </li>
       )}
     </>

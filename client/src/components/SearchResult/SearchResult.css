@@ -5,13 +5,15 @@ li.search-result {
   color: white;
 }
 
-li.search-result:hover {
-  background-color: var(--item-background-hover);
-}
-
 .search-result h4 {
   font-size: 1em;
-  color: var(--link-hover);
+  color: var(--link);
+}
+
+.search-result h4 span {
+  font-size: 0.9em;
+  margin-left: 6px;
+  color: var(--dark-text);
 }
 
 .search-result p {

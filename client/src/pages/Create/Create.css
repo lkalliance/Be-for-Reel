@@ -5,15 +5,31 @@ section#create {
   max-width: var(--main-max-width);
 }
 
+section#create h5 {
+  text-align: center;
+  font-size: 1rem;
+  margin: 25px auto 12px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--tertiary-color);
+}
+
+section#create p.list-member-12 {
+  color: white;
+}
+
+.style-b section#create h5 {
+  border-bottom-color: var(--b-tertiary-color);
+}
+
 section#create div#about,
 section#create div#titleSearch {
   max-width: 400px;
   margin-bottom: 50px;
 }
 
-section#create .container {
+/* section#create .container {
   margin: 0 auto;
-}
+} */
 
 section#create button {
   margin-top: 10px;
@@ -27,17 +43,12 @@ section#create input[type="text"],
 section#create textarea {
   width: 100%;
   margin-bottom: 0;
-  border-radius: 4px;
-  border: none;
-  padding: 6px;
-  font-size: 1em;
-  line-height: 1.2em;
 }
 
-section#create #released input[type="text"] {
+/* section#create #released input[type="text"] {
   width: 40%;
   margin-right: 10px;
-}
+} */
 
 section#create textarea {
   height: 80px;

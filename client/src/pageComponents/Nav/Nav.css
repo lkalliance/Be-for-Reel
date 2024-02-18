@@ -1,4 +1,28 @@
-div.navbar-nav a.nav-link,
+/* basic nav styles to customize Bootstrap */
+
+nav.navbar {
+  padding: 0;
+  position: relative;
+}
+
+div.navbar-nav {
+  justify-content: flex-end;
+}
+
+nav.navbar svg:hover {
+  color: var(--link-hover);
+}
+
+button.navbar-toggler {
+  padding: 0 6px;
+  margin-bottom: 10px;
+}
+
+button.navbar-toggler span.navbar-toggler-icon {
+  width: 1em;
+}
+
+.navbar-nav a.nav-link,
 div.navbar-nav span.navbar-text {
   color: var(--link);
   margin-left: 10px;
@@ -14,9 +38,13 @@ nav.navbar div.container {
   max-width: 100% !important;
 }
 
+nav.navbar span.navbar-text {
+  text-align: right;
+  cursor: pointer;
+}
+
 nav.navbar div.me-auto.navbar-nav {
   margin-right: 0 !important;
-  /* flex-direction: row; */
 }
 
 div.navbar-nav a.nav-link:hover {
@@ -27,120 +55,116 @@ div.navbar-collapse {
   justify-content: flex-end;
 }
 
-nav a.nav-link.user {
-  color: var(--link-hover) !important;
+/* styling for user link and icon */
+
+div.navbar-nav span.navbar-text.user,
+div.navbar-nav div.user-icon {
+  color: var(--link-hover);
   font-weight: 700;
 }
 
-nav a.nav-link.user:hover {
-  color: var(--link) !important;
+div.navbar-nav span.navbar-text.user.show-menu,
+div.navbar-nav div.user-icon.show-menu svg {
+  color: var(--link);
 }
 
-nav.navbar {
-  padding: 0;
-  position: relative;
+.style-b div.navbar-nav span.navbar-text.user,
+.style-b div.navbar-nav div.user-icon {
+  color: var(--b-secondary-color);
 }
 
-nav.navbar svg {
-  height: 1.2rem;
-  color: white;
-}
-
-nav.navbar div.user-icon svg {
-  color: var(--link-hover);
-}
-
-nav.navbar svg:hover {
-  color: var(--link-hover);
-}
-
-nav.navbar div.user-icon svg:hover {
-  color: white;
-}
-
-nav.navbar .faq-round {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px;
-  margin-left: 10px;
-}
-
-nav.navbar div.round {
-  background-color: var(--secondary-color);
-  color: var(--page-background);
-  height: 24px;
-  width: 24px;
-  border-radius: 24px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  line-height: 24px;
-  text-align: center;
+nav a.nav-link.user svg,
+nav span.navbar-text.user svg,
+div.navbar-nav div.user-icon svg.caret-right {
+  height: 1rem;
+  font-size: 0.5rem;
   position: relative;
   top: 2px;
+  margin-left: 3px;
+  transition: all 0.2s;
 }
 
-nav.navbar div.round:hover {
-  background-color: var(--link-hover);
+.style-b nav a.nav-link.user svg,
+.style-b nav span.navbar-text.user svg {
+  color: var(--b-secondary-color);
 }
 
-nav.navbar span.navbar-text {
-  text-align: right;
-  cursor: pointer;
+nav a.nav-link.user.show-menu svg,
+nav span.navbar-text.user.show-menu svg,
+div.navbar-nav div.user-icon.show-menu svg.caret-right {
+  transform: rotate(90deg);
 }
 
-div.navbar-nav {
-  justify-content: flex-end;
-}
-
-div.navbar-nav .user-icon {
-  position: relative;
-}
-
-div.navbar-nav .user-icon.open {
-  color: var(--link-hover);
-}
-
-div.navbar-nav .user {
+div.navbar-nav div.user-icon {
+  padding: 9px 0 8px;
+  margin-left: 14px;
   display: none;
 }
 
-div.navbar-nav #logout-link {
-  display: none;
-}
+/* media queries to determine whether user name or icon */
 
-button.navbar-toggler {
-  padding: 0 6px;
-  margin-bottom: 10px;
-}
-
-button.navbar-toggler span.navbar-toggler-icon {
-  width: 1em;
-}
-
-@media screen and (max-width: 768px) {
-  /* this is for collapsed navbar */
-  nav.navbar div.round {
-    top: -4px;
-  }
-  div.navbar-nav .user,
-  div.navbar-nav #logout-link {
+@media screen and (max-width: 767px) {
+  /* screen is narrow enough to show name */
+  div.navbar-nav span.navbar-text.user.click-to-show {
     display: block;
   }
-
-  div.navbar-nav .user-icon {
+  div.navbar-nav span.navbar-text.user.click-to-navigate {
     display: none;
   }
 }
 
-@media screen and (min-width: 900px) {
-  /* this is for wide enough navbar to render entire username */
-  div.navbar-nav .user,
-  div.navbar-nav #logout-link {
+@media screen and (min-width: 851px) {
+  /* screen is wide enough to show name */
+  div.navbar-nav span.navbar-text.user.click-to-show {
     display: block;
   }
+  div.navbar-nav span.navbar-text.user.click-to-navigate {
+    display: none;
+  }
+}
 
-  div.navbar-nav .user-icon {
+@media screen and (hover: hover) and (max-width: 767px) {
+  /* screen is narrow enough to show name AND has hover */
+  div.navbar-nav span.navbar-text.user.click-to-show {
+    display: none;
+  }
+  div.navbar-nav span.navbar-text.user.click-to-navigate {
+    display: block;
+  }
+}
+
+@media screen and (hover: hover) and (min-width: 851px) {
+  /* screen is wide enough to show name AND has hover */
+  div.navbar-nav span.navbar-text.user.click-to-show {
+    display: none;
+  }
+  div.navbar-nav span.navbar-text.user.click-to-navigate {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  /* screen is in range to show icon */
+  div.navbar-nav div.user-icon.click-to-show {
+    display: block;
+  }
+  div.navbar-nav div.user-icon.click-to-navigate {
+    display: none;
+  }
+  div.navbar-nav span.navbar-text.user {
+    display: none;
+  }
+}
+
+@media screen and (hover: hover) and (min-width: 768px) and (max-width: 850px) {
+  /* screen is in range to show icon AND has hover */
+  div.navbar-nav div.user-icon.click-to-navigate {
+    display: block;
+  }
+  div.navbar-nav div.user-icon.click-to-show {
+    display: none;
+  }
+  div.navbar-nav span.navbar-text.user {
     display: none;
   }
 }

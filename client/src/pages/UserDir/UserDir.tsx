@@ -1,4 +1,5 @@
 import "./UserDir.css";
+import { AuthService } from "../../utils/auth";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { listSection } from "../../utils";
@@ -7,6 +8,8 @@ import { QUERY_ALL_USERS } from "../../utils/queries";
 import { UserListing, Pagination } from "../../components";
 
 export function UserDir() {
+  const auth = new AuthService();
+  const { userName } = auth.getProfile();
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 10;
 
@@ -28,7 +31,8 @@ export function UserDir() {
         {loading
           ? "users go here"
           : showThis.map((user: userListProps, index: number) => {
-              return <UserListing key={index} user={user} />;
+              const current = user.userName === userName;
+              return <UserListing key={index} user={user} current={current} />;
             })}
       </ul>
       <Pagination

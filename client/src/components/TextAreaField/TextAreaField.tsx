@@ -81,17 +81,19 @@ export function TextAreaField({
         onChange={handleChange}
         onKeyUp={handleKeyUp}
       ></textarea>
-      <div className={min || max ? "limit" : "hidden"}>
-        {min
-          ? charCount === 0
-            ? `minimum of ${min} characters`
-            : `${charCount} characters (min. ${min})`
-          : max
-          ? charCount === 0
-            ? `maximum of ${max} characters`
-            : `${charCount} of ${max} characters`
-          : ""}
-      </div>
+      {(min || max) && (
+        <div className={min || max ? "limit" : "hidden"}>
+          {min
+            ? charCount === 0
+              ? `minimum of ${min} characters`
+              : `${charCount} characters (min. ${min})`
+            : max
+            ? charCount === 0
+              ? `maximum of ${max} characters`
+              : `${charCount} of ${max} characters`
+            : ""}
+        </div>
+      )}
     </div>
   );
 }

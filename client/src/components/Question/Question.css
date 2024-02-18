@@ -1,15 +1,13 @@
-.question {
+#question {
   position: relative;
+  text-align: center;
 }
 
-section#poll p.desc {
+#question p.desc {
   color: white;
+  margin: 0;
 }
 
-section#poll p.uName {
+#question p.uName {
   font-size: 0.9rem;
-}
-
-section#poll #question .username {
-  color: var(--dark-text);
 }

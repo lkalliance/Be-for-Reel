@@ -1,5 +1,7 @@
 div#email-verify-modal {
   background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+  width: 100%;
 }
 
 div#email-verify-modal div {

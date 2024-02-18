@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { listSection } from "../../utils";
 import { QUERY_MOVIES } from "../../utils/queries";
-import { movieListProps, movieProps } from "../../utils/interfaces";
+import { movieListProps } from "../../utils/interfaces";
 import { Pagination } from "../../components";
 
 export function TopMovies() {
@@ -53,7 +53,7 @@ export function TopMovies() {
                   </td>
                   <td className="title">
                     {`${movie.title} (${movie.year})`}{" "}
-                    <span className="sub-info">{`${movie.votes} ${
+                    <span className="user-data">{`${movie.votes} ${
                       movie.votes === 1 ? "vote" : "votes"
                     }`}</span>
                   </td>
