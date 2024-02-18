@@ -127,6 +127,60 @@ router.post("/forgot-pwd", async (req, res) => {
   });
 });
 
+router.post("/contact-us", async (req, res) => {
+  // This route sends a confirmation email to a newly-added user
+
+  console.log(req.body);
+  res.status(200);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    user: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "login",
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.APP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.MAIL_USERNAME,
+    to: "bbforreel@gmail.com",
+    subject: "Message from Be for Reel user",
+    text: `${req.body.username ? `User ${req.body.username}` : "A user"} from ${
+      req.email
+    } send the following message:
+    
+    ${req.body.message}`,
+    html: `<html>
+    <head />
+    <body>
+      <div style="height:100%;text-align:center;">
+        <img src="https://be-4-reel-9f2cbf237830.herokuapp.com/b4r-full.png" style="width:100px;display:block;margin:12px auto;" />
+        ${req.body.username ? `User ${req.body.username}` : "A user"} from ${
+      req.body.email
+    } send the following message:
+    
+    ${req.body.message},
+      </div>
+    </body>
+    </html>`,
+  };
+
+  transporter.sendMail(mailOptions, (err, data) => {
+    if (err) {
+      console.log("transporter sendMail error");
+      console.log(err);
+    } else console.log(`Contact us sent from ${req.body.email}`);
+  });
+
+  res.status(200).json({
+    message: `Success.`,
+  });
+});
+
 router.get("/validate-code", async (req, res) => {
   // This route accepts the validation code
 

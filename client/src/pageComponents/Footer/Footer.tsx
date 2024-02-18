@@ -21,7 +21,7 @@ export function Footer({ quote }: footerProps) {
           <img src={logo} alt="IMDb" />
         </a>
       </div>
-      {/* <ul>
+      <ul>
         <li>
           <Link to="/about">About us</Link>
         </li>
@@ -31,7 +31,7 @@ export function Footer({ quote }: footerProps) {
         <li>
           <Link to="/contact">Contact Be for Reel</Link>
         </li>
-      </ul> */}
+      </ul>
     </footer>
   );
 }

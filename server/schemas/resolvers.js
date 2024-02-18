@@ -271,6 +271,9 @@ const resolvers = {
         users: true,
         topfilms: true,
         faq: true,
+        terms: true,
+        about: true,
+        contact: true,
       };
 
       // check username for profanity

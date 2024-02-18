@@ -8,3 +8,6 @@ export { UserDir } from "./UserDir";
 export { TopMovies } from "./TopMovies";
 export { FAQ } from "./FAQ";
 export { SearchResults } from "./SearchResults";
+export { About } from "./About";
+export { Terms } from "./Terms";
+export { Contact } from "./Contact";

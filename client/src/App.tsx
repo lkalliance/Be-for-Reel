@@ -23,6 +23,9 @@ import {
   TopMovies,
   FAQ,
   SearchResults,
+  About,
+  Terms,
+  Contact,
 } from "./pages";
 import { Header, Footer } from "./pageComponents";
 
@@ -102,6 +105,9 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Faq" element={<FAQ />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/:username" element={<Profile />} />
           <Route path="*" element={<Home />} />
         </Routes>
