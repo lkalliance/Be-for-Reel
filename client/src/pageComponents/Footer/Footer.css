@@ -9,6 +9,7 @@ body footer {
   line-height: 2rem;
   background-color: var(--page-background);
   z-index: 200;
+  font-size: 1rem;
 }
 
 body .style-b footer {
@@ -27,6 +28,17 @@ body footer img {
   vertical-align: baseline;
   position: relative;
   top: 2px;
+  margin: 0 4px;
+}
+
+body footer a#to-tv-api {
+  margin-left: 6px;
+  font-weight: bold;
+  color: var(--link-hover);
+}
+
+body footer a#to-tv-api:hover {
+  color: var(--link);
 }
 
 body footer #footer-text {

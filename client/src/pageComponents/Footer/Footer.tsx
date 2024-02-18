@@ -19,6 +19,15 @@ export function Footer({ quote }: footerProps) {
         <span>Be real about your favorite reels. </span>Powered by{" "}
         <a href="http://imdb.com" target="_blank" rel="noreferrer">
           <img src={logo} alt="IMDb" />
+        </a>{" "}
+        and
+        <a
+          id="to-tv-api"
+          href="https://tv-api.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          TV-API
         </a>
       </div>
       <ul>
