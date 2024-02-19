@@ -45,8 +45,6 @@ export function PollListing({ user, directory }: listProps) {
   const numVotes = directory?.poll.votes.length || 0;
   const numComments = directory?.poll.comments.length || 0;
 
-  console.log(user);
-
   return directory ? (
     <li
       className={

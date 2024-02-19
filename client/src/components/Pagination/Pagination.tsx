@@ -47,7 +47,7 @@ export function Pagination({
             <FontAwesomeIcon icon={faChevronLeft} />
           </div>
         </li>
-        {paginationRange.map((pageNum, index) => {
+        {paginationRange.map((pageNum: string | number, index: number) => {
           return pageNum === "…" ? (
             <li key={index} className="ellipsis">
               <div>…</div>
