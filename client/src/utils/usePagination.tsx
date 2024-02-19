@@ -67,7 +67,5 @@ export const usePagination = ({
     }
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
-  console.log(paginationRange);
-
   return paginationRange;
 };

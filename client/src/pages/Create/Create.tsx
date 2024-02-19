@@ -386,6 +386,7 @@ export function Create() {
                 searchField={searchField}
                 setSearchField={setSearchField}
                 options={options}
+                setResults={setResults}
                 setSearchError={setSearchError}
                 setNoResults={setNoResults}
                 setSourceDown={setSourceDown}

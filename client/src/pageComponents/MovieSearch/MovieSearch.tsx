@@ -2,6 +2,7 @@
 
 /* REQUIRED PROPS:
 searchField: state that tracks search field contents
+setResults: handler for results returned from OpenAI
 setSearchField: handler for changes in the search field
 setSearchError: handler for search error state
 setNoResults: setter for flag that search returned no results
@@ -16,7 +17,7 @@ handleSearchSubmit: handler for submitting the search */
 import "./MovieSearch.css";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
-import { searchOptions } from "../../utils/interfaces";
+import { movieProps, searchOptions } from "../../utils/interfaces";
 import { convertLengthVals } from "../../utils/typeUtils";
 import {
   InputText,
@@ -29,6 +30,7 @@ import {
 
 interface movieSearchProps {
   searchField: string;
+  setResults: Dispatch<SetStateAction<movieProps[]>>;
   setSearchField: Dispatch<SetStateAction<string>>;
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
@@ -43,6 +45,7 @@ interface movieSearchProps {
 
 export function MovieSearch({
   searchField,
+  setResults,
   setSearchField,
   setSearchError,
   setNoResults,
@@ -142,7 +145,7 @@ export function MovieSearch({
           keyUp={handleReturn}
         />
       </fieldset>
-      <OpenAIRequest />
+      <OpenAIRequest setResults={setResults} />
       <Accordion flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Search Options</Accordion.Header>

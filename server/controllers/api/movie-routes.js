@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const fetch = require("axios");
+const OpenAI = require("openai");
 
 router.get("/search/:string", async (req, res) => {
   // Route to get movies by title search
@@ -47,6 +48,52 @@ router.get("/search/:string", async (req, res) => {
     );
 
     res.status(200).json(ratedMovies);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "ETIMEDOUT")
+      res.status(500).json({
+        message: "Our data source is not responding. Please try again later.",
+      });
+    else res.status(500).json(err);
+  }
+});
+
+router.post("/ai-search", async (req, res) => {
+  // Route to get movies by OpenAI search
+
+  const userRequest = req.body.userRequest;
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPEN_AI_KEY,
+  });
+
+  try {
+    // ask ChatGPT for results
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      max_tokens: 1000,
+      temperature: 0.5,
+      messages: [
+        {
+          role: "user",
+          content: `Show me the best feature films that ${userRequest}`,
+        },
+        {
+          role: "system",
+          content:
+            "Include title, year, imDb id, imDb plot synopsis, MPAA rating and worldwide gross",
+        },
+        {
+          role: "system",
+          content: "Return up to ten movies that match the request",
+        },
+        {
+          role: "system",
+          content: "Format as JSON",
+        },
+      ],
+    });
+    res.status(200).json(chatCompletion.choices[0].message.content);
   } catch (err) {
     console.log(err);
     if (err.code === "ETIMEDOUT")
