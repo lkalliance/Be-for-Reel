@@ -249,6 +249,22 @@ body .style-b .user-data.hoverable:hover {
   background-color: var(--b-tertiary-mid);
 }
 
+body .border-user {
+  border-color: var(--tertiary-mid);
+}
+
+body .border-you {
+  border-color: var(--secondary-color);
+}
+
+body .style-b .border-user {
+  border-color: var(--b-tertiary-mid);
+}
+
+body .style-b .border-you {
+  border-color: var(--b-secondary-color);
+}
+
 /* FREQUENT STRUCTURES */
 
 /* list items */
