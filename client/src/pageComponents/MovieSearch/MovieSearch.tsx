@@ -15,6 +15,7 @@ handleSelectOption: handler for changes to a menu selection
 handleSearchSubmit: handler for submitting the search */
 
 import "./MovieSearch.css";
+import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { movieProps, searchOptions } from "../../utils/interfaces";
@@ -26,6 +27,7 @@ import {
   DoubleSlider,
   Select,
   OpenAIRequest,
+  Tabs,
 } from "../../components";
 
 interface movieSearchProps {
@@ -35,6 +37,7 @@ interface movieSearchProps {
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
   setSourceDown: Dispatch<SetStateAction<boolean>>;
+  setSearching: Dispatch<SetStateAction<boolean>>;
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -50,6 +53,7 @@ export function MovieSearch({
   setSearchError,
   setNoResults,
   setSourceDown,
+  setSearching,
   options,
   handleReturn,
   handleOption,
@@ -57,6 +61,13 @@ export function MovieSearch({
   handleSelectOption,
   handleSearchSubmit,
 }: movieSearchProps) {
+  const [whichTab, setTab] = useState<"title" | "AI">("title");
+
+  const tabHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { id } = e.currentTarget;
+    if (id === "title" || id === "AI") setTab(id);
+  };
+
   const clearErrors = () => {
     setSearchError("");
     setNoResults(false);
@@ -134,39 +145,43 @@ export function MovieSearch({
 
   return (
     <>
-      <fieldset>
-        <InputText
-          type="text"
-          id="titleSearchBox"
-          placeholder="Title"
-          capitalize="off"
-          val={searchField}
-          setValue={handleSearchChange}
-          keyUp={handleReturn}
-        />
-      </fieldset>
-      <OpenAIRequest setResults={setResults} />
-      <Accordion flush>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Search Options</Accordion.Header>
-          <Accordion.Body>
-            <form>
-              <fieldset id="released" className="list-member-20">
-                <Slider
-                  id="decade"
-                  val={+options.decade}
-                  setValue={handleOptChange}
-                  min={0}
-                  max={11}
-                  label="Release decade"
-                  labelVal={`${
-                    options.decade === "0"
-                      ? "all"
-                      : `${1910 + 10 * parseInt(options.decade)}'s`
-                  }`}
-                  sliderKey={{ min: "earlier", max: "later" }}
-                />
-                {/* <DoubleSlider
+      <Tabs list={["title", "AI"]} current={whichTab} handler={tabHandler} />
+      {whichTab === "title" && (
+        <>
+          <fieldset>
+            <InputText
+              type="text"
+              label="Find titles like..."
+              id="titleSearchBox"
+              placeholder="Title"
+              capitalize="off"
+              val={searchField}
+              setValue={handleSearchChange}
+              keyUp={handleReturn}
+            />
+          </fieldset>
+
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Search Options</Accordion.Header>
+              <Accordion.Body>
+                <form>
+                  <fieldset id="released" className="list-member-20">
+                    <Slider
+                      id="decade"
+                      val={+options.decade}
+                      setValue={handleOptChange}
+                      min={0}
+                      max={11}
+                      label="Release decade"
+                      labelVal={`${
+                        options.decade === "0"
+                          ? "all"
+                          : `${1910 + 10 * parseInt(options.decade)}'s`
+                      }`}
+                      sliderKey={{ min: "earlier", max: "later" }}
+                    />
+                    {/* <DoubleSlider
                   id="years"
                   min={1910}
                   max={thisYear()}
@@ -189,105 +204,121 @@ export function MovieSearch({
                   sliderKey={{ min: "earlier", max: "later" }}
                   setValue={handleDualOptChange}
                 /> */}
-              </fieldset>
-              <fieldset className="list-member-20">
-                <DoubleSlider
-                  id="length"
-                  min={0}
-                  max={8}
-                  step={1}
-                  startVal={{
-                    min: options.length.min,
-                    max: options.length.max,
-                  }}
-                  label={"Length"}
-                  labelVal={`${
-                    options.length.min === 0 && options.length.max === 8
-                      ? "any"
-                      : options.length.min === 0
-                      ? `${
-                          convertLengthVals(options.length.max).label
-                        } or shorter`
-                      : options.length.max === 8
-                      ? `${
-                          convertLengthVals(options.length.min).label
-                        } or longer`
-                      : `between ${
-                          convertLengthVals(options.length.min).label
-                        } and ${convertLengthVals(options.length.max).label}`
-                  }`}
-                  sliderKey={{ min: "shorter", max: "longer" }}
-                  setValue={handleDualOptChange}
-                />
-              </fieldset>
-              <fieldset id="ratings" className="list-member-20">
-                <legend>Limit to just these US ratings</legend>
-                <div>
-                  <Checkbox
-                    id="G"
-                    label="G"
-                    setValue={handleOptChange}
-                    val={Boolean(options.G)}
-                  />
-                  <Checkbox
-                    id="PG"
-                    label="PG"
-                    setValue={handleOptChange}
-                    val={Boolean(options.PG)}
-                  />
-                  <Checkbox
-                    id="PG13"
-                    label="PG-13"
-                    setValue={handleOptChange}
-                    val={Boolean(options.PG13)}
-                  />
-                  <Checkbox
-                    id="R"
-                    label="R"
-                    setValue={handleOptChange}
-                    val={Boolean(options.R)}
-                  />
-                </div>
-              </fieldset>
-              <fieldset id="oscars" className="list-member-20">
-                <div>
-                  <Checkbox
-                    id="oscar"
-                    label="Nominated for Best Picture"
-                    setValue={handleOptChange}
-                    val={Boolean(options.oscar)}
-                  />
-                </div>
-                <div>
-                  <Checkbox
-                    id="oscarWin"
-                    label="Won any Oscar"
-                    setValue={handleOptChange}
-                    val={Boolean(options.oscarWin)}
-                  />
-                </div>
-              </fieldset>
-              <fieldset id="genres" className="list-member-20">
-                <legend>Limit to just this genre</legend>
-                <Select
-                  id="genre"
-                  options={genreObjs}
-                  val={options.genre}
-                  setValue={handleMenuChange}
-                />
-              </fieldset>
-            </form>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+                  </fieldset>
+                  <fieldset className="list-member-20">
+                    <DoubleSlider
+                      id="length"
+                      min={0}
+                      max={8}
+                      step={1}
+                      startVal={{
+                        min: options.length.min,
+                        max: options.length.max,
+                      }}
+                      label={"Length"}
+                      labelVal={`${
+                        options.length.min === 0 && options.length.max === 8
+                          ? "any"
+                          : options.length.min === 0
+                          ? `${
+                              convertLengthVals(options.length.max).label
+                            } or shorter`
+                          : options.length.max === 8
+                          ? `${
+                              convertLengthVals(options.length.min).label
+                            } or longer`
+                          : `between ${
+                              convertLengthVals(options.length.min).label
+                            } and ${
+                              convertLengthVals(options.length.max).label
+                            }`
+                      }`}
+                      sliderKey={{ min: "shorter", max: "longer" }}
+                      setValue={handleDualOptChange}
+                    />
+                  </fieldset>
+                  <fieldset id="ratings" className="list-member-20">
+                    <legend>Limit to just these US ratings</legend>
+                    <div>
+                      <Checkbox
+                        id="G"
+                        label="G"
+                        setValue={handleOptChange}
+                        val={Boolean(options.G)}
+                      />
+                      <Checkbox
+                        id="PG"
+                        label="PG"
+                        setValue={handleOptChange}
+                        val={Boolean(options.PG)}
+                      />
+                      <Checkbox
+                        id="PG13"
+                        label="PG-13"
+                        setValue={handleOptChange}
+                        val={Boolean(options.PG13)}
+                      />
+                      <Checkbox
+                        id="R"
+                        label="R"
+                        setValue={handleOptChange}
+                        val={Boolean(options.R)}
+                      />
+                    </div>
+                  </fieldset>
+                  <fieldset id="oscars" className="list-member-20">
+                    <div>
+                      <Checkbox
+                        id="oscar"
+                        label="Nominated for Best Picture"
+                        setValue={handleOptChange}
+                        val={Boolean(options.oscar)}
+                      />
+                    </div>
+                    <div>
+                      <Checkbox
+                        id="oscarWin"
+                        label="Won any Oscar"
+                        setValue={handleOptChange}
+                        val={Boolean(options.oscarWin)}
+                      />
+                    </div>
+                  </fieldset>
+                  <fieldset id="genres" className="list-member-20">
+                    <legend>Limit to just this genre</legend>
+                    <Select
+                      id="genre"
+                      options={genreObjs}
+                      val={options.genre}
+                      setValue={handleMenuChange}
+                    />
+                  </fieldset>
+                </form>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
 
-      <button
-        onClick={handleSearchSubmit}
-        className="btn btn-primary"
-        disabled={searchField.length < 3 && usedOpts < 3}
-      >
-        Search for films
-      </button>
+          <button
+            onClick={handleSearchSubmit}
+            className="btn btn-primary"
+            disabled={searchField.length < 3 && usedOpts < 3}
+          >
+            Search for films
+          </button>
+        </>
+      )}
+      {whichTab === "AI" && (
+        <fieldset>
+          <OpenAIRequest
+            setResults={setResults}
+            setSearchField={setSearchField}
+            setSearchError={setSearchError}
+            setNoResults={setNoResults}
+            setSourceDown={setSourceDown}
+            setSearching={setSearching}
+          />
+        </fieldset>
+      )}
     </>
   );
 }

@@ -13,6 +13,14 @@ section#create h5 {
   border-bottom: 1px solid var(--tertiary-color);
 }
 
+section#create h5 span {
+  display: block;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--dark-text);
+  font-weight: normal;
+}
+
 section#create p.list-member-12 {
   color: white;
 }
@@ -25,6 +33,10 @@ section#create div#about,
 section#create div#titleSearch {
   max-width: 400px;
   margin-bottom: 50px;
+}
+
+section#create div.textarea {
+  margin-top: 10px;
 }
 
 /* section#create .container {

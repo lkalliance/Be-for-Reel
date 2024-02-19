@@ -71,6 +71,7 @@ export function Create() {
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
+  const [searchingAI, setSearchingAI] = useState<boolean>(false); // tracks message that AI search is in progress
   const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
@@ -380,7 +381,7 @@ export function Create() {
           <h1>Create a Poll</h1>
           <div className="row">
             <div id="titleSearch" className="col-12 col-sm-6">
-              <h3>Search for a title</h3>
+              <h3>Search for films</h3>
 
               <MovieSearch
                 searchField={searchField}
@@ -390,6 +391,7 @@ export function Create() {
                 setSearchError={setSearchError}
                 setNoResults={setNoResults}
                 setSourceDown={setSourceDown}
+                setSearching={setSearchingAI}
                 handleOption={handleOption}
                 handleDualOption={handleDualOption}
                 handleSelectOption={handleSelectOption}
@@ -398,16 +400,27 @@ export function Create() {
               />
 
               <div id="results">
-                <h5 className="center">Search Results</h5>
-                {searching ? (
+                <h5 className="center">
+                  Search Results<span>(click or tap to add to your poll)</span>
+                </h5>
+
+                {searching && (
                   <div className="alert alert-primary">
                     Searching for titles...
                   </div>
-                ) : (
-                  ""
+                )}
+                {searchingAI && (
+                  <div className="alert alert-primary">
+                    Asking ChatGPT for its opinion...
+                  </div>
                 )}
                 {noResults && !sourceDown && (
                   <div className="alert alert-danger">No search results</div>
+                )}
+                {searchError.length > 0 && !sourceDown && (
+                  <div className="alert alert-danger">
+                    Something went wrong with the search. Please try again.
+                  </div>
                 )}
                 {sourceDown && (
                   <div className="alert alert-danger">{searchError}</div>
@@ -457,7 +470,10 @@ export function Create() {
               ) : (
                 ""
               )}
-              <h5 className="center">Selected Films</h5>
+              <h5 className="center">
+                Selected Films
+                <span>(click or tap to remove from your poll)</span>
+              </h5>
               {selected.length >= 12 ? (
                 <div className="alert alert-primary">
                   Maximum poll options reached.

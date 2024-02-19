@@ -15,9 +15,21 @@ interface openAiReturn {
 
 interface openAiProps {
   setResults: Dispatch<SetStateAction<movieProps[]>>;
+  setSearchField: Dispatch<SetStateAction<string>>;
+  setSearchError: Dispatch<SetStateAction<string>>;
+  setNoResults: Dispatch<SetStateAction<boolean>>;
+  setSourceDown: Dispatch<SetStateAction<boolean>>;
+  setSearching: Dispatch<SetStateAction<boolean>>;
 }
 
-export function OpenAIRequest({ setResults }: openAiProps) {
+export function OpenAIRequest({
+  setResults,
+  setSearchField,
+  setSearchError,
+  setNoResults,
+  setSourceDown,
+  setSearching,
+}: openAiProps) {
   const [request, setRequest] = useState("");
 
   const convertReturn = (results: openAiReturn[]) => {
@@ -49,22 +61,38 @@ export function OpenAIRequest({ setResults }: openAiProps) {
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSearching(false);
+    setResults([]);
+    setSearchField("");
+    setNoResults(false);
+    setSearchError("");
+
     // first check to see if anything was provided
     if (request.length === 0) {
       console.log("No inputs");
       return;
     }
-    const searchResults = await axios.post("/api/movies/ai-search", {
-      userRequest: request,
-    });
-    const jsonResults = JSON.parse(searchResults.data);
 
-    const convertedResults = jsonResults.movies
-      ? convertReturn(jsonResults.movies)
-      : [];
+    setSearching(true);
 
-    setResults(convertedResults);
-    setRequest("");
+    try {
+      const searchResults = await axios.post("/api/movies/ai-search", {
+        userRequest: request,
+      });
+      setSearching(false);
+      const jsonResults = JSON.parse(searchResults.data);
+
+      const convertedResults = jsonResults.movies
+        ? convertReturn(jsonResults.movies)
+        : [];
+
+      setResults(convertedResults);
+      if (convertedResults.length === 0) setNoResults(true);
+      else setRequest("");
+    } catch (err) {
+      console.log(err);
+      setSearchError("Something went wrong with the search. Please try again.");
+    }
   };
 
   return (
@@ -75,7 +103,13 @@ export function OpenAIRequest({ setResults }: openAiProps) {
         val={request}
         setValue={handleChange}
       />
-      <button onClick={handleSubmit}>Make request</button>
+      <button
+        className="btn btn-primary"
+        onClick={handleSubmit}
+        disabled={request.length < 3}
+      >
+        Search for films
+      </button>
     </div>
   );
 }
