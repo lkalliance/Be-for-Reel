@@ -24,6 +24,7 @@ import {
   Slider,
   DoubleSlider,
   Select,
+  OpenAIRequest,
 } from "../../components";
 
 interface movieSearchProps {
@@ -141,6 +142,7 @@ export function MovieSearch({
           keyUp={handleReturn}
         />
       </fieldset>
+      <OpenAIRequest />
       <Accordion flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Search Options</Accordion.Header>
