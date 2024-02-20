@@ -51,7 +51,7 @@ export function Contact() {
       <p>
         Please fill out the form below to send an email to the owner of this
         website. As this is little more than a project, we offer no guarantee of
-        a response to your email.
+        a response to your email. But we do welcome feedback!
       </p>
       <InputText
         label="Your email address"
@@ -73,6 +73,7 @@ export function Contact() {
         id="message"
         val={formValues.message}
         setValue={handleChange}
+        placeholder="(required)"
       />
       <button
         className="btn btn-primary"
