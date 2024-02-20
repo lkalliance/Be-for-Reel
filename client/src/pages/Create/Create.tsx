@@ -383,21 +383,24 @@ export function Create() {
             <div id="titleSearch" className="col-12 col-sm-6">
               <h3>Search for films</h3>
 
-              <MovieSearch
-                searchField={searchField}
-                setSearchField={setSearchField}
-                options={options}
-                setResults={setResults}
-                setSearchError={setSearchError}
-                setNoResults={setNoResults}
-                setSourceDown={setSourceDown}
-                setSearching={setSearchingAI}
-                handleOption={handleOption}
-                handleDualOption={handleDualOption}
-                handleSelectOption={handleSelectOption}
-                handleReturn={handleReturn}
-                handleSearchSubmit={handleSearchSubmit}
-              />
+              <div className="create-container">
+                <MovieSearch
+                  searchField={searchField}
+                  setSearchField={setSearchField}
+                  options={options}
+                  setResults={setResults}
+                  setSearchError={setSearchError}
+                  setNoResults={setNoResults}
+                  setSourceDown={setSourceDown}
+                  searching={searchingAI}
+                  setSearching={setSearchingAI}
+                  handleOption={handleOption}
+                  handleDualOption={handleDualOption}
+                  handleSelectOption={handleSelectOption}
+                  handleReturn={handleReturn}
+                  handleSearchSubmit={handleSearchSubmit}
+                />
+              </div>
 
               <div id="results">
                 <h5 className="center">
@@ -443,19 +446,21 @@ export function Create() {
             </div>
             <div id="about" className="col-12 col-sm-6">
               <h3>About your poll</h3>
-              <AboutPoll
-                pollData={pollData}
-                handlePollData={handlePollData}
-                genreObj={genreTracker}
-                totalSelect={selected.length}
-              />
-              <button
-                onClick={handleCreate}
-                className="btn btn-primary"
-                disabled={!(pollData.title.length > 0 && selected.length > 1)}
-              >
-                Create poll
-              </button>
+              <div className="create-container">
+                <AboutPoll
+                  pollData={pollData}
+                  handlePollData={handlePollData}
+                  genreObj={genreTracker}
+                  totalSelect={selected.length}
+                />
+                <button
+                  onClick={handleCreate}
+                  className="btn btn-primary"
+                  disabled={!(pollData.title.length > 0 && selected.length > 1)}
+                >
+                  Create poll
+                </button>
+              </div>
               {errorMessage.length > 0 ? (
                 <div className="alert alert-danger">{errorMessage}</div>
               ) : profError ? (

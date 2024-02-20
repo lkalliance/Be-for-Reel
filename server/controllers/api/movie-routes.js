@@ -69,14 +69,59 @@ router.post("/ai-search", async (req, res) => {
 
   try {
     // ask ChatGPT for results
+
+    const functionDefinitions = [
+      {
+        name: "convertReturn",
+        description:
+          "Convert the received object into one ready for the front end",
+        parameters: {
+          type: "object",
+          properties: {
+            movies: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  title: {
+                    type: "string",
+                    description: "the title of the movie",
+                  },
+                  year: {
+                    type: "number",
+                    description: "the year the movie was released",
+                  },
+                  imdb_id: {
+                    type: "string",
+                    description: "the IMDB id of the movie",
+                  },
+                  plot: {
+                    type: "string",
+                    description: "the IMDB-provided plot of the movie",
+                  },
+                  MPAA_rating: {
+                    type: "string",
+                    description: "The MPAA content rating of the movie",
+                  },
+                  worldwide_gross: {
+                    type: "number",
+                    description: "The movie's gross revenue",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ];
+
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      max_tokens: 1000,
       temperature: 0.5,
       messages: [
         {
           role: "user",
-          content: `Show me the best feature films that ${userRequest}`,
+          content: `Show me up to ten best feature films that ${userRequest}`,
         },
         {
           role: "system",
@@ -85,14 +130,17 @@ router.post("/ai-search", async (req, res) => {
         },
         {
           role: "system",
-          content: "Return up to ten movies that match the request",
+          content: "Return results as JSON with no additional text",
         },
         {
-          role: "system",
-          content: "Format as JSON",
+          role: "assistant",
+          content: `I will search for up to ten best feature films that ${userRequest} and provide you with the requested information in JSON format. Let me gather the data for you.`,
         },
       ],
+      functions: functionDefinitions,
+      function_call: "none",
     });
+
     res.status(200).json(chatCompletion.choices[0].message.content);
   } catch (err) {
     console.log(err);

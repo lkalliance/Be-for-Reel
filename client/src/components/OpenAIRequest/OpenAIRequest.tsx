@@ -7,9 +7,9 @@ import { TextAreaField } from "../../components";
 interface openAiReturn {
   MPAA_rating: string;
   imdb_id: string;
-  imdb_plot_synopsis: string;
+  plot: string;
   title: string;
-  worldwide_gross: string;
+  worldwide_gross: number;
   year: number;
 }
 
@@ -20,6 +20,8 @@ interface openAiProps {
   setNoResults: Dispatch<SetStateAction<boolean>>;
   setSourceDown: Dispatch<SetStateAction<boolean>>;
   setSearching: Dispatch<SetStateAction<boolean>>;
+  searching: boolean;
+  handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export function OpenAIRequest({
@@ -28,6 +30,7 @@ export function OpenAIRequest({
   setSearchError,
   setNoResults,
   setSourceDown,
+  searching,
   setSearching,
 }: openAiProps) {
   const [request, setRequest] = useState("");
@@ -37,9 +40,10 @@ export function OpenAIRequest({
       return {
         contentRating: result.MPAA_rating,
         id: result.imdb_id,
-        plot: result.imdb_plot_synopsis || "",
+        plot: result.plot,
         title: result.title,
         description: result.year.toString(),
+        gross: result.worldwide_gross,
       };
     });
 
@@ -60,7 +64,7 @@ export function OpenAIRequest({
     setRequest(value);
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async () => {
     setSearching(false);
     setResults([]);
     setSearchField("");
@@ -81,17 +85,26 @@ export function OpenAIRequest({
       });
       setSearching(false);
       const jsonResults = JSON.parse(searchResults.data);
+      const movieList = jsonResults.movies || [];
+      const convertedResults = convertReturn(movieList);
 
-      const convertedResults = jsonResults.movies
-        ? convertReturn(jsonResults.movies)
-        : [];
+      console.log(convertedResults);
 
       setResults(convertedResults);
       if (convertedResults.length === 0) setNoResults(true);
       else setRequest("");
     } catch (err) {
       console.log(err);
+      setSearching(false);
       setSearchError("Something went wrong with the search. Please try again.");
+    }
+  };
+
+  const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
+    // Handler to assign a keyboard enter to the title search button
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -102,11 +115,12 @@ export function OpenAIRequest({
         label="Find me feature films that..."
         val={request}
         setValue={handleChange}
+        keyUp={handleReturn}
       />
       <button
         className="btn btn-primary"
         onClick={handleSubmit}
-        disabled={request.length < 3}
+        disabled={request.length < 3 || searching}
       >
         Search for films
       </button>

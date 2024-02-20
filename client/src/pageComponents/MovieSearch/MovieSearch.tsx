@@ -7,6 +7,8 @@ setSearchField: handler for changes in the search field
 setSearchError: handler for search error state
 setNoResults: setter for flag that search returned no results
 setSourceDown: setter for flag that there was no response from API
+searching: state that tracks if a search is in progress
+setSearching: setter for flat for ChatGPT searching status
 options: state object that tracks search criteria
 handleReturn: handler to sniff for keyboard return
 handleOption: generic handler for changes to most search criteria
@@ -37,6 +39,7 @@ interface movieSearchProps {
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
   setSourceDown: Dispatch<SetStateAction<boolean>>;
+  searching: boolean;
   setSearching: Dispatch<SetStateAction<boolean>>;
   options: searchOptions;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
@@ -53,6 +56,7 @@ export function MovieSearch({
   setSearchError,
   setNoResults,
   setSourceDown,
+  searching,
   setSearching,
   options,
   handleReturn,
@@ -151,7 +155,7 @@ export function MovieSearch({
           <fieldset>
             <InputText
               type="text"
-              label="Find titles like..."
+              label="Find titles containing..."
               id="titleSearchBox"
               placeholder="Title"
               capitalize="off"
@@ -315,7 +319,9 @@ export function MovieSearch({
             setSearchError={setSearchError}
             setNoResults={setNoResults}
             setSourceDown={setSourceDown}
+            searching={searching}
             setSearching={setSearching}
+            handleReturn={handleReturn}
           />
         </fieldset>
       )}

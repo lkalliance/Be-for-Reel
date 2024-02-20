@@ -25,6 +25,15 @@ section#create p.list-member-12 {
   color: white;
 }
 
+section#create div.tab-container,
+section#create div.tab-container button {
+  margin-top: 0;
+}
+
+section#create div.create-container {
+  min-height: 225px;
+}
+
 .style-b section#create h5 {
   border-bottom-color: var(--b-tertiary-color);
 }
