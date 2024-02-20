@@ -99,6 +99,10 @@ router.post("/ai-search", async (req, res) => {
                     type: "string",
                     description: "the IMDB-provided plot of the movie",
                   },
+                  stars: {
+                    type: "string",
+                    description: "the IMDB-provided plot of the movie",
+                  },
                   MPAA_rating: {
                     type: "string",
                     description: "The MPAA content rating of the movie",
@@ -122,7 +126,7 @@ router.post("/ai-search", async (req, res) => {
         {
           role: "system",
           content:
-            "Include title, year, imDb id, imDb plot synopsis, and MPAA rating",
+            "Include title, year, imDb id, imDb plot synopsis, stars and MPAA rating",
         },
         {
           role: "system",

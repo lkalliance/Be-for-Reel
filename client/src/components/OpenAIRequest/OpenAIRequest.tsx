@@ -8,6 +8,7 @@ interface openAiReturn {
   MPAA_rating: string;
   imdb_id: string;
   plot: string;
+  stars: string;
   title: string;
   worldwide_gross: number;
   year: number;
@@ -45,6 +46,7 @@ export function OpenAIRequest({
         contentRating: result.MPAA_rating,
         id: result.imdb_id,
         plot: result.plot,
+        stars: result.stars,
         title: result.title,
         description: result.year.toString(),
       };
@@ -97,8 +99,6 @@ export function OpenAIRequest({
       const movieList = jsonResults.movies || [];
       const convertedResults = convertReturn(movieList);
 
-      console.log(convertedResults);
-
       setResults(convertedResults);
       if (convertedResults.length === 0) setNoResults(true);
       else {
@@ -108,7 +108,9 @@ export function OpenAIRequest({
     } catch (err) {
       console.log(err);
       setSearching(false);
-      setSearchError("Something went wrong with the search. Please try again.");
+      setSearchError(
+        "Something went wrong with the search. Sometimes rephrasing your request improves the results. Please try again."
+      );
     }
   };
 

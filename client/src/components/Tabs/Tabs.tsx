@@ -10,10 +10,11 @@ import "./Tabs.css";
 interface customTabsProps {
   list: string[];
   current: string;
+  beta?: string;
   handler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Tabs({ list, handler, current }: customTabsProps) {
+export function Tabs({ list, handler, current, beta }: customTabsProps) {
   return (
     <div className="tab-container">
       {list.map((tab, index) => {
@@ -21,9 +22,12 @@ export function Tabs({ list, handler, current }: customTabsProps) {
           <button
             key={index}
             id={tab}
-            className={`btn user-data ${current === tab ? "active" : ""}`}
+            className={`btn user-data ${current === tab && "active"}${
+              beta && beta === tab ? " beta" : ""
+            }`}
             onClick={handler}
           >
+            {beta && beta === tab && <span className="beta">beta</span>}
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         );
