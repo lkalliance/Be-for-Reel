@@ -213,17 +213,17 @@ export interface movieProps {
   // data provided for each film by IMDb
   contentRating: string;
   description: string;
-  genreList: genreObj[];
-  genres: string;
+  genreList?: genreObj[];
+  genres?: string;
   id: string;
-  imDbRating: string;
-  imDbRatingVotes: string;
-  image: string;
-  metacrtiticRating: string;
+  imDbRating?: string;
+  imDbRatingVotes?: string;
+  image?: string;
+  metacrtiticRating?: string;
   plot: string;
-  runtimeStr: string;
-  starList: starObj[];
-  stars: string;
+  runtimeStr?: string;
+  starList?: starObj[];
+  stars?: string;
   title: string;
 }
 

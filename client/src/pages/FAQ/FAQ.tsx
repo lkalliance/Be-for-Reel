@@ -65,6 +65,23 @@ export function FAQ() {
           </p>
         </dd>
 
+        <dt>How do I have to search for titles individually?</dt>
+        <dd>
+          <p>
+            No! We now have an AI search, leveraging the power of ChatGPT to
+            help you get a good start on your poll. Once you are on the{" "}
+            <span>Create</span> page, choose to search for films with AI. Finish
+            the sentence, "Find me feature films that..." and ask ChatGPT to
+            create a list for you.
+          </p>
+          <p>
+            You can use both Title search and AI search to collect all the films
+            you want to include in your poll. The AI results won't be complete
+            and may not be fully accurate, but it's a good shortcut to start
+            your list of films without having to search for every title.
+          </p>
+        </dd>
+
         <dt>
           Is there a limit to the number of films I can include in my poll?
         </dt>

@@ -144,6 +144,10 @@ body input[type="text"].darker {
   color: white;
 }
 
+body label {
+  font-size: 1rem;
+}
+
 textarea:disabled,
 input:disabled,
 button.btn:disabled {

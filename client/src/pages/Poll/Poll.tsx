@@ -35,6 +35,7 @@ export function Poll({ currUser }: pollProps) {
   });
 
   const poll = data?.getPoll;
+
   let opts = loading || !poll ? [] : [...poll.options];
   const thisUser = loading || !poll ? null : _id === poll.user_id;
   if (!loading && poll) {
@@ -52,7 +53,7 @@ export function Poll({ currUser }: pollProps) {
     }
   }
   // is the poll author also the current user?
-  const current = loading ? false : userName === poll.username;
+  const current = loading || !poll ? false : userName === poll.username;
 
   const mostVotes = loading || !poll ? 0 : opts[0].votes;
 

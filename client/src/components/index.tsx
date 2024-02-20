@@ -25,3 +25,4 @@ export { ForgotPwdModal } from "./ForgotPwdModal";
 export { ResetPwdModal } from "./ResetPwdModal";
 export { AlertModal } from "./AlertModal";
 export { Pagination } from "./Pagination";
+export { OpenAIRequest } from "./OpenAIRequest";

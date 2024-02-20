@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const fetch = require("axios");
+const OpenAI = require("openai");
 
 router.get("/search/:string", async (req, res) => {
   // Route to get movies by title search
@@ -47,6 +48,96 @@ router.get("/search/:string", async (req, res) => {
     );
 
     res.status(200).json(ratedMovies);
+  } catch (err) {
+    console.log(err);
+    if (err.code === "ETIMEDOUT")
+      res.status(500).json({
+        message: "Our data source is not responding. Please try again later.",
+      });
+    else res.status(500).json(err);
+  }
+});
+
+router.post("/ai-search", async (req, res) => {
+  // Route to get movies by OpenAI search
+
+  const userRequest = req.body.userRequest;
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPEN_AI_KEY,
+  });
+
+  try {
+    // ask ChatGPT for results
+
+    const functionDefinitions = [
+      {
+        name: "convertReturn",
+        description:
+          "Convert the received object into one ready for the front end",
+        parameters: {
+          type: "object",
+          properties: {
+            movies: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  title: {
+                    type: "string",
+                    description: "the title of the movie",
+                  },
+                  year: {
+                    type: "number",
+                    description: "the year the movie was released",
+                  },
+                  imdb_id: {
+                    type: "string",
+                    description: "the IMDB id of the movie",
+                  },
+                  plot: {
+                    type: "string",
+                    description: "the IMDB-provided plot of the movie",
+                  },
+                  MPAA_rating: {
+                    type: "string",
+                    description: "The MPAA content rating of the movie",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ];
+
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      temperature: 0.2,
+      messages: [
+        {
+          role: "user",
+          content: `Show me up to ten different feature films that ${userRequest}`,
+        },
+        {
+          role: "system",
+          content:
+            "Include title, year, imDb id, imDb plot synopsis, and MPAA rating",
+        },
+        {
+          role: "system",
+          content: "Return results as JSON with no additional text",
+        },
+        {
+          role: "assistant",
+          content: `I will search for up to ten different feature films that ${userRequest} and provide you with the requested information in JSON format. Let me gather the data for you.`,
+        },
+      ],
+      functions: functionDefinitions,
+      function_call: "none",
+    });
+
+    res.status(200).json(chatCompletion.choices[0].message.content);
   } catch (err) {
     console.log(err);
     if (err.code === "ETIMEDOUT")

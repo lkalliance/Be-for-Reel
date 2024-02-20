@@ -71,6 +71,8 @@ export function Create() {
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
+  const [searchingAI, setSearchingAI] = useState<boolean>(false); // tracks message that AI search is in progress
+  const [aiSearch, setAiSearch] = useState<boolean>(false); // was this search an AI search
   const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
@@ -158,6 +160,7 @@ export function Create() {
     setSearching(true);
     setNoResults(false);
     setSourceDown(false);
+    setAiSearch(false);
 
     // set up items to use in constructing the URL
     const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
@@ -380,33 +383,57 @@ export function Create() {
           <h1>Create a Poll</h1>
           <div className="row">
             <div id="titleSearch" className="col-12 col-sm-6">
-              <h3>Search for a title</h3>
+              <h3>Search for films</h3>
 
-              <MovieSearch
-                searchField={searchField}
-                setSearchField={setSearchField}
-                options={options}
-                setSearchError={setSearchError}
-                setNoResults={setNoResults}
-                setSourceDown={setSourceDown}
-                handleOption={handleOption}
-                handleDualOption={handleDualOption}
-                handleSelectOption={handleSelectOption}
-                handleReturn={handleReturn}
-                handleSearchSubmit={handleSearchSubmit}
-              />
+              <div className="create-container">
+                <MovieSearch
+                  searchField={searchField}
+                  setSearchField={setSearchField}
+                  options={options}
+                  setResults={setResults}
+                  setSearchError={setSearchError}
+                  setNoResults={setNoResults}
+                  setSourceDown={setSourceDown}
+                  searching={searchingAI}
+                  setSearching={setSearchingAI}
+                  handleOption={handleOption}
+                  handleDualOption={handleDualOption}
+                  handleSelectOption={handleSelectOption}
+                  handleReturn={handleReturn}
+                  handleSearchSubmit={handleSearchSubmit}
+                  aiSearch={aiSearch}
+                  setAISearch={setAiSearch}
+                />
+              </div>
 
               <div id="results">
-                <h5 className="center">Search Results</h5>
-                {searching ? (
+                <h5 className="center">
+                  Search Results<span>(click or tap to add to your poll)</span>
+                </h5>
+
+                {searching && (
                   <div className="alert alert-primary">
                     Searching for titles...
                   </div>
-                ) : (
-                  ""
+                )}
+                {searchingAI && (
+                  <div className="alert alert-primary">
+                    Asking ChatGPT for its opinion...
+                  </div>
+                )}
+                {aiSearch && (
+                  <p className="chat-gpt-disclaimer">
+                    These results were found by an AI assistant, and may not be
+                    perfect or complete.
+                  </p>
                 )}
                 {noResults && !sourceDown && (
                   <div className="alert alert-danger">No search results</div>
+                )}
+                {searchError.length > 0 && !sourceDown && (
+                  <div className="alert alert-danger">
+                    Something went wrong with the search. Please try again.
+                  </div>
                 )}
                 {sourceDown && (
                   <div className="alert alert-danger">{searchError}</div>
@@ -429,19 +456,21 @@ export function Create() {
             </div>
             <div id="about" className="col-12 col-sm-6">
               <h3>About your poll</h3>
-              <AboutPoll
-                pollData={pollData}
-                handlePollData={handlePollData}
-                genreObj={genreTracker}
-                totalSelect={selected.length}
-              />
-              <button
-                onClick={handleCreate}
-                className="btn btn-primary"
-                disabled={!(pollData.title.length > 0 && selected.length > 1)}
-              >
-                Create poll
-              </button>
+              <div className="create-container">
+                <AboutPoll
+                  pollData={pollData}
+                  handlePollData={handlePollData}
+                  genreObj={genreTracker}
+                  totalSelect={selected.length}
+                />
+                <button
+                  onClick={handleCreate}
+                  className="btn btn-primary"
+                  disabled={!(pollData.title.length > 0 && selected.length > 1)}
+                >
+                  Create poll
+                </button>
+              </div>
               {errorMessage.length > 0 ? (
                 <div className="alert alert-danger">{errorMessage}</div>
               ) : profError ? (
@@ -456,7 +485,10 @@ export function Create() {
               ) : (
                 ""
               )}
-              <h5 className="center">Selected Films</h5>
+              <h5 className="center">
+                Selected Films
+                <span>(click or tap to remove from your poll)</span>
+              </h5>
               {selected.length >= 12 ? (
                 <div className="alert alert-primary">
                   Maximum poll options reached.
