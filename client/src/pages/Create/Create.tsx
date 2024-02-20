@@ -432,7 +432,8 @@ export function Create() {
                 )}
                 {searchError.length > 0 && !sourceDown && (
                   <div className="alert alert-danger">
-                    Something went wrong with the search. Please try again.
+                    Something went wrong with the search. It sometimes helps to
+                    rephrase your search term. Please try again.
                   </div>
                 )}
                 {sourceDown && (

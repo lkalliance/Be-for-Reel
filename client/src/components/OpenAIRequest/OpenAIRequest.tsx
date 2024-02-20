@@ -108,7 +108,9 @@ export function OpenAIRequest({
     } catch (err) {
       console.log(err);
       setSearching(false);
-      setSearchError("Something went wrong with the search. Please try again.");
+      setSearchError(
+        "Something went wrong with the search. Sometimes rephrasing your request improves the results. Please try again."
+      );
     }
   };
 
