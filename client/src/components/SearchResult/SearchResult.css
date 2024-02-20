@@ -8,6 +8,7 @@ li.search-result {
 .search-result h4 {
   font-size: 1em;
   color: var(--link);
+  margin-bottom: 5px;
 }
 
 .search-result h4 span {
@@ -19,4 +20,8 @@ li.search-result {
 .search-result p {
   color: var(--dark-text);
   font-size: 0.8em;
+}
+
+.search-result span.stars {
+  font-weight: bold;
 }

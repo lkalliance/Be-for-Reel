@@ -13,6 +13,8 @@
   margin-right: 8px;
   border: none;
   border-radius: 12px 12px 0 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .tab-container button.btn.active {
@@ -21,6 +23,31 @@
 
 .style-b .tab-container {
   border-bottom-color: var(--b-tertiary-mid);
+}
+
+.tab-container .beta span {
+  position: absolute;
+  bottom: 10px;
+  left: -15px;
+  padding: 0 0 20px 4px;
+  background-color: var(--tertiary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  transform: rotate(-90deg);
+  width: 40px;
+  height: 20px;
+  line-height: 25px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.tab-container button.beta {
+  padding-left: 20px;
+}
+
+.style-b .tab-container .beta span {
+  background-color: var(--b-tertiary-color);
 }
 
 /* button colors */

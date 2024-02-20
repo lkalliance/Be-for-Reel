@@ -33,7 +33,7 @@ export function SearchResult({ value, type, onClick, dataIndex }: resultProps) {
       </h4>
       {type === "search" ? (
         <p>
-          <span>{value.stars} </span>
+          <span className="stars">{value.stars}. </span>
           {value.plot}
         </p>
       ) : (

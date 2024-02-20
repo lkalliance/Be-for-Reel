@@ -154,7 +154,12 @@ export function MovieSearch({
 
   return (
     <>
-      <Tabs list={["title", "AI"]} current={whichTab} handler={tabHandler} />
+      <Tabs
+        list={["title", "AI"]}
+        current={whichTab}
+        handler={tabHandler}
+        beta="AI"
+      />
       {whichTab === "title" && (
         <>
           <fieldset>
