@@ -76,7 +76,9 @@ export function FAQ() {
           </p>
           <p>
             You can use both Title search and AI search to collect all the films
-            you want to include in your poll.
+            you want to include in your poll. The AI results won't be complete
+            and may not be fully accurate, but it's a good shortcut to start
+            your list of films without having to search for every title.
           </p>
         </dd>
 

@@ -59,14 +59,7 @@ export function OpenAIRequest({
       );
     });
 
-    const uniqueResults: movieProps[] = [];
-
-    filteredResults.forEach((movie, index) => {
-      console.log(filteredResults[index] === filteredResults[index - 1]);
-      if (uniqueResults.indexOf(movie) === -1) uniqueResults.push(movie);
-    });
-
-    return uniqueResults;
+    return filteredResults;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
