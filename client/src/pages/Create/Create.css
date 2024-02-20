@@ -25,6 +25,13 @@ section#create p.list-member-12 {
   color: white;
 }
 
+section#create p.chat-gpt-disclaimer {
+  color: var(--dark-text);
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  text-align: center;
+}
+
 section#create div.tab-container,
 section#create div.tab-container button {
   margin-top: 0;

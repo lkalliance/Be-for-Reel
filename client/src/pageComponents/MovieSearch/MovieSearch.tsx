@@ -46,6 +46,8 @@ interface movieSearchProps {
   handleOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleDualOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSelectOption: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  aiSearch: boolean;
+  setAISearch: Dispatch<SetStateAction<boolean>>;
   handleSearchSubmit: () => void;
 }
 
@@ -64,6 +66,8 @@ export function MovieSearch({
   handleDualOption,
   handleSelectOption,
   handleSearchSubmit,
+  aiSearch,
+  setAISearch,
 }: movieSearchProps) {
   const [whichTab, setTab] = useState<"title" | "AI">("title");
 
@@ -76,6 +80,7 @@ export function MovieSearch({
     setSearchError("");
     setNoResults(false);
     setSourceDown(false);
+    setAISearch(false);
   };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
@@ -322,6 +327,8 @@ export function MovieSearch({
             searching={searching}
             setSearching={setSearching}
             handleReturn={handleReturn}
+            clearErrors={clearErrors}
+            setAISearch={setAISearch}
           />
         </fieldset>
       )}

@@ -103,10 +103,6 @@ router.post("/ai-search", async (req, res) => {
                     type: "string",
                     description: "The MPAA content rating of the movie",
                   },
-                  worldwide_gross: {
-                    type: "number",
-                    description: "The movie's gross revenue",
-                  },
                 },
               },
             },
@@ -117,16 +113,16 @@ router.post("/ai-search", async (req, res) => {
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      temperature: 0.5,
+      temperature: 0.2,
       messages: [
         {
           role: "user",
-          content: `Show me up to ten best feature films that ${userRequest}`,
+          content: `Show me up to ten different feature films that ${userRequest}`,
         },
         {
           role: "system",
           content:
-            "Include title, year, imDb id, imDb plot synopsis, MPAA rating and worldwide gross",
+            "Include title, year, imDb id, imDb plot synopsis, and MPAA rating",
         },
         {
           role: "system",
@@ -134,7 +130,7 @@ router.post("/ai-search", async (req, res) => {
         },
         {
           role: "assistant",
-          content: `I will search for up to ten best feature films that ${userRequest} and provide you with the requested information in JSON format. Let me gather the data for you.`,
+          content: `I will search for up to ten different feature films that ${userRequest} and provide you with the requested information in JSON format. Let me gather the data for you.`,
         },
       ],
       functions: functionDefinitions,

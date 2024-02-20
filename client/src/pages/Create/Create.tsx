@@ -72,6 +72,7 @@ export function Create() {
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
   const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
   const [searchingAI, setSearchingAI] = useState<boolean>(false); // tracks message that AI search is in progress
+  const [aiSearch, setAiSearch] = useState<boolean>(false); // was this search an AI search
   const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
   const [genreTracker, setGenreTracker] = useState<genreObj>({}); // tracks available genre submissions
@@ -159,6 +160,7 @@ export function Create() {
     setSearching(true);
     setNoResults(false);
     setSourceDown(false);
+    setAiSearch(false);
 
     // set up items to use in constructing the URL
     const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
@@ -399,6 +401,8 @@ export function Create() {
                   handleSelectOption={handleSelectOption}
                   handleReturn={handleReturn}
                   handleSearchSubmit={handleSearchSubmit}
+                  aiSearch={aiSearch}
+                  setAISearch={setAiSearch}
                 />
               </div>
 
@@ -416,6 +420,12 @@ export function Create() {
                   <div className="alert alert-primary">
                     Asking ChatGPT for its opinion...
                   </div>
+                )}
+                {aiSearch && (
+                  <p className="chat-gpt-disclaimer">
+                    These results were found by an AI assistant, and may not be
+                    perfect or complete.
+                  </p>
                 )}
                 {noResults && !sourceDown && (
                   <div className="alert alert-danger">No search results</div>

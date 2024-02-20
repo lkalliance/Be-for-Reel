@@ -22,6 +22,8 @@ interface openAiProps {
   setSearching: Dispatch<SetStateAction<boolean>>;
   searching: boolean;
   handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
+  clearErrors: () => void;
+  setAISearch: Dispatch<SetStateAction<boolean>>;
 }
 
 export function OpenAIRequest({
@@ -32,6 +34,8 @@ export function OpenAIRequest({
   setSourceDown,
   searching,
   setSearching,
+  clearErrors,
+  setAISearch,
 }: openAiProps) {
   const [request, setRequest] = useState("");
 
@@ -43,25 +47,37 @@ export function OpenAIRequest({
         plot: result.plot,
         title: result.title,
         description: result.year.toString(),
-        gross: result.worldwide_gross,
       };
     });
 
-    const filteredResults = convertedResults.filter((result) => {
+    const filteredResults: movieProps[] = convertedResults.filter((result) => {
       return (
         result.contentRating !== "NC-17" &&
         result.contentRating !== "X" &&
-        result.plot.length > 0
+        result.plot.length > 0 &&
+        result.plot !== "N/A"
       );
     });
 
-    return filteredResults;
+    const uniqueResults: movieProps[] = [];
+
+    filteredResults.forEach((movie, index) => {
+      console.log(filteredResults[index] === filteredResults[index - 1]);
+      if (uniqueResults.indexOf(movie) === -1) uniqueResults.push(movie);
+    });
+
+    return uniqueResults;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
+    clearErrors();
     const { value } = e.target;
-    setRequest(value);
+    const isReturn =
+      value.length > 0 &&
+      (value[value.length - 1].match(/\n/) ||
+        value[value.length - 1].match(/\r/));
+    if (!isReturn) setRequest(value);
   };
 
   const handleSubmit = async () => {
@@ -92,7 +108,10 @@ export function OpenAIRequest({
 
       setResults(convertedResults);
       if (convertedResults.length === 0) setNoResults(true);
-      else setRequest("");
+      else {
+        setRequest("");
+        setAISearch(true);
+      }
     } catch (err) {
       console.log(err);
       setSearching(false);
