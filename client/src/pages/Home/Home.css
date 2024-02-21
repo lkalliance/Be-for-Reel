@@ -3,7 +3,7 @@ h1.homepage-title {
   line-height: 3rem;
   margin: 0 0 12px;
   text-align: center;
-  text-shadow: 2px 2px var(--secondary-color);
+  text-shadow: 2px 2px var(--tertiary-color);
 }
 
 .lead {

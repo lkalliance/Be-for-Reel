@@ -60,8 +60,7 @@ section#profile div.alert {
 
 section#profile span.poll-info,
 section#profile span.you-data,
-section#profile span.user-data,
-section#profile .user-poll svg {
+section#profile span.user-data {
   display: none;
 }
 
