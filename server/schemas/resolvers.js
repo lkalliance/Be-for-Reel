@@ -14,16 +14,13 @@ const fetch = require("axios");
 
 const resolvers = {
   Date: DateResolver,
+
   Query: {
     getUser: async (parent, { lookupname }) => {
       // returns a specific user's document
       const user = await User.findOne({ lookupName: lookupname });
       // sort their polls by expiration
-      user.polls.sort((a, b) => {
-        if (a.deactivated && !b.deactivated) return 1;
-        else if (b.deactivated && !a.deactivated) return -1;
-        return a.expires_on - b.expires_on;
-      });
+      user.polls.reverse();
       // sort their comments by most recent first
       user.comments.reverse();
       // augment the user with flags for editing, deactivating, expired
