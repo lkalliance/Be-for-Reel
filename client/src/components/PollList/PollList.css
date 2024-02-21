@@ -31,6 +31,10 @@
   font-weight: bold;
 }
 
+#user-poll-list .doesnt-exist {
+  width: 100%;
+}
+
 #user-poll-list .deactivate-link span,
 #user-poll-list .edit-link span {
   cursor: pointer;

@@ -16,7 +16,7 @@ import {
   faCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
-import { SearchForm, UserMenu } from "../../components";
+import { SearchForm, UserMenu, UserIcon } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface headerNavProps {
@@ -117,7 +117,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                     setShowUserMenu(false);
                   }}
                 >
-                  {`${userName}`}
+                  <UserIcon username={userName} />
                   <FontAwesomeIcon
                     icon={faCaretRight}
                     className="caret-right reverse"

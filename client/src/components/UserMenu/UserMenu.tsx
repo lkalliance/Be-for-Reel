@@ -33,18 +33,17 @@ export function UserMenu({
   return (
     <div id="user-menu">
       <ul>
-        {showUserName && (
-          <li>
-            <Link
-              to={`/${lookup}`}
-              onClick={(e: React.MouseEvent<HTMLElement>) => {
-                setMenu(false);
-              }}
-            >
-              {uname}
-            </Link>
-          </li>
-        )}
+        <li>
+          <Link
+            to={`/${lookup}`}
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              setMenu(false);
+            }}
+          >
+            {uname}
+          </Link>
+        </li>
+
         <li>
           <Link
             to="/"

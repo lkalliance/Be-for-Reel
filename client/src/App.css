@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Limelight&family=Raleway:wght@100;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Limelight&family=PT+Sans+Narrow:wght@400;700&display=swap&family=Raleway:wght@100;300;400;500;600;700&display=swap");
 :root {
   --page-background: #01141e;
   --link: rgb(250, 246, 246);
@@ -211,28 +211,28 @@ body .style-b .user-data {
 
 body div.you-data,
 body span.tag.you-data,
-body button.you-data {
+body button.btn.you-data {
   color: var(--secondary-on-background);
   background-color: var(--secondary-background);
 }
 
 body .style-b div.you-data,
 body .style-b span.tag.you-data,
-body .style-b button.you-data {
+body .style-b button.btn.you-data {
   color: var(--b-secondary-on-background);
   background-color: var(--b-secondary-background);
 }
 
 body div.user-data,
 body span.tag.user-data,
-body button.user-data {
+body button.btn.user-data {
   color: var(--tertiary-on-background);
   background-color: var(--tertiary-background);
 }
 
 body .style-b div.user-data,
 body .style-b span.tag.user-data,
-body .style-b button.user-data {
+body .style-b button.btn.user-data {
   color: var(--b-tertiary-on-background);
   background-color: var(--b-tertiary-background);
 }

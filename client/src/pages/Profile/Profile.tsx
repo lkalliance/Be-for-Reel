@@ -13,6 +13,7 @@ import {
   CommentList,
   Tabs,
   EmailVerifyModal,
+  UserIcon,
 } from "../../components";
 
 export function Profile() {
@@ -88,23 +89,35 @@ export function Profile() {
         {userData.created ? (
           // the user exists, render their data
           <>
-            <h1 className="col col-12">{userData.userName}</h1>
-            <h4
-              className={`col col-12${thisUser ? " you-data" : " user-data"}`}
-            >{`member since ${createdOn.getFullYear()}`}</h4>
-            {!confirmed && thisUser && (
-              <div className="alert alert-danger">
-                Account not yet activated. Check <strong>{email}</strong> for
-                confirmation email.{" "}
-                <button id="resend" onClick={resendHandler}>
-                  resend
-                </button>
+            <div className="profile-info">
+              <UserIcon
+                username={userData.userName}
+                big={true}
+                thisUser={thisUser}
+              />
+              <div>
+                <h1 className="col col-12">{userData.userName}</h1>
+                <h4
+                  className={`col col-12${
+                    thisUser ? " you-data" : " user-data"
+                  }`}
+                >{`member since ${createdOn.getFullYear()}`}</h4>
+                {!confirmed && thisUser && (
+                  <div className="alert alert-danger">
+                    Account not yet activated. Check <strong>{email}</strong>{" "}
+                    for confirmation email.{" "}
+                    <button id="resend" onClick={resendHandler}>
+                      resend
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
             <Tabs
               list={["polls", "comments"]}
               current={whichTab}
               handler={tabHandler}
+              thisUser={thisUser}
             />
             {userData && whichTab === "polls" && (
               <PollList
