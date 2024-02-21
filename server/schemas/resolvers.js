@@ -35,14 +35,32 @@ const resolvers = {
       return newUser || false;
     },
 
-    getUsers: async () => {
-      // returns full list of users
+    getUsers: async (parent, args, context) => {
+      // get the full list of users
       const users = await User.find().sort({
         userName: 1,
       });
+      users.reverse();
+      // get just the current user
+      let thisUser;
+      if (context.user) {
+        thisUser = await User.findOne({ lookupName: context.user.lookupName });
+      }
+
+      const loggedInUser = !(!context.user || !thisUser);
+
+      // if currently logged in user, move them to the top
+      let rearrangedList;
+      if (loggedInUser) {
+        const filteredList = users.filter((user) => {
+          return user.lookupName !== context.user.lookupName;
+        });
+        rearrangedList = [thisUser, ...filteredList];
+      } else rearrangedList = users;
+
       // convert arrays into lengths for return
       const list = users
-        ? users.map((user) => {
+        ? rearrangedList.map((user) => {
             return {
               user_id: user._id,
               userName: user.userName,
@@ -58,6 +76,7 @@ const resolvers = {
             };
           })
         : [];
+
       return { users: list };
     },
 

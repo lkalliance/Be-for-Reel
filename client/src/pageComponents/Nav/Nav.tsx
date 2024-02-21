@@ -127,7 +127,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                   }`}
                   onClick={(e: React.MouseEvent<HTMLElement>) => {
                     setShowSearch(false);
-                    navigate(`/${lookupName}`);
+                    // navigate(`/${lookupName}`);
                     toggleNav();
                   }}
                   onMouseOver={() => {
