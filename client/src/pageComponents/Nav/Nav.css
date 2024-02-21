@@ -88,73 +88,58 @@ div.navbar-nav div.user-icon.show-menu svg.caret-right {
 div.navbar-nav div.user-icon {
   padding: 9px 0 8px;
   margin-left: 14px;
+}
+
+div.navbar-nav div.nav-item.user-icon.click-to-show {
+  display: block;
+}
+div.navbar-nav div.nav-item.user-icon.click-to-navigate {
   display: none;
 }
 
-/* media queries to determine whether user name or icon */
+/* media query to determine whether user hovering or clicking */
 
 @media screen and (max-width: 767px) {
-  /* screen is narrow enough to show name */
-  div.navbar-nav span.navbar-text.user.click-to-show {
-    display: block;
+  div.navbar-nav div.nav-item.user-icon.click-to-show {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 15px;
   }
-  div.navbar-nav span.navbar-text.user.click-to-navigate {
+
+  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: none;
   }
 }
 
-@media screen and (min-width: 851px) {
-  /* screen is wide enough to show name */
-  div.navbar-nav span.navbar-text.user.click-to-show {
-    display: block;
-  }
-  div.navbar-nav span.navbar-text.user.click-to-navigate {
+@media screen and (hover: hover) {
+  /* screen has hover */
+  div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
   }
-}
-
-@media screen and (hover: hover) and (max-width: 767px) {
-  /* screen is narrow enough to show name AND has hover */
-  div.navbar-nav span.navbar-text.user.click-to-show {
-    display: none;
-  }
-  div.navbar-nav span.navbar-text.user.click-to-navigate {
+  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: block;
   }
 }
 
-@media screen and (hover: hover) and (min-width: 851px) {
-  /* screen is wide enough to show name AND has hover */
-  div.navbar-nav span.navbar-text.user.click-to-show {
+@media screen and (hover: hover) {
+  /* screen has hover */
+  div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
   }
-  div.navbar-nav span.navbar-text.user.click-to-navigate {
+  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: block;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 850px) {
-  /* screen is in range to show icon */
-  div.navbar-nav div.user-icon.click-to-show {
-    display: block;
-  }
-  div.navbar-nav div.user-icon.click-to-navigate {
-    display: none;
-  }
-  div.navbar-nav span.navbar-text.user {
-    display: none;
-  }
-}
+/* media query to adjust alignment of user icon on smaller screens */
 
-@media screen and (hover: hover) and (min-width: 768px) and (max-width: 850px) {
-  /* screen is in range to show icon AND has hover */
-  div.navbar-nav div.user-icon.click-to-navigate {
-    display: block;
-  }
-  div.navbar-nav div.user-icon.click-to-show {
-    display: none;
-  }
-  div.navbar-nav span.navbar-text.user {
-    display: none;
+@media screen and (max-width: 767px) and (hover: hover) {
+  /* screen is small enough to collapse nav */
+  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 15px;
   }
 }
