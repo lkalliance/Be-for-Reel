@@ -11,9 +11,9 @@ import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import {
   faMagnifyingGlass,
-  faUser,
   faCircleQuestion,
   faCaretRight,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
 import { SearchForm, UserMenu } from "../../components";
@@ -32,6 +32,8 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
   const [showSearch, setShowSearch] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [search, setSearch] = useState("");
+
+  // reference to menu toggle to be able to attach its action anywhere
 
   const searchPop = (e: React.MouseEvent<HTMLDivElement>) => {
     // show or hide the search box
@@ -54,13 +56,31 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
     setShowUserMenu(false);
   };
 
+  const toggleNav = () => {
+    const toggle: HTMLButtonElement | null = document.querySelector(
+      "button#toggle-button"
+    );
+    const collapseTell = document.querySelector("div#basic-navbar-nav");
+    const showing = collapseTell
+      ? collapseTell.className.indexOf("show") !== -1
+      : false;
+    if (toggle && showing) toggle.click();
+  };
+
   return (
     <Navbar expand="md" collapseOnSelect={true} bg="transparent" variant="dark">
       <Container>
-        <Link to="/" className="navbar-brand" onClick={closeMenus}>
+        <Link
+          to="/"
+          className="navbar-brand"
+          onClick={() => {
+            closeMenus();
+            toggleNav();
+          }}
+        >
           <img src="/b4r-full.png" alt="Be for Reel" />
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle id="toggle-button" aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {!loggedIn && (
@@ -101,73 +121,14 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
 
             {loggedIn && (
               <>
-                <Navbar.Text
-                  className={`click-to-navigate user${
-                    showUserMenu ? " show-menu" : ""
-                  }`}
-                  onClick={(e: React.MouseEvent<HTMLElement>) => {
-                    setShowSearch(false);
-                    navigate(`/${lookupName}`);
-                  }}
-                  onMouseOver={() => {
-                    setShowUserMenu(true);
-                    setShowSearch(false);
-                  }}
-                  onMouseOut={() => {
-                    setShowUserMenu(false);
-                  }}
-                >
-                  {`${userName}`}
-                  <FontAwesomeIcon
-                    icon={faCaretRight}
-                    className="caret-right reverse"
-                  />
-                  {showUserMenu && (
-                    <UserMenu
-                      uname={userName}
-                      lookup={lookupName}
-                      setMenu={setShowUserMenu}
-                      setLogIn={setLogIn}
-                      setShowSearch={setShowSearch}
-                      showUserName={false}
-                    />
-                  )}
-                </Navbar.Text>
-                <Navbar.Text
-                  className={`click-to-show user${
-                    showUserMenu ? " show-menu" : ""
-                  }`}
-                  onClick={(e: React.MouseEvent<HTMLElement>) => {
-                    setShowSearch(false);
-                    setShowUserMenu(!showUserMenu);
-                  }}
-                  onMouseOver={() => {
-                    setShowSearch(false);
-                  }}
-                >
-                  {`${userName}`}
-                  <FontAwesomeIcon
-                    icon={faCaretRight}
-                    className="caret-right reverse"
-                  />
-                  {showUserMenu && (
-                    <UserMenu
-                      uname={userName}
-                      lookup={lookupName}
-                      setMenu={setShowUserMenu}
-                      setLogIn={setLogIn}
-                      setShowSearch={setShowSearch}
-                      showUserName={false}
-                    />
-                  )}
-                </Navbar.Text>
                 <NavItem
                   className={`click-to-navigate user-icon faq-round ${
                     showUserMenu && "show-menu"
                   }`}
                   onClick={(e: React.MouseEvent<HTMLElement>) => {
                     setShowSearch(false);
-                    navigate(`/${lookupName}`);
+                    // navigate(`/${lookupName}`);
+                    toggleNav();
                   }}
                   onMouseOver={() => {
                     setShowUserMenu(true);
@@ -196,6 +157,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                     />
                   )}
                 </NavItem>
+
                 <NavItem
                   className={`click-to-show user-icon faq-round ${
                     showUserMenu && "show-menu"
@@ -224,6 +186,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
                       setLogIn={setLogIn}
                       setShowSearch={setShowSearch}
                       showUserName={true}
+                      toggleNav={toggleNav}
                     />
                   )}
                 </NavItem>

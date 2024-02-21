@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Limelight&family=Raleway:wght@100;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Limelight&family=PT+Sans+Narrow:wght@400;700&display=swap&family=Raleway:wght@100;300;400;500;600;700&display=swap");
 :root {
   --page-background: #01141e;
   --link: rgb(250, 246, 246);
@@ -13,9 +13,9 @@
   --main-color: white;
 
   /* standard colors */
-  --secondary-color: #48938e;
-  --secondary-background: #12403d;
-  --secondary-on-background: #8acbc6;
+  --secondary-color: rgb(217, 224, 89);
+  --secondary-background: rgb(96, 97, 21);
+  --secondary-on-background: rgb(227, 230, 146);
   --tertiary-color: rgb(119, 159, 202);
   --tertiary-on-background: rgb(137, 177, 219);
   --tertiary-background: rgb(16, 36, 58);
@@ -23,9 +23,9 @@
   --item-background-hover: rgba(78, 89, 135, 0.5);
 
   /* B colors */
-  --b-secondary-color: rgb(233, 241, 82);
-  --b-secondary-background: rgb(96, 97, 21);
-  --b-secondary-on-background: rgb(227, 230, 146);
+  --b-secondary-color: #48938e;
+  --b-secondary-background: #12403d;
+  --b-secondary-on-background: #8acbc6;
   --b-tertiary-color: #48938e;
   --b-tertiary-on-background: rgb(153, 195, 152);
   --b-tertiary-background: #12403d;
@@ -211,28 +211,28 @@ body .style-b .user-data {
 
 body div.you-data,
 body span.tag.you-data,
-body button.you-data {
+body button.btn.you-data {
   color: var(--secondary-on-background);
   background-color: var(--secondary-background);
 }
 
 body .style-b div.you-data,
 body .style-b span.tag.you-data,
-body .style-b button.you-data {
+body .style-b button.btn.you-data {
   color: var(--b-secondary-on-background);
   background-color: var(--b-secondary-background);
 }
 
 body div.user-data,
 body span.tag.user-data,
-body button.user-data {
+body button.btn.user-data {
   color: var(--tertiary-on-background);
   background-color: var(--tertiary-background);
 }
 
 body .style-b div.user-data,
 body .style-b span.tag.user-data,
-body .style-b button.user-data {
+body .style-b button.btn.user-data {
   color: var(--b-tertiary-on-background);
   background-color: var(--b-tertiary-background);
 }

@@ -5,6 +5,10 @@
   border-bottom: 2px solid var(--tertiary-mid);
 }
 
+.tab-container.current {
+  border-bottom-color: var(--secondary-background);
+}
+
 .tab-container button.btn.you-data,
 .tab-container button.btn.user-data,
 .tab-container button.btn.active {

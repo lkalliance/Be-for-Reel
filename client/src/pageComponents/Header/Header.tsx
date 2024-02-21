@@ -24,7 +24,7 @@ export function Header({
   };
   return (
     <header>
-      <div id="switch">
+      {/* <div id="switch">
         <span
           onClick={handleSwitch}
           id="a"
@@ -39,7 +39,7 @@ export function Header({
         >
           B
         </span>
-      </div>
+      </div> */}
       <HeaderNav loggedIn={loggedIn} setLogIn={setLogIn} />
     </header>
   );

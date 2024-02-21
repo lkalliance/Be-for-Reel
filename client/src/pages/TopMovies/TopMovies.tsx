@@ -10,8 +10,12 @@ import { Pagination } from "../../components";
 export function TopMovies() {
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 15;
-  const { loading, data } = useQuery(QUERY_MOVIES);
+  const { loading, data } = useQuery(QUERY_MOVIES, {
+    variables: { number: 100 },
+  });
   const movieData = loading ? [] : data.getMovies.movies;
+
+  console.log(loading ? "loading" : data);
 
   // add ranking to each film
   const list = movieData.map((movie: movieListProps, index: number) => {
@@ -25,6 +29,11 @@ export function TopMovies() {
         : movie.votes === list[index - 1].votes
         ? list[index - 1].rank
         : index + 1;
+    // if this movie is tied, and is the first on a page, flag it
+    movie.tie =
+      index > 0 &&
+      (index + 1) % perPage === 1 &&
+      movie.votes === list[index - 1].votes;
   });
 
   const showThis = listSection(list, currentPage, perPage);
@@ -47,6 +56,7 @@ export function TopMovies() {
               return (
                 <tr key={index} className="list-member-12">
                   <td className="rank">
+                    {movie.tie && "t-"}
                     {index > 0 && movie.rank === showThis[index - 1].rank
                       ? ""
                       : `${movie.rank}.`}

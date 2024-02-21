@@ -58,10 +58,13 @@ section#profile div.alert {
   text-transform: uppercase;
 } */
 
+section#profile div.profile-info div.user-inits {
+  float: left;
+}
+
 section#profile span.poll-info,
 section#profile span.you-data,
-section#profile span.user-data,
-section#profile .user-poll svg {
+section#profile span.user-data {
   display: none;
 }
 

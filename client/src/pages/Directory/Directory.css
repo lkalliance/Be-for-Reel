@@ -48,9 +48,6 @@ section#directory span.your-vote {
   section#directory .title-and-user span.your-vote {
     display: inline;
   }
-  section#directory svg {
-    display: none;
-  }
 }
 
 @media screen and (min-height: 600px) {

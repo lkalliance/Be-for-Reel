@@ -11,20 +11,27 @@ interface customTabsProps {
   list: string[];
   current: string;
   beta?: string;
+  thisUser?: boolean;
   handler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Tabs({ list, handler, current, beta }: customTabsProps) {
+export function Tabs({
+  list,
+  handler,
+  current,
+  beta,
+  thisUser,
+}: customTabsProps) {
   return (
-    <div className="tab-container">
+    <div className={`tab-container${thisUser ? " current" : ""}`}>
       {list.map((tab, index) => {
         return (
           <button
             key={index}
             id={tab}
-            className={`btn user-data ${current === tab && "active"}${
-              beta && beta === tab ? " beta" : ""
-            }`}
+            className={`btn ${thisUser ? "you-data" : "user-data"} ${
+              current === tab && "active"
+            }${beta && beta === tab ? " beta" : ""}`}
             onClick={handler}
           >
             {beta && beta === tab && <span className="beta">beta</span>}

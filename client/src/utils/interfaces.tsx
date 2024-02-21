@@ -234,4 +234,5 @@ export interface movieListProps {
   year: number;
   votes: number;
   rank?: number;
+  tie?: boolean;
 }

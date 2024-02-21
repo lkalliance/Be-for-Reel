@@ -19,6 +19,7 @@ interface userMenuProps {
   setLogIn: Dispatch<SetStateAction<boolean>>;
   setShowSearch: Dispatch<SetStateAction<boolean>>;
   showUserName: boolean;
+  toggleNav?: () => void;
 }
 
 export function UserMenu({
@@ -26,6 +27,7 @@ export function UserMenu({
   lookup,
   setMenu,
   setLogIn,
+  toggleNav,
   setShowSearch,
   showUserName,
 }: userMenuProps) {
@@ -33,18 +35,18 @@ export function UserMenu({
   return (
     <div id="user-menu">
       <ul>
-        {showUserName && (
-          <li>
-            <Link
-              to={`/${lookup}`}
-              onClick={(e: React.MouseEvent<HTMLElement>) => {
-                setMenu(false);
-              }}
-            >
-              {uname}
-            </Link>
-          </li>
-        )}
+        <li>
+          <Link
+            to={`/${lookup}`}
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              setMenu(false);
+              if (toggleNav) toggleNav();
+            }}
+          >
+            {uname}
+          </Link>
+        </li>
+
         <li>
           <Link
             to="/"
@@ -53,6 +55,7 @@ export function UserMenu({
               e.preventDefault();
               Auth.logout();
               setLogIn(false);
+              if (toggleNav) toggleNav();
             }}
           >
             Log out

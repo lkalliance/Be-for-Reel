@@ -14,16 +14,13 @@ const fetch = require("axios");
 
 const resolvers = {
   Date: DateResolver,
+
   Query: {
     getUser: async (parent, { lookupname }) => {
       // returns a specific user's document
       const user = await User.findOne({ lookupName: lookupname });
       // sort their polls by expiration
-      user.polls.sort((a, b) => {
-        if (a.deactivated && !b.deactivated) return 1;
-        else if (b.deactivated && !a.deactivated) return -1;
-        return a.expires_on - b.expires_on;
-      });
+      user.polls.reverse();
       // sort their comments by most recent first
       user.comments.reverse();
       // augment the user with flags for editing, deactivating, expired
@@ -38,14 +35,32 @@ const resolvers = {
       return newUser || false;
     },
 
-    getUsers: async () => {
-      // returns full list of users
+    getUsers: async (parent, args, context) => {
+      // get the full list of users
       const users = await User.find().sort({
         userName: 1,
       });
+      users.reverse();
+      // get just the current user
+      let thisUser;
+      if (context.user) {
+        thisUser = await User.findOne({ lookupName: context.user.lookupName });
+      }
+
+      const loggedInUser = !(!context.user || !thisUser);
+
+      // if currently logged in user, move them to the top
+      let rearrangedList;
+      if (loggedInUser) {
+        const filteredList = users.filter((user) => {
+          return user.lookupName !== context.user.lookupName;
+        });
+        rearrangedList = [thisUser, ...filteredList];
+      } else rearrangedList = users;
+
       // convert arrays into lengths for return
       const list = users
-        ? users.map((user) => {
+        ? rearrangedList.map((user) => {
             return {
               user_id: user._id,
               userName: user.userName,
@@ -61,6 +76,7 @@ const resolvers = {
             };
           })
         : [];
+
       return { users: list };
     },
 
@@ -184,7 +200,7 @@ const resolvers = {
       return { titles };
     },
 
-    getMovies: async () => {
+    getMovies: async (parent, { number }) => {
       // returns a list of all movies, sorted by votes received, up to a number
       const movies = await Movie.find({
         votes: {
@@ -196,26 +212,26 @@ const resolvers = {
       });
 
       // iterate until reach number, then continue to iterate until all ties resolved
-      // const list = [];
-      // let counter = 0;
-      // let adding = true;
-      // while (adding) {
-      //   // add this movie to the list
-      //   list.push(movies[counter]);
+      const list = [];
+      let counter = 0;
+      let adding = true;
+      while (adding) {
+        // add this movie to the list
+        list.push(movies[counter]);
 
-      //   counter++;
-      //   // does the NEXT movie have the same votes?
-      //   if (
-      //     movies[counter].votes !== movies[counter - 1].votes &&
-      //     counter >= number
-      //   ) {
-      //     adding = false;
-      //   }
+        counter++;
+        // does the NEXT movie have the same votes?
+        if (
+          movies[counter].votes !== movies[counter - 1].votes &&
+          counter >= number
+        ) {
+          adding = false;
+        }
 
-      //   // trap against infinite loop
-      //   if (counter === 100 || counter === movies.length - 1) adding = false;
-      // }
-      return { movies };
+        // trap against infinite loop
+        if (counter === 100 || counter === movies.length - 1) adding = false;
+      }
+      return { movies: list };
     },
 
     getSearch: async (parent, { term }) => {
