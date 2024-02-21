@@ -60,7 +60,11 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
     const toggle: HTMLButtonElement | null = document.querySelector(
       "button#toggle-button"
     );
-    if (toggle) toggle.click();
+    const collapseTell = document.querySelector("div#basic-navbar-nav");
+    const showing = collapseTell
+      ? collapseTell.className.indexOf("show") !== -1
+      : false;
+    if (toggle && showing) toggle.click();
   };
 
   return (
