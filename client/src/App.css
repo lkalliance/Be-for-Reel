@@ -13,9 +13,9 @@
   --main-color: white;
 
   /* standard colors */
-  --secondary-color: #48938e;
-  --secondary-background: #12403d;
-  --secondary-on-background: #8acbc6;
+  --secondary-color: rgb(233, 241, 82);
+  --secondary-background: rgb(96, 97, 21);
+  --secondary-on-background: rgb(227, 230, 146);
   --tertiary-color: rgb(119, 159, 202);
   --tertiary-on-background: rgb(137, 177, 219);
   --tertiary-background: rgb(16, 36, 58);
@@ -23,9 +23,9 @@
   --item-background-hover: rgba(78, 89, 135, 0.5);
 
   /* B colors */
-  --b-secondary-color: rgb(233, 241, 82);
-  --b-secondary-background: rgb(96, 97, 21);
-  --b-secondary-on-background: rgb(227, 230, 146);
+  --b-secondary-color: #48938e;
+  --b-secondary-background: #12403d;
+  --b-secondary-on-background: #8acbc6;
   --b-tertiary-color: #48938e;
   --b-tertiary-on-background: rgb(153, 195, 152);
   --b-tertiary-background: #12403d;
