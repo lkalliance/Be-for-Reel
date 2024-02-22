@@ -163,7 +163,7 @@
   }
 }
 
-@media screen and (hover: hover) and (min-width: 576px) {
+@media screen and (hover: hover) {
   .card:hover {
     box-shadow: 0 0 25px var(--tertiary-color);
   }
