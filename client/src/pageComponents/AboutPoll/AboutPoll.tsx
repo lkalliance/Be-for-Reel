@@ -69,15 +69,13 @@ export function AboutPoll({
           val={pollData.description}
           setValue={handlePollData}
         />
-        {genres.length > 0 && totalSelect > 1 ? (
+        {genres.length > 2 && totalSelect > 1 && (
           <Select
             id="userGenre"
             options={genres}
             val={pollData.userGenre}
             setValue={handlePollData}
           />
-        ) : (
-          ""
         )}
       </fieldset>
     </form>
