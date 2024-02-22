@@ -40,7 +40,7 @@ export function Card({
   const current = userName === user;
 
   return (
-    <div className="col">
+    <div className="col card-col">
       <div
         className={`card custom-card${num === 0 && " first-card"}`}
         style={{ backgroundImage: `url(${poster})` }}
