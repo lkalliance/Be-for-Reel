@@ -6,6 +6,11 @@
   flex-direction: column;
   justify-content: flex-end;
   border: none;
+  transition: box-shadow, 0.15s;
+}
+
+.card-col {
+  border-radius: 6px;
 }
 
 .card .card-check {
@@ -155,6 +160,12 @@
     background-color: transparent;
     padding-top: 160px;
     background-image: linear-gradient(transparent, black 90%, black);
+  }
+}
+
+@media screen and (hover: hover) and (min-width: 576px) {
+  .card:hover {
+    box-shadow: 0 0 25px var(--tertiary-color);
   }
 }
 
