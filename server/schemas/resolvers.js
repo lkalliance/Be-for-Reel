@@ -219,17 +219,19 @@ const resolvers = {
         // add this movie to the list
         list.push(movies[counter]);
 
+        const thisMovie = movies[counter];
         counter++;
         // does the NEXT movie have the same votes?
         if (
-          movies[counter].votes !== movies[counter - 1].votes &&
-          counter >= number
+          !movies[counter] ||
+          (movies[counter].votes !== movies[counter - 1].votes &&
+            counter >= number)
         ) {
           adding = false;
         }
 
         // trap against infinite loop
-        if (counter === 100 || counter === movies.length - 1) adding = false;
+        if (counter >= movies.length) adding = false;
       }
       return { movies: list };
     },

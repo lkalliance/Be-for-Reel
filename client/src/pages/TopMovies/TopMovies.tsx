@@ -15,8 +15,6 @@ export function TopMovies() {
   });
   const movieData = loading ? [] : data.getMovies.movies;
 
-  console.log(loading ? "loading" : data);
-
   // add ranking to each film
   const list = movieData.map((movie: movieListProps, index: number) => {
     return { ...movie, rank: index + 1 };
