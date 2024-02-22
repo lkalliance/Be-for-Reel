@@ -40,11 +40,19 @@
 
 .card a.main-link h5 {
   background-color: black;
+  border-radius: 6px 6px 0 0;
   padding: 10px 6px 0;
   text-align: center;
   margin: 0;
   border: none;
   font-size: 1.1rem;
+}
+
+.card.first-card a.main-link h5 {
+  /* min-height: 200px; */
+  background-color: transparent;
+  padding-top: 130px;
+  background-image: linear-gradient(transparent, black 90%, black);
 }
 
 .card a.main-link:hover h5 {
@@ -107,6 +115,9 @@
 @media screen and (min-width: 992px) {
   .card a.main-link h5 {
     font-size: 1.2rem;
+    /* background-color: transparent;
+    padding-top: 160px;
+    background-image: linear-gradient(transparent, black 90%, black); */
   }
 }
 
@@ -138,6 +149,12 @@
 
   .card .title-check {
     display: none;
+  }
+
+  .card a.main-link h5 {
+    background-color: transparent;
+    padding-top: 160px;
+    background-image: linear-gradient(transparent, black 90%, black);
   }
 }
 
