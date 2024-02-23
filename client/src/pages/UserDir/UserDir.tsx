@@ -28,12 +28,14 @@ export function UserDir() {
     <section id="user-directory">
       <h1>Users</h1>
       <ul>
-        {loading
-          ? "users go here"
-          : showThis.map((user: userListProps, index: number) => {
-              const current = user.userName === userName;
-              return <UserListing key={index} user={user} current={current} />;
-            })}
+        {loading ? (
+          <li className="list-item-12">loading users</li>
+        ) : (
+          showThis.map((user: userListProps, index: number) => {
+            const current = user.userName === userName;
+            return <UserListing key={index} user={user} current={current} />;
+          })
+        )}
       </ul>
       <Pagination
         navHandler={handlePageSelect}

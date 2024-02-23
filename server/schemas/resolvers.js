@@ -38,9 +38,9 @@ const resolvers = {
     getUsers: async (parent, args, context) => {
       // get the full list of users
       const users = await User.find().sort({
-        userName: 1,
+        lookupName: 1,
       });
-      users.reverse();
+
       // get just the current user
       let thisUser;
       if (context.user) {

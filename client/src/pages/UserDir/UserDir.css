@@ -15,6 +15,10 @@ section#user-directory a span {
   margin-left: 10px;
 }
 
+section#user-directory a span.tag.you {
+  display: inline;
+}
+
 section#user-directory a {
   width: 100%;
   display: block;
@@ -36,5 +40,9 @@ section#user-directory a span.user-info {
 @media screen and (min-width: 650px) {
   section#user-directory span.tag {
     display: inline;
+  }
+
+  section#user-directory a span.tag.you {
+    display: none;
   }
 }
