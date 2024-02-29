@@ -1,0 +1,201 @@
+"filename", "language", "XML", "CSS", "TypeScript JSX", "TypeScript", "JSON with Comments", "JSON", "Markdown", "JavaScript", "HTML", "comment", "blank", "total"
+"/Users/leeklusky/be-for-reel/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 41, 89
+"/Users/leeklusky/be-for-reel/client/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 21, 47
+"/Users/leeklusky/be-for-reel/client/package.json", "JSON", 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 1, 63
+"/Users/leeklusky/be-for-reel/client/public/index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 20, 23, 1, 44
+"/Users/leeklusky/be-for-reel/client/public/manifest.json", "JSON", 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 1, 26
+"/Users/leeklusky/be-for-reel/client/src/App.css", "CSS", 0, 264, 0, 0, 0, 0, 0, 0, 0, 130, 67, 461
+"/Users/leeklusky/be-for-reel/client/src/App.test.tsx", "TypeScript JSX", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"/Users/leeklusky/be-for-reel/client/src/App.tsx", "TypeScript JSX", 0, 0, 115, 0, 0, 0, 0, 0, 0, 0, 6, 121
+"/Users/leeklusky/be-for-reel/client/src/components/ActionLink/ActionLink.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/ActionLink/ActionLink.tsx", "TypeScript JSX", 0, 0, 15, 0, 0, 0, 0, 0, 0, 5, 5, 25
+"/Users/leeklusky/be-for-reel/client/src/components/ActionLink/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/AlertModal/AlertModal.css", "CSS", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 2, 15
+"/Users/leeklusky/be-for-reel/client/src/components/AlertModal/AlertModal.tsx", "TypeScript JSX", 0, 0, 23, 0, 0, 0, 0, 0, 0, 5, 5, 33
+"/Users/leeklusky/be-for-reel/client/src/components/AlertModal/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Card/Card.css", "CSS", 0, 159, 0, 0, 0, 0, 0, 0, 0, 5, 31, 195
+"/Users/leeklusky/be-for-reel/client/src/components/Card/Card.tsx", "TypeScript JSX", 0, 0, 58, 0, 0, 0, 0, 0, 0, 9, 6, 73
+"/Users/leeklusky/be-for-reel/client/src/components/Card/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Checkbox/Checkbox.css", "CSS", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"/Users/leeklusky/be-for-reel/client/src/components/Checkbox/Checkbox.tsx", "TypeScript JSX", 0, 0, 37, 0, 0, 0, 0, 0, 0, 10, 8, 55
+"/Users/leeklusky/be-for-reel/client/src/components/Checkbox/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Comment/Comment.css", "CSS", 0, 53, 0, 0, 0, 0, 0, 0, 0, 10, 14, 77
+"/Users/leeklusky/be-for-reel/client/src/components/Comment/Comment.tsx", "TypeScript JSX", 0, 0, 55, 0, 0, 0, 0, 0, 0, 13, 7, 75
+"/Users/leeklusky/be-for-reel/client/src/components/Comment/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/CommentList/CommentList.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/CommentList/CommentList.tsx", "TypeScript JSX", 0, 0, 49, 0, 0, 0, 0, 0, 0, 8, 7, 64
+"/Users/leeklusky/be-for-reel/client/src/components/CommentList/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/DoubleSlider/DoubleSlider.css", "CSS", 0, 118, 0, 0, 0, 0, 0, 0, 0, 8, 23, 149
+"/Users/leeklusky/be-for-reel/client/src/components/DoubleSlider/DoubleSlider.tsx", "TypeScript JSX", 0, 0, 125, 0, 0, 0, 0, 0, 0, 16, 14, 155
+"/Users/leeklusky/be-for-reel/client/src/components/DoubleSlider/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/EmailTokenModal/EmailTokenModal.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/EmailTokenModal/EmailTokenModal.tsx", "TypeScript JSX", 0, 0, 30, 0, 0, 0, 0, 0, 0, 7, 9, 46
+"/Users/leeklusky/be-for-reel/client/src/components/EmailTokenModal/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/EmailVerifyModal/EmailVerifyModal.css", "CSS", 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"/Users/leeklusky/be-for-reel/client/src/components/EmailVerifyModal/EmailVerifyModal.tsx", "TypeScript JSX", 0, 0, 20, 0, 0, 0, 0, 0, 0, 4, 5, 29
+"/Users/leeklusky/be-for-reel/client/src/components/EmailVerifyModal/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/ForgotPwdModal/ForgotPwdModal.css", "CSS", 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/leeklusky/be-for-reel/client/src/components/ForgotPwdModal/ForgotPwdModal.tsx", "TypeScript JSX", 0, 0, 50, 0, 0, 0, 0, 0, 0, 7, 6, 63
+"/Users/leeklusky/be-for-reel/client/src/components/ForgotPwdModal/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/InputText/InputText.css", "CSS", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"/Users/leeklusky/be-for-reel/client/src/components/InputText/InputText.tsx", "TypeScript JSX", 0, 0, 84, 0, 0, 0, 0, 0, 0, 26, 13, 123
+"/Users/leeklusky/be-for-reel/client/src/components/InputText/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/OpenAIRequest.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/OpenAIRequest.tsx", "TypeScript JSX", 0, 0, 141, 0, 0, 0, 0, 0, 0, 12, 21, 174
+"/Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Option/Option.css", "CSS", 0, 165, 0, 0, 0, 0, 0, 0, 0, 12, 37, 214
+"/Users/leeklusky/be-for-reel/client/src/components/Option/Option.tsx", "TypeScript JSX", 0, 0, 219, 0, 0, 0, 0, 0, 0, 25, 12, 256
+"/Users/leeklusky/be-for-reel/client/src/components/Option/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Pagination/Pagination.css", "CSS", 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 11, 74
+"/Users/leeklusky/be-for-reel/client/src/components/Pagination/Pagination.tsx", "TypeScript JSX", 0, 0, 73, 0, 0, 0, 0, 0, 0, 0, 6, 79
+"/Users/leeklusky/be-for-reel/client/src/components/Pagination/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/PollList/PollList.css", "CSS", 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 8, 47
+"/Users/leeklusky/be-for-reel/client/src/components/PollList/PollList.tsx", "TypeScript JSX", 0, 0, 86, 0, 0, 0, 0, 0, 0, 8, 9, 103
+"/Users/leeklusky/be-for-reel/client/src/components/PollList/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/PollListing/PollListing.css", "CSS", 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 10, 54
+"/Users/leeklusky/be-for-reel/client/src/components/PollListing/PollListing.tsx", "TypeScript JSX", 0, 0, 133, 0, 0, 0, 0, 0, 0, 20, 9, 162
+"/Users/leeklusky/be-for-reel/client/src/components/PollListing/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Question/Question.css", "CSS", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 3, 14
+"/Users/leeklusky/be-for-reel/client/src/components/Question/Question.tsx", "TypeScript JSX", 0, 0, 24, 0, 0, 0, 0, 0, 0, 5, 5, 34
+"/Users/leeklusky/be-for-reel/client/src/components/Question/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/ResetPwdModal/ResetPwdModal.css", "CSS", 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/leeklusky/be-for-reel/client/src/components/ResetPwdModal/ResetPwdModal.tsx", "TypeScript JSX", 0, 0, 50, 0, 0, 0, 0, 0, 0, 7, 6, 63
+"/Users/leeklusky/be-for-reel/client/src/components/ResetPwdModal/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/SearchForm/SearchForm.css", "CSS", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 5, 30
+"/Users/leeklusky/be-for-reel/client/src/components/SearchForm/SearchForm.tsx", "TypeScript JSX", 0, 0, 55, 0, 0, 0, 0, 0, 0, 7, 8, 70
+"/Users/leeklusky/be-for-reel/client/src/components/SearchForm/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/SearchResult/SearchResult.css", "CSS", 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 5, 28
+"/Users/leeklusky/be-for-reel/client/src/components/SearchResult/SearchResult.tsx", "TypeScript JSX", 0, 0, 35, 0, 0, 0, 0, 0, 0, 7, 5, 47
+"/Users/leeklusky/be-for-reel/client/src/components/SearchResult/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/SearchingAlert.css", "CSS", 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 4, 26
+"/Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/SearchingAlert.tsx", "TypeScript JSX", 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"/Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Select/Select.css", "CSS", 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"/Users/leeklusky/be-for-reel/client/src/components/Select/Select.tsx", "TypeScript JSX", 0, 0, 43, 0, 0, 0, 0, 0, 0, 9, 9, 61
+"/Users/leeklusky/be-for-reel/client/src/components/Select/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/SelectOption/SelectOption.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/SelectOption/SelectOption.tsx", "TypeScript JSX", 0, 0, 8, 0, 0, 0, 0, 0, 0, 4, 5, 17
+"/Users/leeklusky/be-for-reel/client/src/components/SelectOption/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Slider/Slider.css", "CSS", 0, 42, 0, 0, 0, 0, 0, 0, 0, 2, 8, 52
+"/Users/leeklusky/be-for-reel/client/src/components/Slider/Slider.tsx", "TypeScript JSX", 0, 0, 59, 0, 0, 0, 0, 0, 0, 18, 8, 85
+"/Users/leeklusky/be-for-reel/client/src/components/Slider/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/Tabs/Tabs.css", "CSS", 0, 54, 0, 0, 0, 0, 0, 0, 0, 1, 11, 66
+"/Users/leeklusky/be-for-reel/client/src/components/Tabs/Tabs.tsx", "TypeScript JSX", 0, 0, 35, 0, 0, 0, 0, 0, 0, 5, 5, 45
+"/Users/leeklusky/be-for-reel/client/src/components/Tabs/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/TextAreaField/TextAreaField.css", "CSS", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"/Users/leeklusky/be-for-reel/client/src/components/TextAreaField/TextAreaField.tsx", "TypeScript JSX", 0, 0, 70, 0, 0, 0, 0, 0, 0, 20, 10, 100
+"/Users/leeklusky/be-for-reel/client/src/components/TextAreaField/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/TitleSearch/TitleSearch.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/TitleSearch/TitleSearch.tsx", "TypeScript JSX", 0, 0, 383, 0, 0, 0, 0, 0, 0, 78, 46, 507
+"/Users/leeklusky/be-for-reel/client/src/components/TitleSearch/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/UserIcon/UserIcon.css", "CSS", 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 6, 44
+"/Users/leeklusky/be-for-reel/client/src/components/UserIcon/UserIcon.tsx", "TypeScript JSX", 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 3, 33
+"/Users/leeklusky/be-for-reel/client/src/components/UserIcon/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/UserListing/UserListing.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/UserListing/UserListing.tsx", "TypeScript JSX", 0, 0, 29, 0, 0, 0, 0, 0, 0, 11, 6, 46
+"/Users/leeklusky/be-for-reel/client/src/components/UserListing/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/UserMenu/UserMenu.css", "CSS", 0, 35, 0, 0, 0, 0, 0, 0, 0, 1, 7, 43
+"/Users/leeklusky/be-for-reel/client/src/components/UserMenu/UserMenu.tsx", "TypeScript JSX", 0, 0, 55, 0, 0, 0, 0, 0, 0, 7, 6, 68
+"/Users/leeklusky/be-for-reel/client/src/components/UserMenu/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/UsernameLink/UsernameLink.css", "CSS", 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 7, 33
+"/Users/leeklusky/be-for-reel/client/src/components/UsernameLink/UsernameLink.tsx", "TypeScript JSX", 0, 0, 53, 0, 0, 0, 0, 0, 0, 8, 6, 67
+"/Users/leeklusky/be-for-reel/client/src/components/UsernameLink/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/components/index.tsx", "TypeScript JSX", 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"/Users/leeklusky/be-for-reel/client/src/index.css", "CSS", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"/Users/leeklusky/be-for-reel/client/src/index.tsx", "TypeScript JSX", 0, 0, 20, 0, 0, 0, 0, 0, 0, 3, 4, 27
+"/Users/leeklusky/be-for-reel/client/src/logo.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/AboutPoll/AboutPoll.css", "CSS", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/AboutPoll/AboutPoll.tsx", "TypeScript JSX", 0, 0, 66, 0, 0, 0, 0, 0, 0, 9, 9, 84
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/AboutPoll/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Footer/Footer.css", "CSS", 0, 75, 0, 0, 0, 0, 0, 0, 0, 0, 15, 90
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Footer/Footer.tsx", "TypeScript JSX", 0, 0, 41, 0, 0, 0, 0, 0, 0, 2, 4, 47
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Footer/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Header/Header.css", "CSS", 0, 37, 0, 0, 0, 0, 0, 0, 0, 2, 8, 47
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Header/Header.tsx", "TypeScript JSX", 0, 0, 26, 0, 0, 0, 0, 0, 0, 17, 4, 47
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Header/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/LoginForm/LoginForm.css", "CSS", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 4, 17
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/LoginForm/LoginForm.tsx", "TypeScript JSX", 0, 0, 180, 0, 0, 0, 0, 0, 0, 20, 19, 219
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/LoginForm/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/MovieSearch.css", "CSS", 0, 50, 0, 0, 0, 0, 0, 0, 0, 3, 15, 68
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/MovieSearch.tsx", "TypeScript JSX", 0, 0, 60, 0, 0, 0, 0, 0, 0, 13, 9, 82
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Nav/Nav.css", "CSS", 0, 113, 0, 0, 0, 0, 0, 0, 0, 7, 26, 146
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Nav/Nav.tsx", "TypeScript JSX", 0, 0, 182, 0, 0, 0, 0, 0, 0, 8, 17, 207
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/Nav/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/SignupForm/SignupForm.css", "CSS", 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/SignupForm/SignupForm.tsx", "TypeScript JSX", 0, 0, 193, 0, 0, 0, 0, 0, 0, 25, 23, 241
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/SignupForm/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pageComponents/index.tsx", "TypeScript JSX", 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"/Users/leeklusky/be-for-reel/client/src/pages/About/About.css", "CSS", 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 3, 12
+"/Users/leeklusky/be-for-reel/client/src/pages/About/About.tsx", "TypeScript JSX", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 3, 30
+"/Users/leeklusky/be-for-reel/client/src/pages/About/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Contact/Contact.css", "CSS", 0, 20, 0, 0, 0, 0, 0, 0, 0, 1, 6, 27
+"/Users/leeklusky/be-for-reel/client/src/pages/Contact/Contact.tsx", "TypeScript JSX", 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 7, 98
+"/Users/leeklusky/be-for-reel/client/src/pages/Contact/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Create/Create.css", "CSS", 0, 85, 0, 0, 0, 0, 0, 0, 0, 7, 23, 115
+"/Users/leeklusky/be-for-reel/client/src/pages/Create/Create.tsx", "TypeScript JSX", 0, 0, 276, 0, 0, 0, 0, 0, 0, 198, 54, 528
+"/Users/leeklusky/be-for-reel/client/src/pages/Create/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Directory/Directory.css", "CSS", 0, 54, 0, 0, 0, 0, 0, 0, 0, 0, 10, 64
+"/Users/leeklusky/be-for-reel/client/src/pages/Directory/Directory.tsx", "TypeScript JSX", 0, 0, 79, 0, 0, 0, 0, 0, 0, 4, 10, 93
+"/Users/leeklusky/be-for-reel/client/src/pages/Directory/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/FAQ/FAQ.css", "CSS", 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 8, 41
+"/Users/leeklusky/be-for-reel/client/src/pages/FAQ/FAQ.tsx", "TypeScript JSX", 0, 0, 158, 0, 0, 0, 0, 0, 0, 0, 11, 169
+"/Users/leeklusky/be-for-reel/client/src/pages/FAQ/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Home/Home.css", "CSS", 0, 88, 0, 0, 0, 0, 0, 0, 0, 1, 18, 107
+"/Users/leeklusky/be-for-reel/client/src/pages/Home/Home.tsx", "TypeScript JSX", 0, 0, 131, 0, 0, 0, 0, 0, 0, 1, 6, 138
+"/Users/leeklusky/be-for-reel/client/src/pages/Home/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Login/Login.css", "CSS", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 5, 27
+"/Users/leeklusky/be-for-reel/client/src/pages/Login/Login.tsx", "TypeScript JSX", 0, 0, 67, 0, 0, 0, 0, 0, 0, 3, 9, 79
+"/Users/leeklusky/be-for-reel/client/src/pages/Login/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Poll/Poll.css", "CSS", 0, 46, 0, 0, 0, 0, 0, 0, 0, 0, 10, 56
+"/Users/leeklusky/be-for-reel/client/src/pages/Poll/Poll.tsx", "TypeScript JSX", 0, 0, 180, 0, 0, 0, 0, 0, 0, 14, 15, 209
+"/Users/leeklusky/be-for-reel/client/src/pages/Poll/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Profile/Profile.css", "CSS", 0, 71, 0, 0, 0, 0, 0, 0, 0, 9, 17, 97
+"/Users/leeklusky/be-for-reel/client/src/pages/Profile/Profile.tsx", "TypeScript JSX", 0, 0, 138, 0, 0, 0, 0, 0, 0, 7, 13, 158
+"/Users/leeklusky/be-for-reel/client/src/pages/Profile/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/SearchResults/SearchResults.css", "CSS", 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 8, 44
+"/Users/leeklusky/be-for-reel/client/src/pages/SearchResults/SearchResults.tsx", "TypeScript JSX", 0, 0, 162, 0, 0, 0, 0, 0, 0, 1, 13, 176
+"/Users/leeklusky/be-for-reel/client/src/pages/SearchResults/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/Terms/Terms.css", "CSS", 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 3, 12
+"/Users/leeklusky/be-for-reel/client/src/pages/Terms/Terms.tsx", "TypeScript JSX", 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 2, 32
+"/Users/leeklusky/be-for-reel/client/src/pages/Terms/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/TopMovies/TopMovies.css", "CSS", 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 10, 55
+"/Users/leeklusky/be-for-reel/client/src/pages/TopMovies/TopMovies.tsx", "TypeScript JSX", 0, 0, 85, 0, 0, 0, 0, 0, 0, 3, 6, 94
+"/Users/leeklusky/be-for-reel/client/src/pages/TopMovies/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/UserDir/UserDir.css", "CSS", 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 9, 49
+"/Users/leeklusky/be-for-reel/client/src/pages/UserDir/UserDir.tsx", "TypeScript JSX", 0, 0, 44, 0, 0, 0, 0, 0, 0, 1, 5, 50
+"/Users/leeklusky/be-for-reel/client/src/pages/UserDir/index.tsx", "TypeScript JSX", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/pages/index.tsx", "TypeScript JSX", 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"/Users/leeklusky/be-for-reel/client/src/react-app-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/leeklusky/be-for-reel/client/src/recoil/atoms/pollDirectoryAtom.tsx", "TypeScript JSX", 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"/Users/leeklusky/be-for-reel/client/src/reportWebVitals.ts", "TypeScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 3, 16
+"/Users/leeklusky/be-for-reel/client/src/setupTests.ts", "TypeScript", 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 1, 6
+"/Users/leeklusky/be-for-reel/client/src/utils/AFI100.tsx", "TypeScript JSX", 0, 0, 97, 0, 0, 0, 0, 0, 0, 0, 1, 98
+"/Users/leeklusky/be-for-reel/client/src/utils/auth.tsx", "TypeScript JSX", 0, 0, 44, 0, 0, 0, 0, 0, 0, 12, 9, 65
+"/Users/leeklusky/be-for-reel/client/src/utils/index.tsx", "TypeScript JSX", 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 1, 30
+"/Users/leeklusky/be-for-reel/client/src/utils/interfaces.tsx", "TypeScript JSX", 0, 0, 195, 0, 0, 0, 0, 0, 0, 19, 25, 239
+"/Users/leeklusky/be-for-reel/client/src/utils/mutations.tsx", "TypeScript JSX", 0, 0, 158, 0, 0, 0, 0, 0, 0, 0, 9, 167
+"/Users/leeklusky/be-for-reel/client/src/utils/queries.tsx", "TypeScript JSX", 0, 0, 194, 0, 0, 0, 0, 0, 0, 0, 9, 203
+"/Users/leeklusky/be-for-reel/client/src/utils/typeUtils.tsx", "TypeScript JSX", 0, 0, 82, 0, 0, 0, 0, 0, 0, 7, 16, 105
+"/Users/leeklusky/be-for-reel/client/src/utils/usePagination.tsx", "TypeScript JSX", 0, 0, 51, 0, 0, 0, 0, 0, 0, 8, 13, 72
+"/Users/leeklusky/be-for-reel/client/tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 1, 27
+"/Users/leeklusky/be-for-reel/package.json", "JSON", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 1, 28
+"/Users/leeklusky/be-for-reel/server/config/connection.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 9, 0, 7, 5, 21
+"/Users/leeklusky/be-for-reel/server/controllers/api/email-routes.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 188, 0, 9, 24, 221
+"/Users/leeklusky/be-for-reel/server/controllers/api/index.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 4, 10
+"/Users/leeklusky/be-for-reel/server/controllers/api/movie-routes.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 132, 0, 6, 18, 156
+"/Users/leeklusky/be-for-reel/server/controllers/index.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4, 8
+"/Users/leeklusky/be-for-reel/server/models/Confirmation.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 4, 31
+"/Users/leeklusky/be-for-reel/server/models/Genre.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 4, 15
+"/Users/leeklusky/be-for-reel/server/models/Movie.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 4, 27
+"/Users/leeklusky/be-for-reel/server/models/Poll.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 170, 0, 0, 7, 177
+"/Users/leeklusky/be-for-reel/server/models/User.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 143, 0, 6, 12, 161
+"/Users/leeklusky/be-for-reel/server/models/index.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 2, 8
+"/Users/leeklusky/be-for-reel/server/package.json", "JSON", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 1, 36
+"/Users/leeklusky/be-for-reel/server/schemas/index.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 5
+"/Users/leeklusky/be-for-reel/server/schemas/resolvers.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 620, 0, 75, 92, 787
+"/Users/leeklusky/be-for-reel/server/schemas/typeDefs.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 198, 0, 0, 27, 225
+"/Users/leeklusky/be-for-reel/server/server.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 54, 0, 4, 11, 69
+"/Users/leeklusky/be-for-reel/server/utils/auth.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 58, 0, 0, 8, 66
+"/Users/leeklusky/be-for-reel/server/utils/typeUtils.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 95, 0, 14, 11, 120
+"Total", "-", 1, 2178, 5459, 14, 26, 149, 74, 1747, 20, 1095, 1464, 12227

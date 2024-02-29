@@ -359,7 +359,7 @@ export function TitleSearch({
           <Accordion.Header>Search Options</Accordion.Header>
           <Accordion.Body>
             <form>
-              <fieldset id="released" className="list-member-20">
+              <fieldset id="released" className="list-member-12">
                 <Slider
                   id="decade"
                   val={+options.decade}
@@ -403,7 +403,7 @@ export function TitleSearch({
                   setValue={handleDualOptChange}
                 /> */}
               </fieldset>
-              <fieldset className="list-member-20">
+              <fieldset className="list-member-12">
                 <DoubleSlider
                   id="length"
                   min={0}
@@ -433,7 +433,7 @@ export function TitleSearch({
                   setValue={handleDualOptChange}
                 />
               </fieldset>
-              <fieldset id="ratings" className="list-member-20">
+              <fieldset id="ratings" className="list-member-12">
                 <legend>Limit to just these US ratings</legend>
                 <div>
                   <Checkbox
@@ -462,7 +462,7 @@ export function TitleSearch({
                   />
                 </div>
               </fieldset>
-              <fieldset id="oscars" className="list-member-20">
+              <fieldset id="oscars" className="list-member-12">
                 <div>
                   <Checkbox
                     id="oscar"
@@ -480,7 +480,7 @@ export function TitleSearch({
                   />
                 </div>
               </fieldset>
-              <fieldset id="genres" className="list-member-20">
+              <fieldset id="genres" className="list-member-12">
                 <legend>Limit to just this genre</legend>
                 <Select
                   id="genre"
