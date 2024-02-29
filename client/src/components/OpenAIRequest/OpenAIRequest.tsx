@@ -1,3 +1,13 @@
+// This component renders the AI search form
+
+/* REQUIRED PROPS:
+setResults: handler for results returned from OpenAI
+setNoResults: setter for flag that search returned no results
+setAISearch: setter for if a search was done with the AI module
+setSearchError: handler for search error state
+clearErrors: parent function for clearing all error alerts
+active: flag for whether this form is under the selected tab */
+
 import "./OpenAIRequest.css";
 import { useState, Dispatch, SetStateAction } from "react";
 import axios from "axios";
@@ -20,13 +30,6 @@ interface openAiProps {
   setResults: Dispatch<SetStateAction<movieProps[]>>;
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
-  // setSourceDown: Dispatch<SetStateAction<boolean>>;
-  // setSearching: Dispatch<SetStateAction<boolean>>;
-  // searching: boolean;
-  // handleReturn: (
-  //   e: React.KeyboardEvent<HTMLElement>,
-  //   controller: AbortController
-  // ) => void;
   clearErrors: (clearAI: boolean) => void;
   setAISearch: Dispatch<SetStateAction<boolean>>;
   active: boolean;
@@ -36,9 +39,6 @@ export function OpenAIRequest({
   setResults,
   setSearchError,
   setNoResults,
-  // setSourceDown,
-  // searching,
-  // setSearching,
   clearErrors,
   setAISearch,
   active,

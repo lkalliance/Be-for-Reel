@@ -1,3 +1,15 @@
+// This component renders the title search form
+
+/* REQUIRED PROPS:
+setResults: handler for results returned from OpenAI
+setNoResults: setter for flag that search returned no results
+sourceDown: state that tracks if we detect the API is down
+setSourceDown: setter for flag that there was no response from API
+setAISearch: setter for if a search was done with the AI module
+setSearchError: handler for search error state
+clearErrors: parent function for clearing all error alerts
+active: flag for whether this form is under the selected tab */
+
 import "./TitleSearch.css";
 import { useState, Dispatch, SetStateAction } from "react";
 import axios from "axios";
@@ -42,6 +54,9 @@ export function TitleSearch({
   // used to reset options values
   const blankOptions = {
     decade: "0",
+    // this code is if we switch to double-slider for years,
+    // instead of single slider for decade
+    //
     // years: false,
     // years: {
     //   min: 1910,
@@ -163,10 +178,6 @@ export function TitleSearch({
   };
 
   const handleMenuChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // clearErrors();
-    // if (handleSelectOption) handleSelectOption(e);
-    // Handler to track select menu changes to search options
-
     clearErrors(true);
     const { id, value } = e.target;
     const newOptions = { ...options, [id]: value };
@@ -206,6 +217,9 @@ export function TitleSearch({
       paramParts.push(`to=${to}`);
     }
 
+    // This code is if we switch to double-sider for years
+    // instead of single-slider for decade
+    //
     // if (years.min > 1910 || years.max < thisYear()) {
     //   // if there are years to search, add the parameters for from and to
     //   paramParts.push(`from=${years.min}`);
@@ -288,9 +302,6 @@ export function TitleSearch({
     setSearching(false);
     setSourceDown(false);
     setNoResults(false);
-
-    // setSearchField("");
-    // setOptions(blankOptions);
   };
 
   const handleSubmit = () => {
@@ -363,7 +374,12 @@ export function TitleSearch({
                   }`}
                   sliderKey={{ min: "earlier", max: "later" }}
                 />
-                {/* <DoubleSlider
+
+                {/* 
+                This code is for reinstating a double-slider for years,
+                instead of the single-slider for decades                
+                
+                <DoubleSlider
                   id="years"
                   min={1910}
                   max={thisYear()}
