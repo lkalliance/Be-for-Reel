@@ -39,14 +39,7 @@ export function LoginForm({
   const [errorMessage, setErrorMessage] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login] = useMutation(LOGIN, {
-    // when casting a vote, refetch poll directory, user and this poll
-    refetchQueries: () => [
-      {
-        query: QUERY_ALL_USERS,
-      },
-    ],
-  });
+  const [login] = useMutation(LOGIN);
   const [forgotPwd] = useMutation(FORGOT_PWD);
   const [resetPwd] = useMutation(RESET_PWD);
 

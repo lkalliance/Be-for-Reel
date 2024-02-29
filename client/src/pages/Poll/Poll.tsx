@@ -74,7 +74,7 @@ export function Poll({ currUser }: pollProps) {
       },
       {
         query: QUERY_MOVIES,
-        variables: { number: 10 },
+        variables: { number: 100 },
       },
     ],
   });
