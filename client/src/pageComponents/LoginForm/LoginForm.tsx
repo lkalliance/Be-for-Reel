@@ -15,7 +15,6 @@ import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { loginState } from "../../utils/interfaces";
 import { LOGIN, FORGOT_PWD, RESET_PWD } from "../../utils/mutations";
-import { QUERY_ALL_USERS } from "../../utils/queries";
 import { AuthService } from "../../utils/auth";
 import { InputText, ForgotPwdModal, ResetPwdModal } from "../../components";
 
