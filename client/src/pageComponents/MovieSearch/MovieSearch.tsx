@@ -17,8 +17,7 @@ handleSelectOption: handler for changes to a menu selection
 handleSearchSubmit: handler for submitting the search */
 
 import "./MovieSearch.css";
-import { useState } from "react";
-import { Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 // import Accordion from "react-bootstrap/Accordion";
 import { movieProps, searchOptions } from "../../utils/interfaces";
 import { convertLengthVals } from "../../utils/typeUtils";
@@ -366,6 +365,7 @@ export function MovieSearch({
           setSourceDown={setSourceDown}
           setAIsearch={setAISearch}
           setSearchError={setSearchError}
+          clearErrors={clearErrors}
         />
 
         // <>
@@ -532,7 +532,7 @@ export function MovieSearch({
         <fieldset>
           <OpenAIRequest
             setResults={setResults}
-            setSearchField={setSearchField}
+            // setSearchField={setSearchField}
             setSearchError={setSearchError}
             setNoResults={setNoResults}
             // setSourceDown={setSourceDown}

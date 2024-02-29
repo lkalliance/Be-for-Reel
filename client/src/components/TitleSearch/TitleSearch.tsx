@@ -1,5 +1,7 @@
 import "./TitleSearch.css";
 import { useState, Dispatch, SetStateAction } from "react";
+import axios from "axios";
+
 import Accordion from "react-bootstrap/Accordion";
 import {
   InputText,
@@ -7,6 +9,7 @@ import {
   DoubleSlider,
   Checkbox,
   Select,
+  SearchingAlert,
 } from "../../components";
 import { movieProps, searchOptions, convertLengthVals } from "../../utils";
 
@@ -19,6 +22,7 @@ interface titleSearchProps {
   setSourceDown: Dispatch<SetStateAction<boolean>>;
   setAIsearch: Dispatch<SetStateAction<boolean>>;
   setSearchError: Dispatch<SetStateAction<string>>;
+  clearErrors: () => void;
 }
 
 export function TitleSearch({
@@ -28,6 +32,7 @@ export function TitleSearch({
   setSourceDown,
   setAIsearch,
   setSearchError,
+  clearErrors,
 }: titleSearchProps) {
   // used to reset options values
   const blankOptions = {
@@ -87,15 +92,32 @@ export function TitleSearch({
   const [searching, setSearching] = useState<boolean>(false);
   const [options, setOptions] = useState(blankOptions as searchOptions); // tracks title search options
 
-  const clearErrors = () => {
-    console.log("clear errors here");
+  const getFilms = async (url: string) => {
+    const results = await axios.get(url, { signal: controller.signal });
+    return results.data;
   };
 
-  const getFilms = async (url: string) => {
-    // queries the TV-API
-    const movieData = await fetch(url);
-    const result = await movieData.json();
-    return result;
+  const createMessage = () => {
+    const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
+
+    let message = "Searching for films";
+    message +=
+      decade !== "0" ? ` from the ${1920 + (parseInt(decade) - 1) * 10}'s` : "";
+    message +=
+      G ||
+      PG ||
+      PG13 ||
+      R ||
+      oscar ||
+      oscarWin ||
+      genre !== "all" ||
+      length.min !== 1 ||
+      length.max !== 8
+        ? ", with indicated options, "
+        : "";
+    message += ` with "${searchField}" in the title`;
+
+    return message;
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,21 +168,14 @@ export function TitleSearch({
     setOptions(newOptions);
   };
 
-  const handleReturn = (
-    e: React.KeyboardEvent<HTMLElement>,
-    controller: AbortController
-  ) => {
+  const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
     // Handler to assign a keyboard enter to the title search button
     if (e.key === "Enter") {
-      handleSearchSubmit(controller);
+      handleSubmit();
     }
   };
 
-  const handleReturnKey = (e: React.KeyboardEvent<HTMLElement>) => {
-    handleReturn(e, controller);
-  };
-
-  const handleSearchSubmit = async (controller: AbortController) => {
+  const handleSearchSubmit = async () => {
     // handler for movie title search submission
 
     // erase existing results and show that we're searching
@@ -238,7 +253,8 @@ export function TitleSearch({
           tries = maxTries;
           break;
         }
-        if (searching) result = searchResults;
+
+        result = searchResults;
         tries++;
       } catch (err) {
         console.log(err);
@@ -248,9 +264,8 @@ export function TitleSearch({
 
     // if there was no response from API, abandon
     if (sourceDown) return;
-    if (result.length === 0 && !sourceDown) {
+    if (result.length === 0 && !sourceDown && !controller.signal.aborted) {
       // if there were no results, set the error
-      setNoResults(true);
       setNoResults(true);
       setSearching(false);
       return;
@@ -271,9 +286,18 @@ export function TitleSearch({
     // setOptions(blankOptions);
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = () => {
     controller = new AbortController();
-    handleSearchSubmit(controller);
+    setSearching(true);
+    handleSearchSubmit();
+  };
+
+  const handleSearchCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // handler for when user cancels search
+    controller.abort();
+    setSearching(false);
+    setSearchField("");
+    clearErrors();
   };
 
   // count all the options configured, to determine if search button is live
@@ -295,7 +319,9 @@ export function TitleSearch({
     (usedRatings === 3 ? 0.5 : 0) +
     (options.genre !== "all" ? 1 : 0);
 
-  return (
+  return searching ? (
+    <SearchingAlert message={createMessage()} stopSearch={handleSearchCancel} />
+  ) : (
     <>
       <fieldset>
         <InputText
@@ -306,7 +332,7 @@ export function TitleSearch({
           capitalize="off"
           val={searchField}
           setValue={handleSearchChange}
-          keyUp={handleReturnKey}
+          keyUp={handleReturn}
         />
       </fieldset>
 

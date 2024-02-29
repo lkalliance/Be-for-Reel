@@ -18,7 +18,6 @@ interface openAiReturn {
 
 interface openAiProps {
   setResults: Dispatch<SetStateAction<movieProps[]>>;
-  setSearchField: Dispatch<SetStateAction<string>>;
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
   // setSourceDown: Dispatch<SetStateAction<boolean>>;
@@ -34,7 +33,6 @@ interface openAiProps {
 
 export function OpenAIRequest({
   setResults,
-  setSearchField,
   setSearchError,
   setNoResults,
   // setSourceDown,
@@ -92,11 +90,8 @@ export function OpenAIRequest({
   const handleSubmit = async () => {
     controller = new AbortController();
     setResults([]);
-    setSearchField("");
     setNoResults(false);
     setSearchError("");
-
-    console.log("I've set the states");
 
     if (request.length === 0) {
       // first check to see if anything was provided
@@ -104,13 +99,9 @@ export function OpenAIRequest({
       return;
     }
 
-    console.log("I'm ready to submit the search");
-
     setSearching(true);
 
-    console.log("I've set searching to true");
     try {
-      console.log("I'm about to submit");
       const searchResults = await axios.post(
         "/api/movies/ai-search",
         {
@@ -118,7 +109,6 @@ export function OpenAIRequest({
         },
         { signal: controller.signal }
       );
-      console.log("I have submitted");
       const jsonResults = JSON.parse(searchResults.data);
       const movieList = jsonResults.movies || [];
       const convertedResults = convertReturn(movieList);
