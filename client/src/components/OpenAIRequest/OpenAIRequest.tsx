@@ -27,8 +27,9 @@ interface openAiProps {
   //   e: React.KeyboardEvent<HTMLElement>,
   //   controller: AbortController
   // ) => void;
-  clearErrors: () => void;
+  clearErrors: (clearAI: boolean) => void;
   setAISearch: Dispatch<SetStateAction<boolean>>;
+  active: boolean;
 }
 
 export function OpenAIRequest({
@@ -40,10 +41,13 @@ export function OpenAIRequest({
   // setSearching,
   clearErrors,
   setAISearch,
+  active,
 }: openAiProps) {
+  // make sure any active searches are aborted if need be
+  if (!active && controller) controller.abort();
+
   const [request, setRequest] = useState<string>("");
   const [searching, setSearching] = useState<boolean>(false);
-  // let abortControllerRef = useRef<AbortController>(null);
 
   const convertReturn = (results: openAiReturn[]) => {
     const convertedResults = results.map((result: openAiReturn) => {
@@ -71,7 +75,7 @@ export function OpenAIRequest({
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    clearErrors();
+    clearErrors(false);
     const { value } = e.target;
     const isReturn =
       value.length > 0 &&
@@ -90,6 +94,7 @@ export function OpenAIRequest({
   const handleSubmit = async () => {
     controller = new AbortController();
     setResults([]);
+    clearErrors(true);
     setNoResults(false);
     setSearchError("");
 
@@ -142,13 +147,13 @@ export function OpenAIRequest({
     }
   };
 
-  return searching ? (
+  return searching && active ? (
     <SearchingAlert
       message={`Searching for feature films that ${request}`}
       stopSearch={handleSearchCancel}
     />
-  ) : (
-    <div>
+  ) : active ? (
+    <fieldset>
       <TextAreaField
         id="user-request"
         label="Find me feature films that..."
@@ -163,6 +168,6 @@ export function OpenAIRequest({
       >
         Search for films
       </button>
-    </div>
-  );
+    </fieldset>
+  ) : null;
 }

@@ -19,20 +19,8 @@ handleSearchSubmit: handler for submitting the search */
 import "./MovieSearch.css";
 import { useState, Dispatch, SetStateAction } from "react";
 // import Accordion from "react-bootstrap/Accordion";
-import { movieProps, searchOptions } from "../../utils/interfaces";
-import { convertLengthVals } from "../../utils/typeUtils";
-import {
-  // InputText,
-  // Checkbox,
-  // Slider,
-  // DoubleSlider,
-  // Select,
-  OpenAIRequest,
-  Tabs,
-  TitleSearch,
-} from "../../components";
-
-let controller: AbortController;
+import { movieProps } from "../../utils/interfaces";
+import { OpenAIRequest, Tabs, TitleSearch } from "../../components";
 
 interface movieSearchProps {
   // searchField: string;
@@ -99,7 +87,6 @@ export function MovieSearch({
   // const maxTries = 3; // maximum number of times we'll query IMDb for one search
 
   const [whichTab, setTab] = useState<"title" | "AI">("title");
-  const [searchField, setSearchField] = useState<string>("");
   // const [options, setOptions] = useState(blankOptions as searchOptions); // tracks title search options
   // const [searching, setSearching] = useState<boolean>(false);
 
@@ -115,12 +102,13 @@ export function MovieSearch({
     if (id === "title" || id === "AI") setTab(id);
   };
 
-  const clearErrors = () => {
+  const clearErrors = (clearAI: boolean) => {
     setSearchError("");
     setNoResults(false);
     setSourceDown(false);
-    setAISearch(false);
+    if (clearAI) setAISearch(false);
   };
+
   // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   // on any input, clear the warning that there are no results
   //   clearErrors();
@@ -357,193 +345,30 @@ export function MovieSearch({
         handler={tabHandler}
         beta="AI"
       />
-      {whichTab === "title" && (
-        <TitleSearch
-          setResults={setResults}
-          setNoResults={setNoResults}
-          sourceDown={sourceDown}
-          setSourceDown={setSourceDown}
-          setAIsearch={setAISearch}
-          setSearchError={setSearchError}
-          clearErrors={clearErrors}
-        />
+      <TitleSearch
+        setResults={setResults}
+        setNoResults={setNoResults}
+        sourceDown={sourceDown}
+        setSourceDown={setSourceDown}
+        setAIsearch={setAISearch}
+        setSearchError={setSearchError}
+        clearErrors={clearErrors}
+        active={whichTab === "title"}
+      />
 
-        // <>
-        //   <fieldset>
-        //     <InputText
-        //       type="text"
-        //       label="Find titles containing..."
-        //       id="titleSearchBox"
-        //       placeholder="Title"
-        //       capitalize="off"
-        //       val={searchField}
-        //       setValue={handleSearchChange}
-        //       keyUp={handleReturnKey}
-        //     />
-        //   </fieldset>
-
-        //   <Accordion flush>
-        //     <Accordion.Item eventKey="0">
-        //       <Accordion.Header>Search Options</Accordion.Header>
-        //       <Accordion.Body>
-        //         <form>
-        //           <fieldset id="released" className="list-member-20">
-        //             <Slider
-        //               id="decade"
-        //               val={+options.decade}
-        //               setValue={handleOptChange}
-        //               min={0}
-        //               max={11}
-        //               label="Release decade"
-        //               labelVal={`${
-        //                 options.decade === "0"
-        //                   ? "all"
-        //                   : `${1910 + 10 * parseInt(options.decade)}'s`
-        //               }`}
-        //               sliderKey={{ min: "earlier", max: "later" }}
-        //             />
-        //             {/* <DoubleSlider
-        //           id="years"
-        //           min={1910}
-        //           max={thisYear()}
-        //           step={1}
-        //           startVal={{
-        //             min: options.years.min,
-        //             max: options.years.max,
-        //           }}
-        //           label={"Release Year"}
-        //           labelVal={`${
-        //             options.years.min === 1910 &&
-        //             options.years.max === thisYear()
-        //               ? "any"
-        //               : options.years.min === 1910
-        //               ? `${options.years.max} or earlier`
-        //               : options.years.max === thisYear()
-        //               ? `${options.years.min} or later`
-        //               : `${options.years.min} to ${options.years.max}`
-        //           }`}
-        //           sliderKey={{ min: "earlier", max: "later" }}
-        //           setValue={handleDualOptChange}
-        //         /> */}
-        //           </fieldset>
-        //           <fieldset className="list-member-20">
-        //             <DoubleSlider
-        //               id="length"
-        //               min={0}
-        //               max={8}
-        //               step={1}
-        //               startVal={{
-        //                 min: options.length.min,
-        //                 max: options.length.max,
-        //               }}
-        //               label={"Length"}
-        //               labelVal={`${
-        //                 options.length.min === 0 && options.length.max === 8
-        //                   ? "any"
-        //                   : options.length.min === 0
-        //                   ? `${
-        //                       convertLengthVals(options.length.max).label
-        //                     } or shorter`
-        //                   : options.length.max === 8
-        //                   ? `${
-        //                       convertLengthVals(options.length.min).label
-        //                     } or longer`
-        //                   : `between ${
-        //                       convertLengthVals(options.length.min).label
-        //                     } and ${
-        //                       convertLengthVals(options.length.max).label
-        //                     }`
-        //               }`}
-        //               sliderKey={{ min: "shorter", max: "longer" }}
-        //               setValue={handleDualOptChange}
-        //             />
-        //           </fieldset>
-        //           <fieldset id="ratings" className="list-member-20">
-        //             <legend>Limit to just these US ratings</legend>
-        //             <div>
-        //               <Checkbox
-        //                 id="G"
-        //                 label="G"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.G)}
-        //               />
-        //               <Checkbox
-        //                 id="PG"
-        //                 label="PG"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.PG)}
-        //               />
-        //               <Checkbox
-        //                 id="PG13"
-        //                 label="PG-13"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.PG13)}
-        //               />
-        //               <Checkbox
-        //                 id="R"
-        //                 label="R"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.R)}
-        //               />
-        //             </div>
-        //           </fieldset>
-        //           <fieldset id="oscars" className="list-member-20">
-        //             <div>
-        //               <Checkbox
-        //                 id="oscar"
-        //                 label="Nominated for Best Picture"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.oscar)}
-        //               />
-        //             </div>
-        //             <div>
-        //               <Checkbox
-        //                 id="oscarWin"
-        //                 label="Won any Oscar"
-        //                 setValue={handleOptChange}
-        //                 val={Boolean(options.oscarWin)}
-        //               />
-        //             </div>
-        //           </fieldset>
-        //           <fieldset id="genres" className="list-member-20">
-        //             <legend>Limit to just this genre</legend>
-        //             <Select
-        //               id="genre"
-        //               options={genreObjs}
-        //               val={options.genre}
-        //               setValue={handleMenuChange}
-        //             />
-        //           </fieldset>
-        //         </form>
-        //       </Accordion.Body>
-        //     </Accordion.Item>
-        //   </Accordion>
-
-        //   <button
-        //     onClick={handleSubmit}
-        //     className="btn btn-primary"
-        //     disabled={searchField.length < 3 && usedOpts < 3}
-        //   >
-        //     Search for films
-        //   </button>
-        // </>
-      )}
-      {whichTab === "AI" && (
-        <fieldset>
-          <OpenAIRequest
-            setResults={setResults}
-            // setSearchField={setSearchField}
-            setSearchError={setSearchError}
-            setNoResults={setNoResults}
-            // setSourceDown={setSourceDown}
-            // searching={searching}
-            // setSearching={setSearching}
-            // handleReturn={handleReturn}
-            clearErrors={clearErrors}
-            setAISearch={setAISearch}
-          />
-        </fieldset>
-      )}
+      <OpenAIRequest
+        setResults={setResults}
+        // setSearchField={setSearchField}
+        setSearchError={setSearchError}
+        setNoResults={setNoResults}
+        // setSourceDown={setSourceDown}
+        // searching={searching}
+        // setSearching={setSearching}
+        // handleReturn={handleReturn}
+        clearErrors={clearErrors}
+        setAISearch={setAISearch}
+        active={whichTab === "AI"}
+      />
     </>
   );
 }

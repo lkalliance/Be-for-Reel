@@ -22,7 +22,8 @@ interface titleSearchProps {
   setSourceDown: Dispatch<SetStateAction<boolean>>;
   setAIsearch: Dispatch<SetStateAction<boolean>>;
   setSearchError: Dispatch<SetStateAction<string>>;
-  clearErrors: () => void;
+  clearErrors: (clearAI: boolean) => void;
+  active: boolean;
 }
 
 export function TitleSearch({
@@ -33,7 +34,11 @@ export function TitleSearch({
   setAIsearch,
   setSearchError,
   clearErrors,
+  active,
 }: titleSearchProps) {
+  // make sure any active searches are aborted if need be
+  if (!active && controller) controller.abort();
+
   // used to reset options values
   const blankOptions = {
     decade: "0",
@@ -122,7 +127,7 @@ export function TitleSearch({
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // on any input, clear the warning that there are no results
-    clearErrors();
+    clearErrors(true);
     setSearchField(e.target.value);
   };
 
@@ -130,7 +135,7 @@ export function TitleSearch({
     // Handler to track single-value changes to search options
 
     // on any input, clear the warning that there are no results
-    clearErrors();
+    clearErrors(true);
     const { id, value } = e.target;
 
     // if it's a checkbox, set the new value as the opposite of before
@@ -144,7 +149,7 @@ export function TitleSearch({
   const handleDualOptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Special hander to track changes to search options for double-sliders
 
-    clearErrors();
+    clearErrors(true);
     const { id, value } = e.target;
 
     // id will be created from option identifier and min/max designation
@@ -162,7 +167,7 @@ export function TitleSearch({
     // if (handleSelectOption) handleSelectOption(e);
     // Handler to track select menu changes to search options
 
-    clearErrors();
+    clearErrors(true);
     const { id, value } = e.target;
     const newOptions = { ...options, [id]: value };
     setOptions(newOptions);
@@ -257,7 +262,9 @@ export function TitleSearch({
         result = searchResults;
         tries++;
       } catch (err) {
-        console.log(err);
+        if (axios.isCancel(err)) {
+          console.log("Request cancelled");
+        } else console.log(err);
         break;
       }
     }
@@ -297,7 +304,7 @@ export function TitleSearch({
     controller.abort();
     setSearching(false);
     setSearchField("");
-    clearErrors();
+    clearErrors(true);
   };
 
   // count all the options configured, to determine if search button is live
@@ -319,9 +326,9 @@ export function TitleSearch({
     (usedRatings === 3 ? 0.5 : 0) +
     (options.genre !== "all" ? 1 : 0);
 
-  return searching ? (
+  return searching && active ? (
     <SearchingAlert message={createMessage()} stopSearch={handleSearchCancel} />
-  ) : (
+  ) : active ? (
     <>
       <fieldset>
         <InputText
@@ -479,5 +486,5 @@ export function TitleSearch({
         Search for films
       </button>
     </>
-  );
+  ) : null;
 }
