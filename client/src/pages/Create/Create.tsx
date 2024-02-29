@@ -28,35 +28,8 @@ interface pollOptions {
 export function Create() {
   const auth = new AuthService();
 
-  // // used to reset options values
-  // const blankOptions = {
-  //   decade: "0",
-  //   // years: false,
-  //   // years: {
-  //   //   min: 1910,
-  //   //   max: thisYear(),
-  //   // },
-  //   length: {
-  //     min: 1,
-  //     max: 8,
-  //   },
-  //   gross: {
-  //     min: 1,
-  //     max: 7,
-  //   },
-  //   G: false,
-  //   PG: false,
-  //   PG13: false,
-  //   R: false,
-  //   oscar: false,
-  //   oscarWin: false,
-  //   genre: "all",
-  // };
-
   const navigate = useNavigate();
-  // const maxTries = 3; // maximum number of times we'll query IMDb for one search
 
-  // const [searchField, setSearchField] = useState(""); // tracks text in movie title search field
   const [results, setResults] = useState<movieProps[]>([]); // tracks results from most recent search
   const [selected, setSelected] = useState<movieProps[]>([]); // tracks movies selected for poll
   const [selectedIds, setSelectedIds] = useState<string[]>([]); // tracks IMDb ids of selected movies
@@ -69,8 +42,6 @@ export function Create() {
   const [sourceDown, setSourceDown] = useState<boolean>(false); // flag for this kind of error message
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
-  // const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
-  // const [searchingAI, setSearchingAI] = useState<boolean>(false); // tracks message that AI search is in progress
   const [aiSearch, setAiSearch] = useState<boolean>(false); // was this search an AI search
   const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
