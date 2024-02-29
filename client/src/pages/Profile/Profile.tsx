@@ -32,7 +32,7 @@ export function Profile() {
   const [currentCommentPage, setCurrentCommentPage] = useState(1);
   const perPage = 10;
 
-  const { data } = useQuery(QUERY_SINGLE_USER, {
+  const { loading, data } = useQuery(QUERY_SINGLE_USER, {
     variables: { lookupname: username },
   });
 
@@ -86,7 +86,9 @@ export function Profile() {
   return (
     <>
       <section id="profile">
-        {userData.created ? (
+        {loading ? (
+          <div className="doesnt-exist list-member-12">Loading user...</div>
+        ) : userData.created ? (
           // the user exists, render their data
           <>
             <div className="profile-info">

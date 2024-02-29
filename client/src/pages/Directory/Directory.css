@@ -38,6 +38,10 @@ section#directory span.your-vote {
   margin-left: 12px;
 }
 
+section#directory div#filters div.doesnt-exist {
+  width: 100%;
+}
+
 @media screen and (min-width: 450px) {
   section#directory .title-and-user span.username {
     display: inline;

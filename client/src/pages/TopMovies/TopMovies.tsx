@@ -46,7 +46,7 @@ export function TopMovies() {
     <section id="top-movies">
       <h1>Top-voted Films</h1>
       {loading ? (
-        "loading"
+        <div className="doesnt-exist list-member-12">Loading films...</div>
       ) : (
         <Table>
           <tbody>

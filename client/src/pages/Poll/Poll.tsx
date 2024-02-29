@@ -116,7 +116,7 @@ export function Poll({ currUser }: pollProps) {
   return (
     <section id="poll">
       {loading ? (
-        <div>Loading...</div>
+        <div className="list-member-12 doesnt-exist">Loading poll...</div>
       ) : !poll ? (
         <div className="deactivated list-member-20">
           This poll does not exist
