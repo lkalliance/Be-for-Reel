@@ -1,7 +1,0 @@
-"filename", "language", "TypeScript JSX", "comment", "blank", "total"
-"/Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/OpenAIRequest.tsx", "TypeScript JSX", -13, 8, 1, -4
-"/Users/leeklusky/be-for-reel/client/src/components/TitleSearch/TitleSearch.tsx", "TypeScript JSX", 238, 55, 41, 334
-"/Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/MovieSearch.tsx", "TypeScript JSX", -236, -29, -10, -275
-"/Users/leeklusky/be-for-reel/client/src/pages/Create/Create.tsx", "TypeScript JSX", -153, 146, 0, -7
-"/Users/leeklusky/be-for-reel/client/src/utils/index.tsx", "TypeScript JSX", 5, 0, 0, 5
-"Total", "-", -159, 180, 32, 53
