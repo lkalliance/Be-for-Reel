@@ -27,3 +27,5 @@ export { AlertModal } from "./AlertModal";
 export { Pagination } from "./Pagination";
 export { OpenAIRequest } from "./OpenAIRequest";
 export { UserIcon } from "./UserIcon";
+export { SearchingAlert } from "./SearchingAlert";
+export { TitleSearch } from "./TitleSearch";

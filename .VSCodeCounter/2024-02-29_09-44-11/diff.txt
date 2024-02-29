@@ -1,0 +1,183 @@
+Date : 2024-02-29 09:44:11
+Directory : /Users/leeklusky/be-for-reel
+Total : 99 files,  1760 codes, 226 comments, 229 blanks, all 2215 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |         55 |      1,229 |         64 |        110 |      1,403 |
+| CSS            |         39 |        371 |        156 |         97 |        624 |
+| JavaScript     |          4 |        158 |          6 |         22 |        186 |
+| JSON           |          1 |          2 |          0 |          0 |          2 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                     | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                        |         99 |      1,760 |        226 |        229 |      2,215 |
+| client                                                                                   |         94 |      1,600 |        220 |        207 |      2,027 |
+| client/src                                                                               |         94 |      1,600 |        220 |        207 |      2,027 |
+| client/src (Files)                                                                       |          2 |         95 |        120 |         32 |        247 |
+| client/src/components                                                                    |         48 |        742 |         39 |         86 |        867 |
+| client/src/components (Files)                                                            |          1 |          5 |          0 |          0 |          5 |
+| client/src/components/Card                                                               |          2 |         40 |          3 |          7 |         50 |
+| client/src/components/Checkbox                                                           |          1 |          0 |         -1 |         -1 |         -2 |
+| client/src/components/Comment                                                            |          2 |         -1 |          5 |         -1 |          3 |
+| client/src/components/CommentList                                                        |          2 |         18 |          1 |          2 |         21 |
+| client/src/components/DoubleSlider                                                       |          1 |         -1 |         -3 |          0 |         -4 |
+| client/src/components/EmailVerifyModal                                                   |          2 |          3 |          0 |          0 |          3 |
+| client/src/components/OpenAIRequest                                                      |          3 |        155 |          5 |         22 |        182 |
+| client/src/components/Option                                                             |          2 |         -8 |          4 |         -1 |         -5 |
+| client/src/components/Pagination                                                         |          3 |        137 |          0 |         18 |        155 |
+| client/src/components/PollList                                                           |          2 |         25 |          0 |          3 |         28 |
+| client/src/components/PollListing                                                        |          2 |         25 |          0 |          4 |         29 |
+| client/src/components/Question                                                           |          2 |          5 |          0 |         -1 |          4 |
+| client/src/components/SearchForm                                                         |          1 |          0 |         -1 |         -1 |         -2 |
+| client/src/components/SearchResult                                                       |          2 |         11 |          0 |          1 |         12 |
+| client/src/components/SearchingAlert                                                     |          3 |         39 |          1 |          8 |         48 |
+| client/src/components/Select                                                             |          1 |          2 |          0 |          0 |          2 |
+| client/src/components/Slider                                                             |          1 |          0 |         -2 |         -2 |         -4 |
+| client/src/components/Tabs                                                               |          2 |         47 |          0 |          7 |         54 |
+| client/src/components/TextAreaField                                                      |          1 |          2 |          0 |          0 |          2 |
+| client/src/components/TitleSearch                                                        |          3 |        146 |         24 |          7 |        177 |
+| client/src/components/UserIcon                                                           |          3 |         69 |          0 |         10 |         79 |
+| client/src/components/UserListing                                                        |          2 |         -8 |          2 |         -2 |         -8 |
+| client/src/components/UserMenu                                                           |          2 |          6 |          1 |          2 |          9 |
+| client/src/components/UsernameLink                                                       |          2 |         25 |          0 |          4 |         29 |
+| client/src/pageComponents                                                                |         13 |        239 |         27 |         33 |        299 |
+| client/src/pageComponents/AboutPoll                                                      |          2 |         -1 |         -1 |         -1 |         -3 |
+| client/src/pageComponents/Footer                                                         |          2 |         79 |         -1 |         12 |         90 |
+| client/src/pageComponents/Header                                                         |          2 |         43 |         18 |          6 |         67 |
+| client/src/pageComponents/LoginForm                                                      |          1 |          6 |          1 |          0 |          7 |
+| client/src/pageComponents/MovieSearch                                                    |          2 |         67 |          5 |         10 |         82 |
+| client/src/pageComponents/Nav                                                            |          2 |         46 |          6 |          7 |         59 |
+| client/src/pageComponents/SignupForm                                                     |          2 |         -1 |         -1 |         -1 |         -3 |
+| client/src/pages                                                                         |         26 |        363 |         24 |         39 |        426 |
+| client/src/pages (Files)                                                                 |          1 |          3 |          0 |          0 |          3 |
+| client/src/pages/About                                                                   |          3 |         35 |          2 |          7 |         44 |
+| client/src/pages/Contact                                                                 |          3 |        112 |          1 |         14 |        127 |
+| client/src/pages/Create                                                                  |          2 |         56 |          9 |         11 |         76 |
+| client/src/pages/Directory                                                               |          2 |         -8 |          0 |         -4 |        -12 |
+| client/src/pages/FAQ                                                                     |          1 |         16 |          0 |          1 |         17 |
+| client/src/pages/Home                                                                    |          2 |          5 |          1 |          1 |          7 |
+| client/src/pages/Poll                                                                    |          2 |        -20 |         -2 |         -5 |        -27 |
+| client/src/pages/Profile                                                                 |          2 |         -2 |          9 |         -6 |          1 |
+| client/src/pages/SearchResults                                                           |          2 |         65 |          0 |          7 |         72 |
+| client/src/pages/Terms                                                                   |          3 |         39 |          1 |          6 |         46 |
+| client/src/pages/TopMovies                                                               |          1 |         32 |          3 |          4 |         39 |
+| client/src/pages/UserDir                                                                 |          2 |         30 |          0 |          3 |         33 |
+| client/src/utils                                                                         |          5 |        161 |         10 |         17 |        188 |
+| server                                                                                   |          5 |        160 |          6 |         22 |        188 |
+| server (Files)                                                                           |          2 |          9 |          1 |          1 |         11 |
+| server/controllers                                                                       |          2 |        131 |          3 |         15 |        149 |
+| server/controllers/api                                                                   |          2 |        131 |          3 |         15 |        149 |
+| server/schemas                                                                           |          1 |         20 |          2 |          6 |         28 |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                 | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| /Users/leeklusky/be-for-reel/client/src/App.css                                          | CSS            |         78 |        120 |         32 |        230 |
+| /Users/leeklusky/be-for-reel/client/src/App.tsx                                          | TypeScript JSX |         17 |          0 |          0 |         17 |
+| /Users/leeklusky/be-for-reel/client/src/components/Card/Card.css                         | CSS            |         30 |          3 |          6 |         39 |
+| /Users/leeklusky/be-for-reel/client/src/components/Card/Card.tsx                         | TypeScript JSX |         10 |          0 |          1 |         11 |
+| /Users/leeklusky/be-for-reel/client/src/components/Checkbox/Checkbox.css                 | CSS            |          0 |         -1 |         -1 |         -2 |
+| /Users/leeklusky/be-for-reel/client/src/components/Comment/Comment.css                   | CSS            |         -4 |          5 |         -1 |          0 |
+| /Users/leeklusky/be-for-reel/client/src/components/Comment/Comment.tsx                   | TypeScript JSX |          3 |          0 |          0 |          3 |
+| /Users/leeklusky/be-for-reel/client/src/components/CommentList/CommentList.css           | CSS            |         -7 |          1 |          0 |         -6 |
+| /Users/leeklusky/be-for-reel/client/src/components/CommentList/CommentList.tsx           | TypeScript JSX |         25 |          0 |          2 |         27 |
+| /Users/leeklusky/be-for-reel/client/src/components/DoubleSlider/DoubleSlider.css         | CSS            |         -1 |         -3 |          0 |         -4 |
+| /Users/leeklusky/be-for-reel/client/src/components/EmailVerifyModal/EmailVerifyModal.css | CSS            |          2 |          0 |          0 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/EmailVerifyModal/EmailVerifyModal.tsx | TypeScript JSX |          1 |          0 |          0 |          1 |
+| /Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/OpenAIRequest.css       | CSS            |          0 |          1 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/OpenAIRequest.tsx       | TypeScript JSX |        154 |          4 |         20 |        178 |
+| /Users/leeklusky/be-for-reel/client/src/components/OpenAIRequest/index.tsx               | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/Option/Option.css                     | CSS            |        -12 |          4 |         -1 |         -9 |
+| /Users/leeklusky/be-for-reel/client/src/components/Option/Option.tsx                     | TypeScript JSX |          4 |          0 |          0 |          4 |
+| /Users/leeklusky/be-for-reel/client/src/components/Pagination/Pagination.css             | CSS            |         63 |          0 |         11 |         74 |
+| /Users/leeklusky/be-for-reel/client/src/components/Pagination/Pagination.tsx             | TypeScript JSX |         73 |          0 |          6 |         79 |
+| /Users/leeklusky/be-for-reel/client/src/components/Pagination/index.tsx                  | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/PollList/PollList.css                 | CSS            |          3 |          0 |          1 |          4 |
+| /Users/leeklusky/be-for-reel/client/src/components/PollList/PollList.tsx                 | TypeScript JSX |         22 |          0 |          2 |         24 |
+| /Users/leeklusky/be-for-reel/client/src/components/PollListing/PollListing.css           | CSS            |         21 |          0 |          4 |         25 |
+| /Users/leeklusky/be-for-reel/client/src/components/PollListing/PollListing.tsx           | TypeScript JSX |          4 |          0 |          0 |          4 |
+| /Users/leeklusky/be-for-reel/client/src/components/Question/Question.css                 | CSS            |         -1 |          0 |         -1 |         -2 |
+| /Users/leeklusky/be-for-reel/client/src/components/Question/Question.tsx                 | TypeScript JSX |          6 |          0 |          0 |          6 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchForm/SearchForm.css             | CSS            |          0 |         -1 |         -1 |         -2 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchResult/SearchResult.css         | CSS            |          6 |          0 |          1 |          7 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchResult/SearchResult.tsx         | TypeScript JSX |          5 |          0 |          0 |          5 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/SearchingAlert.css     | CSS            |         21 |          1 |          4 |         26 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/SearchingAlert.tsx     | TypeScript JSX |         17 |          0 |          3 |         20 |
+| /Users/leeklusky/be-for-reel/client/src/components/SearchingAlert/index.tsx              | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/Select/Select.tsx                     | TypeScript JSX |          2 |          0 |          0 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/Slider/Slider.css                     | CSS            |          0 |         -2 |         -2 |         -4 |
+| /Users/leeklusky/be-for-reel/client/src/components/Tabs/Tabs.css                         | CSS            |         36 |          0 |          7 |         43 |
+| /Users/leeklusky/be-for-reel/client/src/components/Tabs/Tabs.tsx                         | TypeScript JSX |         11 |          0 |          0 |         11 |
+| /Users/leeklusky/be-for-reel/client/src/components/TextAreaField/TextAreaField.tsx       | TypeScript JSX |          2 |          0 |          0 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/TitleSearch/TitleSearch.css           | CSS            |          0 |          1 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/TitleSearch/TitleSearch.tsx           | TypeScript JSX |        145 |         23 |          5 |        173 |
+| /Users/leeklusky/be-for-reel/client/src/components/TitleSearch/index.tsx                 | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserIcon/UserIcon.css                 | CSS            |         38 |          0 |          6 |         44 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserIcon/UserIcon.tsx                 | TypeScript JSX |         30 |          0 |          3 |         33 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserIcon/index.tsx                    | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserListing/UserListing.css           | CSS            |        -12 |          1 |         -2 |        -13 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserListing/UserListing.tsx           | TypeScript JSX |          4 |          1 |          0 |          5 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserMenu/UserMenu.css                 | CSS            |          0 |          1 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/components/UserMenu/UserMenu.tsx                 | TypeScript JSX |          6 |          0 |          1 |          7 |
+| /Users/leeklusky/be-for-reel/client/src/components/UsernameLink/UsernameLink.css         | CSS            |         11 |          0 |          4 |         15 |
+| /Users/leeklusky/be-for-reel/client/src/components/UsernameLink/UsernameLink.tsx         | TypeScript JSX |         14 |          0 |          0 |         14 |
+| /Users/leeklusky/be-for-reel/client/src/components/index.tsx                             | TypeScript JSX |          5 |          0 |          0 |          5 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/AboutPoll/AboutPoll.css           | CSS            |          1 |         -1 |         -1 |         -1 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/AboutPoll/AboutPoll.tsx           | TypeScript JSX |         -2 |          0 |          0 |         -2 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Footer/Footer.css                 | CSS            |         50 |         -1 |         11 |         60 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Footer/Footer.tsx                 | TypeScript JSX |         29 |          0 |          1 |         30 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Header/Header.css                 | CSS            |         31 |          2 |          6 |         39 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Header/Header.tsx                 | TypeScript JSX |         12 |         16 |          0 |         28 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/LoginForm/LoginForm.tsx           | TypeScript JSX |          6 |          1 |          0 |          7 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/MovieSearch.css       | CSS            |          8 |          2 |          4 |         14 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/MovieSearch/MovieSearch.tsx       | TypeScript JSX |         59 |          3 |          6 |         68 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Nav/Nav.css                       | CSS            |          4 |          4 |          1 |          9 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/Nav/Nav.tsx                       | TypeScript JSX |         42 |          2 |          6 |         50 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/SignupForm/SignupForm.css         | CSS            |          0 |         -1 |         -1 |         -2 |
+| /Users/leeklusky/be-for-reel/client/src/pageComponents/SignupForm/SignupForm.tsx         | TypeScript JSX |         -1 |          0 |          0 |         -1 |
+| /Users/leeklusky/be-for-reel/client/src/pages/About/About.css                            | CSS            |          8 |          1 |          3 |         12 |
+| /Users/leeklusky/be-for-reel/client/src/pages/About/About.tsx                            | TypeScript JSX |         26 |          1 |          3 |         30 |
+| /Users/leeklusky/be-for-reel/client/src/pages/About/index.tsx                            | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Contact/Contact.css                        | CSS            |         20 |          1 |          6 |         27 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Contact/Contact.tsx                        | TypeScript JSX |         91 |          0 |          7 |         98 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Contact/index.tsx                          | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Create/Create.css                          | CSS            |         24 |          7 |          8 |         39 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Create/Create.tsx                          | TypeScript JSX |         32 |          2 |          3 |         37 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Directory/Directory.css                    | CSS            |        -25 |          0 |         -5 |        -30 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Directory/Directory.tsx                    | TypeScript JSX |         17 |          0 |          1 |         18 |
+| /Users/leeklusky/be-for-reel/client/src/pages/FAQ/FAQ.tsx                                | TypeScript JSX |         16 |          0 |          1 |         17 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Home/Home.css                              | CSS            |         -1 |          1 |          1 |          1 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Home/Home.tsx                              | TypeScript JSX |          6 |          0 |          0 |          6 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Poll/Poll.css                              | CSS            |        -16 |          0 |         -6 |        -22 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Poll/Poll.tsx                              | TypeScript JSX |         -4 |         -2 |          1 |         -5 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Profile/Profile.css                        | CSS            |        -29 |          9 |         -6 |        -26 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Profile/Profile.tsx                        | TypeScript JSX |         27 |          0 |          0 |         27 |
+| /Users/leeklusky/be-for-reel/client/src/pages/SearchResults/SearchResults.css            | CSS            |          9 |          0 |          2 |         11 |
+| /Users/leeklusky/be-for-reel/client/src/pages/SearchResults/SearchResults.tsx            | TypeScript JSX |         56 |          0 |          5 |         61 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Terms/Terms.css                            | CSS            |          8 |          1 |          3 |         12 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Terms/Terms.tsx                            | TypeScript JSX |         30 |          0 |          2 |         32 |
+| /Users/leeklusky/be-for-reel/client/src/pages/Terms/index.tsx                            | TypeScript JSX |          1 |          0 |          1 |          2 |
+| /Users/leeklusky/be-for-reel/client/src/pages/TopMovies/TopMovies.tsx                    | TypeScript JSX |         32 |          3 |          4 |         39 |
+| /Users/leeklusky/be-for-reel/client/src/pages/UserDir/UserDir.css                        | CSS            |          7 |          0 |          1 |          8 |
+| /Users/leeklusky/be-for-reel/client/src/pages/UserDir/UserDir.tsx                        | TypeScript JSX |         23 |          0 |          2 |         25 |
+| /Users/leeklusky/be-for-reel/client/src/pages/index.tsx                                  | TypeScript JSX |          3 |          0 |          0 |          3 |
+| /Users/leeklusky/be-for-reel/client/src/utils/AFI100.tsx                                 | TypeScript JSX |         97 |          0 |          1 |         98 |
+| /Users/leeklusky/be-for-reel/client/src/utils/index.tsx                                  | TypeScript JSX |          1 |          0 |          0 |          1 |
+| /Users/leeklusky/be-for-reel/client/src/utils/interfaces.tsx                             | TypeScript JSX |          5 |          0 |          0 |          5 |
+| /Users/leeklusky/be-for-reel/client/src/utils/typeUtils.tsx                              | TypeScript JSX |          7 |          2 |          3 |         12 |
+| /Users/leeklusky/be-for-reel/client/src/utils/usePagination.tsx                          | TypeScript JSX |         51 |          8 |         13 |         72 |
+| /Users/leeklusky/be-for-reel/server/controllers/api/email-routes.js                      | JavaScript     |         45 |          1 |          8 |         54 |
+| /Users/leeklusky/be-for-reel/server/controllers/api/movie-routes.js                      | JavaScript     |         86 |          2 |          7 |         95 |
+| /Users/leeklusky/be-for-reel/server/package.json                                         | JSON           |          2 |          0 |          0 |          2 |
+| /Users/leeklusky/be-for-reel/server/schemas/resolvers.js                                 | JavaScript     |         20 |          2 |          6 |         28 |
+| /Users/leeklusky/be-for-reel/server/server.js                                            | JavaScript     |          7 |          1 |          1 |          9 |
+| Total                                                                                    |                |      1,760 |        226 |        229 |      2,215 |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

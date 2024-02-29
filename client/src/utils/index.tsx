@@ -20,5 +20,10 @@ export {
   QUERY_ALL_POLLS,
   QUERY_HOME_POLLS,
 } from "./queries";
-export { cleanUsername, createLookupName, listSection } from "./typeUtils";
+export {
+  cleanUsername,
+  createLookupName,
+  listSection,
+  convertLengthVals,
+} from "./typeUtils";
 export { usePagination } from "./usePagination";

@@ -1,0 +1,25 @@
+/* custom CSS here */
+
+div#searching-alert {
+  position: relatve;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: white;
+  padding: 20px;
+}
+
+div#searching-alert img {
+  margin-right: 15px;
+  border: 2px solid var(--tertiary-color);
+  border-radius: 4px;
+}
+
+div#searching-alert button.btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 0.8rem;
+  padding: 6px;
+}

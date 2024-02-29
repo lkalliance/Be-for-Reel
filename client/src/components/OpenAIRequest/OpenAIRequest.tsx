@@ -2,7 +2,9 @@ import "./OpenAIRequest.css";
 import { useState, Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { movieProps } from "../../utils";
-import { TextAreaField } from "../../components";
+import { TextAreaField, SearchingAlert } from "../../components";
+
+let controller: AbortController;
 
 interface openAiReturn {
   MPAA_rating: string;
@@ -19,10 +21,13 @@ interface openAiProps {
   setSearchField: Dispatch<SetStateAction<string>>;
   setSearchError: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
-  setSourceDown: Dispatch<SetStateAction<boolean>>;
-  setSearching: Dispatch<SetStateAction<boolean>>;
-  searching: boolean;
-  handleReturn: (e: React.KeyboardEvent<HTMLElement>) => void;
+  // setSourceDown: Dispatch<SetStateAction<boolean>>;
+  // setSearching: Dispatch<SetStateAction<boolean>>;
+  // searching: boolean;
+  // handleReturn: (
+  //   e: React.KeyboardEvent<HTMLElement>,
+  //   controller: AbortController
+  // ) => void;
   clearErrors: () => void;
   setAISearch: Dispatch<SetStateAction<boolean>>;
 }
@@ -32,13 +37,15 @@ export function OpenAIRequest({
   setSearchField,
   setSearchError,
   setNoResults,
-  setSourceDown,
-  searching,
-  setSearching,
+  // setSourceDown,
+  // searching,
+  // setSearching,
   clearErrors,
   setAISearch,
 }: openAiProps) {
-  const [request, setRequest] = useState("");
+  const [request, setRequest] = useState<string>("");
+  const [searching, setSearching] = useState<boolean>(false);
+  // let abortControllerRef = useRef<AbortController>(null);
 
   const convertReturn = (results: openAiReturn[]) => {
     const convertedResults = results.map((result: openAiReturn) => {
@@ -75,26 +82,43 @@ export function OpenAIRequest({
     if (!isReturn) setRequest(value);
   };
 
-  const handleSubmit = async () => {
+  const handleSearchCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // handler for when user cancels search
+    controller.abort();
     setSearching(false);
+    setRequest("");
+  };
+
+  const handleSubmit = async () => {
+    controller = new AbortController();
     setResults([]);
     setSearchField("");
     setNoResults(false);
     setSearchError("");
 
-    // first check to see if anything was provided
+    console.log("I've set the states");
+
     if (request.length === 0) {
+      // first check to see if anything was provided
       console.log("No inputs");
       return;
     }
 
+    console.log("I'm ready to submit the search");
+
     setSearching(true);
 
+    console.log("I've set searching to true");
     try {
-      const searchResults = await axios.post("/api/movies/ai-search", {
-        userRequest: request,
-      });
-      setSearching(false);
+      console.log("I'm about to submit");
+      const searchResults = await axios.post(
+        "/api/movies/ai-search",
+        {
+          userRequest: request,
+        },
+        { signal: controller.signal }
+      );
+      console.log("I have submitted");
       const jsonResults = JSON.parse(searchResults.data);
       const movieList = jsonResults.movies || [];
       const convertedResults = convertReturn(movieList);
@@ -105,12 +129,18 @@ export function OpenAIRequest({
         setRequest("");
         setAISearch(true);
       }
-    } catch (err) {
-      console.log(err);
+
       setSearching(false);
-      setSearchError(
-        "Something went wrong with the search. Sometimes rephrasing your request improves the results. Please try again."
-      );
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Request cancelled");
+      } else {
+        console.log(err);
+        setSearchError(
+          "Something went wrong with the search. Sometimes rephrasing your request improves the results. Please try again."
+        );
+      }
+      setSearching(false);
     }
   };
 
@@ -122,7 +152,12 @@ export function OpenAIRequest({
     }
   };
 
-  return (
+  return searching ? (
+    <SearchingAlert
+      message={`Searching for feature films that ${request}`}
+      stopSearch={handleSearchCancel}
+    />
+  ) : (
     <div>
       <TextAreaField
         id="user-request"
