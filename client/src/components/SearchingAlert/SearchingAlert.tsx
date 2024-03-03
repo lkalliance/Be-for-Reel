@@ -8,7 +8,7 @@ interface searchingAlertProps {
 
 export function SearchingAlert({ message, stopSearch }: searchingAlertProps) {
   return (
-    <div id="searching-alert" className="list-member-20">
+    <div id="searching-alert" className="list-member-12">
       <img src={searchGif} alt="searching for films" />
       {message} ...
       <button className="btn btn-primary btn-small" onClick={stopSearch}>

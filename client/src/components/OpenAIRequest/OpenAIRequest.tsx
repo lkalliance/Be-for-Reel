@@ -121,7 +121,6 @@ export function OpenAIRequest({
       setResults(convertedResults);
       if (convertedResults.length === 0) setNoResults(true);
       else {
-        setRequest("");
         setAISearch(true);
       }
 
