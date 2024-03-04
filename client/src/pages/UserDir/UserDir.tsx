@@ -29,7 +29,7 @@ export function UserDir() {
       <h1>Users</h1>
       <ul>
         {loading ? (
-          <li className="list-item-12">loading users</li>
+          <li className="list-member-12 doesnt-exist">loading users...</li>
         ) : (
           showThis.map((user: userListProps, index: number) => {
             const current = user.userName === userName;

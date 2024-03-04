@@ -296,6 +296,10 @@ body .doesnt-exist {
   color: white;
 }
 
+body li.doesnt-exist {
+  list-style-type: none;
+}
+
 body div.doesnt-exist span {
   font-weight: bold;
 }

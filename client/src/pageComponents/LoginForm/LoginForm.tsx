@@ -15,7 +15,6 @@ import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { loginState } from "../../utils/interfaces";
 import { LOGIN, FORGOT_PWD, RESET_PWD } from "../../utils/mutations";
-import { QUERY_ALL_USERS } from "../../utils/queries";
 import { AuthService } from "../../utils/auth";
 import { InputText, ForgotPwdModal, ResetPwdModal } from "../../components";
 
@@ -39,14 +38,7 @@ export function LoginForm({
   const [errorMessage, setErrorMessage] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [login] = useMutation(LOGIN, {
-    // when casting a vote, refetch poll directory, user and this poll
-    refetchQueries: () => [
-      {
-        query: QUERY_ALL_USERS,
-      },
-    ],
-  });
+  const [login] = useMutation(LOGIN);
   const [forgotPwd] = useMutation(FORGOT_PWD);
   const [resetPwd] = useMutation(RESET_PWD);
 

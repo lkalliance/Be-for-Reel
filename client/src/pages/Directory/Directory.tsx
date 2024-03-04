@@ -56,7 +56,7 @@ export function Directory() {
     <section id="directory">
       <div id="filters" className="col col-12">
         {getGenres.loading ? (
-          <div className="doesnt-exist list-member-20">Loading...</div>
+          <div className="doesnt-exist list-member-12">Loading genres...</div>
         ) : (
           <Select
             id="genreSelect"
@@ -67,7 +67,9 @@ export function Directory() {
         )}
       </div>
       <ul id="polls">
-        {showThis.length > 0 &&
+        {getPolls.loading ? (
+          <li className="doesnt-exist list-member-12">Loading polls...</li>
+        ) : showThis.length > 0 ? (
           showThis.map((poll: pollProps, index: number) => {
             return (
               <PollListing
@@ -78,7 +80,8 @@ export function Directory() {
                 }}
               />
             );
-          })}
+          })
+        ) : null}
       </ul>
       <Pagination
         navHandler={handlePageSelect}

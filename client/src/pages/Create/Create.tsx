@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "@apollo/client/utilities";
 import { AuthService } from "../../utils/auth";
-import { movieProps, searchOptions } from "../../utils/interfaces";
+import { movieProps } from "../../utils/interfaces";
 import { ADD_POLL } from "../../utils/mutations";
 import { QUERY_ALL_POLLS, QUERY_SINGLE_USER } from "../../utils/queries";
-import { convertLengthVals, pollLimit } from "../../utils/typeUtils";
+import { pollLimit } from "../../utils/typeUtils";
 import { MovieSearch, AboutPoll } from "../../pageComponents";
 import { SearchResult } from "../../components";
 
@@ -28,36 +28,8 @@ interface pollOptions {
 export function Create() {
   const auth = new AuthService();
 
-  // used to reset options values
-  const blankOptions = {
-    decade: "0",
-    // years: false,
-    // years: {
-    //   min: 1910,
-    //   max: thisYear(),
-    // },
-    length: {
-      min: 1,
-      max: 8,
-    },
-    gross: {
-      min: 1,
-      max: 7,
-    },
-    G: false,
-    PG: false,
-    PG13: false,
-    R: false,
-    oscar: false,
-    oscarWin: false,
-    genre: "all",
-  };
-
   const navigate = useNavigate();
-  const maxTries = 3; // maximum number of times we'll query IMDb for one search
 
-  const [searchField, setSearchField] = useState(""); // tracks text in movie title search field
-  const [options, setOptions] = useState(blankOptions as searchOptions); // tracks title search options
   const [results, setResults] = useState<movieProps[]>([]); // tracks results from most recent search
   const [selected, setSelected] = useState<movieProps[]>([]); // tracks movies selected for poll
   const [selectedIds, setSelectedIds] = useState<string[]>([]); // tracks IMDb ids of selected movies
@@ -70,8 +42,6 @@ export function Create() {
   const [sourceDown, setSourceDown] = useState<boolean>(false); // flag for this kind of error message
   const [errorMessage, setErrorMessage] = useState<string>(""); // tracks error message for poll submission
   const [searchError, setSearchError] = useState<string>(""); // tracks error message for search results
-  const [searching, setSearching] = useState<boolean>(false); // tracks message that search is in progress
-  const [searchingAI, setSearchingAI] = useState<boolean>(false); // tracks message that AI search is in progress
   const [aiSearch, setAiSearch] = useState<boolean>(false); // was this search an AI search
   const [profError, setProfError] = useState<boolean>(false); // profanity alert
   const [building, setBuilding] = useState<boolean>(false); // tracks message that poll is being built
@@ -137,12 +107,6 @@ export function Create() {
     }
   };
 
-  const getFilms = async (url: string) => {
-    const movieData = await fetch(url);
-    const result = await movieData.json();
-    return result;
-  };
-
   const genreValid = () => {
     // checks to make sure the current user-selected genre still good
 
@@ -152,157 +116,13 @@ export function Create() {
     );
   };
 
-  const handleSearchSubmit = async () => {
-    // handler for movie title search submission
-
-    // erase existing results and show that we're searching
-    setResults([]);
-    setSearching(true);
-    setNoResults(false);
-    setSourceDown(false);
-    setAiSearch(false);
-
-    // set up items to use in constructing the URL
-    const { decade, G, PG, PG13, R, oscar, oscarWin, length, genre } = options;
-    const mathDecade = parseInt(decade);
-    let searchUrl = `/api/movies/search/${
-      searchField.length > 0 ? searchField : "noTitle"
-    }`;
-    let paramParts = [];
-
-    if (mathDecade > 0) {
-      const from = 1920 + (mathDecade - 1) * 10;
-      const to = from + 9;
-      // a decade has been selected, add those parameters
-      paramParts.push(`from=${from}`);
-      paramParts.push(`to=${to}`);
-    }
-
-    // if (years.min > 1910 || years.max < thisYear()) {
-    //   // if there are years to search, add the parameters for from and to
-    //   paramParts.push(`from=${years.min}`);
-    //   paramParts.push(`to=${years.max}`);
-    // }
-
-    if (G || PG || PG13 || R) {
-      // if there are limits on ratings, add those parameters
-      const ratings = [];
-      if (G) ratings.push("us:G");
-      if (PG) ratings.push("us:PG");
-      if (PG13) ratings.push("us:PG-13");
-      if (R) ratings.push("us:R");
-      paramParts.push(`certificates=${ratings.join(",")}`);
-    }
-
-    // if Best Pic Winner is checked, add that parameter
-    if (oscar && oscarWin)
-      paramParts.push("groups=oscar_best_picture_nominees,oscar_winners");
-    else if (oscar) paramParts.push("groups=oscar_best_picture_nominees");
-    else if (oscarWin) paramParts.push("groups=oscar_winners");
-
-    if (length.min > 0 || length.max < 8) {
-      // if there is a time range, add that parameter
-      paramParts.push(
-        `runtime=${
-          length.min === 0 ? "" : convertLengthVals(length.min).minutes
-        },${length.max === 8 ? "" : convertLengthVals(length.max).minutes}`
-      );
-    }
-    if (genre !== "all") {
-      // if a genre has been chosen, add that parameter
-      paramParts.push(`genres=${genre}`);
-    }
-
-    // create the search URL from the base plus the parameters
-    searchUrl += paramParts.length > 0 ? `?${paramParts.join("&")}` : "";
-
-    let result: movieProps[] = [],
-      tries = 0;
-    while (tries < maxTries && result.length === 0) {
-      try {
-        const searchResults = await getFilms(searchUrl);
-        if (searchResults.message) {
-          // there was an error instead of a return
-          setSearching(false);
-          setSourceDown(true);
-          setNoResults(false);
-          setSearchError(searchResults.message);
-          tries = maxTries;
-          break;
-        }
-        result = searchResults;
-        tries++;
-      } catch (err) {
-        console.log(err);
-        break;
-      }
-    }
-
-    // if there was no response from API, abandon
-    if (sourceDown) return;
-    if (result.length === 0 && !sourceDown) {
-      // if there were no results, set the error
-      setNoResults(true);
-      setNoResults(true);
-      setSearching(false);
-      return;
-    }
-
-    // sort results by number of IMDb rating votes
-    result.sort((a: movieProps, b: movieProps) => {
-      return Number(b.imDbRatingVotes) - Number(a.imDbRatingVotes);
-    });
-
-    // put the results to the screen and reset everything else
-    setResults(result);
-    setSearching(false);
-    setSourceDown(false);
-    setNoResults(false);
-
-    // setSearchField("");
-    // setOptions(blankOptions);
-  };
-
-  const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Handler to track single-value changes to search options
-    const { id, value } = e.target;
-
-    // if it's a checkbox, set the new value as the opposite of before
-    const newValue =
-      id === "decade" ? value : !options[id as keyof searchOptions];
-    const newOptions = { ...options, [id]: newValue };
-
-    setOptions(newOptions);
-  };
-
-  const handleDualOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Special hander to track changes to search options for double-sliders
-    const { id, value } = e.target;
-
-    // id will be created from option identifier and min/max designation
-    const pieces = id.split("-");
-    const optionPiece = options[pieces[0]];
-    if (typeof optionPiece === "object") {
-      const newOptionPiece = { ...optionPiece, [pieces[1]]: +value };
-      const newOptions = { ...options, [pieces[0]]: newOptionPiece };
-      setOptions(newOptions);
-    }
-  };
-
-  const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Handler to track select menu changes to search options
-    const { id, value } = e.target;
-    const newOptions = { ...options, [id]: value };
-    setOptions(newOptions);
-  };
-
   const handlePollData = (
-    // Handler for managing changes to poll title and description
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
+    // Handler for managing changes to poll title and description
     const { id, value } = e.target;
     // clear any error message
     setErrorMessage("");
@@ -312,13 +132,6 @@ export function Create() {
       ...pollData,
       [id]: value,
     });
-  };
-
-  const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
-    // Handler to assign a keyboard enter to the title search button
-    if (e.key === "Enter") {
-      handleSearchSubmit();
-    }
   };
 
   const selectResult = (e: React.MouseEvent<HTMLElement>) => {
@@ -387,21 +200,11 @@ export function Create() {
 
               <div className="create-container">
                 <MovieSearch
-                  searchField={searchField}
-                  setSearchField={setSearchField}
-                  options={options}
                   setResults={setResults}
                   setSearchError={setSearchError}
                   setNoResults={setNoResults}
+                  sourceDown={sourceDown}
                   setSourceDown={setSourceDown}
-                  searching={searchingAI}
-                  setSearching={setSearchingAI}
-                  handleOption={handleOption}
-                  handleDualOption={handleDualOption}
-                  handleSelectOption={handleSelectOption}
-                  handleReturn={handleReturn}
-                  handleSearchSubmit={handleSearchSubmit}
-                  aiSearch={aiSearch}
                   setAISearch={setAiSearch}
                 />
               </div>
@@ -411,16 +214,6 @@ export function Create() {
                   Search Results<span>(click or tap to add to your poll)</span>
                 </h5>
 
-                {searching && (
-                  <div className="alert alert-primary">
-                    Searching for titles...
-                  </div>
-                )}
-                {searchingAI && (
-                  <div className="alert alert-primary">
-                    Asking ChatGPT for its opinion...
-                  </div>
-                )}
                 {aiSearch && (
                   <p className="chat-gpt-disclaimer">
                     These results were found by an AI assistant, and may not be
