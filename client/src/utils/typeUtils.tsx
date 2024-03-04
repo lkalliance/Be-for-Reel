@@ -99,6 +99,6 @@ export const pollLimit = (type: string) => {
 export const accountLimits = () => {
   return {
     password_min: 8,
-    username_max: 30,
+    username_max: 20,
   };
 };
