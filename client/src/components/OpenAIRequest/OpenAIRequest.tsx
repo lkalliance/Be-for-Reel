@@ -131,7 +131,7 @@ export function OpenAIRequest({
       } else {
         console.log(err);
         setSearchError(
-          "Something went wrong with the search. Sometimes rephrasing your request improves the results. Please try again."
+          "Something went wrong with the search. Sometimes rephrasing your request improves the results, or perhaps the AI provider is currently down. Please try again."
         );
       }
       setSearching(false);
