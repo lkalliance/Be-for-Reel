@@ -2,14 +2,32 @@
 
 header {
   border-bottom: 3px solid var(--tertiary-color);
-}
-
-.style-b header {
-  border-bottom: 3px solid var(--b-tertiary-color);
+  position: relative;
 }
 
 header img {
   height: 80px;
+}
+
+header .username.original,
+header a.header-login-link {
+  position: absolute;
+  bottom: 2.7rem;
+  right: 0;
+  padding: 0;
+  display: none;
+  font-weight: 300;
+  z-index: 20;
+}
+
+header .username.original a,
+header a.header-login-link {
+  font-size: 0.9rem;
+}
+
+.style-b header .username.original,
+.style-b header a.header-login-link {
+  display: block;
 }
 
 /* style switcher styles */
@@ -20,7 +38,7 @@ header div#switch {
   flex-direction: row;
   align-items: center;
   top: 0;
-  right: 0;
+  left: 60px;
   color: white;
   padding: 10px;
   font-size: 0.9rem;
@@ -43,4 +61,16 @@ header div#switch span {
 header div#switch span.selected {
   opacity: 1;
   font-size: 1.2rem;
+}
+
+@media screen and (max-width: 766px) {
+  .style-b header .username.original,
+  .style-b header a.header-login-link {
+    top: 60px;
+    right: 45px;
+    display: inline-block;
+    height: 0;
+    width: auto;
+    white-space: nowrap;
+  }
 }

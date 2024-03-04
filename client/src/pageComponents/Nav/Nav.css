@@ -22,6 +22,10 @@ button.navbar-toggler span.navbar-toggler-icon {
   width: 1em;
 }
 
+span.navbar-toggler-icon {
+  height: 1.3em;
+}
+
 .navbar-nav a.nav-link,
 div.navbar-nav span.navbar-text {
   color: var(--link);
@@ -94,6 +98,16 @@ div.navbar-nav div.nav-item.user-icon.click-to-show {
   display: block;
 }
 div.navbar-nav div.nav-item.user-icon.click-to-navigate {
+  display: none;
+}
+
+/* a/b testing */
+
+.style-b div.navbar-nav .create-nav-link {
+  display: none;
+}
+
+.style-b div.navbar-nav .nav-login-link {
   display: none;
 }
 

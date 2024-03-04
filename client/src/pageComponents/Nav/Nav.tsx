@@ -84,7 +84,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {!loggedIn && (
-              <LinkContainer to="/login">
+              <LinkContainer to="/login" className="nav-login-link">
                 <Nav.Link onClick={() => closeMenus()}>
                   Log in or sign up
                 </Nav.Link>
@@ -92,7 +92,7 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
             )}
 
             {loggedIn && (
-              <LinkContainer to="/create">
+              <LinkContainer to="/create" className="create-nav-link">
                 <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
               </LinkContainer>
             )}

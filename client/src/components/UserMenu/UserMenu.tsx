@@ -35,7 +35,7 @@ export function UserMenu({
   return (
     <div id="user-menu">
       <ul>
-        <li>
+        <li className="user-link">
           <Link
             to={`/${lookup}`}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
@@ -44,6 +44,18 @@ export function UserMenu({
             }}
           >
             {uname}
+          </Link>
+        </li>
+
+        <li className="create-link">
+          <Link
+            to={`/create`}
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              setMenu(false);
+              if (toggleNav) toggleNav();
+            }}
+          >
+            Create a poll
           </Link>
         </li>
 

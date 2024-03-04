@@ -40,3 +40,17 @@ nav div#user-menu li a:hover {
   background-color: var(--tertiary-color);
   color: var(--tertiary-background);
 }
+
+/* current a-style, b-style */
+
+nav div#user-menu .create-link {
+  display: none;
+}
+
+.style-b nav div#user-menu .create-link {
+  display: block;
+}
+
+.style-b nav div#user-menu .user-link {
+  display: none;
+}

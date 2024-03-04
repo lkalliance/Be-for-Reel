@@ -159,11 +159,6 @@ button.btn.btn-primary {
   border-color: var(--tertiary-mid);
 }
 
-.style-b button.btn.btn-primary {
-  background-color: var(--b-tertiary-mid);
-  border-color: var(--b-tertiary-mid);
-}
-
 button.btn.btn-primary:hover {
   background-color: var(--link-hover);
   border-color: var(--link-hover);
@@ -194,19 +189,9 @@ body .you-data {
   color: var(--secondary-color);
 }
 
-body .style-b .secondary,
-body .style-b .you-data {
-  color: var(--b-secondary-color);
-}
-
 body .tertiary,
 body .user-data {
   color: var(--tertiary-color);
-}
-
-body .style-b .tertiary,
-body .style-b .user-data {
-  color: var(--b-tertiary-color);
 }
 
 body div.you-data,
@@ -216,13 +201,6 @@ body button.btn.you-data {
   background-color: var(--secondary-background);
 }
 
-body .style-b div.you-data,
-body .style-b span.tag.you-data,
-body .style-b button.btn.you-data {
-  color: var(--b-secondary-on-background);
-  background-color: var(--b-secondary-background);
-}
-
 body div.user-data,
 body span.tag.user-data,
 body button.btn.user-data {
@@ -230,27 +208,12 @@ body button.btn.user-data {
   background-color: var(--tertiary-background);
 }
 
-body .style-b div.user-data,
-body .style-b span.tag.user-data,
-body .style-b button.btn.user-data {
-  color: var(--b-tertiary-on-background);
-  background-color: var(--b-tertiary-background);
-}
-
 body .item-hover:hover {
   background-color: var(--item-background-hover);
 }
 
-body .style-b .item-hover:hover {
-  background-color: var(--b-item-background-hover);
-}
-
 body .user-data.hoverable:hover {
   background-color: var(--tertiary-mid);
-}
-
-body .style-b .user-data.hoverable:hover {
-  background-color: var(--b-tertiary-mid);
 }
 
 body .border-user {
@@ -259,14 +222,6 @@ body .border-user {
 
 body .border-you {
   border-color: var(--secondary-color);
-}
-
-body .style-b .border-user {
-  border-color: var(--b-tertiary-mid);
-}
-
-body .style-b .border-you {
-  border-color: var(--b-secondary-color);
 }
 
 /* FREQUENT STRUCTURES */
@@ -347,118 +302,3 @@ body div.main-modal {
   height: 100%;
   z-index: 300;
 }
-
-/* body .sub-info {
-  /* accompanies headline, but not link 
-  color: var(--secondary-color);
-  margin-top: 0;
-}
-
-body .style-b .sub-info {
-  /* accompanies headline, but not link 
-  color: var(--b-secondary-color);
-} */
-
-/* Basic text coloring styles */
-/* 
-
-
-
-body .style-b .tertiary,
-body .style-b .user-data {
-  color: var(--b-tertiary-color);
-}
-
-body .style-b .secondary,
-body .style-b .you-data {
-  color: var(--b-secondary-color);
-} */
-
-/* Basic container combos */
-/* body div.tertiary,
-body .bg-user-data,
-body span.bg-user-data.as-div {
-  color: var(--tertiary-on-background);
-  background-color: var(--tertiary-background);
-}
-
-body .bg-user-mid {
-  color: var(--tertiary);
-  background-color: var(--tertiary-mid);
-}
-
-body div.secondary,
-body .bg-you-data,
-body span.bg-you-data.as-div {
-  color: var(--secondary-on-background);
-  background-color: var(--secondary-background);
-}
-
-body .style-b div.tertiary,
-body .style-b .bg-user-data,
-body .style-b span.bg-user-data.as-div {
-  color: var(--b-tertiary-on-background);
-  background-color: var(--b-tertiary-background);
-}
-
-body .style-b div.secondary,
-body .style-b .bg-you-data,
-body .style-b span.bg-you-data.as-div {
-  color: var(--b-secondary-on-background);
-  background-color: var(--b-secondary-background);
-}
-
-body .style-b .bg-user-mid {
-  color: var(--b-tertiary);
-  background-color: var(--b-tertiary-mid) !important;
-}
-
-body .border-user {
-  border-color: var(--tertiary-mid);
-}
-
-body .border-you {
-  border-color: var(--secondary-color);
-}
-
-body .style-b .border-user {
-  border-color: var(--b-tertiary-mid);
-}
-
-body .style-b .border-you {
-  border-color: var(--b-secondary-color);
-}
-
-
-body div.bg-you-data,
-body div.bg-user-data,
-body span.bg-user-data.as-div,
-body span.bg-you-data.as-div {
-  /* padding: 4px 10px; 
-  border-radius: 4px;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-body span.bg-user-data.as-div,
-body span.bg-you-data.as-div {
-  padding: 4px 10px;
-}
-
-body span.as-div {
-  position: relative;
-  top: -2px;
-}
-
-
-
-
-
-
-
-.accordion-button:focus {
-  box-shadow: none;
-  border-bottom: none;
-}
-
- */

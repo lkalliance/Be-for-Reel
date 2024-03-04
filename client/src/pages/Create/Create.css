@@ -41,10 +41,6 @@ section#create div.create-container {
   min-height: 225px;
 }
 
-.style-b section#create h5 {
-  border-bottom-color: var(--b-tertiary-color);
-}
-
 section#create div#about,
 section#create div#titleSearch {
   max-width: 400px;
