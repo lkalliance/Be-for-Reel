@@ -29,4 +29,3 @@ export { OpenAIRequest } from "./OpenAIRequest";
 export { UserIcon } from "./UserIcon";
 export { SearchingAlert } from "./SearchingAlert";
 export { TitleSearch } from "./TitleSearch";
-export { RefNav } from "./RefNav";

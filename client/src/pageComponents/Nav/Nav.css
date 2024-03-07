@@ -102,19 +102,19 @@ div.navbar-nav div.nav-item.user-icon.click-to-navigate {
 }
 
 /* a/b testing */
-
+/* 
 .style-b div.navbar-nav .create-nav-link {
   display: none;
 }
 
 .style-b div.navbar-nav .nav-login-link {
   display: none;
-}
+} */
 
 /* media query to determine whether user hovering or clicking */
 
 @media screen and (max-width: 767px) {
-  div.navbar-nav div.nav-item.user-icon.click-to-show {
+  /* div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -127,12 +127,12 @@ div.navbar-nav div.nav-item.user-icon.click-to-navigate {
 
   div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: none;
-  }
+  } */
 }
 
 @media screen and (hover: hover) {
   /* screen has hover */
-  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
+  /* div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: none;
   }
   div.navbar-nav div.nav-item.user-icon.click-to-show {
@@ -142,12 +142,12 @@ div.navbar-nav div.nav-item.user-icon.click-to-navigate {
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-navigate,
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
-  }
+  } */
 }
 
 @media screen and (hover: hover) {
   /* screen has hover */
-  div.navbar-nav div.nav-item.user-icon.click-to-show {
+  /* div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
   }
   div.navbar-nav div.nav-item.user-icon.click-to-navigate {
@@ -157,22 +157,22 @@ div.navbar-nav div.nav-item.user-icon.click-to-navigate {
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-navigate,
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
-  }
+  } */
 }
 
 /* media query to adjust alignment of user icon on smaller screens */
 
 @media screen and (max-width: 767px) and (hover: hover) {
   /* screen is small enough to collapse nav */
-  div.navbar-nav div.nav-item.user-icon.click-to-navigate {
+  /* div.navbar-nav div.nav-item.user-icon.click-to-navigate {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     padding-bottom: 15px;
-  }
-
+  } */
+  /* 
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-navigate,
   .style-b div.navbar-nav div.nav-item.user-icon.click-to-show {
     display: none;
-  }
+  } */
 }

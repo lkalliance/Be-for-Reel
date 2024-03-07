@@ -63,12 +63,7 @@ export function HeaderNav({
   };
 
   return (
-    <Navbar
-      expand={currentSwitch === "a" ? "md" : "sm"}
-      collapseOnSelect={true}
-      bg="transparent"
-      variant="dark"
-    >
+    <Navbar expand="sm" collapseOnSelect={true} bg="transparent" variant="dark">
       <Container>
         <Link
           to="/"
@@ -83,14 +78,6 @@ export function HeaderNav({
         <Navbar.Toggle id="toggle-button" aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {!loggedIn && (
-              <LinkContainer to="/login" className="nav-login-link">
-                <Nav.Link onClick={() => closeMenus()}>
-                  Log in or sign up
-                </Nav.Link>
-              </LinkContainer>
-            )}
-
             {loggedIn && (
               <LinkContainer to="/create" className="create-nav-link">
                 <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
@@ -119,9 +106,9 @@ export function HeaderNav({
               </Nav.Link>
             </LinkContainer>
 
-            {loggedIn && (
-              <>
-                <NavItem
+            {/* {loggedIn && (
+              <> */}
+            {/* <NavItem
                   className={`click-to-navigate user-icon faq-round ${
                     showUserMenu && "show-menu"
                   }`}
@@ -156,9 +143,9 @@ export function HeaderNav({
                       showUserName={true}
                     />
                   )}
-                </NavItem>
+                </NavItem> */}
 
-                <NavItem
+            {/* <NavItem
                   className={`click-to-show user-icon faq-round ${
                     showUserMenu && "show-menu"
                   }`}
@@ -188,9 +175,9 @@ export function HeaderNav({
                       showUserName={true}
                     />
                   )}
-                </NavItem>
-              </>
-            )}
+                </NavItem> */}
+            {/* </>
+            )} */}
           </Nav>
         </Navbar.Collapse>
       </Container>

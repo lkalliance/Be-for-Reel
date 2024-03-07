@@ -36,7 +36,7 @@ export function Header({
 
   return (
     <header>
-      <div id="switch">
+      {/* <div id="switch">
         <span
           onClick={handleSwitch}
           id="a"
@@ -51,7 +51,7 @@ export function Header({
         >
           B
         </span>
-      </div>
+      </div> */}
       <div
         className="username original"
         onMouseOver={() => {
@@ -74,9 +74,11 @@ export function Header({
             />
           )}
         </Link>
-        <div
+        <a
+          href="@"
           className="reverse click-to-open"
-          onClick={() => {
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
             toggleNav();
             setShowUserMenu(!showUserMenu);
           }}
@@ -88,7 +90,7 @@ export function Header({
               className="caret-right reverse"
             />
           )}
-        </div>
+        </a>
         {loggedIn && showUserMenu && (
           <UserMenu
             setMenu={setShowUserMenu}

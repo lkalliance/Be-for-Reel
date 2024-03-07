@@ -30,7 +30,7 @@ export function UserMenu({
   setShowSearch,
   showUserName,
 }: userMenuProps) {
-  const Auth = new AuthService();
+  const auth = new AuthService();
   return (
     <div id="user-menu">
       <ul>
@@ -64,7 +64,7 @@ export function UserMenu({
             onClick={(e) => {
               if (setShowSearch) setShowSearch(false);
               e.preventDefault();
-              Auth.logout();
+              auth.logout();
               setLogIn(false);
               setMenu(false);
               toggleNav();

@@ -30,7 +30,7 @@ header a.header-login-link {
   font-size: 0.9rem;
 }
 
-.style-b header div#user-menu {
+header div#user-menu {
   top: 100%;
   right: 0;
   background-color: transparent;
@@ -38,37 +38,37 @@ header a.header-login-link {
   padding: 2px 0 0;
 }
 
-.style-b header div#user-menu a {
+div#user-menu a {
   white-space: nowrap;
 }
 
-.style-b header div#user-menu ul {
+header div#user-menu ul {
   border: 1px solid var(--secondary-color);
   border-radius: 0;
 }
 
-.style-b header div#user-menu ul li {
+header div#user-menu ul li {
   border: 0;
   border-bottom: 1px solid var(--secondary-color);
   background-color: var(--secondary-background);
 }
 
-.style-b header div#user-menu ul li:hover {
+header div#user-menu ul li:hover {
   border: 0;
   border-bottom: 1px solid var(--secondary-color);
   background-color: var(--secondary-color);
 }
 
-.style-b header div#user-menu ul li a {
+header div#user-menu ul li a {
   display: block;
   padding: 6px 12px;
 }
 
-.style-b header div#user-menu ul li a:hover {
+header div#user-menu ul li a:hover {
   color: var(--secondary-background);
 }
 
-.style-b header .username.original svg {
+header .username.original svg {
   position: relative;
   top: 0;
   margin-left: 3px;
@@ -76,35 +76,35 @@ header a.header-login-link {
   transition: all 0.2s;
 }
 
-.style-b header .username.original:hover svg {
+header .username.original:hover svg {
   transform: rotate(90deg);
 }
 
-/* .style-b header div#user-menu li,
-.style-b header div#user-menu a,
-.style-b header div#user-name ul {
+header div#user-menu li,
+header div#user-menu a,
+header div#user-name ul {
   border: 0;
-} */
+}
 
-.style-b header a.header-login-link {
+header a.header-login-link {
   display: block;
 }
 
-.style-b header .username.original {
+header .username.original {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 
-.style-b header div#user-menu ul:last-child {
+header div#user-menu ul:last-child {
   border-bottom: 0;
 }
 
-.style-b header div.click-to-open {
+header a.click-to-open {
   display: block;
 }
 
-.style-b header a.click-to-navigate {
+header a.click-to-navigate {
   display: none;
 }
 
@@ -142,29 +142,28 @@ header div#switch span.selected {
 }
 
 @media screen and (max-width: 575px) {
-  .style-b header .username.original,
-  .style-b header a.header-login-link {
+  header .username.original,
+  header a.header-login-link {
     top: 60px;
     right: 45px;
-    /* height: 0; */
     width: auto;
     white-space: nowrap;
   }
 
-  .style-b header .username.original {
+  header .username.original {
     display: flex;
   }
-  .style-b header a.header-login-link {
+  header a.header-login-link {
     display: inline-block;
   }
 }
 
 @media screen and (hover: hover) {
-  .style-b header div.click-to-open {
+  header a.click-to-open {
     display: none;
   }
 
-  .style-b header a.click-to-navigate {
+  header a.click-to-navigate {
     display: block;
   }
 }

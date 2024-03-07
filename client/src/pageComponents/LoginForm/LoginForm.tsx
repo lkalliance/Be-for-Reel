@@ -26,7 +26,7 @@ export function LoginForm({
   boolErr,
   setBoolErr,
 }: loginState) {
-  const Auth = new AuthService();
+  const auth = new AuthService();
   const navigate = useNavigate();
   const { eToken } = useParams();
   const isForgotten = window.location.hash.indexOf("pwd") >= 0;
@@ -129,7 +129,7 @@ export function LoginForm({
       });
 
       // store the login token
-      Auth.login(data.login.token);
+      auth.login(data.login.token);
       setLogIn(true);
       navigate("/");
     } catch (err) {
