@@ -1,11 +1,13 @@
 // This component renders the page header
 
 import "./Header.css";
-import { Dispatch, SetStateAction } from "react";
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
 import { HeaderNav } from "../../pageComponents";
-import { UsernameLink } from "../../components";
+import { UserMenu, RefNav } from "../../components";
 
 interface headerProps {
   loggedIn: boolean;
@@ -21,13 +23,17 @@ export function Header({
   currentSwitch,
 }: headerProps) {
   const auth = new AuthService();
-  const { userName } = auth.getProfile();
+  const { userName, lookupName } = auth.getProfile();
+
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
+  const navRef = useRef<() => void>();
 
   const handleSwitch = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     const { id } = e.currentTarget;
     abSwitch(id);
   };
+
   return (
     <header>
       <div id="switch">
@@ -46,14 +52,74 @@ export function Header({
           B
         </span>
       </div>
-      <UsernameLink username={userName} noBy={true} />
+      <div
+        className="username original"
+        onMouseOver={() => {
+          setShowUserMenu(true);
+        }}
+        onMouseOut={() => {
+          setShowUserMenu(false);
+        }}
+      >
+        <Link
+          to={`/${lookupName}`}
+          className="reverse click-to-navigate"
+          onClick={() => {
+            if (navRef.current) navRef.current();
+          }}
+        >
+          {userName}
+          {loggedIn && (
+            <FontAwesomeIcon
+              icon={faCaretRight}
+              className="caret-right reverse"
+            />
+          )}
+        </Link>
+        <div
+          className="reverse click-to-open"
+          onClick={() => {
+            if (navRef.current) navRef.current();
+            setShowUserMenu(!showUserMenu);
+          }}
+        >
+          {userName}
+          {loggedIn && (
+            <FontAwesomeIcon
+              icon={faCaretRight}
+              className="caret-right reverse"
+            />
+          )}
+        </div>
+        {loggedIn && showUserMenu && (
+          <UserMenu
+            setMenu={setShowUserMenu}
+            setLogIn={setLogIn}
+            lookup={lookupName}
+            toggleNav={navRef.current}
+          />
+        )}
+      </div>
       {!auth.loggedIn() && (
-        <Link className="header-login-link" to="/login">
+        <Link
+          className="header-login-link"
+          to="/login"
+          onClick={() => {
+            if (navRef.current) {
+              navRef.current();
+            }
+          }}
+        >
           Log in or sign up
         </Link>
       )}
 
-      <HeaderNav loggedIn={loggedIn} setLogIn={setLogIn} />
+      <RefNav
+        ref={navRef}
+        loggedIn={loggedIn}
+        setLogIn={setLogIn}
+        currentSwitch={currentSwitch}
+      />
     </header>
   );
 }

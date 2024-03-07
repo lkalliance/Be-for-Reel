@@ -22,9 +22,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 interface headerNavProps {
   loggedIn: boolean;
   setLogIn: Dispatch<SetStateAction<boolean>>;
+  currentSwitch: string;
 }
 
-export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
+export function HeaderNav({
+  loggedIn,
+  setLogIn,
+  currentSwitch,
+}: headerNavProps) {
   const auth = new AuthService();
   const { userName, lookupName } = auth.getProfile();
   const navigate = useNavigate();
@@ -68,7 +73,12 @@ export function HeaderNav({ loggedIn, setLogIn }: headerNavProps) {
   };
 
   return (
-    <Navbar expand="md" collapseOnSelect={true} bg="transparent" variant="dark">
+    <Navbar
+      expand={currentSwitch === "a" ? "md" : "sm"}
+      collapseOnSelect={true}
+      bg="transparent"
+      variant="dark"
+    >
       <Container>
         <Link
           to="/"

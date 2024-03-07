@@ -13,12 +13,12 @@ import { Link } from "react-router-dom";
 import { AuthService } from "../../utils/auth";
 
 interface userMenuProps {
-  uname: string;
-  lookup: string;
+  uname?: string;
+  lookup?: string;
   setMenu: Dispatch<SetStateAction<boolean>>;
   setLogIn: Dispatch<SetStateAction<boolean>>;
-  setShowSearch: Dispatch<SetStateAction<boolean>>;
-  showUserName: boolean;
+  setShowSearch?: Dispatch<SetStateAction<boolean>>;
+  showUserName?: boolean;
   toggleNav?: () => void;
 }
 
@@ -43,7 +43,7 @@ export function UserMenu({
               if (toggleNav) toggleNav();
             }}
           >
-            {uname}
+            Profile
           </Link>
         </li>
 
@@ -63,10 +63,11 @@ export function UserMenu({
           <Link
             to="/"
             onClick={(e) => {
-              setShowSearch(false);
+              if (setShowSearch) setShowSearch(false);
               e.preventDefault();
               Auth.logout();
               setLogIn(false);
+              setMenu(false);
               if (toggleNav) toggleNav();
             }}
           >
