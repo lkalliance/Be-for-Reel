@@ -1,13 +1,14 @@
 // This component renders the page header
 
 import "./Header.css";
-import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../utils/auth";
+import { toggleNav } from "../../utils";
 import { HeaderNav } from "../../pageComponents";
-import { UserMenu, RefNav } from "../../components";
+import { UserMenu } from "../../components";
 
 interface headerProps {
   loggedIn: boolean;
@@ -26,7 +27,6 @@ export function Header({
   const { userName, lookupName } = auth.getProfile();
 
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
-  const navRef = useRef<() => void>();
 
   const handleSwitch = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
@@ -64,9 +64,7 @@ export function Header({
         <Link
           to={`/${lookupName}`}
           className="reverse click-to-navigate"
-          onClick={() => {
-            if (navRef.current) navRef.current();
-          }}
+          onClick={toggleNav}
         >
           {userName}
           {loggedIn && (
@@ -79,7 +77,7 @@ export function Header({
         <div
           className="reverse click-to-open"
           onClick={() => {
-            if (navRef.current) navRef.current();
+            toggleNav();
             setShowUserMenu(!showUserMenu);
           }}
         >
@@ -96,26 +94,16 @@ export function Header({
             setMenu={setShowUserMenu}
             setLogIn={setLogIn}
             lookup={lookupName}
-            toggleNav={navRef.current}
           />
         )}
       </div>
       {!auth.loggedIn() && (
-        <Link
-          className="header-login-link"
-          to="/login"
-          onClick={() => {
-            if (navRef.current) {
-              navRef.current();
-            }
-          }}
-        >
+        <Link className="header-login-link" to="/login" onClick={toggleNav}>
           Log in or sign up
         </Link>
       )}
 
-      <RefNav
-        ref={navRef}
+      <HeaderNav
         loggedIn={loggedIn}
         setLogIn={setLogIn}
         currentSwitch={currentSwitch}

@@ -202,7 +202,6 @@ export const RefNav = forwardRef(
                         setLogIn={setLogIn}
                         setShowSearch={setShowSearch}
                         showUserName={true}
-                        toggleNav={toggleNav}
                       />
                     )}
                   </NavItem>

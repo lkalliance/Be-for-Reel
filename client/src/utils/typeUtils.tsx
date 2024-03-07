@@ -33,6 +33,18 @@ export const createLookupName = (userName: string) => {
   return lookupName;
 };
 
+export const toggleNav = () => {
+  // universal utility to close the navigation toggle
+  const toggle: HTMLButtonElement | null = document.querySelector(
+    "button#toggle-button"
+  );
+  const collapseTell = document.querySelector("div#basic-navbar-nav");
+  const showing = collapseTell
+    ? collapseTell.className.indexOf("show") !== -1
+    : false;
+  if (toggle && showing) toggle.click();
+};
+
 export const convertLengthVals = (index: number) => {
   const conversions = [0, 60, 90, 120, 150, 180, 210, 240, 999];
   const text = [

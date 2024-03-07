@@ -10,6 +10,7 @@ setShowSearch: handler to alter the flat to show/hide search bar */
 import "./UserMenu.css";
 import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { toggleNav } from "../../utils";
 import { AuthService } from "../../utils/auth";
 
 interface userMenuProps {
@@ -19,7 +20,6 @@ interface userMenuProps {
   setLogIn: Dispatch<SetStateAction<boolean>>;
   setShowSearch?: Dispatch<SetStateAction<boolean>>;
   showUserName?: boolean;
-  toggleNav?: () => void;
 }
 
 export function UserMenu({
@@ -27,7 +27,6 @@ export function UserMenu({
   lookup,
   setMenu,
   setLogIn,
-  toggleNav,
   setShowSearch,
   showUserName,
 }: userMenuProps) {
@@ -40,7 +39,7 @@ export function UserMenu({
             to={`/${lookup}`}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               setMenu(false);
-              if (toggleNav) toggleNav();
+              toggleNav();
             }}
           >
             Profile
@@ -52,7 +51,7 @@ export function UserMenu({
             to={`/create`}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               setMenu(false);
-              if (toggleNav) toggleNav();
+              toggleNav();
             }}
           >
             Create a poll
@@ -68,7 +67,7 @@ export function UserMenu({
               Auth.logout();
               setLogIn(false);
               setMenu(false);
-              if (toggleNav) toggleNav();
+              toggleNav();
             }}
           >
             Log out

@@ -15,6 +15,7 @@ import {
   faCaretRight,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { toggleNav } from "../../utils";
 import { AuthService } from "../../utils/auth";
 import { SearchForm, UserMenu } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,17 +60,6 @@ export function HeaderNav({
   const closeMenus = () => {
     setShowSearch(false);
     setShowUserMenu(false);
-  };
-
-  const toggleNav = () => {
-    const toggle: HTMLButtonElement | null = document.querySelector(
-      "button#toggle-button"
-    );
-    const collapseTell = document.querySelector("div#basic-navbar-nav");
-    const showing = collapseTell
-      ? collapseTell.className.indexOf("show") !== -1
-      : false;
-    if (toggle && showing) toggle.click();
   };
 
   return (
@@ -196,7 +186,6 @@ export function HeaderNav({
                       setLogIn={setLogIn}
                       setShowSearch={setShowSearch}
                       showUserName={true}
-                      toggleNav={toggleNav}
                     />
                   )}
                 </NavItem>
