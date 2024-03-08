@@ -109,6 +109,23 @@ section#create div.alert {
   margin-top: 12px;
 }
 
+section#create div#resend-alert {
+  color: white;
+}
+
+section#create div#resend-alert button {
+  float: right;
+  margin: 0 0 6px 20px;
+  font-size: 0.9rem;
+  padding: 3px 8px;
+}
+
+section#create div#resend-alert p {
+  margin-bottom: 0;
+  margin-right: 20px;
+  font-size: 0.85rem;
+}
+
 @media screen and (max-width: 575px) {
   section#create h1 {
     max-width: 376px;

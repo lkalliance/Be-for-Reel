@@ -42,6 +42,25 @@ div.deactivated {
   color: white;
 }
 
+section#poll div#resend-alert {
+  margin: 0 16px;
+}
+
+section#poll div#resend-alert button {
+  float: right;
+  margin: 0 0 10px 20px;
+  font-size: 0.9rem;
+  padding: 3px 8px;
+}
+
+section#poll div#resend-alert p {
+  margin-bottom: 0;
+  margin-right: 20px;
+  text-align: left;
+  font-size: 0.85rem;
+  color: white;
+}
+
 @media screen and (min-width: 768px) {
   div#comments {
     max-width: 720px;
