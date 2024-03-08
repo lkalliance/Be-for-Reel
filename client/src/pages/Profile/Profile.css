@@ -48,6 +48,13 @@ section#profile div.alert {
   margin-top: 8px;
 }
 
+section#profile div#confirmation-alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* section#profile button#resend {
   padding: 0;
   border: 0;
@@ -66,6 +73,24 @@ section#profile span.poll-info,
 section#profile span.you-data,
 section#profile span.user-data {
   display: none;
+}
+
+section#profile div#resend-alert {
+  color: white;
+}
+
+section#profile div#resend-alert button {
+  float: right;
+  margin: 0 0 10px 20px;
+  font-size: 0.9rem;
+  padding: 3px 8px;
+}
+
+section#profile div#resend-alert p {
+  margin-bottom: 0;
+  margin-right: 20px;
+  text-align: left;
+  font-size: 0.85rem;
 }
 
 @media screen and (max-width: 600px) {

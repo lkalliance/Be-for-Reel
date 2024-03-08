@@ -105,12 +105,20 @@ export function Profile() {
                   }`}
                 >{`member since ${createdOn.getFullYear()}`}</h4>
                 {!confirmed && thisUser && (
-                  <div className="alert alert-danger">
-                    Account not yet activated. Check <strong>{email}</strong>{" "}
-                    for confirmation email.{" "}
-                    <button id="resend" onClick={resendHandler}>
+                  <div className="list-member-12" id="resend-alert">
+                    <button
+                      className="btn btn-danger btn-sm"
+                      id="resend"
+                      onClick={resendHandler}
+                    >
                       resend
-                    </button>
+                    </button>{" "}
+                    <p>
+                      Your account's email address <strong>{email}</strong> has
+                      not been confirmed. Look for a confirmation email at that
+                      address. If you have confirmed your account, try logging
+                      out and logging back in.
+                    </p>
                   </div>
                 )}
               </div>
