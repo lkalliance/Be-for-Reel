@@ -10,7 +10,7 @@ export function SearchingAlert({ message, stopSearch }: searchingAlertProps) {
   return (
     <div id="searching-alert" className="list-member-12">
       <img src={searchGif} alt="searching for films" />
-      {message} ...
+      <div className="message">{message}...</div>
       <button className="btn btn-primary btn-small" onClick={stopSearch}>
         Cancel
       </button>

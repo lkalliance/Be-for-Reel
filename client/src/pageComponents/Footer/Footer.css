@@ -12,10 +12,6 @@ body footer {
   font-size: 1rem;
 }
 
-body .style-b footer {
-  border-top: 3px solid var(--b-tertiary-color);
-}
-
 body footer div {
   margin-top: 6px;
 }

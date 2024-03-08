@@ -10,40 +10,53 @@ setShowSearch: handler to alter the flat to show/hide search bar */
 import "./UserMenu.css";
 import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { toggleNav } from "../../utils";
 import { AuthService } from "../../utils/auth";
 
 interface userMenuProps {
-  uname: string;
-  lookup: string;
+  uname?: string;
+  lookup?: string;
   setMenu: Dispatch<SetStateAction<boolean>>;
   setLogIn: Dispatch<SetStateAction<boolean>>;
-  setShowSearch: Dispatch<SetStateAction<boolean>>;
-  showUserName: boolean;
-  toggleNav?: () => void;
+  setShowSearch?: Dispatch<SetStateAction<boolean>>;
+  showUserName?: boolean;
+  hideSearch: () => void;
 }
 
 export function UserMenu({
-  uname,
   lookup,
   setMenu,
   setLogIn,
-  toggleNav,
   setShowSearch,
-  showUserName,
+  hideSearch,
 }: userMenuProps) {
-  const Auth = new AuthService();
+  const auth = new AuthService();
   return (
     <div id="user-menu">
       <ul>
-        <li>
+        <li className="user-link">
           <Link
             to={`/${lookup}`}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               setMenu(false);
-              if (toggleNav) toggleNav();
+              toggleNav();
+              hideSearch();
             }}
           >
-            {uname}
+            Profile
+          </Link>
+        </li>
+
+        <li className="create-link">
+          <Link
+            to={`/create`}
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              setMenu(false);
+              toggleNav();
+              hideSearch();
+            }}
+          >
+            Create a poll
           </Link>
         </li>
 
@@ -51,11 +64,13 @@ export function UserMenu({
           <Link
             to="/"
             onClick={(e) => {
-              setShowSearch(false);
+              if (setShowSearch) setShowSearch(false);
               e.preventDefault();
-              Auth.logout();
+              auth.logout();
               setLogIn(false);
-              if (toggleNav) toggleNav();
+              setMenu(false);
+              toggleNav();
+              hideSearch();
             }}
           >
             Log out

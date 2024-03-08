@@ -25,10 +25,6 @@
   opacity: 1;
 }
 
-.style-b .tab-container {
-  border-bottom-color: var(--b-tertiary-mid);
-}
-
 .tab-container .beta span {
   position: absolute;
   bottom: 10px;
@@ -50,16 +46,8 @@
   padding-left: 20px;
 }
 
-.style-b .tab-container .beta span {
-  background-color: var(--b-tertiary-color);
-}
-
 /* button colors */
 
 .tab-container button.btn.user-data {
   background-color: var(--tertiary-mid);
-}
-
-.style-b .tab-container button.btn.user-data {
-  background-color: var(--b-tertiary-mid);
 }

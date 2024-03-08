@@ -25,5 +25,6 @@ export {
   createLookupName,
   listSection,
   convertLengthVals,
+  toggleNav,
 } from "./typeUtils";
 export { usePagination } from "./usePagination";

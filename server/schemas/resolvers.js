@@ -306,9 +306,12 @@ const resolvers = {
       // (all lower case, alphanumeric, and hyphens for spaces)
       const lookupName = createLookupName(cleanedUserName);
 
+      // return before adding under certain conditions
       const referenceLookup = lookupName.replace(/-/g, "");
       if (reservedNames[referenceLookup])
         return { message: `"${lookupName}" is a reserved name.` };
+      if (userName.length > 20)
+        return { message: `"${userName}" is too long a username.` };
 
       const newUser = {
         userName: cleanedUserName,

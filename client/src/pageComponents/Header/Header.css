@@ -2,14 +2,111 @@
 
 header {
   border-bottom: 3px solid var(--tertiary-color);
-}
-
-.style-b header {
-  border-bottom: 3px solid var(--b-tertiary-color);
+  position: relative;
 }
 
 header img {
   height: 80px;
+}
+
+header .username.original,
+header a.header-login-link {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  padding: 0;
+  display: none;
+  font-weight: 600;
+  z-index: 200;
+}
+
+header .username.original a,
+header a.header-login-link {
+  font-weight: 400;
+}
+
+header .username.original a,
+header a.header-login-link {
+  font-size: 0.9rem;
+}
+
+header div#user-menu {
+  top: 100%;
+  right: 0;
+  background-color: transparent;
+  border-radius: 0;
+  padding: 2px 0 0;
+  z-index: 200;
+}
+
+div#user-menu a {
+  white-space: nowrap;
+}
+
+header div#user-menu ul {
+  border: 1px solid var(--secondary-color);
+  border-radius: 0;
+}
+
+header div#user-menu ul li {
+  border: 0;
+  border-bottom: 1px solid var(--secondary-color);
+  background-color: var(--secondary-background);
+}
+
+header div#user-menu ul li:hover {
+  border: 0;
+  border-bottom: 1px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+}
+
+header div#user-menu ul li a {
+  display: block;
+  padding: 6px 12px;
+}
+
+header div#user-menu ul li a:hover {
+  color: var(--secondary-background);
+}
+
+header .username.original svg {
+  position: relative;
+  top: 0;
+  margin-left: 3px;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+header .username.original:hover svg {
+  transform: rotate(90deg);
+}
+
+header div#user-menu li,
+header div#user-menu a,
+header div#user-name ul {
+  border: 0;
+}
+
+header a.header-login-link {
+  display: block;
+}
+
+header .username.original {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+header div#user-menu ul:last-child {
+  border-bottom: 0;
+}
+
+header a.click-to-open {
+  display: block;
+}
+
+header a.click-to-navigate {
+  display: none;
 }
 
 /* style switcher styles */
@@ -20,7 +117,7 @@ header div#switch {
   flex-direction: row;
   align-items: center;
   top: 0;
-  right: 0;
+  left: 60px;
   color: white;
   padding: 10px;
   font-size: 0.9rem;
@@ -43,4 +140,31 @@ header div#switch span {
 header div#switch span.selected {
   opacity: 1;
   font-size: 1.2rem;
+}
+
+@media screen and (max-width: 575px) {
+  header .username.original,
+  header a.header-login-link {
+    top: 60px;
+    right: 45px;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  header .username.original {
+    display: flex;
+  }
+  header a.header-login-link {
+    display: inline-block;
+  }
+}
+
+@media screen and (hover: hover) {
+  header a.click-to-open {
+    display: none;
+  }
+
+  header a.click-to-navigate {
+    display: block;
+  }
 }
