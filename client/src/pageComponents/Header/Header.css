@@ -17,7 +17,7 @@ header a.header-login-link {
   padding: 0;
   display: none;
   font-weight: 600;
-  z-index: 20;
+  z-index: 200;
 }
 
 header .username.original a,
@@ -36,6 +36,7 @@ header div#user-menu {
   background-color: transparent;
   border-radius: 0;
   padding: 2px 0 0;
+  z-index: 200;
 }
 
 div#user-menu a {

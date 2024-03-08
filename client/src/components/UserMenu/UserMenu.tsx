@@ -20,6 +20,7 @@ interface userMenuProps {
   setLogIn: Dispatch<SetStateAction<boolean>>;
   setShowSearch?: Dispatch<SetStateAction<boolean>>;
   showUserName?: boolean;
+  hideSearch: () => void;
 }
 
 export function UserMenu({
@@ -29,6 +30,7 @@ export function UserMenu({
   setLogIn,
   setShowSearch,
   showUserName,
+  hideSearch,
 }: userMenuProps) {
   const auth = new AuthService();
   return (
@@ -40,6 +42,7 @@ export function UserMenu({
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               setMenu(false);
               toggleNav();
+              hideSearch();
             }}
           >
             Profile
@@ -52,6 +55,7 @@ export function UserMenu({
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               setMenu(false);
               toggleNav();
+              hideSearch();
             }}
           >
             Create a poll
@@ -68,6 +72,7 @@ export function UserMenu({
               setLogIn(false);
               setMenu(false);
               toggleNav();
+              hideSearch();
             }}
           >
             Log out

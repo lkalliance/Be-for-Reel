@@ -1,7 +1,7 @@
 // This component renders the page header
 
 import "./Header.css";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
@@ -28,15 +28,20 @@ export function Header({
 
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
 
-  const handleSwitch = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
-    const { id } = e.currentTarget;
-    abSwitch(id);
-  };
+  const navRef = useRef<{ closeSearch: () => void }>();
+
+  // THIS IS FOR USING AN A/B SWITCH
+  // const handleSwitch = (e: React.MouseEvent<HTMLSpanElement>) => {
+  //   e.preventDefault();
+  //   const { id } = e.currentTarget;
+  //   abSwitch(id);
+  // };
 
   return (
     <header>
-      {/* <div id="switch">
+      {/* 
+        THIS IS FOR USING AN A/B SWITCH
+        <div id="switch">
         <span
           onClick={handleSwitch}
           id="a"
@@ -93,6 +98,13 @@ export function Header({
         </a>
         {loggedIn && showUserMenu && (
           <UserMenu
+            hideSearch={
+              navRef.current
+                ? navRef.current.closeSearch
+                : () => {
+                    console.log("no reference");
+                  }
+            }
             setMenu={setShowUserMenu}
             setLogIn={setLogIn}
             lookup={lookupName}
@@ -106,8 +118,10 @@ export function Header({
       )}
 
       <HeaderNav
+        ref={navRef}
         loggedIn={loggedIn}
         setLogIn={setLogIn}
+        setShowUserMenu={setShowUserMenu}
         currentSwitch={currentSwitch}
       />
     </header>
