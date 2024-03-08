@@ -24,12 +24,10 @@ interface userMenuProps {
 }
 
 export function UserMenu({
-  uname,
   lookup,
   setMenu,
   setLogIn,
   setShowSearch,
-  showUserName,
   hideSearch,
 }: userMenuProps) {
   const auth = new AuthService();
