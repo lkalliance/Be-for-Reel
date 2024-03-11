@@ -130,7 +130,7 @@
 .option.winner div.tab {
   background-color: var(--highlight);
   color: white;
-  left: 14px;
+  top: 2px;
 }
 
 .option .accordion-body {
@@ -184,6 +184,11 @@
   .option button.picker,
   .option div.tab {
     border-radius: 0 12px 12px 0;
+  }
+
+  .option.winner div.tab {
+    top: 0;
+    left: 14px;
   }
 
   .option .title {
