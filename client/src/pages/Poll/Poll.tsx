@@ -47,7 +47,7 @@ export function Poll({ currUser }: pollProps) {
   const thisUser = loading || !poll ? null : user_id === poll.user_id;
   if (!loading && poll) {
     // trap for loading
-    if (votes[poll._id] || poll.expired) {
+    if (votes[poll._id] || (poll.expired && loggedIn)) {
       // if the user has voted, or the poll is expired, sort by votes
       opts.sort((a: optionProps, b: optionProps) => {
         return b.votes - a.votes;
@@ -249,7 +249,11 @@ export function Poll({ currUser }: pollProps) {
                       comment={comment}
                       setComment={setComment}
                       voted={votes[poll._id]}
-                      votes={votes[poll._id] ? option.votes : undefined}
+                      votes={
+                        votes[poll._id] || poll.expired
+                          ? option.votes
+                          : undefined
+                      }
                       handleVote={handleVote}
                       handleComment={handleComment}
                       editable={poll.editable}
