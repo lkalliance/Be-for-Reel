@@ -130,7 +130,7 @@
 .option.winner div.tab {
   background-color: var(--highlight);
   color: white;
-  border-radius: 0 8px 8px 0;
+  left: 14px;
 }
 
 .option .accordion-body {
