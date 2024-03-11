@@ -82,9 +82,9 @@ export function PollListing({ user, directory }: listProps) {
           numVotes !== 1 ? "s" : ""
         } and ${numComments} comment${numComments !== 1 ? "s" : ""}`}
         {directory.poll.expired ? (
-          <span className="expired-poll">POLL EXPIRED</span>
+          <span className="poll-expired">closed</span>
         ) : (
-          ` (expires ${convertMonth(directory.poll.expires_on)})`
+          ` (closes ${convertMonth(directory.poll.expires_on)})`
         )}
       </p>
     </li>

@@ -41,8 +41,6 @@ export function Profile() {
   const userData = data?.getUser || {};
   const createdOn = new Date(userData.created);
 
-  console.log(userData);
-
   const closeModal = () => {
     try {
       setNewCodeSent(false);

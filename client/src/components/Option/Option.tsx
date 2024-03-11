@@ -71,7 +71,6 @@ export function Option({
   handleVote,
   handleComment,
 }: optProps) {
-  console.log(winner);
   const isSelected = selected.option_id === opt._id;
   const isFresh = parseInt(opt.ratings.rottenTomatoes) >= 60;
 

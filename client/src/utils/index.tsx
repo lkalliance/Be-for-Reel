@@ -26,5 +26,7 @@ export {
   listSection,
   convertLengthVals,
   toggleNav,
+  convertDate,
+  convertMonth,
 } from "./typeUtils";
 export { usePagination } from "./usePagination";

@@ -25,9 +25,7 @@ export function Question({
     <>
       <h2>{question}</h2>
       {description ? <p className="desc m-1">{description}</p> : ""}
-      <div className="m-3">
-        <UsernameLink username={username} current={current} type="div" />
-      </div>
+      <UsernameLink username={username} current={current} type="div" />
     </>
   );
 }

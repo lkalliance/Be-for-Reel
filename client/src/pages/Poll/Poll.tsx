@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, Key } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthService } from "../../utils/auth";
+import { convertDate, convertMonth } from "../../utils";
 import { optionProps, pollCommentProps } from "../../utils/interfaces";
 import { VOTE, NEW_CODE } from "../../utils/mutations";
 import {
@@ -209,28 +210,26 @@ export function Poll({ currUser }: pollProps) {
                     and logging back in.
                   </p>
                 </div>
-              ) : !loggedIn ? (
-                // user is not logged in
-                <div className="login-prompt">
-                  <Link to={"/login"}>Log in</Link> to vote and to see results
-                  and comments
-                </div>
               ) : (
-                <div className="login-prompt">
-                  You have not confirmed your email address.
-                  <br />
-                  Check your email at {email} and
-                  <br />
-                  look for the email with a confirmation link.
-                </div>
+                !loggedIn && (
+                  // user is not logged in
+                  <div className="login-prompt">
+                    <Link to={"/login"}>Log in</Link> to vote and to see results
+                    and comments
+                  </div>
+                )
               )}
               {poll.editable && thisUser && !poll.expired && (
                 <div className="edit-poll" onClick={editPoll}>
                   <span>Edit this poll</span>
                 </div>
               )}
-              {poll.expired && (
-                <p className="doesnt-exist">This poll is closed</p>
+              {poll.expired ? (
+                <p className="poll-status">This poll is closed</p>
+              ) : (
+                <p className="poll-status">
+                  Poll closes on {convertMonth(poll.expires_on)}
+                </p>
               )}
             </div>
             <ul id="options">
