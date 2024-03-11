@@ -93,10 +93,9 @@ const resolvers = {
       // returns a list of all polls
 
       const polls =
-        genre === "expired"
+        genre === "closed"
           ? await Poll.find({
               deactivated: false,
-              genre,
               expires_on: {
                 $lt: new Date(),
               },
@@ -195,7 +194,7 @@ const resolvers = {
       }
       titles.sort();
       titles.unshift("all");
-      titles.push("expired");
+      titles.push("closed");
 
       return { titles };
     },

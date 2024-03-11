@@ -6,8 +6,8 @@
   --item-background: rgba(0, 0, 0, 0.5);
   --item-background-light: rgba(255, 255, 255, 0.1);
   --warning-color: rgb(179, 42, 42);
-  --highlight: rgb(126, 126, 31);
-  --highlight-text: rgb(217, 217, 71);
+  --highlight: #48938e;
+  --highlight-text: #8acbc6;
   --dark-text: #b1b1b1;
   --main-max-width: 800px;
   --main-color: white;

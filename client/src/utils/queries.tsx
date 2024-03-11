@@ -73,6 +73,7 @@ export const QUERY_SINGLE_POLL = gql`
       votes
       voters
       created_on
+      expires_on
       expired
       editable
       deactivated

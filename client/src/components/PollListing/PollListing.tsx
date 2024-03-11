@@ -81,9 +81,11 @@ export function PollListing({ user, directory }: listProps) {
         {` ${numVotes} vote${
           numVotes !== 1 ? "s" : ""
         } and ${numComments} comment${numComments !== 1 ? "s" : ""}`}
-        {directory.poll.expired
-          ? ""
-          : ` (expires ${convertMonth(directory.poll.expires_on)})`}
+        {directory.poll.expired ? (
+          <span className="poll-expired">closed</span>
+        ) : (
+          ` (closes ${convertMonth(directory.poll.expires_on)})`
+        )}
       </p>
     </li>
   ) : user ? (
@@ -116,6 +118,7 @@ export function PollListing({ user, directory }: listProps) {
                 user.poll.comments !== 1 ? "comments" : "comment"
               }`}
             </span>
+            {user.poll.expired && <span className="poll-expired">closed</span>}
             {
               // if the user voted on the poll, show the text
               userVote && (

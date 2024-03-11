@@ -122,7 +122,9 @@ export function Option({
     <li
       className={`container list-member-12 option${
         selected.option_id === opt._id ? " selected" : ""
-      }${!loggedIn || voted ? " nohover" : ""} border-user`}
+      }${!loggedIn || voted ? " nohover" : ""} border-user${
+        loggedIn && expired && winner ? " winner" : ""
+      }`}
     >
       <div className="row container opt-container">
         <div className="title row col">
@@ -204,7 +206,7 @@ export function Option({
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          {loggedIn && !voted && (
+          {loggedIn && confirmed && !voted && !expired && (
             <fieldset>
               <TextAreaField
                 id="comment"
@@ -227,7 +229,6 @@ export function Option({
           )}
         </div>
         {loggedIn &&
-          confirmed &&
           // user is logged in: show a select button or the vote total
           (voted || expired ? (
             // user has voted or the poll is expired: show the vote total for this option
@@ -238,7 +239,7 @@ export function Option({
             >
               {votes}
             </div>
-          ) : (
+          ) : confirmed ? (
             // user has not voted: indicate to select
             <button
               className={`picker btn user-data hoverable col${
@@ -248,7 +249,7 @@ export function Option({
             >
               {selected.option_id === opt._id ? "de" : ""}select
             </button>
-          ))}
+          ) : null)}
       </div>
     </li>
   );

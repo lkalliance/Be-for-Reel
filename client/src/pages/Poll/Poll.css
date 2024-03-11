@@ -61,6 +61,16 @@ section#poll div#resend-alert p {
   color: white;
 }
 
+section#poll div.username.user-data {
+  margin: 6px 0;
+}
+
+section#poll p.poll-status {
+  color: var(--highlight-text);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
 @media screen and (min-width: 768px) {
   div#comments {
     max-width: 720px;

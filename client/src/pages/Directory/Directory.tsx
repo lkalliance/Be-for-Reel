@@ -28,6 +28,7 @@ export function Directory() {
 
   // get all polls
   const list = getPolls.data?.getPolls.polls || [];
+
   const showThis = listSection(list, currentPage, perPage);
 
   // generate list of sorted genre objects
