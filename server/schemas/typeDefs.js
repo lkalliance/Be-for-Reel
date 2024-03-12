@@ -207,6 +207,7 @@ const typeDefs = gql`
       title: String!
       description: String
       movieIds: [String]!
+      movieTitles: [String]!
       userGenre: String
     ): pollReturn
     castVote(

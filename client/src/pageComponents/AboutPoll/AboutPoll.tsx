@@ -25,6 +25,7 @@ interface aboutPollProps {
     [key: string]: number;
   };
   totalSelect: number;
+  keyup: (e: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export function AboutPoll({
@@ -32,6 +33,7 @@ export function AboutPoll({
   handlePollData,
   genreObj,
   totalSelect,
+  keyup,
 }: aboutPollProps) {
   const whatGenres = () => {
     // returns an array of available genres
@@ -61,6 +63,7 @@ export function AboutPoll({
           placeholder="Poll title (required)"
           val={pollData.title}
           setValue={handlePollData}
+          keyUp={keyup}
         />
         <TextAreaField
           id="description"
