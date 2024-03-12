@@ -16,6 +16,7 @@ import { OpenAIRequest, Tabs, TitleSearch } from "../../components";
 interface movieSearchProps {
   setResults: Dispatch<SetStateAction<movieProps[]>>;
   setSearchError: Dispatch<SetStateAction<string>>;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
   setNoResults: Dispatch<SetStateAction<boolean>>;
   sourceDown: boolean;
   setSourceDown: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ interface movieSearchProps {
 export function MovieSearch({
   setResults,
   setSearchError,
+  setErrorMessage,
   setNoResults,
   sourceDown,
   setSourceDown,
@@ -39,6 +41,7 @@ export function MovieSearch({
 
   const clearErrors = (clearAI: boolean) => {
     setSearchError("");
+    setErrorMessage("");
     setNoResults(false);
     setSourceDown(false);
     if (clearAI) setAISearch(false);

@@ -28,12 +28,14 @@ export const ADD_POLL = gql`
   mutation AddPoll(
     $title: String!
     $movieIds: [String]!
+    $movieTitles: [String]!
     $description: String
     $userGenre: String
   ) {
     addPoll(
       title: $title
       movieIds: $movieIds
+      movieTitles: $movieTitles
       description: $description
       userGenre: $userGenre
     ) {

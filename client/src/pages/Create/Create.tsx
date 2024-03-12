@@ -101,15 +101,37 @@ export function Create() {
     // display the alert that poll is being built
     setBuilding(true);
 
+    // create list of movie titles to check against on server
+    const movieTitles: string[] = [];
+    selected.forEach((movie) => movieTitles.push(movie.title));
+
     try {
       const { data } = await addPoll({
         variables: {
           title: pollData.title,
           description: pollData.description,
           movieIds: selectedIds,
+          movieTitles,
           userGenre: pollData.userGenre,
         },
       });
+
+      if (data.addPoll.message.length > 0) {
+        // there were films that were removed from the list
+        const removedFilms = data.addPoll.message.split(" ----- ");
+        const filteredSelected = selected.filter((option) => {
+          return removedFilms.indexOf(option.title) === -1;
+        });
+        setBuilding(false);
+        setErrorMessage(
+          "One or more suggestions by ChatGPT were invalid as feature films. They have been removed from the list, and the poll is not yet created."
+        );
+
+        setSelected(filteredSelected);
+
+        // remove selected IDs
+        return;
+      }
 
       // after creating, update user with newly created poll
       auth.login(data.addPoll.token.token);
@@ -122,6 +144,14 @@ export function Create() {
           `You already have a quiz with the title "${pollData.title}"`
         );
       }
+    }
+  };
+
+  const handleReturn = (e: React.KeyboardEvent<HTMLElement>) => {
+    // Handler to assign a keyboard enter to the title search button
+    console.log(`key: ${e.key}`);
+    if (e.key === "Enter" && pollData.title.length > 0 && selected.length > 1) {
+      handleCreate();
     }
   };
 
@@ -262,6 +292,7 @@ export function Create() {
                     sourceDown={sourceDown}
                     setSourceDown={setSourceDown}
                     setAISearch={setAiSearch}
+                    setErrorMessage={setErrorMessage}
                   />
                 </div>
 
@@ -313,6 +344,7 @@ export function Create() {
                     handlePollData={handlePollData}
                     genreObj={genreTracker}
                     totalSelect={selected.length}
+                    keyup={handleReturn}
                   />
                   <button
                     onClick={handleCreate}

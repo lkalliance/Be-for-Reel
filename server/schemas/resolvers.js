@@ -365,7 +365,7 @@ const resolvers = {
 
     addPoll: async (
       parent,
-      { title, description, movieIds, userGenre },
+      { title, description, movieIds, movieTitles, userGenre },
       context
     ) => {
       // make sure the user is actually logged in
@@ -382,6 +382,9 @@ const resolvers = {
             message: "Please no profanity in poll titles or descriptions.",
           };
         }
+
+        // trackers for badly-formed movies
+        let titleCopy = [...movieTitles];
 
         const optGenres = [];
         const options = await Promise.all(
@@ -426,8 +429,16 @@ const resolvers = {
               votes: 0,
             };
 
+            if (
+              movie.title !== "" &&
+              movieTitles.indexOf(movie.title) !== -1 &&
+              movie.type !== "TVSeries"
+            ) {
+              titleCopy.splice(titleCopy.indexOf(movie.title), 1);
+            }
+
             const isMovie = await Movie.findOne({ imdb_id: movie.id });
-            if (!isMovie) {
+            if (!isMovie && movie.title !== "") {
               await Movie.create({
                 imdb_id: movie.id,
                 image: movie.image,
@@ -439,6 +450,28 @@ const resolvers = {
             return option;
           })
         );
+
+        const clearedOpts = options.filter((option) => {
+          return (
+            option.movie !== "" && movieTitles.indexOf(option.movie) !== -1
+          );
+        });
+
+        // if any titles were removed, end the operation and indicate them
+        if (titleCopy.length > 0) {
+          // denote titles not added
+          let titlesNotAdded = "";
+          titleCopy.forEach((title) => {
+            if (titlesNotAdded.length > 0) {
+              titlesNotAdded += " ----- ";
+            }
+            titlesNotAdded += title;
+          });
+
+          return { message: titlesNotAdded };
+        }
+
+        // if any titles were
 
         const cutoffs = createDates();
         const urlTitle = `/${context.user.lookupName}/${createUrlTitle(title)}`;
@@ -456,7 +489,7 @@ const resolvers = {
           expires_on: cutoffs.exp,
           edit_deadline: cutoffs.edit,
           deactivate_deadline: cutoffs.deac,
-          options,
+          options: clearedOpts,
           comments: [],
           votes: [],
           voters: [],
