@@ -3,11 +3,11 @@ section .pagination ul {
   flex-direction: row;
   justify-content: center;
   color: white;
-  padding: 0;
+  padding: 0 6px;
   background-color: var(--item-background);
   border-radius: 6px;
   margin-top: 12px !important;
-  max-width: 300px;
+  /* max-width: 300px; */
 }
 
 .pagination {
@@ -21,7 +21,7 @@ section .pagination ul {
 }
 
 .pagination li div {
-  width: 35px;
+  width: 32px;
   padding: 10px 0;
   font-size: 0.85rem;
   text-align: center;
@@ -36,6 +36,11 @@ section .pagination ul {
   font-weight: bold;
 }
 
+.pagination li.ellipsis,
+section .pagination li.pointer.disabled {
+  cursor: auto;
+}
+
 .pagination li.ellipsis div,
 .pagination li.pointer div {
   background-color: transparent;
@@ -43,17 +48,17 @@ section .pagination ul {
   text-align: center;
 }
 
-.pagination li.pointer {
+/* .pagination li.pointer {
   padding-left: 5px;
   padding-right: 5px;
-}
+} */
 
 .pagination li.ellipsis div {
   font-size: 1.5rem;
 }
 
 section .pagination li.pointer.disabled svg {
-  color: var(--item-background-light) !important;
+  opacity: 0.3;
 }
 
 section .pagination li.pointer svg,
@@ -65,9 +70,9 @@ section#search-results .pagination li.pointer svg {
   font-size: 0.75rem;
   position: relative;
   top: 1px;
-  /* left: 4px; */
+  /* left: 4px;  */
 }
 
-section#top-movies .pagination li.pointer svg {
+/* section#top-movies .pagination li.pointer svg {
   left: 0;
-}
+}  */
