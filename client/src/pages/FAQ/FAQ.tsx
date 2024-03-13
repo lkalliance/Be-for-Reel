@@ -142,7 +142,7 @@ export function FAQ() {
 
         <dt>Can I edit my poll once I've created it?</dt>
         <dd>
-          <p>A the present time you cannot.</p>
+          <p>At the present time you cannot.</p>
         </dd>
 
         <dt>How long is a poll active?</dt>
