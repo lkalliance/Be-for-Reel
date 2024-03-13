@@ -65,7 +65,7 @@ export function FAQ() {
           </p>
         </dd>
 
-        <dt>How do I have to search for titles individually?</dt>
+        <dt>Do I have to search for titles individually?</dt>
         <dd>
           <p>
             No! We now have an AI search, leveraging the power of ChatGPT to
@@ -79,6 +79,18 @@ export function FAQ() {
             you want to include in your poll. The AI results won't be complete
             and may not be fully accurate, but it's a good shortcut to start
             your list of films without having to search for every title.
+          </p>
+        </dd>
+
+        <dt>Something went wrong with my AI search.</dt>
+        <dd>
+          <p>
+            Sometimes the AI returns non-feature-films or returns mismatched
+            IMDB ids. When this happens, the poll will not be created
+            immediately; you'll be notified that it happened, and the offending
+            selections will be removed. You'll still have the opportunity to
+            further adjust your poll options before trying again to create the
+            poll.
           </p>
         </dd>
 
