@@ -37,9 +37,9 @@ export function Footer({ quote }: footerProps) {
         <li>
           <Link to="/terms">Terms of Use</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/contact">Contact Be for Reel</Link>
-        </li>
+        </li> */}
       </ul>
     </footer>
   );
