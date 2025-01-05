@@ -24,6 +24,8 @@ export function PollList({
   const auth = new AuthService();
   const showThis = listSection(polls, currentPage, perPage);
 
+  // console.log(polls);
+
   const [deactivatePoll] = useMutation(DEACTIVATE_POLL, {
     refetchQueries: () => [
       {

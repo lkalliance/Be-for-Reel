@@ -145,8 +145,11 @@ export function SignupForm({
           return;
         }
 
+        Auth.login(data.addUser.token);
+        setLogIn(true);
+
         // then send the email verification link
-        verifyEmail(data.addUser.token);
+        // verifyEmail(data.addUser.token);
       }
     } catch (err: any) {
       console.log(err);

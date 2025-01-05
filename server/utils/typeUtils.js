@@ -98,6 +98,9 @@ module.exports = {
 
   setStatuses: function (polls) {
     // turns deadline dates into booleans
+
+    // console.log(polls);
+
     const editLimit = 0;
     const today = new Date();
     const newPolls = polls.map((poll) => {

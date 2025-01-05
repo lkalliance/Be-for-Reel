@@ -7,20 +7,18 @@ router.post("/validate-send", async (req, res) => {
   // This route sends a confirmation email to a newly-added user
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    user: "smtp.gmail.com",
+    host: "mailout.easymail.ca",
     port: 465,
     secure: true,
     auth: {
-      type: "login",
-      user: process.env.MAIL_USERNAME,
-      pass: process.env.APP_PASSWORD,
+      user: "support@be-for-reel.com",
+      pass: process.env.MAIL_PASSWORD,
     },
   });
   const conf = await Confirmation.findOne({ email: req.body.email });
 
   const mailOptions = {
-    from: process.env.MAIL_USERNAME,
+    from: "support@be-for-reel.com",
     to: req.body.email,
     subject: "Be for Reel: confirm your email account",
     text: `You successfully registered an account on Be for Reel. To confirm your email address and activate your account, copy and paste this address into your web browser: ${process.env.SERVER_HOST}#/email/${conf.confirmation_token}`,
