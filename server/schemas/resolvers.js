@@ -19,6 +19,9 @@ const resolvers = {
     getUser: async (parent, { lookupname }) => {
       // returns a specific user's document
       const user = await User.findOne({ lookupName: lookupname });
+
+      console.log(user);
+
       // sort their polls by expiration
       user.polls.reverse();
       // sort their comments by most recent first
@@ -321,19 +324,20 @@ const resolvers = {
         polls: [],
         votes: [],
         comments: [],
+        confirmed: true,
       };
 
       const user = await User.create(newUser);
       if (!user) return { message: "Operation failed" };
 
       // create random token for email validation
-      const eConfirm = await Confirmation.create({
-        user_id: user._id,
-        email,
-      });
+      // const eConfirm = await Confirmation.create({
+      //   user_id: user._id,
+      //   email,
+      // });
 
       const token = signToken(user);
-      return { token, eToken: eConfirm.confirmation_token, user };
+      return { token };
     },
 
     login: async (parent, { userName, password }) => {

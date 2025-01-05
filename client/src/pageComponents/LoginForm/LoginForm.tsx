@@ -159,7 +159,7 @@ export function LoginForm({
             setValue={handleInputChange}
             id="lPassword"
           />
-          <div id="forgot-pwd">
+          {/* <div id="forgot-pwd">
             <a
               href="@"
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -169,7 +169,7 @@ export function LoginForm({
             >
               I forgot my password
             </a>
-          </div>
+          </div> */}
           <button
             type="submit"
             disabled={

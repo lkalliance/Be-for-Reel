@@ -77,6 +77,7 @@ export const convertDate = (date: Date) => {
 
 export const convertMonth = (date: Date) => {
   const dateObj = new Date(date);
+  const today = new Date();
   const months = [
     "Jan.",
     "Feb.",
@@ -92,7 +93,11 @@ export const convertMonth = (date: Date) => {
     "Dec",
   ];
 
-  return `${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
+  return `${months[dateObj.getMonth()]} ${dateObj.getDate()}${
+    dateObj.getFullYear() !== today.getFullYear()
+      ? `, ${dateObj.getFullYear()}`
+      : ""
+  }`;
 };
 
 export const validateEmail = (text: string) => {
