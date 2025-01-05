@@ -46,7 +46,7 @@ export const HeaderNav = forwardRef(
       },
     }));
 
-    const searchPop = (e: React.MouseEvent<HTMLDivElement>) => {
+    const searchPop = (e: React.MouseEvent<HTMLAnchorElement>) => {
       // show or hide the search box
       e.preventDefault();
 
@@ -90,12 +90,51 @@ export const HeaderNav = forwardRef(
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               {loggedIn && (
-                <LinkContainer to="/create" className="create-nav-link">
-                  <Nav.Link onClick={() => closeMenus()}>Create</Nav.Link>
-                </LinkContainer>
+                <Link
+                  to="/create"
+                  className="nav-link"
+                  onClick={() => closeMenus()}
+                >
+                  Create
+                </Link>
               )}
 
-              <LinkContainer to="/polls">
+              <Link
+                to="/polls"
+                onClick={() => closeMenus()}
+                className="nav-link"
+              >
+                Polls
+              </Link>
+              <Link
+                to="/users"
+                onClick={() => closeMenus()}
+                className="nav-link"
+              >
+                Users
+              </Link>
+              <Link
+                to="/top-films"
+                onClick={() => closeMenus()}
+                className="nav-link"
+              >
+                Films
+              </Link>
+              <Link
+                to="/faq"
+                onClick={() => closeMenus()}
+                className="nav-link faq-round"
+              >
+                <FontAwesomeIcon icon={faCircleQuestion} />
+              </Link>
+              <Link
+                to={location.pathname}
+                onClick={searchPop}
+                className="nav-link"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </Link>
+              {/* <LinkContainer to="/polls">
                 <Nav.Link onClick={() => closeMenus()}>Polls</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/users">
@@ -103,19 +142,19 @@ export const HeaderNav = forwardRef(
               </LinkContainer>
               <LinkContainer to="/top-films">
                 <Nav.Link onClick={() => closeMenus()}>Films</Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
 
-              <LinkContainer to="/faq">
+              {/* <LinkContainer to="/faq">
                 <Nav.Link className="faq-round" onClick={() => closeMenus()}>
                   <FontAwesomeIcon icon={faCircleQuestion} />
                 </Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
 
-              <LinkContainer to={location.pathname}>
+              {/* <LinkContainer to={location.pathname}>
                 <Nav.Link id="search-toggle" onClick={searchPop}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
 
               {/* {loggedIn && (
               <> */}
