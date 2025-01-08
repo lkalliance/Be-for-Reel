@@ -52,6 +52,7 @@ export const HeaderNav = forwardRef(
 
       setShowSearch(!showSearch);
       setShowUserMenu(false);
+      toggleNav();
     };
 
     const handleSearchSubmit = async () => {
@@ -93,7 +94,10 @@ export const HeaderNav = forwardRef(
                 <Link
                   to="/create"
                   className="nav-link"
-                  onClick={() => closeMenus()}
+                  onClick={() => {
+                    closeMenus();
+                    toggleNav();
+                  }}
                 >
                   Create
                 </Link>
@@ -101,28 +105,40 @@ export const HeaderNav = forwardRef(
 
               <Link
                 to="/polls"
-                onClick={() => closeMenus()}
+                onClick={() => {
+                  closeMenus();
+                  toggleNav();
+                }}
                 className="nav-link"
               >
                 Polls
               </Link>
               <Link
                 to="/users"
-                onClick={() => closeMenus()}
+                onClick={() => {
+                  closeMenus();
+                  toggleNav();
+                }}
                 className="nav-link"
               >
                 Users
               </Link>
               <Link
                 to="/top-films"
-                onClick={() => closeMenus()}
+                onClick={() => {
+                  closeMenus();
+                  toggleNav();
+                }}
                 className="nav-link"
               >
                 Films
               </Link>
               <Link
                 to="/faq"
-                onClick={() => closeMenus()}
+                onClick={() => {
+                  closeMenus();
+                  toggleNav();
+                }}
                 className="nav-link faq-round"
               >
                 <FontAwesomeIcon icon={faCircleQuestion} />
