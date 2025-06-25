@@ -13,7 +13,7 @@ You can view and use Be for Reel [here](https://be-4-reel-9f2cbf237830.herokuapp
 - [Application Features](#application-features)
 - [Credits](#credits)
 - [Software License](#software-license)
-- [Contact the Developer](#contact-the-developer)
+- [Contact the Developer](#questions)
 
 <img src="./client/public/b4r_home_page.png" style="width: 100%; max-width: 600px; margin-left: auto; margin-right: auto;" />
 
