@@ -94,7 +94,7 @@ And of course we owe gratitude to content providers of all types at places like 
 
 ## Software License
 
-©2024, Lee Klusky
+©2026, Lee Klusky
 
 Be for Reel is not currently open source, and has no license for use of the code.
 
